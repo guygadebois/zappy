@@ -1,0 +1,16 @@
+cat .beginmakefile > Makefile;
+make sources;
+cat .sources >> Makefile
+make depend;
+rm Makefile
+cat .beginmakefile | head -n `cat .beginmakefile | fgrep -n OFILES | head -n 1 |cut -d : -f1` >> Makefile
+echo "" >> Makefile
+cat .sources >>Makefile
+echo "" >> Makefile
+cat .beginmakefile | head -n `cat .beginmakefile | fgrep -n "re:	fclean all" | head -n 1 | cut -d : -f1` | tail -n +`cat .beginmakefile | fgrep -n "SRCDIR" | head -n 1 | cut -d : -f1` >> Makefile
+echo "" >> Makefile
+echo "" >> Makefile
+cat .depend >> Makefile;
+make;
+rm .depend
+rm .sources

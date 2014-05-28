@@ -1,0 +1,85 @@
+#******************************************************************************#
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2013/11/19 11:58:46 by glourdel          #+#    #+#              #
+#    Updated: 2014/04/23 16:44:12 by glourdel         ###   ########.fr        #
+#                                                                              #
+#******************************************************************************#
+
+.PHONY: all a re clean fclean depend sources
+.SUFFIXES:
+
+export CC = gcc
+NAME = libft.a
+FLAGS = -Wall -Wextra -Werror
+INCL_FLAGS = -Iinclude
+CFLAGS = $(INCL_FLAGS) $(FLAGS)
+
+OFILES = $(notdir $(CFILES:.c=.o))
+
+SRCDIR = src/
+
+SRC = $(addprefix $(SRCDIR),$(CFILES))
+
+OBJDIR = obj/
+
+OBJ = $(addprefix $(OBJDIR),$(OFILES))
+
+CYAN = "\033[36m"
+BLUE = "\033[34;1;3m"
+GREEN = "\033[32m"
+IGREEN = "\033[30;42m"
+RED = "\033[31m"
+IRED = "\033[0;37;41m"
+BRED = "\033[31;1m"
+END = "\033[0m"
+
+all: $(NAME)
+
+a: all clean
+
+$(NAME): $(OBJ)
+	@/bin/echo "";
+	@echo $(BLUE)"    [libft] Linking $@..."$(END);
+	@/bin/echo "";
+	@ar rc $@ $(OBJ)
+	@ranlib $@
+
+fclean: clean
+	@/bin/rm -f $(NAME)
+	@echo $(BRED)"    [libft] Removing "$(NAME)$(END)
+
+clean:
+	@/bin/rm -f $(OBJ)
+	@echo $(RED)"    [libft] Removing .o files"$(END)
+
+re:	fclean all
+
+sources:
+	@find $(SRCDIR) -name "*~" -delete
+	@find $(SRCDIR) -name "*#" -delete
+	@find $(SRCDIR) -name "#*" -delete
+	@find $(SRCDIR) -name ".#*" -delete
+	@echo $(IRED)"    Cleaning "$(SRCDIR)" content..."$(END)
+	@echo 'CFILES= \\' > .sources
+	@find $(SRCDIR) -name "*.c" | sed 's/'"^[^\/]*\/"'/		/g' | sort | sed 's/.*/& \\/g' >> .sources
+	@echo "" >> .sources
+
+depend:
+	@echo $(IGREEN)'Creating dependancies (.depend) \c';
+	@rm -f .depend
+	@echo '[\c'
+	@$(foreach source,$(CFILES), echo '*\c'; \
+	echo $(OBJDIR)'\c' >> .depend; \
+	$(CC) $(CFLAGS) -MM $(SRCDIR)$(source) >>  .depend; \
+	echo '\t@echo $$(CYAN)"    [libft] Creating' $(OBJDIR)$(notdir $(source:.c=.o))\
+	'...\\033[0m"' >>.depend; \
+	echo '\t@mkdir -p $$(OBJDIR);' >> .depend; \
+	echo '\t@$$(CC) -o $$(OBJDIR)'$(notdir $(source:.c=.o)) '\\' >> .depend; \
+	echo '-c $$(SRCDIR)'$(source) '$$(CFLAGS)\n' >> .depend;)
+	@echo ']'$(END)
+
