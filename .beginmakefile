@@ -6,7 +6,7 @@
 #    By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2013/11/19 11:58:46 by glourdel          #+#    #+#              #
-#    Updated: 2014/05/30 17:58:44 by glourdel         ###   ########.fr        #
+#    Updated: 2014/05/30 22:23:56 by glourdel         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -21,32 +21,11 @@ CLIENT_NAME = client
 VISU_NAME = visu
 FLAGS = -Wall -Wextra -Werror -ggdb -g
 INCL_FLAGS = -Iinclude -Ilibft/include
-OGRE_INCL_FLAGS =	-I OgreSDK/include/OGRE \
-					-I OgreSDK/include/OGRE/OSX \
-					-I OgreSDK/include/OGRE/Paging \
-					-I OgreSDK/include/OGRE/Plugins \
-					-I OgreSDK/include/OGRE/Plugins/BSPSceneManager \
-					-I OgreSDK/include/OGRE/Plugins/CgProgramManager \
-					-I OgreSDK/include/OGRE/Plugins/OctreeSceneManager \
-					-I OgreSDK/include/OGRE/Plugins/OctreeZone \
-					-I OgreSDK/include/OGRE/Plugins/PCZSceneManager \
-					-I OgreSDK/include/OGRE/Plugins/ParticleFX \
-					-I OgreSDK/include/OGRE/RTShaderSystem \
-					-I OgreSDK/include/OGRE/RenderSystems/GL \
-					-I OgreSDK/include/OGRE/RenderSystems/GL/GL \
-					-I OgreSDK/include/OGRE/RenderSystems/GL/OSX \
-					-I OgreSDK/include/OGRE/Terrain \
-					-I OgreSDK/include/OGRE/Threading \
-					-I OgreSDK/boost_1_46_1/boost \
-					-I OgreSDK/include/OGRE/OSX \
-					-I OgreSDK/boost_1_46_1
+IRRLICHT_INCL_FLAGS = -I irrlicht/include
 
-OGRE_LD_FLAGS=		-L OgreSDK/lib/release \
-					-L OgreSDK/boost_1_46_1/lib \
-					-L OgreSDK/lib \
-					-lOIS -lboost_date_time-xgcc42-mt-1_46_1 -lboost_thread-xgcc42-mt-1_46_1
+IRRLICHT_LDFLAGS= -L irrlicht/lib/Linux -L irrlicht/lib/MacOSX -l Irrlicht -l GL
 
-CFLAGS = $(INCL_FLAGS) $(FLAGS) $(OGRE_INCL_FLAGS)
+CFLAGS = $(INCL_FLAGS) $(FLAGS) $(IRRLICHT_INCL_FLAGS)
 LDFLAGS = -Llibft -lft
 
 SERVEUR_OFILES = $(notdir $(SERVEUR_CFILES:.c=.o))
@@ -104,18 +83,17 @@ $(VISU_NAME): $(VISU_OBJ) $(COMMON_CPP_OBJ)
 	@/bin/echo "";
 	@echo $(BLUE)"    === Linking $@..."$(END);
 	@/bin/echo "";
-	@$(CCPP) -o $@ $(VISU_OBJ) $(COMMON_CPP_OBJ) $(INCL_FLAGS) $(OGRE_INCL_FLAGS)
+	@$(CCPP) -o $@ $(VISU_OBJ) $(COMMON_CPP_OBJ) $(INCL_FLAGS) \
+$(IRRLICHT_INCL_FLAGS) $(IRRLICHT_LDFLAGS)
 
-ogre:
+irrlicht:
 	@cmake >/dev/null 2>/dev/null || brew install cmake
-	curl -L -O 'https://sourceforge.net/projects/ogre/files/ogre/1.7/ogre-v1-7-0RC1.tar.bz2/download'
-	mv download ogre-v1-7-0RC1.tar.bz2
-	tar xvjf ogre-v1-7-0RC1.tar.bz2
-	curl -L -O http://sourceforge.net/projects/boost/files/boost/1.55.0/boost_1_55_0.tar.bz2/download
-	mv download boost_1_55_0.tar.bz2
-	cd ogre mkdir build && cd build && cmake -G Xcode .. \
-&& make && make install
-	cmake -D OGRE_DEPENDENCIES_DIR=../../ogredeps/build/ogredeps -D OGRE_STATIC=1 -G Xcode ..
+	@curl -L -O 'http://sourceforge.net/projects/irrlicht/files/Irrlicht%20SDK/1.8/1.8.1/irrlicht-1.8.1.zip/download' \
+&& mv download irrlicht-1.8.1.zip \
+&& unzip irrlicht-1.8.1.zip -d . \
+&& rm -f irrlicht-1.8.1.zip \
+&& mv irrlicht-1.8.1 irrlicht \
+&& make -C irrlicht/source/Irrlicht
 
 libft/libft.a:
 	@make -C libft
@@ -185,7 +163,7 @@ depend:
 	'...\\033[0m"' >>.depend; \
 	echo '\t@mkdir -p $$(OBJDIR);' >> .depend; \
 	echo '\t@$$(CCPP) -o $$(OBJDIR)'visu_$(notdir $(source:.cpp=.o)) '\\' >> .depend; \
-	echo '-c $$(SRCDIR)'$(source) '$$(INCL_FLAGS) $$(OGRE_INCL_FLAGS)\n' >> .depend;)
+	echo '-c $$(SRCDIR)'$(source) '$$(INCL_FLAGS) $$(IRRLICHT_INCL_FLAGS)\n' >> .depend;)
 	@$(foreach source,$(COMMON_CPPFILES), echo '*\c'; \
 	echo $(OBJDIR)'cm_\c' >> .depend; \
 	$(CCPP) $(CFLAGS) -MM $(SRCDIR)$(source) >>  .depend; \
