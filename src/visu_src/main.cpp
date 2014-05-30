@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/05/28 11:59:19 by glourdel          #+#    #+#             //
-//   Updated: 2014/05/30 22:19:55 by glourdel         ###   ########.fr       //
+//   Updated: 2014/05/30 22:28:30 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -34,9 +34,10 @@ int			main(void)
 	while(device->run())
 	{
 		driver->beginScene (true, true,
-							irr::video::SColor(255,255,255,255));
+							irr::video::SColor(255, 255, 255, 255));
 		sceneManager->drawAll();
 		driver->endScene();
 	}
+	device->drop();
 	return (0);
 }

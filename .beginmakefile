@@ -6,7 +6,7 @@
 #    By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2013/11/19 11:58:46 by glourdel          #+#    #+#              #
-#    Updated: 2014/05/30 22:23:56 by glourdel         ###   ########.fr        #
+#    Updated: 2014/05/30 22:29:22 by glourdel         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -79,7 +79,7 @@ $(CLIENT_NAME): $(CLIENT_OBJ) $(COMMON_CPP_OBJ)
 	@/bin/echo "";
 	@$(CCPP) -o $@ $(CLIENT_OBJ) $(COMMON_CPP_OBJ) $(CFLAGS)
 
-$(VISU_NAME): $(VISU_OBJ) $(COMMON_CPP_OBJ)
+$(VISU_NAME): irrlicht $(VISU_OBJ) $(COMMON_CPP_OBJ)
 	@/bin/echo "";
 	@echo $(BLUE)"    === Linking $@..."$(END);
 	@/bin/echo "";
