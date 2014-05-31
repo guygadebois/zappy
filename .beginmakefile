@@ -6,7 +6,7 @@
 #    By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2013/11/19 11:58:46 by glourdel          #+#    #+#              #
-#    Updated: 2014/05/31 12:06:56 by glourdel         ###   ########.fr        #
+#    Updated: 2014/05/31 14:50:09 by glourdel         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -20,7 +20,7 @@ SERVEUR_NAME = serveur
 CLIENT_NAME = client
 VISU_NAME = visu
 FLAGS = -Wall -Wextra -Werror -ggdb -g
-INCL_FLAGS = -Iinclude -Ilibft/include
+INCL_FLAGS = -Iinclude -Iinclude/models -Iinclude/models/visu -Ilibft/include
 IRRLICHT_INCL_FLAGS = -I irrlicht/include
 
 IRRLICHT_LDFLAGS= -L irrlicht/lib -l Irrlicht -framework OpenGL \
@@ -88,15 +88,15 @@ $(VISU_NAME): $(VISU_OBJ) $(COMMON_CPP_OBJ)
 	@$(CCPP) -o $@ $(VISU_OBJ) $(COMMON_CPP_OBJ) $(INCL_FLAGS) \
 $(IRRLICHT_INCL_FLAGS) $(IRRLICHT_LDFLAGS) 2>/dev/null \
 || echo '\033[31mERROR: visu linking failed...\033[0m'
-	@lipo -create visu -output mygame.app/Contents/MacOS/visu \
-&& rm visu && ln -s mygame.app/Contents/MacOS visu
+	@lipo -create visu -output visu.app/Contents/MacOS/visu \
+&& rm visu && ln -s visu.app/Contents/MacOS visu
 
 libft/libft.a:
 	@make -C libft
 
 fclean: clean
 	@make -C libft $@
-	@/bin/rm -f $(SERVEUR_NAME) $(CLIENT_NAME) $(VISU_NAME)
+	@/bin/rm -f $(SERVEUR_NAME) $(CLIENT_NAME) $(VISU_NAME) visu.app/Contents/MacOS/visu
 	@echo $(BRED)"    === Removing "$(SERVEUR_NAME) $(CLIENT_NAME) $(VISU_NAME)$(END)
 
 sclean:
