@@ -6,11 +6,14 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/05/31 14:10:28 by glourdel          #+#    #+#             //
-//   Updated: 2014/05/31 16:06:53 by glourdel         ###   ########.fr       //
+//   Updated: 2014/05/31 22:03:29 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
 #include "Engine.h"
+
+#include <iostream>
+using namespace std;
 
 Engine::Engine()
 {
@@ -38,11 +41,11 @@ Engine::Engine()
 	keyMap[4].Action = EKA_JUMP_UP;       // saut
 	keyMap[4].KeyCode = KEY_SPACE;        // barre espace
 	m_sceneManager->addCameraSceneNodeFPS(0, 100.0f, 0.1f, -1, keyMap, 5);
-	m_trentorMesh = m_sceneManager->getMesh("models/Faerie2.x");
+	m_trentorMesh = m_sceneManager->getMesh("models/Faerie.x");
 	m_planetMesh = m_sceneManager->getMesh("models/earth.x");
-	m_trentorSkin1 = m_driver->getTexture("models/Faerie2D_Skin.jpg");
-	m_trentorWing1 = m_driver->getTexture("models/Faerie2D_Wing.PNG");
-	m_planetTexture = m_driver->getTexture("models/earth.jpg");
+//	m_trentorSkin1 = m_driver->getTexture("models/Faerie2D_Skin.jpg");
+//	m_trentorWing1 = m_driver->getTexture("models/Faerie2D_Wing.PNG");
+//	m_planetTexture = m_driver->getTexture("models/earth.jpg");
 }
 
 Engine::~Engine()
@@ -57,7 +60,7 @@ void	Engine::addPlanet()
 	m_planet->setMaterialFlag(video::EMF_LIGHTING, false);
 	m_planet->setMaterialFlag(video::EMF_ANTI_ALIASING, true);
 	m_planet->setMaterialFlag(video::EMF_ANISOTROPIC_FILTER, true);
-	m_planet->setMaterialTexture(0, m_planetTexture );
+//	m_planet->setMaterialTexture(0, m_planetTexture );
 }
 
 void	Engine::addTrantors()
@@ -67,9 +70,9 @@ void	Engine::addTrantors()
 	m_trentor1->setMaterialFlag(video::EMF_LIGHTING, false);
 	m_trentor1->setMaterialFlag(video::EMF_ANTI_ALIASING, true);
 	m_trentor1->setMaterialFlag(video::EMF_ANISOTROPIC_FILTER, true);
-	m_trentor1->setMaterialTexture(0, m_trentorSkin1 );
-	m_trentor1->setMaterialTexture(1, m_trentorWing1 );
-	m_trentor1->setMaterialType(video::EMT_TRANSPARENT_ALPHA_CHANNEL_REF);
+//	m_trentor1->setMaterialTexture(0, m_trentorSkin1 );
+//	m_trentor1->setMaterialTexture(1, m_trentorWing1 );
+	m_trentor1->setMaterialType(video::EMT_TRANSPARENT_ALPHA_CHANNEL);
 }
 
 void	Engine::loop()

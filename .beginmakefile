@@ -6,7 +6,7 @@
 #    By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2013/11/19 11:58:46 by glourdel          #+#    #+#              #
-#    Updated: 2014/05/31 14:50:09 by glourdel         ###   ########.fr        #
+#    Updated: 2014/05/31 21:53:04 by glourdel         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -23,9 +23,13 @@ FLAGS = -Wall -Wextra -Werror -ggdb -g
 INCL_FLAGS = -Iinclude -Iinclude/models -Iinclude/models/visu -Ilibft/include
 IRRLICHT_INCL_FLAGS = -I irrlicht/include
 
+ifeq ($(shell uname), Linux)
+IRRLICHT_LDFLAGS= -L ../irrlicht-trunk/lib/Linux -l Irrlicht -l GL -lXext \
+-lX11 -lGLU -lXxf86vm
+else
 IRRLICHT_LDFLAGS= -L irrlicht/lib -l Irrlicht -framework OpenGL \
 -framework Cocoa -framework Carbon -framework IOKit
-
+endif
 CFLAGS = $(INCL_FLAGS) $(FLAGS) $(IRRLICHT_INCL_FLAGS)
 LDFLAGS = -Llibft -lft
 
@@ -85,11 +89,16 @@ $(VISU_NAME): $(VISU_OBJ) $(COMMON_CPP_OBJ)
 	@/bin/echo "";
 	@echo $(BLUE)"    === Linking $@..."$(END);
 	@/bin/echo "";
+ifeq ($(shell uname), Linux)
+	@$(CCPP) -o $@ $(VISU_OBJ) $(COMMON_CPP_OBJ) $(INCL_FLAGS) \
+$(IRRLICHT_INCL_FLAGS) $(IRRLICHT_LDFLAGS)
+else
 	@$(CCPP) -o $@ $(VISU_OBJ) $(COMMON_CPP_OBJ) $(INCL_FLAGS) \
 $(IRRLICHT_INCL_FLAGS) $(IRRLICHT_LDFLAGS) 2>/dev/null \
 || echo '\033[31mERROR: visu linking failed...\033[0m'
 	@lipo -create visu -output visu.app/Contents/MacOS/visu \
 && rm visu && ln -s visu.app/Contents/MacOS visu
+endif
 
 libft/libft.a:
 	@make -C libft
