@@ -6,7 +6,7 @@
 #    By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2013/11/19 11:58:46 by glourdel          #+#    #+#              #
-#    Updated: 2014/05/30 22:29:22 by glourdel         ###   ########.fr        #
+#    Updated: 2014/05/31 12:06:56 by glourdel         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -23,7 +23,8 @@ FLAGS = -Wall -Wextra -Werror -ggdb -g
 INCL_FLAGS = -Iinclude -Ilibft/include
 IRRLICHT_INCL_FLAGS = -I irrlicht/include
 
-IRRLICHT_LDFLAGS= -L irrlicht/lib/Linux -L irrlicht/lib/MacOSX -l Irrlicht -l GL
+IRRLICHT_LDFLAGS= -L irrlicht/lib -l Irrlicht -framework OpenGL \
+-framework Cocoa -framework Carbon -framework IOKit
 
 CFLAGS = $(INCL_FLAGS) $(FLAGS) $(IRRLICHT_INCL_FLAGS)
 LDFLAGS = -Llibft -lft
@@ -79,21 +80,16 @@ $(CLIENT_NAME): $(CLIENT_OBJ) $(COMMON_CPP_OBJ)
 	@/bin/echo "";
 	@$(CCPP) -o $@ $(CLIENT_OBJ) $(COMMON_CPP_OBJ) $(CFLAGS)
 
-$(VISU_NAME): irrlicht $(VISU_OBJ) $(COMMON_CPP_OBJ)
+$(VISU_NAME): $(VISU_OBJ) $(COMMON_CPP_OBJ)
+	@rm -f visu
 	@/bin/echo "";
 	@echo $(BLUE)"    === Linking $@..."$(END);
 	@/bin/echo "";
 	@$(CCPP) -o $@ $(VISU_OBJ) $(COMMON_CPP_OBJ) $(INCL_FLAGS) \
-$(IRRLICHT_INCL_FLAGS) $(IRRLICHT_LDFLAGS)
-
-irrlicht:
-	@cmake >/dev/null 2>/dev/null || brew install cmake
-	@curl -L -O 'http://sourceforge.net/projects/irrlicht/files/Irrlicht%20SDK/1.8/1.8.1/irrlicht-1.8.1.zip/download' \
-&& mv download irrlicht-1.8.1.zip \
-&& unzip irrlicht-1.8.1.zip -d . \
-&& rm -f irrlicht-1.8.1.zip \
-&& mv irrlicht-1.8.1 irrlicht \
-&& make -C irrlicht/source/Irrlicht
+$(IRRLICHT_INCL_FLAGS) $(IRRLICHT_LDFLAGS) 2>/dev/null \
+|| echo '\033[31mERROR: visu linking failed...\033[0m'
+	@lipo -create visu -output mygame.app/Contents/MacOS/visu \
+&& rm visu && ln -s mygame.app/Contents/MacOS visu
 
 libft/libft.a:
 	@make -C libft

@@ -6,7 +6,7 @@
 #    By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2013/11/19 11:58:46 by glourdel          #+#    #+#              #
-#    Updated: 2014/05/30 22:29:22 by glourdel         ###   ########.fr        #
+#    Updated: 2014/05/31 12:06:56 by glourdel         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -23,7 +23,8 @@ FLAGS = -Wall -Wextra -Werror -ggdb -g
 INCL_FLAGS = -Iinclude -Ilibft/include
 IRRLICHT_INCL_FLAGS = -I irrlicht/include
 
-IRRLICHT_LDFLAGS= -L irrlicht/lib/Linux -L irrlicht/lib/MacOSX -l Irrlicht -l GL
+IRRLICHT_LDFLAGS= -L irrlicht/lib -l Irrlicht -framework OpenGL \
+-framework Cocoa -framework Carbon -framework IOKit
 
 CFLAGS = $(INCL_FLAGS) $(FLAGS) $(IRRLICHT_INCL_FLAGS)
 LDFLAGS = -Llibft -lft
@@ -37,13 +38,13 @@ OFILES = $(notdir $(CFILES:.c=.o)) $(notdir $(CPPFILES:.cpp=.o))
 # START INSERT .source
 
 SERVEUR_CFILES= \
-		serveur_src/main.c \
+		serveur_src//main.c \
 
 CLIENT_CPPFILES= \
-		client_src/main.cpp \
+		client_src//main.cpp \
 
 VISU_CPPFILES= \
-		visu_src/main.cpp \
+		visu_src//main.cpp \
 
 COMMON_CPPFILES= \
 
@@ -94,21 +95,16 @@ $(CLIENT_NAME): $(CLIENT_OBJ) $(COMMON_CPP_OBJ)
 	@/bin/echo "";
 	@$(CCPP) -o $@ $(CLIENT_OBJ) $(COMMON_CPP_OBJ) $(CFLAGS)
 
-$(VISU_NAME): irrlicht $(VISU_OBJ) $(COMMON_CPP_OBJ)
+$(VISU_NAME): $(VISU_OBJ) $(COMMON_CPP_OBJ)
+	@rm -f visu
 	@/bin/echo "";
 	@echo $(BLUE)"    === Linking $@..."$(END);
 	@/bin/echo "";
 	@$(CCPP) -o $@ $(VISU_OBJ) $(COMMON_CPP_OBJ) $(INCL_FLAGS) \
-$(IRRLICHT_INCL_FLAGS) $(IRRLICHT_LDFLAGS)
-
-irrlicht:
-	@cmake >/dev/null 2>/dev/null || brew install cmake
-	@curl -L -O 'http://sourceforge.net/projects/irrlicht/files/Irrlicht%20SDK/1.8/1.8.1/irrlicht-1.8.1.zip/download' \
-&& mv download irrlicht-1.8.1.zip \
-&& unzip irrlicht-1.8.1.zip -d . \
-&& rm -f irrlicht-1.8.1.zip \
-&& mv irrlicht-1.8.1 irrlicht \
-&& make -C irrlicht/source/Irrlicht
+$(IRRLICHT_INCL_FLAGS) $(IRRLICHT_LDFLAGS) 2>/dev/null \
+|| echo '\033[31mERROR: visu linking failed...\033[0m'
+	@lipo -create visu -output mygame.app/Contents/MacOS/visu \
+&& rm visu && ln -s mygame.app/Contents/MacOS visu
 
 libft/libft.a:
 	@make -C libft
@@ -130,20 +126,20 @@ re:	fclean all
 # IGNORE NEXT LINES
 
 
-obj/sv_main.o: src/serveur_src/main.c libft/include/libft.h \
+obj/sv_main.o: src/serveur_src//main.c libft/include/libft.h \
  libft/include/libft_types.h
 	@echo $(CYAN)"    Creating obj/sv_main.o ...\033[0m"
 	@mkdir -p $(OBJDIR);
 	@$(CC) -o $(OBJDIR)sv_main.o \
--c $(SRCDIR)serveur_src/main.c $(CFLAGS)
+-c $(SRCDIR)serveur_src//main.c $(CFLAGS)
 
-obj/cl_main.o: src/client_src/main.cpp
+obj/cl_main.o: src/client_src//main.cpp
 	@echo $(CYAN)"    Creating obj/cl_main.o ...\033[0m"
 	@mkdir -p $(OBJDIR);
 	@$(CCPP) -o $(OBJDIR)cl_main.o \
--c $(SRCDIR)client_src/main.cpp $(CFLAGS)
+-c $(SRCDIR)client_src//main.cpp $(CFLAGS)
 
-obj/visu_main.o: src/visu_src/main.cpp irrlicht/include/irrlicht.h \
+obj/visu_main.o: src/visu_src//main.cpp irrlicht/include/irrlicht.h \
  irrlicht/include/IrrCompileConfig.h irrlicht/include/aabbox3d.h \
  irrlicht/include/irrMath.h irrlicht/include/irrTypes.h \
  irrlicht/include/plane3d.h irrlicht/include/vector3d.h \
@@ -162,6 +158,7 @@ obj/visu_main.o: src/visu_src/main.cpp irrlicht/include/irrlicht.h \
  irrlicht/include/IIndexBuffer.h irrlicht/include/CVertexBuffer.h \
  irrlicht/include/CIndexBuffer.h irrlicht/include/CMeshBuffer.h \
  irrlicht/include/coreutil.h irrlicht/include/path.h \
+ irrlicht/include/IProfiler.h irrlicht/include/ITimer.h \
  irrlicht/include/ECullingTypes.h irrlicht/include/EDebugSceneTypes.h \
  irrlicht/include/EDriverFeatures.h irrlicht/include/EDriverTypes.h \
  irrlicht/include/EGUIAlignment.h irrlicht/include/EGUIElementTypes.h \
@@ -180,11 +177,11 @@ obj/visu_main.o: src/visu_src/main.cpp irrlicht/include/irrlicht.h \
  irrlicht/include/irrpack.h irrlicht/include/irrunpack.h \
  irrlicht/include/IAnimatedMeshSceneNode.h irrlicht/include/ISceneNode.h \
  irrlicht/include/IAttributeExchangingObject.h \
- irrlicht/include/ISceneNodeAnimator.h irrlicht/include/IEventReceiver.h \
- irrlicht/include/ILogger.h irrlicht/include/Keycodes.h \
- irrlicht/include/ITriangleSelector.h irrlicht/include/irrList.h \
- irrlicht/include/IAttributes.h irrlicht/include/line2d.h \
- irrlicht/include/EAttributes.h irrlicht/include/IBoneSceneNode.h \
+ irrlicht/include/ISceneNodeAnimator.h irrlicht/include/IAttributes.h \
+ irrlicht/include/line2d.h irrlicht/include/EAttributes.h \
+ irrlicht/include/IEventReceiver.h irrlicht/include/ILogger.h \
+ irrlicht/include/Keycodes.h irrlicht/include/ITriangleSelector.h \
+ irrlicht/include/irrList.h irrlicht/include/IBoneSceneNode.h \
  irrlicht/include/IBillboardSceneNode.h \
  irrlicht/include/IBillboardTextSceneNode.h \
  irrlicht/include/ICameraSceneNode.h irrlicht/include/ICursorControl.h \
@@ -196,20 +193,22 @@ obj/visu_main.o: src/visu_src/main.cpp irrlicht/include/irrlicht.h \
  irrlicht/include/IGUIColorSelectDialog.h irrlicht/include/IGUIComboBox.h \
  irrlicht/include/IGUIContextMenu.h irrlicht/include/IGUIEditBox.h \
  irrlicht/include/IGUIElementFactory.h irrlicht/include/IGUIEnvironment.h \
- irrlicht/include/IGUISkin.h irrlicht/include/IGUIFileOpenDialog.h \
- irrlicht/include/IGUIFont.h irrlicht/include/IGUIFontBitmap.h \
- irrlicht/include/IGUIImage.h irrlicht/include/IGUIInOutFader.h \
- irrlicht/include/IGUIListBox.h irrlicht/include/IGUIMeshViewer.h \
- irrlicht/include/IGUIScrollBar.h irrlicht/include/IGUISpinBox.h \
- irrlicht/include/IGUISpriteBank.h irrlicht/include/IGUIStaticText.h \
- irrlicht/include/IGUITabControl.h irrlicht/include/IGUITable.h \
- irrlicht/include/IGUIToolbar.h irrlicht/include/IGUIWindow.h \
- irrlicht/include/IGUITreeView.h irrlicht/include/IGUIImageList.h \
+ irrlicht/include/IGUISkin.h irrlicht/include/EFocusFlags.h \
+ irrlicht/include/IGUIFileOpenDialog.h irrlicht/include/IGUIFont.h \
+ irrlicht/include/IGUIFontBitmap.h irrlicht/include/IGUIImage.h \
+ irrlicht/include/IGUIInOutFader.h irrlicht/include/IGUIListBox.h \
+ irrlicht/include/IGUIMeshViewer.h irrlicht/include/IGUIScrollBar.h \
+ irrlicht/include/IGUISpinBox.h irrlicht/include/IGUISpriteBank.h \
+ irrlicht/include/IGUIStaticText.h irrlicht/include/IGUITabControl.h \
+ irrlicht/include/IGUITable.h irrlicht/include/IGUIToolbar.h \
+ irrlicht/include/IGUIWindow.h irrlicht/include/IGUITreeView.h \
+ irrlicht/include/IGUIImageList.h irrlicht/include/IGUIProfiler.h \
  irrlicht/include/IImageLoader.h irrlicht/include/IImageWriter.h \
  irrlicht/include/ILightSceneNode.h irrlicht/include/SLight.h \
  irrlicht/include/IMaterialRenderer.h \
  irrlicht/include/IMaterialRendererServices.h \
  irrlicht/include/IMeshCache.h irrlicht/include/IMeshLoader.h \
+ irrlicht/include/IMeshTextureLoader.h \
  irrlicht/include/IMeshManipulator.h \
  irrlicht/include/SVertexManipulator.h irrlicht/include/IMeshSceneNode.h \
  irrlicht/include/IMeshWriter.h irrlicht/include/IColladaMeshWriter.h \
@@ -229,8 +228,8 @@ obj/visu_main.o: src/visu_src/main.cpp irrlicht/include/irrlicht.h \
  irrlicht/include/IParticleRotationAffector.h \
  irrlicht/include/IQ3LevelMesh.h irrlicht/include/IRandomizer.h \
  irrlicht/include/IrrlichtDevice.h irrlicht/include/EDeviceTypes.h \
- irrlicht/include/IVideoModeList.h irrlicht/include/ITimer.h \
- irrlicht/include/irrMap.h irrlicht/include/ISceneCollisionManager.h \
+ irrlicht/include/IVideoModeList.h irrlicht/include/irrMap.h \
+ irrlicht/include/ISceneCollisionManager.h \
  irrlicht/include/ISceneLoader.h irrlicht/include/ISceneManager.h \
  irrlicht/include/SceneParameters.h irrlicht/include/ISkinnedMesh.h \
  irrlicht/include/SSkinMeshBuffer.h \
@@ -254,5 +253,5 @@ obj/visu_main.o: src/visu_src/main.cpp irrlicht/include/irrlicht.h \
 	@echo $(CYAN)"    Creating obj/visu_main.o ...\033[0m"
 	@mkdir -p $(OBJDIR);
 	@$(CCPP) -o $(OBJDIR)visu_main.o \
--c $(SRCDIR)visu_src/main.cpp $(INCL_FLAGS) $(IRRLICHT_INCL_FLAGS)
+-c $(SRCDIR)visu_src//main.cpp $(INCL_FLAGS) $(IRRLICHT_INCL_FLAGS)
 
