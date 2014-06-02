@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/05/31 14:10:28 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/02 22:23:12 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/02 22:39:00 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -52,9 +52,6 @@ Engine::~Engine()
 
 bool	Engine::addPlanet()
 {
-	video::IImage	*img;
-	video::ITexture* texture;
-
 	m_planet = m_sceneManager->addSphereSceneNode(PLANET_RADIUS, 56, 0, -1,
 												  core::vector3df(0, -25, 120));
 	if (m_planet == NULL)
@@ -63,11 +60,15 @@ bool	Engine::addPlanet()
 	m_planet->setMaterialFlag(video::EMF_ANTI_ALIASING, true);
 	m_planet->setMaterialFlag(video::EMF_ANISOTROPIC_FILTER, true);
 	m_planet->setMaterialTexture(0, m_planetTexture);
+
 // Draw the grid :
+
+	video::IImage	*img;
+	video::ITexture* texture;
+
 	img = m_driver->createImage(video::ECF_A8R8G8B8, core::dimension2d<u32>(3000, 2000));
 	if (img)
 	{
-		cout << "OK pour img" << endl;
 		for(int i = 0; i < 3000; i++)
 		{
 			for(int j = 0; j < 2000; j++)
@@ -77,7 +78,7 @@ bool	Engine::addPlanet()
 				else if (i % 50 == 0 || j % 50 == 0)
 					img->setPixel(i, j, video::SColor(255, 255, 255, 255));
 				else
-					img->setPixel(i, j, video::SColor(255, 55, 55, 55));
+					img->setPixel(i, j, video::SColor(255, 0, 0, 0));
 			}
 		}
 		texture = m_driver->addTexture("grid", img);
@@ -86,6 +87,13 @@ bool	Engine::addPlanet()
 		texture->drop();
 		img->drop();
 	}
+
+// Skybox
+
+	scene::ISceneNode* skydome;
+
+	if ((skydome = m_sceneManager->addSkyDomeSceneNode(m_driver->getTexture("textures/sky.jpg"), 16, 8, 0.95f, 2.0f)))
+		skydome->setVisible(true);
 	return (true);
 }
 
