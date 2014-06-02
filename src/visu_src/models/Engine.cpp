@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/05/31 14:10:28 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/02 16:51:55 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/02 18:14:10 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -42,7 +42,7 @@ Engine::Engine()
 	keyMap[4].KeyCode = KEY_SPACE;        // barre espace
 	m_sceneManager->addCameraSceneNodeFPS(0, 100.0f, 0.1f, -1, keyMap, 5);
 	m_trentorMesh = m_sceneManager->getMesh("models/faerie/Faerie.x");
-	m_planetMesh = m_sceneManager->getMesh("models/earth/earth.x");
+	m_planetTexture = m_driver->getTexture("textures/grass.jpg");
 }
 
 Engine::~Engine()
@@ -52,15 +52,14 @@ Engine::~Engine()
 
 bool	Engine::addPlanet()
 {
-	if (m_planetMesh == NULL)
-		return (false);
-	m_planet = m_sceneManager->addAnimatedMeshSceneNode(m_planetMesh);
+	m_planet = m_sceneManager->addSphereSceneNode(PLANET_RADIUS, 56, 0, -1,
+												  core::vector3df(0, -25, 120));
 	if (m_planet == NULL)
 		return (false);
-	m_planet->setScale(core::vector3df(2.0f));
 	m_planet->setMaterialFlag(video::EMF_LIGHTING, false);
 	m_planet->setMaterialFlag(video::EMF_ANTI_ALIASING, true);
 	m_planet->setMaterialFlag(video::EMF_ANISOTROPIC_FILTER, true);
+	m_planet->setMaterialTexture(0, m_planetTexture);
 	return (true);
 }
 
@@ -68,14 +67,17 @@ bool	Engine::addTrantors()
 {
 	if (m_trentorMesh == NULL)
 		return (false);
-	m_trentor1 = m_sceneManager->addAnimatedMeshSceneNode(m_trentorMesh);
+	m_trentor1 = m_sceneManager->addAnimatedMeshSceneNode(m_trentorMesh, m_planet, -1,
+														  core::vector3df(0, PLANET_RADIUS, 0));
 	if (m_trentor1 == NULL)
 		return (false);
+	m_trentor1->setAnimationSpeed(5);
+	m_trentor1->setFrameLoop(40, 45);
 	m_trentor1->setMaterialFlag(video::EMF_LIGHTING, false);
 	m_trentor1->setMaterialFlag(video::EMF_ANTI_ALIASING, true);
 	m_trentor1->setMaterialFlag(video::EMF_ANISOTROPIC_FILTER, true);
 	m_trentor1->setMaterialType(video::EMT_TRANSPARENT_ALPHA_CHANNEL_REF);
-	m_trentor1->setPosition(core::vector3df(0.0f, 5.0f, 0));
+	return (true);
 }
 
 void	Engine::loop()

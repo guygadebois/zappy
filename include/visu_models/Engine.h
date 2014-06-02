@@ -6,7 +6,7 @@
 /*   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/31 14:10:08 by glourdel          #+#    #+#             */
-/*   Updated: 2014/06/02 16:50:25 by glourdel         ###   ########.fr       */
+/*   Updated: 2014/06/02 17:45:53 by glourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define ENGINE_H
 
 # include <irrlicht.h>
+
+# define PLANET_RADIUS 45.0f
 
 using namespace irr;
 
@@ -33,10 +35,9 @@ private:
 	scene::ISceneManager			*m_sceneManager;
 // Objets :
 	scene::IAnimatedMeshSceneNode	*m_trentor1;
-	scene::IAnimatedMeshSceneNode	*m_planet;
+	scene::ISceneNode				*m_planet;
 // Meshes :
 	scene::IAnimatedMesh			*m_trentorMesh;
-	scene::IAnimatedMesh			*m_planetMesh;
 // Textures :
 	video::ITexture					*m_planetTexture;
 
