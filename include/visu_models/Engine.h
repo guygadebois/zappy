@@ -6,7 +6,7 @@
 /*   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/31 14:10:08 by glourdel          #+#    #+#             */
-/*   Updated: 2014/06/02 17:45:53 by glourdel         ###   ########.fr       */
+/*   Updated: 2014/06/02 21:19:54 by glourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ private:
 	scene::IAnimatedMesh			*m_trentorMesh;
 // Textures :
 	video::ITexture					*m_planetTexture;
+// Images :
+	video::IImage					*m_planetGrid;
 
 };
 
