@@ -6,7 +6,7 @@
 #    By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2013/11/19 11:58:46 by glourdel          #+#    #+#              #
-#    Updated: 2014/05/31 21:53:04 by glourdel         ###   ########.fr        #
+#    Updated: 2014/06/02 13:19:07 by glourdel         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -20,7 +20,7 @@ SERVEUR_NAME = serveur
 CLIENT_NAME = client
 VISU_NAME = visu
 FLAGS = -Wall -Wextra -Werror -ggdb -g
-INCL_FLAGS = -Iinclude -Iinclude/models -Iinclude/models/visu -Ilibft/include
+INCL_FLAGS = -Iinclude -Iinclude/models -Iinclude/visu_models -Ilibft/include
 IRRLICHT_INCL_FLAGS = -I irrlicht/include
 
 ifeq ($(shell uname), Linux)

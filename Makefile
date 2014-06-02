@@ -6,7 +6,7 @@
 #    By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2013/11/19 11:58:46 by glourdel          #+#    #+#              #
-#    Updated: 2014/05/31 21:53:04 by glourdel         ###   ########.fr        #
+#    Updated: 2014/06/02 13:19:07 by glourdel         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -20,7 +20,7 @@ SERVEUR_NAME = serveur
 CLIENT_NAME = client
 VISU_NAME = visu
 FLAGS = -Wall -Wextra -Werror -ggdb -g
-INCL_FLAGS = -Iinclude -Iinclude/models -Iinclude/models/visu -Ilibft/include
+INCL_FLAGS = -Iinclude -Iinclude/models -Iinclude/visu_models -Ilibft/include
 IRRLICHT_INCL_FLAGS = -I irrlicht/include
 
 ifeq ($(shell uname), Linux)
@@ -42,14 +42,14 @@ OFILES = $(notdir $(CFILES:.c=.o)) $(notdir $(CPPFILES:.cpp=.o))
 # START INSERT .source
 
 SERVEUR_CFILES= \
-		serveur_src/main.c \
+		serveur_src//main.c \
 
 CLIENT_CPPFILES= \
-		client_src/main.cpp \
+		client_src//main.cpp \
 
 VISU_CPPFILES= \
-		visu_src/main.cpp \
-		visu_src/models/Engine.cpp \
+		visu_src//main.cpp \
+		visu_src//models/Engine.cpp \
 
 COMMON_CPPFILES= \
 
@@ -136,20 +136,20 @@ re:	fclean all
 # IGNORE NEXT LINES
 
 
-obj/sv_main.o: src/serveur_src/main.c libft/include/libft.h \
+obj/sv_main.o: src/serveur_src//main.c libft/include/libft.h \
  libft/include/libft_types.h
 	@echo $(CYAN)"    Creating obj/sv_main.o ...\033[0m"
 	@mkdir -p $(OBJDIR);
 	@$(CC) -o $(OBJDIR)sv_main.o \
--c $(SRCDIR)serveur_src/main.c $(CFLAGS)
+-c $(SRCDIR)serveur_src//main.c $(CFLAGS)
 
-obj/cl_main.o: src/client_src/main.cpp
+obj/cl_main.o: src/client_src//main.cpp
 	@echo $(CYAN)"    Creating obj/cl_main.o ...\033[0m"
 	@mkdir -p $(OBJDIR);
 	@$(CCPP) -o $(OBJDIR)cl_main.o \
--c $(SRCDIR)client_src/main.cpp $(CFLAGS)
+-c $(SRCDIR)client_src//main.cpp $(CFLAGS)
 
-obj/visu_main.o: src/visu_src/main.cpp irrlicht/include/irrlicht.h \
+obj/visu_main.o: src/visu_src//main.cpp irrlicht/include/irrlicht.h \
  irrlicht/include/IrrCompileConfig.h irrlicht/include/aabbox3d.h \
  irrlicht/include/irrMath.h irrlicht/include/irrTypes.h \
  irrlicht/include/plane3d.h irrlicht/include/vector3d.h \
@@ -260,13 +260,13 @@ obj/visu_main.o: src/visu_src/main.cpp irrlicht/include/irrlicht.h \
  irrlicht/include/SMeshBufferLightMap.h \
  irrlicht/include/SMeshBufferTangents.h \
  irrlicht/include/SSharedMeshBuffer.h irrlicht/include/SViewFrustum.h \
- include/models/visu/Engine.h
+ include/visu_models/Engine.h
 	@echo $(CYAN)"    Creating obj/visu_main.o ...\033[0m"
 	@mkdir -p $(OBJDIR);
 	@$(CCPP) -o $(OBJDIR)visu_main.o \
--c $(SRCDIR)visu_src/main.cpp $(INCL_FLAGS) $(IRRLICHT_INCL_FLAGS)
+-c $(SRCDIR)visu_src//main.cpp $(INCL_FLAGS) $(IRRLICHT_INCL_FLAGS)
 
-obj/visu_Engine.o: src/visu_src/models/Engine.cpp include/models/visu/Engine.h \
+obj/visu_Engine.o: src/visu_src//models/Engine.cpp include/visu_models/Engine.h \
  irrlicht/include/irrlicht.h irrlicht/include/IrrCompileConfig.h \
  irrlicht/include/aabbox3d.h irrlicht/include/irrMath.h \
  irrlicht/include/irrTypes.h irrlicht/include/plane3d.h \
@@ -381,5 +381,5 @@ obj/visu_Engine.o: src/visu_src/models/Engine.cpp include/models/visu/Engine.h \
 	@echo $(CYAN)"    Creating obj/visu_Engine.o ...\033[0m"
 	@mkdir -p $(OBJDIR);
 	@$(CCPP) -o $(OBJDIR)visu_Engine.o \
--c $(SRCDIR)visu_src/models/Engine.cpp $(INCL_FLAGS) $(IRRLICHT_INCL_FLAGS)
+-c $(SRCDIR)visu_src//models/Engine.cpp $(INCL_FLAGS) $(IRRLICHT_INCL_FLAGS)
 

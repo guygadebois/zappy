@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/05/31 20:50:18 by glourdel          #+#    #+#             */
-/*   Updated: 2014/05/31 21:33:12 by glourdel         ###   ########.fr       */
+/*   Created: 2014/05/31 14:10:08 by glourdel          #+#    #+#             */
+/*   Updated: 2014/06/02 16:50:25 by glourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,26 +19,27 @@ using namespace irr;
 
 class Engine
 {
-public:
 
+public:
 	Engine();
 	~Engine();
-	void	addPlanet();
-	void	addTrantors();
+	bool	addPlanet();
+	bool	addTrantors();
 	void	loop();
 
 private:
-
 	IrrlichtDevice					*m_device;
-	video::IVideoDriver				*m_driver;
+	video::IVideoDriver*			m_driver;
 	scene::ISceneManager			*m_sceneManager;
+// Objets :
 	scene::IAnimatedMeshSceneNode	*m_trentor1;
 	scene::IAnimatedMeshSceneNode	*m_planet;
+// Meshes :
 	scene::IAnimatedMesh			*m_trentorMesh;
 	scene::IAnimatedMesh			*m_planetMesh;
-	video::ITexture					*m_trentorSkin1;
-	video::ITexture					*m_trentorWing1;
+// Textures :
 	video::ITexture					*m_planetTexture;
+
 };
 
 #endif
