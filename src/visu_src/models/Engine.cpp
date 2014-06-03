@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/05/31 14:10:28 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/03 16:51:17 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/03 17:11:09 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -15,7 +15,7 @@
 #include <iostream>
 using namespace std;
 
-Engine::Engine()
+Engine::Engine(MapData *mapData) : m_mapData(mapData)
 {
 	SKeyMap	keyMap[5];
 
@@ -40,7 +40,9 @@ Engine::Engine()
 	keyMap[3].KeyCode = KEY_KEY_D;        // d
 	keyMap[4].Action = EKA_JUMP_UP;       // saut
 	keyMap[4].KeyCode = KEY_SPACE;        // barre espace
-	m_sceneManager->addCameraSceneNodeFPS(0, 100.0f, 0.1f, -1, keyMap, 5);
+	m_camera = m_sceneManager->addCameraSceneNodeFPS(0, 100.0f, 0.1f, -1, keyMap, 5);
+	m_camera->setPosition(core::vector3df(0.0f, 200.0f, 300.0f));
+	m_camera->setRotation(m_camera->getRotation() + core::vector3df(20.0f, 0.0f, 0.0f));
 	m_trentorMesh = m_sceneManager->getMesh("models/faerie/Faerie.x");
 	m_treeMesh = m_sceneManager->getMesh("models/tree/palm_tree.obj");
 	m_planetTexture = m_driver->getTexture("textures/grass.jpg");
@@ -53,8 +55,7 @@ Engine::~Engine()
 
 bool	Engine::addPlanet()
 {
-	m_planet = m_sceneManager->addSphereSceneNode(PLANET_RADIUS, 56, 0, -1,
-												  core::vector3df(0, -25, 120));
+	m_planet = m_sceneManager->addSphereSceneNode(PLANET_RADIUS, 56, 0, -1);
 	if (m_planet == NULL)
 		return (false);
 	m_planet->setMaterialFlag(video::EMF_LIGHTING, false);
@@ -63,7 +64,6 @@ bool	Engine::addPlanet()
 	m_planet->setMaterialTexture(0, m_planetTexture);
 // Create parent node tha will be cloned for each object
 	m_emptyParent = m_sceneManager->addSphereSceneNode(1.0f, 6, m_planet);
-	m_emptyParent->setRotation(core::vector3df(0.0f, 180.0f, 0.0f));
 
 // Draw the grid :
 
@@ -77,9 +77,11 @@ bool	Engine::addPlanet()
 		{
 			for(int j = 0; j < 2000; j++)
 			{
-				if (j < 500 || j >= 1500)
+				if (j < m_mapData->getTexturePSize().Height / 4
+					|| j >= m_mapData->getTexturePSize().Height / 4 * 3)
 					img->setPixel(i, j, video::SColor(255, 255, 55, 55));
-				else if (i % 50 == 0 || j % 50 == 0)
+				else if (i % m_mapData->getGridElemPSize().Width == 0
+						 || j % m_mapData->getGridElemPSize().Height == 0)
 					img->setPixel(i, j, video::SColor(255, 255, 255, 255));
 				else
 					img->setPixel(i, j, video::SColor(255, 0, 0, 0));
@@ -126,7 +128,7 @@ bool	Engine::addTrantors()
 	return (true);
 }
 
-bool	Engine::addTrees(MapData *mapData)
+bool	Engine::addTrees()
 {
 	scene::IAnimatedMeshSceneNode	*tree;
 	scene::ISceneNode				*parent;
@@ -142,9 +144,9 @@ bool	Engine::addTrees(MapData *mapData)
 	// 	tree->setPosition(core::vector3df(0, PLANET_RADIUS, 0));
 	// 	parent->setRotation(core::vector3df(0, 0, -i * 10 - 10));
 	// }
-	for (int i = 0; i < mapData->getGridSize().Width; i++)
+	for (int i = 0; i < m_mapData->getGridSize().Width; i++)
 	{
-		for (int j = 0; j < mapData->getGridSize().Height; j++)
+		for (int j = 0; j < m_mapData->getGridSize().Height; j++)
 		{
 			if ((parent = m_emptyParent->clone()) == NULL)
 			{
@@ -154,9 +156,9 @@ bool	Engine::addTrees(MapData *mapData)
 			tree = m_sceneManager->addAnimatedMeshSceneNode(m_treeMesh, parent);
 			tree->setMaterialFlag(video::EMF_LIGHTING, false);
 			tree->setPosition(core::vector3df(
-								  mapData->m_matrix[i][j].middle.X,
-								  mapData->m_matrix[i][j].middle.Y,
-								  mapData->m_matrix[i][j].middle.Z));
+								  m_mapData->m_matrix[i][j].middle.X,
+								  m_mapData->m_matrix[i][j].middle.Y,
+								  m_mapData->m_matrix[i][j].middle.Z));
 		}
 	}
 	return (true);
