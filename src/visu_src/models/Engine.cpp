@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/05/31 14:10:28 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/03 09:28:33 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/03 14:12:32 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -107,8 +107,9 @@ bool	Engine::addTrantors()
 {
 	if (m_trentorMesh == NULL)
 		return (false);
-	m_trentor1 = m_sceneManager->addAnimatedMeshSceneNode(m_trentorMesh, m_planet, -1,
-														  core::vector3df(0, PLANET_RADIUS, 0));
+	m_parent = m_sceneManager->addSphereSceneNode(1.0f, 6, m_planet);
+	m_trentor1 = m_sceneManager->addAnimatedMeshSceneNode(m_trentorMesh, m_parent);
+	m_trentor1->setPosition(core::vector3df(0, PLANET_RADIUS, 0));
 	if (m_trentor1 == NULL)
 		return (false);
 	m_trentor1->setAnimationSpeed(5);
@@ -117,6 +118,8 @@ bool	Engine::addTrantors()
 	m_trentor1->setMaterialFlag(video::EMF_ANTI_ALIASING, true);
 	m_trentor1->setMaterialFlag(video::EMF_ANISOTROPIC_FILTER, true);
 	m_trentor1->setMaterialType(video::EMT_TRANSPARENT_ALPHA_CHANNEL_REF);
+//	m_trentor1->setRotation(core::vector3df(30.0f, 180.0f, 0.0f));
+	m_parent->setRotation(core::vector3df(30.0f, 180.0f, 0.0f));
 	return (true);
 }
 
@@ -130,3 +133,4 @@ void	Engine::loop()
 		m_driver->endScene();
 	}
 }
+

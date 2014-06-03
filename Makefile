@@ -42,14 +42,14 @@ OFILES = $(notdir $(CFILES:.c=.o)) $(notdir $(CPPFILES:.cpp=.o))
 # START INSERT .source
 
 SERVEUR_CFILES= \
-		serveur_src/main.c \
+		serveur_src//main.c \
 
 CLIENT_CPPFILES= \
-		client_src/main.cpp \
+		client_src//main.cpp \
 
 VISU_CPPFILES= \
-		visu_src/main.cpp \
-		visu_src/models/Engine.cpp \
+		visu_src//main.cpp \
+		visu_src//models/Engine.cpp \
 
 COMMON_CPPFILES= \
 
@@ -136,20 +136,20 @@ re:	fclean all
 # IGNORE NEXT LINES
 
 
-obj/sv_main.o: src/serveur_src/main.c libft/include/libft.h \
+obj/sv_main.o: src/serveur_src//main.c libft/include/libft.h \
  libft/include/libft_types.h
 	@echo $(CYAN)"    Creating obj/sv_main.o ...\033[0m"
 	@mkdir -p $(OBJDIR);
 	@$(CC) -o $(OBJDIR)sv_main.o \
--c $(SRCDIR)serveur_src/main.c $(CFLAGS)
+-c $(SRCDIR)serveur_src//main.c $(CFLAGS)
 
-obj/cl_main.o: src/client_src/main.cpp
+obj/cl_main.o: src/client_src//main.cpp
 	@echo $(CYAN)"    Creating obj/cl_main.o ...\033[0m"
 	@mkdir -p $(OBJDIR);
 	@$(CCPP) -o $(OBJDIR)cl_main.o \
--c $(SRCDIR)client_src/main.cpp $(CFLAGS)
+-c $(SRCDIR)client_src//main.cpp $(CFLAGS)
 
-obj/visu_main.o: src/visu_src/main.cpp irrlicht/include/irrlicht.h \
+obj/visu_main.o: src/visu_src//main.cpp irrlicht/include/irrlicht.h \
  irrlicht/include/IrrCompileConfig.h irrlicht/include/aabbox3d.h \
  irrlicht/include/irrMath.h irrlicht/include/irrTypes.h \
  irrlicht/include/plane3d.h irrlicht/include/vector3d.h \
@@ -264,9 +264,9 @@ obj/visu_main.o: src/visu_src/main.cpp irrlicht/include/irrlicht.h \
 	@echo $(CYAN)"    Creating obj/visu_main.o ...\033[0m"
 	@mkdir -p $(OBJDIR);
 	@$(CCPP) -o $(OBJDIR)visu_main.o \
--c $(SRCDIR)visu_src/main.cpp $(INCL_FLAGS) $(IRRLICHT_INCL_FLAGS)
+-c $(SRCDIR)visu_src//main.cpp $(INCL_FLAGS) $(IRRLICHT_INCL_FLAGS)
 
-obj/visu_Engine.o: src/visu_src/models/Engine.cpp include/visu_models/Engine.h \
+obj/visu_Engine.o: src/visu_src//models/Engine.cpp include/visu_models/Engine.h \
  irrlicht/include/irrlicht.h irrlicht/include/IrrCompileConfig.h \
  irrlicht/include/aabbox3d.h irrlicht/include/irrMath.h \
  irrlicht/include/irrTypes.h irrlicht/include/plane3d.h \
@@ -381,5 +381,5 @@ obj/visu_Engine.o: src/visu_src/models/Engine.cpp include/visu_models/Engine.h \
 	@echo $(CYAN)"    Creating obj/visu_Engine.o ...\033[0m"
 	@mkdir -p $(OBJDIR);
 	@$(CCPP) -o $(OBJDIR)visu_Engine.o \
--c $(SRCDIR)visu_src/models/Engine.cpp $(INCL_FLAGS) $(IRRLICHT_INCL_FLAGS)
+-c $(SRCDIR)visu_src//models/Engine.cpp $(INCL_FLAGS) $(IRRLICHT_INCL_FLAGS)
 
