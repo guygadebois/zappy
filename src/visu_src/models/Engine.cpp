@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/05/31 14:10:28 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/02 22:39:00 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/03 09:28:33 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -90,10 +90,16 @@ bool	Engine::addPlanet()
 
 // Skybox
 
-	scene::ISceneNode* skydome;
+	scene::ISceneNode* skybox;
 
-	if ((skydome = m_sceneManager->addSkyDomeSceneNode(m_driver->getTexture("textures/sky.jpg"), 16, 8, 0.95f, 2.0f)))
-		skydome->setVisible(true);
+	if ((skybox = m_sceneManager->addSkyBoxSceneNode(
+			 m_driver->getTexture("textures/sky_up.jpg"),
+			 m_driver->getTexture("textures/sky_dn.jpg"),
+			 m_driver->getTexture("textures/sky_lf.jpg"),
+			 m_driver->getTexture("textures/sky_rt.jpg"),
+			 m_driver->getTexture("textures/sky_ft.jpg"),
+			 m_driver->getTexture("textures/sky_bk.jpg"))))
+		skybox->setVisible(true);
 	return (true);
 }
 
