@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/05/31 14:10:28 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/03 17:11:09 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/04 22:25:13 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -20,7 +20,11 @@ Engine::Engine(MapData *mapData) : m_mapData(mapData)
 	SKeyMap	keyMap[5];
 
 	m_device = createDevice(video::EDT_OPENGL,
+#ifdef __IRR_OSX_PLATFORM__
 							core::dimension2d<u32>(2560, 1440),
+#else
+							core::dimension2d<u32>(1920, 1081),
+#endif
 							32, true, true, false, 0);
 	m_device->getCursorControl()->setVisible(false);
 #ifdef _IRR_OSX_PLATFORM_
@@ -55,12 +59,12 @@ Engine::~Engine()
 
 bool	Engine::addPlanet()
 {
-	m_planet = m_sceneManager->addSphereSceneNode(PLANET_RADIUS, 56, 0, -1);
+	m_planet = m_sceneManager->addSphereSceneNode(PLANET_RADIUS, 36, 0, -1);
 	if (m_planet == NULL)
 		return (false);
 	m_planet->setMaterialFlag(video::EMF_LIGHTING, false);
-	m_planet->setMaterialFlag(video::EMF_ANTI_ALIASING, true);
-	m_planet->setMaterialFlag(video::EMF_ANISOTROPIC_FILTER, true);
+//	m_planet->setMaterialFlag(video::EMF_ANTI_ALIASING, true);
+//	m_planet->setMaterialFlag(video::EMF_ANISOTROPIC_FILTER, true);
 	m_planet->setMaterialTexture(0, m_planetTexture);
 // Create parent node tha will be cloned for each object
 	m_emptyParent = m_sceneManager->addSphereSceneNode(1.0f, 6, m_planet);
@@ -122,8 +126,8 @@ bool	Engine::addTrantors()
 	m_trentor1->setAnimationSpeed(5);
 	m_trentor1->setFrameLoop(40, 45);
 	m_trentor1->setMaterialFlag(video::EMF_LIGHTING, false);
-	m_trentor1->setMaterialFlag(video::EMF_ANTI_ALIASING, true);
-	m_trentor1->setMaterialFlag(video::EMF_ANISOTROPIC_FILTER, true);
+//	m_trentor1->setMaterialFlag(video::EMF_ANTI_ALIASING, true);
+//	m_trentor1->setMaterialFlag(video::EMF_ANISOTROPIC_FILTER, true);
 	m_trentor1->setMaterialType(video::EMT_TRANSPARENT_ALPHA_CHANNEL_REF);
 	return (true);
 }
@@ -132,18 +136,10 @@ bool	Engine::addTrees()
 {
 	scene::IAnimatedMeshSceneNode	*tree;
 	scene::ISceneNode				*parent;
+	core::vector3df					rotation;
 
 	if (m_treeMesh == NULL)
 		return (false);
-	// for (int i = 0; i < 15; i++)
-	// {
-	// 	if ((parent = m_emptyParent->clone()) == NULL)
-	// 		return (false);
-	// 	tree = m_sceneManager->addAnimatedMeshSceneNode(m_treeMesh, parent);
-	// 	tree->setMaterialFlag(video::EMF_LIGHTING, false);
-	// 	tree->setPosition(core::vector3df(0, PLANET_RADIUS, 0));
-	// 	parent->setRotation(core::vector3df(0, 0, -i * 10 - 10));
-	// }
 	for (int i = 0; i < m_mapData->getGridSize().Width; i++)
 	{
 		for (int j = 0; j < m_mapData->getGridSize().Height; j++)
@@ -155,10 +151,13 @@ bool	Engine::addTrees()
 			}
 			tree = m_sceneManager->addAnimatedMeshSceneNode(m_treeMesh, parent);
 			tree->setMaterialFlag(video::EMF_LIGHTING, false);
-			tree->setPosition(core::vector3df(
-								  m_mapData->m_matrix[i][j].middle.X,
-								  m_mapData->m_matrix[i][j].middle.Y,
-								  m_mapData->m_matrix[i][j].middle.Z));
+			tree->setPosition(core::vector3df(0.0f, PLANET_RADIUS, 0.0f));
+			rotation.X = 45.0f + 90.0f / m_mapData->getGridSize().Height * j;
+			rotation.X += 45.0f / m_mapData->getGridSize().Height; // Ajoute 1/2 case pour arriver au centre
+			rotation.Y = 360.0f / m_mapData->getGridSize().Width * i;
+			rotation.Y += 180.0f / m_mapData->getGridSize().Width;
+			rotation.Z = 0.0f;
+			parent->setRotation(rotation);
 		}
 	}
 	return (true);
@@ -173,4 +172,9 @@ void	Engine::loop()
 		m_sceneManager->drawAll();
 		m_driver->endScene();
 	}
+}
+
+void	Engine::relativeRotate(scene::ISceneNode *node, const core::vector3df &rotation)
+{
+	node->setRotation(node->getRotation() + rotation);
 }

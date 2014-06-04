@@ -6,7 +6,7 @@
 /*   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/31 14:10:08 by glourdel          #+#    #+#             */
-/*   Updated: 2014/06/03 17:08:10 by glourdel         ###   ########.fr       */
+/*   Updated: 2014/06/04 21:56:59 by glourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ public:
 	bool	addTrantors();
 	bool	addTrees();
 	void	loop();
+	void	relativeRotate(scene::ISceneNode *node, const core::vector3df &rotation);
 
 private:
 	IrrlichtDevice					*m_device;
