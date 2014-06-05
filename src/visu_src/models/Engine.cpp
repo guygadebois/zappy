@@ -6,13 +6,14 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/05/31 14:10:28 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/04 22:25:13 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/05 19:02:59 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
-#include "Engine.h"
-
 #include <iostream>
+#include "Engine.h"
+#include "MySceneNode.h"
+
 using namespace std;
 
 Engine::Engine(MapData *mapData) : m_mapData(mapData)
@@ -67,7 +68,7 @@ bool	Engine::addPlanet()
 //	m_planet->setMaterialFlag(video::EMF_ANISOTROPIC_FILTER, true);
 	m_planet->setMaterialTexture(0, m_planetTexture);
 // Create parent node tha will be cloned for each object
-	m_emptyParent = m_sceneManager->addSphereSceneNode(1.0f, 6, m_planet);
+	m_emptyParent = new scene::MySceneNode(m_planet, m_sceneManager);
 
 // Draw the grid :
 
@@ -115,9 +116,9 @@ bool	Engine::addPlanet()
 
 bool	Engine::addTrantors()
 {
-	scene::ISceneNode				*parent;
+	scene::MySceneNode				*parent;
 
-	if (m_trentorMesh == NULL || (parent = m_emptyParent->clone()) == NULL)
+	if (m_trentorMesh == NULL || (parent = static_cast<scene::MySceneNode *>(m_emptyParent->clone())) == NULL)
 		return (false);
 	m_trentor1 = m_sceneManager->addAnimatedMeshSceneNode(m_trentorMesh, parent);
 	m_trentor1->setPosition(core::vector3df(0, PLANET_RADIUS, 0));
@@ -135,8 +136,7 @@ bool	Engine::addTrantors()
 bool	Engine::addTrees()
 {
 	scene::IAnimatedMeshSceneNode	*tree;
-	scene::ISceneNode				*parent;
-	core::vector3df					rotation;
+	scene::MySceneNode				*parent;
 
 	if (m_treeMesh == NULL)
 		return (false);
@@ -144,7 +144,7 @@ bool	Engine::addTrees()
 	{
 		for (int j = 0; j < m_mapData->getGridSize().Height; j++)
 		{
-			if ((parent = m_emptyParent->clone()) == NULL)
+			if ((parent = static_cast<scene::MySceneNode *>(m_emptyParent->clone())) == NULL)
 			{
 				cout << "Parent clone failed..." << endl;
 				return (false);
@@ -152,12 +152,7 @@ bool	Engine::addTrees()
 			tree = m_sceneManager->addAnimatedMeshSceneNode(m_treeMesh, parent);
 			tree->setMaterialFlag(video::EMF_LIGHTING, false);
 			tree->setPosition(core::vector3df(0.0f, PLANET_RADIUS, 0.0f));
-			rotation.X = 45.0f + 90.0f / m_mapData->getGridSize().Height * j;
-			rotation.X += 45.0f / m_mapData->getGridSize().Height; // Ajoute 1/2 case pour arriver au centre
-			rotation.Y = 360.0f / m_mapData->getGridSize().Width * i;
-			rotation.Y += 180.0f / m_mapData->getGridSize().Width;
-			rotation.Z = 0.0f;
-			parent->setRotation(rotation);
+			placeOn(parent, i, j, 0.5f, 0.0f);
 		}
 	}
 	return (true);
@@ -174,7 +169,29 @@ void	Engine::loop()
 	}
 }
 
-void	Engine::relativeRotate(scene::ISceneNode *node, const core::vector3df &rotation)
+void	Engine::rotate(scene::MySceneNode *node, const core::vector3df &rotation)
 {
 	node->setRotation(node->getRotation() + rotation);
+}
+
+void	Engine::placeOn(scene::MySceneNode *node, const u32 X, const u32 Y, \
+						const f32 offsetX, const f32 offsetY)
+{
+	core::vector3df		rotation;
+
+	rotation.X = 45.0f + 90.0f / m_mapData->getGridSize().Height * Y;
+	rotation.Y = 360.0f / m_mapData->getGridSize().Width * X;
+	rotation.Z = 0.0f;
+	if (offsetX < -0.00000000001f || offsetX > 1.0f)
+		cout << "Engine::placeOn(): INVALID ARGUMENT -> offsetX must be between 0 and 1. Given: " << offsetX << endl;
+	else if (offsetY < -0.00000000001f || offsetY > 1.0f)
+		cout << "Engine::placeOn(): INVALID ARGUMENT -> offsetY must be between 0 and 1. Given: " << offsetY << endl;
+	else
+	{
+// add offset to move somewhere on the square
+		rotation.X += 90.0f / m_mapData->getGridSize().Height * offsetY;
+		rotation.Y += 360.0f / m_mapData->getGridSize().Width * offsetX;
+		node->setOffset(core::vector2d<f32>(offsetX, offsetY));
+	}
+	node->setRotation(rotation);
 }

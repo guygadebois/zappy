@@ -6,7 +6,7 @@
 /*   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/31 14:10:08 by glourdel          #+#    #+#             */
-/*   Updated: 2014/06/04 21:56:59 by glourdel         ###   ########.fr       */
+/*   Updated: 2014/06/05 19:01:08 by glourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define ENGINE_H
 
 # include <irrlicht.h>
+# include "MySceneNode.h"
 # include "MapData.h"
 
 # define PLANET_RADIUS 145.0f
@@ -30,7 +31,9 @@ public:
 	bool	addTrantors();
 	bool	addTrees();
 	void	loop();
-	void	relativeRotate(scene::ISceneNode *node, const core::vector3df &rotation);
+	void	rotate(scene::MySceneNode *node, const core::vector3df &rotation);
+	void	placeOn(scene::MySceneNode *node, const u32 X, const u32 Y, \
+					const f32 offsetX, const f32 offsetY);
 
 private:
 	IrrlichtDevice					*m_device;
@@ -39,7 +42,7 @@ private:
 	scene::ICameraSceneNode			*m_camera;
 	MapData							*m_mapData;
 // Objets :
-	scene::ISceneNode				*m_emptyParent;
+	scene::MySceneNode				*m_emptyParent;
 	scene::IAnimatedMeshSceneNode	*m_trentor1;
 	scene::ISceneNode				*m_planet;
 // Meshes :

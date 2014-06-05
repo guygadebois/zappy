@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/03 15:25:43 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/04 22:21:13 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/05 17:17:44 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -21,9 +21,7 @@ MapData::MapData(u32 width, u32 height, u32 textWidth, u32 textHeight) : m_textu
 	{
 		for (int j = 0; j < m_gridSize.Height; j++)
 		{
-			m_matrix[i][j].middle.X = (float)i * 6;
-			m_matrix[i][j].middle.Y = 45.0f;
-			m_matrix[i][j].middle.Z = (float)j * 6;
+			; // ajouter ce qu'on voudra
 		}
 	}
 }

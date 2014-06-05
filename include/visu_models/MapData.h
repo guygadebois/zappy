@@ -6,7 +6,7 @@
 /*   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/03 15:17:17 by glourdel          #+#    #+#             */
-/*   Updated: 2014/06/03 16:42:03 by glourdel         ###   ########.fr       */
+/*   Updated: 2014/06/05 17:18:42 by glourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MAPDATA_H
 
 #include <vector>
+#include <list>
 #include <irrlicht.h>
 
 using namespace std;
@@ -21,7 +22,9 @@ using namespace irr;
 
 typedef struct			s_mapElem
 {
-	core::vector3df	middle; // 3D coordinate of the middle point of the elem
+	list<scene::IAnimatedMeshSceneNode *>	trantors;
+	list<scene::IMeshSceneNode *>			stones;
+	list<scene::IMeshSceneNode *>			food;
 }						t_mapElem;
 
 class MapData
