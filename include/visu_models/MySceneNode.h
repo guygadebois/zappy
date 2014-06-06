@@ -6,7 +6,7 @@
 /*   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/05 17:45:38 by glourdel          #+#    #+#             */
-/*   Updated: 2014/06/05 19:05:10 by glourdel         ###   ########.fr       */
+/*   Updated: 2014/06/06 12:09:30 by glourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,36 +14,45 @@
 # define MYSCENENODE_H
 
 # include <irrlicht.h>
+# include "MapData.h"
+
+using namespace irr;
 
 namespace irr
 {
 	namespace scene
 	{
 
-		class MySceneNode : public irr::scene::ISceneNode
+		class MySceneNode : public scene::ISceneNode
 		{
 		public:
 			// Irr obligatory methods :
-			MySceneNode(irr::scene::ISceneNode* parent,
-						irr::scene::ISceneManager* mgr, s32 id = 0);
-			virtual irr::scene::ISceneNode	*clone(irr::scene::ISceneNode *newParent=0, irr::scene::ISceneManager *newManager=0);
-			virtual void OnRegisterSceneNode();
-			virtual void render();
-			virtual const irr::core::aabbox3d<irr::f32>& getBoundingBox() const;
-			virtual irr::u32 getMaterialCount() const;
-			virtual irr::video::SMaterial& getMaterial(irr::u32 i);
+			MySceneNode(scene::ISceneNode *parent, scene::ISceneManager *mgr,
+							MapData *mapData, s32 id = 0);
+			virtual scene::ISceneNode			*clone(scene::ISceneNode *newParent=0, scene::ISceneManager *newManager=0);
+			virtual void						OnRegisterSceneNode();
+			virtual void						render();
+			virtual const core::aabbox3d<f32>	&getBoundingBox() const;
+			virtual u32							getMaterialCount() const;
+			virtual video::SMaterial			&getMaterial(u32 i);
 
 			// My methods :
-			void						setOffset(const irr::core::vector2d<f32> &offset);
-			irr::core::vector2d<f32>	&getOffset(void);
+			void				setOffset(const core::vector2d<f32> &offset);
+			core::vector2d<f32>	&getOffset(void);
+			void				rotate(const core::vector3df &rotation);
+			void				placeOn(const u32 X, const u32 Y,
+										const f32 offsetX, const f32 offsetY);
+			void				moveTo(const u32 X, const u32 Y,
+									   const f32 offsetX, const f32 offsetY);
 
 		private:
 			// Irr obligatory attributes :
-			irr::core::aabbox3d<irr::f32>	m_box;
-			irr::video::SMaterial			m_material;
+			core::aabbox3d<f32>		m_box;
+			video::SMaterial		m_material;
 
 			// My attributes :
-			irr::core::vector2d<irr::f32>	m_offset;
+			MapData					*m_mapData;
+			core::vector2d<f32>		m_offset;
 		};
 	}
 }
