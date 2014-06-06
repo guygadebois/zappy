@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/03 15:25:43 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/06 16:53:47 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/06 20:53:16 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -83,11 +83,12 @@ void					MapData::checkAnimationsEnd(void)
 			// Stop and delete anim :
 			parentNode->removeAnimator((*it)->anim);
 			delete (*it);
-			m_animations.erase(it);
+			it = m_animations.erase(it);
 			// Stop running :
 			meshNode = static_cast<scene::IAnimatedMeshSceneNode *>(*parentNode->getChildren().begin());
 			meshNode->setFrameLoop(0, 39);
 		}
-		++it;
+		else
+			++it;
 	}
 }
