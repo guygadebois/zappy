@@ -6,13 +6,15 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/05 18:16:21 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/06 17:06:53 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/06 21:02:10 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
 #include <iostream>
 #include "MySceneNode.h"
-
+   
+#define FABS(x) ((x < -0.00000001 ? -x : x))
+   
 using namespace std;
 
 scene::MySceneNode::MySceneNode(scene::ISceneNode* parent,
@@ -144,9 +146,11 @@ void						scene::MySceneNode::moveTo(
 	if (rotation.X + rotation.Y == 0)
 		return ;
 
+	if (rotation.Y > 180.0f)
+		rotation.Y -= 360.0f;
 	// animation :
-	animSpeed.X = 0.1f * rotation.X / (rotation.X + rotation.Y);
-	animSpeed.Y = 0.1f * rotation.Y / (rotation.X + rotation.Y);
+	animSpeed.X = 0.1f * rotation.X / (FABS(rotation.X) + FABS(rotation.Y));
+	animSpeed.Y = 0.1f * rotation.Y / (FABS(rotation.X) + FABS(rotation.Y));
 	anim = SceneManager->createRotationAnimator(core::vector3df(animSpeed.X, animSpeed.Y, 0.0f));
 	if (anim)
 	{

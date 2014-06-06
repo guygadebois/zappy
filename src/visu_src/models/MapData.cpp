@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/03 15:25:43 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/06 20:53:16 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/06 21:16:13 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -49,7 +49,7 @@ void					MapData::registerAnimation(scene::ISceneNode *parentNode,
 												   scene::ISceneNodeAnimator *anim,
 												   const core::vector3df &oldRotation,
 												   const core::vector2df &oldOffset,
-												   const core::vector3df &Rotation,
+												   const core::vector3df &rotation,
 												   const core::vector2df &newOffset)
 {
 	t_animation	*animation;
@@ -61,10 +61,31 @@ void					MapData::registerAnimation(scene::ISceneNode *parentNode,
 		animation->anim = anim;
 		animation->fromRotation = oldRotation;
 		animation->fromOffset = oldOffset;
-		animation->Rotation = Rotation;
+		animation->rotation = rotation;
 		animation->toOffset = newOffset;
 		m_animations.push_back(animation);
 	}
+}
+
+bool					MapData::rotationAtEnd(const core::vector3df &rotation,
+											   const core::vector3df &actualRotation,
+											   const core::vector3df &fromRotation)
+{
+	if (rotation.X >= 0.0000001f)
+	{
+		if (actualRotation.X >= fromRotation.X + rotation.X)
+			return (true);
+	}
+	else if (actualRotation.X <= fromRotation.X + rotation.X)
+		return (true);
+	if (rotation.Y >= 0.0000001f)
+	{
+		if (actualRotation.Y >= fromRotation.Y + rotation.Y)
+			return (true);
+	}
+	else if (actualRotation.Y <= fromRotation.Y + rotation.Y)
+		return (true);
+	return (false);
 }
 
 void					MapData::checkAnimationsEnd(void)
@@ -77,8 +98,7 @@ void					MapData::checkAnimationsEnd(void)
 	while (it != m_animations.end())
 	{
 		parentNode = static_cast<scene::MySceneNode *>((*it)->parentNode);
-		if (parentNode->getRotation().X >= (*it)->fromRotation.X + (*it)->Rotation.X
-			|| parentNode->getRotation().Y >= (*it)->fromRotation.Y + (*it)->Rotation.Y)
+		if (rotationAtEnd((*it)->rotation, parentNode->getRotation(), (*it)->fromRotation))
 		{
 			// Stop and delete anim :
 			parentNode->removeAnimator((*it)->anim);

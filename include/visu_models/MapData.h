@@ -6,7 +6,7 @@
 /*   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/03 15:17:17 by glourdel          #+#    #+#             */
-/*   Updated: 2014/06/06 16:39:34 by glourdel         ###   ########.fr       */
+/*   Updated: 2014/06/06 21:09:01 by glourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ typedef struct			s_animation
 	scene::ISceneNodeAnimator				*anim;
 	core::vector3df							fromRotation;
 	core::vector2df							fromOffset;
-	core::vector3df							Rotation;
+	core::vector3df							rotation;
 	core::vector2df							toOffset;
 }						t_animation;
 
@@ -48,9 +48,12 @@ public:
 												  scene::ISceneNodeAnimator *anim,
 												  const core::vector3df &oldRotation,
 												  const core::vector2df &oldOffset,
-												  const core::vector3df &Rotation,
+												  const core::vector3df &rotation,
 												  const core::vector2df &newOffset);
 	void						checkAnimationsEnd(void);
+	static bool					rotationAtEnd(const core::vector3df &rotation,
+											  const core::vector3df &actualRotation,
+											  const core::vector3df &fromRotation);
 	vector<vector<t_mapElem> >	m_matrix;
 
 private:
