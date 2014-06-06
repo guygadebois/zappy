@@ -6,7 +6,7 @@
 /*   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/05 17:45:38 by glourdel          #+#    #+#             */
-/*   Updated: 2014/06/06 12:09:30 by glourdel         ###   ########.fr       */
+/*   Updated: 2014/06/06 15:46:20 by glourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ namespace irr
 			core::vector2d<f32>	&getOffset(void);
 			void				rotate(const core::vector3df &rotation);
 			void				placeOn(const u32 X, const u32 Y,
-										const f32 offsetX, const f32 offsetY);
+										const f32 offsetX=0.0f, const f32 offsetY=0.0f);
 			void				moveTo(const u32 X, const u32 Y,
-									   const f32 offsetX, const f32 offsetY);
+									   const f32 offsetX=0.0f, const f32 offsetY=0.0f);
 
 		private:
 			// Irr obligatory attributes :

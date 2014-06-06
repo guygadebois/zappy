@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/05 18:16:21 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/06 12:12:28 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/06 17:06:53 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -118,17 +118,46 @@ void						scene::MySceneNode::placeOn(const u32 X, const u32 Y,
 void						scene::MySceneNode::moveTo(
 	const u32 X, const u32 Y, const f32 offsetX, const f32 offsetY)
 {
-	// scene::ISceneNodeAnimator*		animX;
-	// scene::ISceneNodeAnimator*		animY;
+	scene::ISceneNodeAnimator*		anim;
+	core::vector3df					rotation;
+	core::vector2df					animSpeed;
+	scene::IAnimatedMeshSceneNode	*meshNode;
 
-	// animX = SceneManager->createRotationAnimator(core::vector3df(0.1f * rotation.X / rotation.Y, 0.0f, 0.0f));
-	// animY = SceneManager->createRotationAnimator(core::vector3df(0.1f * rotation.Y / rotation.X, 0.0f, 0.0f));
-	// if (animX && animY)
-	// {
-	// 	addAnimator(animX);
-	// 	addAnimator(animY);
-	// 	animX->drop();
-	// 	animY->drop();
-	// }
+	if (offsetX < -0.00000000001f || offsetX > 1.0f)
+	{
+		cout << "scene::MySceneNode::moveTo(): INVALID ARGUMENT -> offsetX must be between 0 and 1. Given: " << offsetX << endl;
+		return ;
+	}
+	if (offsetY < -0.00000000001f || offsetY > 1.0f)
+	{
+		cout << "scene::MySceneNode::moveTo(): INVALID ARGUMENT -> offsetY must be between 0 and 1. Given: " << offsetY << endl;
+		return ;
+	}
+	rotation.X = 45.0f + 90.0f / m_mapData->getGridSize().Height * Y;
+	rotation.Y = 360.0f / m_mapData->getGridSize().Width * X;
+	rotation.Z = 0.0f;
+	// add offset to move somewhere on the square :
+	rotation.X += 90.0f / m_mapData->getGridSize().Height * offsetY;
+	rotation.Y += 360.0f / m_mapData->getGridSize().Width * offsetX;
+	// relative to actual position :
+	rotation -= getRotation();
+	if (rotation.X + rotation.Y == 0)
+		return ;
+
+	// animation :
+	animSpeed.X = 0.1f * rotation.X / (rotation.X + rotation.Y);
+	animSpeed.Y = 0.1f * rotation.Y / (rotation.X + rotation.Y);
+	anim = SceneManager->createRotationAnimator(core::vector3df(animSpeed.X, animSpeed.Y, 0.0f));
+	if (anim)
+	{
+		addAnimator(anim);
+		anim->drop();
+		m_mapData->registerAnimation(this, anim, getRotation(), getOffset(), rotation,
+								   core::vector2d<f32>(offsetX, offsetY));
+		setOffset(core::vector2d<f32>(offsetX, offsetY));
+		meshNode = static_cast<scene::IAnimatedMeshSceneNode *>(*getChildren().begin());
+		meshNode->setFrameLoop(40, 45);
+	}
+	else
+		cout << "MySceneNode::moveTo: ERROR -> could not create animators" << endl;
 }
-
