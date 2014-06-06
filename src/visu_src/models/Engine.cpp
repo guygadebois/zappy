@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/05/31 14:10:28 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/06 21:18:53 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/06 22:48:07 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -129,8 +129,8 @@ bool	Engine::addTrantors()
 //	m_trentor1->setMaterialFlag(video::EMF_ANTI_ALIASING, true);
 //	m_trentor1->setMaterialFlag(video::EMF_ANISOTROPIC_FILTER, true);
 	m_trentor1->setMaterialType(video::EMT_TRANSPARENT_ALPHA_CHANNEL_REF);
-//	parent->placeOn(1, 2, 0.5f, 0.5f);
-	parent->moveTo(1, 2, 0.5f, 0.5f);
+	parent->placeOn(0, 10, 0.5f, 0.5f);
+	parent->diveTo(0, 20, 0.5f, 0.5f);
 	return (true);
 }
 
@@ -153,12 +153,7 @@ bool	Engine::addTrees()
 			tree = m_sceneManager->addAnimatedMeshSceneNode(m_treeMesh, parent);
 			tree->setMaterialFlag(video::EMF_LIGHTING, false);
 			tree->setPosition(core::vector3df(0.0f, PLANET_RADIUS, 0.0f));
-  
-// test :
-//			if (i == m_mapData->getGridSize().Width - 1)
-				parent->moveTo(i, j, 0.5f, 0.5f);
-//			else
-//				parent->placeOn(i, j, 0.5f, 0.5f);
+			parent->moveToSquare(i, j, 0.5f, 0.5f);
 		}
 	}
 	return (true);

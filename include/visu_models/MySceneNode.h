@@ -6,7 +6,7 @@
 /*   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/05 17:45:38 by glourdel          #+#    #+#             */
-/*   Updated: 2014/06/06 15:46:20 by glourdel         ###   ########.fr       */
+/*   Updated: 2014/06/06 22:44:05 by glourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,13 @@
 # include "MapData.h"
 
 using namespace irr;
+
+typedef struct			s_diveBuf
+{
+	int				state;
+	core::vector2di	to;
+	core::vector2df	offset;
+}						t_diveBuf;
 
 namespace irr
 {
@@ -41,9 +48,17 @@ namespace irr
 			core::vector2d<f32>	&getOffset(void);
 			void				rotate(const core::vector3df &rotation);
 			void				placeOn(const u32 X, const u32 Y,
-										const f32 offsetX=0.0f, const f32 offsetY=0.0f);
-			void				moveTo(const u32 X, const u32 Y,
-									   const f32 offsetX=0.0f, const f32 offsetY=0.0f);
+										const f32 offsetX=0.5f, const f32 offsetY=0.5f);
+			void				moveTo(const core::vector3df &constRotation,
+									   const f32 speed=0.1f, const u32 frameStart=40,
+									   const u32 frameEnd=45, u32 diveState=-1);
+			void				moveToSquare(const u32 X, const u32 Y,
+									   const f32 offsetX=0.5f, const f32 offsetY=0.5f,
+									   const f32 speed=0.1f, const u32 frameStart=40,
+									   const u32 frameEnd=45, u32 diveState=-1);
+			void				diveTo(const u32 X, const u32 Y,
+									   const f32 offsetX=0.5f, const f32 offsetY=0.5f);
+			void				diveContinue();
 
 		private:
 			// Irr obligatory attributes :
@@ -53,6 +68,7 @@ namespace irr
 			// My attributes :
 			MapData					*m_mapData;
 			core::vector2d<f32>		m_offset;
+			t_diveBuf				m_diveBuf;
 		};
 	}
 }

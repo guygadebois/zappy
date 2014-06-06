@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/05 18:16:21 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/06 21:02:10 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/06 22:53:20 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -24,6 +24,7 @@ scene::MySceneNode::MySceneNode(scene::ISceneNode* parent,
 {
 	m_offset.X = 0;
 	m_offset.Y = 0;
+	m_diveBuf.state = -1;
 	m_box = core::aabbox3d<f32>(-20.0f, -20.0f, -20.0f, 20.0f, 20.0f, 20.0f);
 }
 
@@ -117,8 +118,9 @@ void						scene::MySceneNode::placeOn(const u32 X, const u32 Y,
 	setRotation(rotation);
 }
 
-void						scene::MySceneNode::moveTo(
-	const u32 X, const u32 Y, const f32 offsetX, const f32 offsetY)
+void						scene::MySceneNode::moveToSquare(
+	const u32 X, const u32 Y, const f32 offsetX, const f32 offsetY,
+	const f32 speed, const u32 frameStart, const u32 frameEnd, u32 diveState)
 {
 	scene::ISceneNodeAnimator*		anim;
 	core::vector3df					rotation;
@@ -127,12 +129,12 @@ void						scene::MySceneNode::moveTo(
 
 	if (offsetX < -0.00000000001f || offsetX > 1.0f)
 	{
-		cout << "scene::MySceneNode::moveTo(): INVALID ARGUMENT -> offsetX must be between 0 and 1. Given: " << offsetX << endl;
+		cout << "scene::MySceneNode::moveToSquare(): INVALID ARGUMENT -> offsetX must be between 0 and 1. Given: " << offsetX << endl;
 		return ;
 	}
 	if (offsetY < -0.00000000001f || offsetY > 1.0f)
 	{
-		cout << "scene::MySceneNode::moveTo(): INVALID ARGUMENT -> offsetY must be between 0 and 1. Given: " << offsetY << endl;
+		cout << "scene::MySceneNode::moveToSquare(): INVALID ARGUMENT -> offsetY must be between 0 and 1. Given: " << offsetY << endl;
 		return ;
 	}
 	rotation.X = 45.0f + 90.0f / m_mapData->getGridSize().Height * Y;
@@ -142,26 +144,60 @@ void						scene::MySceneNode::moveTo(
 	rotation.X += 90.0f / m_mapData->getGridSize().Height * offsetY;
 	rotation.Y += 360.0f / m_mapData->getGridSize().Width * offsetX;
 	// relative to actual position :
+	moveTo(rotation, speed, frameStart, frameEnd, diveState);
+	setOffset(core::vector2d<f32>(offsetX, offsetY));
+}
+
+void						scene::MySceneNode::moveTo(
+	const core::vector3df &constRotation,
+	const f32 speed, const u32 frameStart, const u32 frameEnd, u32 diveState)
+{
+	core::vector3df					rotation = constRotation;
+	scene::ISceneNodeAnimator*		anim;
+	core::vector2df					animSpeed;
+	scene::IAnimatedMeshSceneNode	*meshNode;
+
 	rotation -= getRotation();
 	if (rotation.X + rotation.Y == 0)
 		return ;
 
 	if (rotation.Y > 180.0f)
 		rotation.Y -= 360.0f;
+
 	// animation :
-	animSpeed.X = 0.1f * rotation.X / (FABS(rotation.X) + FABS(rotation.Y));
-	animSpeed.Y = 0.1f * rotation.Y / (FABS(rotation.X) + FABS(rotation.Y));
+	animSpeed.X = speed * rotation.X / (FABS(rotation.X) + FABS(rotation.Y));
+	animSpeed.Y = speed * rotation.Y / (FABS(rotation.X) + FABS(rotation.Y));
 	anim = SceneManager->createRotationAnimator(core::vector3df(animSpeed.X, animSpeed.Y, 0.0f));
 	if (anim)
 	{
 		addAnimator(anim);
 		anim->drop();
-		m_mapData->registerAnimation(this, anim, getRotation(), getOffset(), rotation,
-								   core::vector2d<f32>(offsetX, offsetY));
-		setOffset(core::vector2d<f32>(offsetX, offsetY));
+		m_mapData->registerAnimation(this, anim, getRotation(), rotation, diveState);
 		meshNode = static_cast<scene::IAnimatedMeshSceneNode *>(*getChildren().begin());
-		meshNode->setFrameLoop(40, 45);
+		meshNode->setFrameLoop(frameStart, frameEnd);
 	}
 	else
 		cout << "MySceneNode::moveTo: ERROR -> could not create animators" << endl;
+}
+
+void						scene::MySceneNode::diveTo(
+	const u32 X, const u32 Y, const f32 offsetX, const f32 offsetY)
+{
+	m_diveBuf.state = 0;
+	m_diveBuf.to.X = X;
+	m_diveBuf.to.Y = Y;
+	m_diveBuf.offset.X = X;
+	m_diveBuf.offset.Y = Y;
+	moveToSquare(X, 0, 0.05f, 0.0f, 0.1f, 40, 45, 0);
+}
+
+void						scene::MySceneNode::diveContinue()
+{
+	switch (m_diveBuf.state)
+	{
+	case 0:
+		m_diveBuf.state = 1;
+		moveTo(core::vector3df(0.0f, 0.0f, 0.0f), 0.8f, 87, 106, 1);
+		break ;
+	}
 }

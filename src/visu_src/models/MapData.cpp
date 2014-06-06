@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/03 15:25:43 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/06 21:16:13 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/06 22:50:43 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -48,9 +48,8 @@ core::dimension2d<u32>	MapData::getGridElemPSize()
 void					MapData::registerAnimation(scene::ISceneNode *parentNode,
 												   scene::ISceneNodeAnimator *anim,
 												   const core::vector3df &oldRotation,
-												   const core::vector2df &oldOffset,
 												   const core::vector3df &rotation,
-												   const core::vector2df &newOffset)
+												   int diveState)
 {
 	t_animation	*animation;
 
@@ -60,9 +59,8 @@ void					MapData::registerAnimation(scene::ISceneNode *parentNode,
 		animation->parentNode = parentNode;
 		animation->anim = anim;
 		animation->fromRotation = oldRotation;
-		animation->fromOffset = oldOffset;
 		animation->rotation = rotation;
-		animation->toOffset = newOffset;
+		animation->diveState = diveState;
 		m_animations.push_back(animation);
 	}
 }
@@ -71,21 +69,26 @@ bool					MapData::rotationAtEnd(const core::vector3df &rotation,
 											   const core::vector3df &actualRotation,
 											   const core::vector3df &fromRotation)
 {
+	bool	xTrue;
+	bool	yTrue;
+
+	xTrue = false;
+	yTrue = false;
 	if (rotation.X >= 0.0000001f)
 	{
 		if (actualRotation.X >= fromRotation.X + rotation.X)
-			return (true);
+			xTrue = true;
 	}
 	else if (actualRotation.X <= fromRotation.X + rotation.X)
-		return (true);
+		xTrue = true;
 	if (rotation.Y >= 0.0000001f)
 	{
 		if (actualRotation.Y >= fromRotation.Y + rotation.Y)
-			return (true);
+			yTrue = true;
 	}
 	else if (actualRotation.Y <= fromRotation.Y + rotation.Y)
-		return (true);
-	return (false);
+		yTrue = true;
+	return (xTrue && yTrue);
 }
 
 void					MapData::checkAnimationsEnd(void)
@@ -101,12 +104,16 @@ void					MapData::checkAnimationsEnd(void)
 		if (rotationAtEnd((*it)->rotation, parentNode->getRotation(), (*it)->fromRotation))
 		{
 			// Stop and delete anim :
+			if ((*it)->diveState != -1)
+				parentNode->diveContinue();
 			parentNode->removeAnimator((*it)->anim);
 			delete (*it);
 			it = m_animations.erase(it);
 			// Stop running :
 			meshNode = static_cast<scene::IAnimatedMeshSceneNode *>(*parentNode->getChildren().begin());
 			meshNode->setFrameLoop(0, 39);
+			if ((*it)->diveState != -1)
+				parentNode->diveContinue();
 		}
 		else
 			++it;
