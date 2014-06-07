@@ -6,7 +6,7 @@
 /*   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/05 17:45:38 by glourdel          #+#    #+#             */
-/*   Updated: 2014/06/07 15:41:13 by glourdel         ###   ########.fr       */
+/*   Updated: 2014/06/07 17:32:22 by glourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ namespace irr
 			virtual video::SMaterial			&getMaterial(u32 i);
 
 			// My methods :
-			bool				init(scene::IAnimatedMesh *mesh, s32 type,
+			scene::IAnimatedMeshSceneNode	*init(scene::IAnimatedMesh *mesh, s32 type,
 									 const core::vector2di &boardPos=core::vector2di(0, 0),
 									 const u32 itemId=0, const u32 level=0,
 									 const s32 orientation=SOUTH, const char *team=NULL);

@@ -6,7 +6,7 @@
 /*   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/31 14:10:08 by glourdel          #+#    #+#             */
-/*   Updated: 2014/06/07 15:49:14 by glourdel         ###   ########.fr       */
+/*   Updated: 2014/06/07 17:47:05 by glourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,13 @@ class Engine
 
 public:
 	Engine(MapData *mapData);
-	~Engine();
-	bool	addPlanet();
-	bool	addTrantor();
-	bool	addTrees();
-	void	loop();
+	~Engine(void);
+	bool	addPlanet(void);
+	bool	addTrantor(void);
+	bool	addTrees(void);
+	bool	addRocks(void);
+	bool	addLights(void);
+	void	loop(void);
 
 private:
 	IrrlichtDevice					*m_device;
@@ -43,6 +45,7 @@ private:
 // Meshes :
 	scene::IAnimatedMesh			*m_trentorMesh;
 	scene::IAnimatedMesh			*m_treeMesh;
+	scene::IAnimatedMesh			*m_rockMesh[6];
 // Textures :
 	video::ITexture					*m_planetTexture;
 // Images :

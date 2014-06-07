@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/05/28 11:59:19 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/07 15:53:20 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/07 17:47:19 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -22,7 +22,8 @@ int			main(void)
 	MapData	mapData(40, 20);
 	Engine	engine(&mapData);
 
-	if (engine.addPlanet() && engine.addTrantor() && engine.addTrees())
+	if (engine.addPlanet() && engine.addTrantor() //&& engine.addTrees()
+		&& engine.addRocks() && engine.addLights())
 		engine.loop();
 	else
 		cout << "Failed before engine loop" << endl;

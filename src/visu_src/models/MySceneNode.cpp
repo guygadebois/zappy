@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/05 18:16:21 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/07 15:46:04 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/07 18:09:05 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -44,7 +44,7 @@ scene::MySceneNode			*scene::MySceneNode::clone(
 	return (clone);
 }
 
-bool						scene::MySceneNode::init(
+scene::IAnimatedMeshSceneNode	*scene::MySceneNode::init(
 	scene::IAnimatedMesh *mesh, s32 type,
 	const core::vector2di &boardPos, const u32 itemId, const u32 level,
 	const s32 orientation, const char *team)
@@ -55,21 +55,28 @@ bool						scene::MySceneNode::init(
 	setOffset(core::vector2df(0.5f, 0.5f));
 	m_son = SceneManager->addAnimatedMeshSceneNode(mesh, this);
 	if (m_son == NULL)
-		return (false);
+		return (NULL);
 	m_id = itemId;
 	m_type = type;
 	updateOrientation(orientation);
 	m_son->setPosition(core::vector3df(0, PLANET_RADIUS, 0));
 	m_son->setAnimationSpeed(5);
 	m_son->setFrameLoop(0, 39);
-	m_son->setMaterialFlag(video::EMF_LIGHTING, false);
+//	m_son->setMaterialFlag(video::EMF_LIGHTING, false);
 //	m_son->setMaterialFlag(video::EMF_ANTI_ALIASING, true);
 //	m_son->setMaterialFlag(video::EMF_ANISOTROPIC_FILTER, true);
-	m_son->setMaterialType(video::EMT_TRANSPARENT_ALPHA_CHANNEL_REF);
+	if (m_type == TRANTOR)
+		m_son->setMaterialType(video::EMT_TRANSPARENT_ALPHA_CHANNEL_REF);
+	else if (m_type == STONE)
+	{
+//		m_son->setMaterialType(video::EMT_TRANSPARENT_ALPHA_CHANNEL);
+		m_son->getMaterial(0).Shininess = 100.0f;
+		m_son->getMaterial(0).EmissiveColor = irr::video::SColor(255,0,255,255);
+	}
 	placeOn(m_boardPos.X, m_boardPos.Y, m_offset.X, m_offset.Y);
 	if (m_type == TRANTOR)
 		m_mapData->registerTrantor(this, m_boardPos.X, m_boardPos.Y);
-	return (true);
+	return (m_son);
 }
 
 bool						scene::MySceneNode::uninitialized()
