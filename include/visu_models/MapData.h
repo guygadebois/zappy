@@ -6,7 +6,7 @@
 /*   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/03 15:17:17 by glourdel          #+#    #+#             */
-/*   Updated: 2014/06/07 15:32:17 by glourdel         ###   ########.fr       */
+/*   Updated: 2014/06/07 22:17:16 by glourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ public:
 											  const core::vector3df &actualRotation,
 											  const core::vector3df &fromRotation);
 	void						registerTrantor(scene::MySceneNode *parentNode,
-												u32 posX, u32 posY);
+												u32 posX, u32 posY, const char *team);
 	void						updatePosition(scene::MySceneNode *parentNode,
 											   const core::vector2di &newPos);
 
@@ -70,6 +70,7 @@ private:
 	core::dimension2d<u32>		m_gridElemPSize; // Pixel-size of an elem on the texture
 	list<t_animation *>			m_animations;
 	list<scene::MySceneNode *>	m_trantors;
+	list<string>				m_teams;
 };
 
 #endif

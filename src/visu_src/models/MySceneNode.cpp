@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/05 18:16:21 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/07 18:14:32 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/07 22:19:22 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -73,7 +73,7 @@ scene::IAnimatedMeshSceneNode	*scene::MySceneNode::init(
 	}
 	placeOn(m_boardPos.X, m_boardPos.Y, m_offset.X, m_offset.Y);
 	if (m_type == TRANTOR)
-		m_mapData->registerTrantor(this, m_boardPos.X, m_boardPos.Y);
+		m_mapData->registerTrantor(this, m_boardPos.X, m_boardPos.Y, team);
 	return (m_son);
 }
 

@@ -6,11 +6,12 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/03 15:25:43 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/07 16:15:23 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/07 22:31:26 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
 #include <iostream>
+#include <algorithm>
 #include "MapData.h"
 #include "MySceneNode.h"
 
@@ -122,10 +123,14 @@ void					MapData::checkAnimationsEnd(void)
 	}
 }
 
-void					MapData::registerTrantor(scene::MySceneNode *parentNode, u32 posX, u32 posY)
+void					MapData::registerTrantor(scene::MySceneNode *parentNode, u32 posX, u32 posY, const char *team)
 {
+	string	tmp(team);
+
 	m_trantors.push_back(parentNode);
 	m_matrix[posX][posY].trantors.push_back(parentNode);
+//	if (find(m_teams.begin(), tmp) != m_teams.end())
+//		cout << "TROUVE\n";
 }
 
 void					MapData::updatePosition(scene::MySceneNode *parentNode,

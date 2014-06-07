@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/05/31 14:10:28 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/07 18:10:14 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/07 21:54:31 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -119,13 +119,15 @@ bool	Engine::addPlanet(void)
 	return (true);
 }
 
-bool	Engine::addTrantor()
+bool	Engine::addTrantor(int id, int X, int Y, int orientation, int level,
+						   const char *team)
 {
 	scene::MySceneNode	*parent;
 
 	if (m_trentorMesh == NULL || (parent = m_emptyParent->clone()) == NULL)
 		return (false);
-	if (parent->init(m_trentorMesh, TRANTOR, core::vector2di(0, 3), 1, 1, EAST, "Super team"))
+	if (parent->init(m_trentorMesh, TRANTOR, core::vector2di(X, Y), id, level,
+					 orientation, team))
 		return (true);
 	return (false);
 }

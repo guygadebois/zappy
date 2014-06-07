@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/05/28 11:59:19 by glourdel          #+#    #+#             //
-/*   Updated: 2014/06/07 19:40:49 by dcouly           ###   ########.fr       */
+//   Updated: 2014/06/07 21:29:55 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -23,7 +23,7 @@ using namespace std;
 void		co_cmd(int sock, char *buf, char *cmd)
 {
 	sleep(1);
-	printf("%s \n", cmd);
+	cout << cmd << endl;
 	send(sock, cmd, strlen(cmd) + 1, 0);
 	recv(sock, buf, 1024, 0);
 }
