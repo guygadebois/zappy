@@ -6,7 +6,7 @@
 /*   By: bjacob <bjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/06 16:27:12 by bjacob            #+#    #+#             */
-/*   Updated: 2014/06/07 11:01:30 by bjacob           ###   ########.fr       */
+/*   Updated: 2014/06/07 11:20:55 by glourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <stdlib.h>
 #include <time.h>
 
-t_area	*ft_init_area(void)
+static t_area	*ft_init_area(void)
 {
 	t_area		*area;
 
@@ -30,7 +30,7 @@ t_area	*ft_init_area(void)
 	return (area);
 }
 
-void	ft_place_food(t_area ***map, int x, int y, int nb)
+void			ft_place_food(t_area ***map, int x, int y, int nb)
 {
 	int		i;
 
@@ -43,7 +43,7 @@ void	ft_place_food(t_area ***map, int x, int y, int nb)
 	}
 }
 
-void	ft_place_mineral(t_area ***map, int x, int y, int nb)
+static	void	ft_place_mineral(t_area ***map, int x, int y, int nb)
 {
 	int		i;
 
@@ -61,7 +61,7 @@ void	ft_place_mineral(t_area ***map, int x, int y, int nb)
 	}
 }
 
-t_area	***ft_create_map(int x, int y, int nb_max)
+t_area			***ft_create_map(int x, int y, int nb_max)
 {
 	t_area		***map;
 	int			i;

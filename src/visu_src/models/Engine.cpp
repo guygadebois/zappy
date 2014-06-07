@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/05/31 14:10:28 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/07 10:32:31 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/07 11:33:24 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -130,7 +130,7 @@ bool	Engine::addTrantors()
 //	m_trentor1->setMaterialFlag(video::EMF_ANISOTROPIC_FILTER, true);
 	m_trentor1->setMaterialType(video::EMT_TRANSPARENT_ALPHA_CHANNEL_REF);
 	parent->placeOn(0, 10, 0.5f, 0.5f);
-	parent->diveTo(0, 19, 0.5f, 0.5f);
+	parent->diveDownTo(0, 0, 0.5f, 0.5f);
 	return (true);
 }
 

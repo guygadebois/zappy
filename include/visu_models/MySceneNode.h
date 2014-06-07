@@ -6,7 +6,7 @@
 /*   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/05 17:45:38 by glourdel          #+#    #+#             */
-/*   Updated: 2014/06/06 22:44:05 by glourdel         ###   ########.fr       */
+/*   Updated: 2014/06/07 11:25:46 by glourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,10 @@ namespace irr
 									   const f32 offsetX=0.5f, const f32 offsetY=0.5f,
 									   const f32 speed=0.1f, const u32 frameStart=40,
 									   const u32 frameEnd=45, u32 diveState=-1);
-			void				diveTo(const u32 X, const u32 Y,
-									   const f32 offsetX=0.5f, const f32 offsetY=0.5f);
+			void				diveUpTo(const u32 X, const u32 Y,
+										 const f32 offsetX=0.5f, const f32 offsetY=0.5f);
+			void				diveDownTo(const u32 X, const u32 Y,
+										 const f32 offsetX=0.5f, const f32 offsetY=0.5f);
 			void				diveContinue();
 
 		private:

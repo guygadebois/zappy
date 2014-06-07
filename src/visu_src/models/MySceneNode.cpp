@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/05 18:16:21 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/07 10:35:08 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/07 11:35:29 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -179,7 +179,7 @@ void						scene::MySceneNode::moveTo(
 		cout << "MySceneNode::moveTo: ERROR -> could not create animators" << endl;
 }
 
-void						scene::MySceneNode::diveTo(
+void						scene::MySceneNode::diveUpTo(
 	const u32 X, const u32 Y, const f32 offsetX, const f32 offsetY)
 {
 	m_diveBuf.state = 0;
@@ -190,10 +190,22 @@ void						scene::MySceneNode::diveTo(
 	moveToSquare(X, 0, 0.5f, 0.0f, 0.1f, 40, 45, 0);
 }
 
+void						scene::MySceneNode::diveDownTo(
+	const u32 X, const u32 Y, const f32 offsetX, const f32 offsetY)
+{
+	m_diveBuf.state = 4;
+	m_diveBuf.to.X = X;
+	m_diveBuf.to.Y = Y;
+	m_diveBuf.offset.X = offsetX;
+	m_diveBuf.offset.Y = offsetY;
+	moveToSquare(X, m_mapData->getGridSize().Height - 1, 0.5f, 0.9f, 0.1f, 40, 45, 4);
+}
+
 void						scene::MySceneNode::diveContinue()
 {
 	switch (m_diveBuf.state)
 	{
+		// Dive Up ==> states 0 to 2 :
 	case 0:
 		m_diveBuf.state = 1;
 		moveTo(core::vector3df(0.0f, 0.0f, 0.0f), 0.8f, 87, 106, 1);
@@ -204,8 +216,29 @@ void						scene::MySceneNode::diveContinue()
 		moveTo(core::vector3df(180.0f, 0.0f, 0.0f), 0.8f, 0, 0, 2);
 		break ;
 	case 2:
+		m_diveBuf.state = 3;
+		moveToSquare(m_diveBuf.to.X, m_diveBuf.to.Y, 0.5f, 0.9f, 0.8f, 87, 106, 3);
+		break ;
+		// End state of both dives :
+	case 3:
 		m_diveBuf.state = -1;
-		moveToSquare(m_diveBuf.to.X, m_diveBuf.to.Y, m_diveBuf.offset.X, m_diveBuf.offset.Y, 0.8f, 87, 106, -1);
+		// moveTo uniquement pour declancher le prochain diveContinue :
+		moveToSquare(m_diveBuf.to.X, m_diveBuf.to.Y, m_diveBuf.offset.X, m_diveBuf.offset.Y, 0.1f, 40, 45, -1);
+		break ;
+		// Dive Down ==> states 4 to 6 :
+	case 4:
+		m_diveBuf.state = 5;
+		moveTo(core::vector3df(180.0f, 0.0f, 0.0f), 0.8f, 87, 106, 5);
+		break ;
+	case 5:
+		m_diveBuf.state = 6;
+		setRotation(core::vector3df(0.0f, 0.0f, 0.0f));
+		// moveTo uniquement pour declancher le prochain diveContinue :
+		moveTo(core::vector3df(0.0f, 0.0f, 0.0f), 0.8f, 0, 0, 6);
+		break ;
+	case 6:
+		m_diveBuf.state = 3;
+		moveToSquare(m_diveBuf.to.X, m_diveBuf.to.Y, 0.5f, 0.0f, 0.8f, 87, 106, 3);
 		break ;
 	}
 }

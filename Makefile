@@ -42,6 +42,7 @@ OFILES = $(notdir $(CFILES:.c=.o)) $(notdir $(CPPFILES:.cpp=.o))
 # START INSERT .source
 
 SERVEUR_CFILES= \
+		serveur_src//generate_map.c \
 		serveur_src//main.c \
 
 CLIENT_CPPFILES= \
@@ -137,6 +138,12 @@ r: sclean all
 re:	fclean all
 # IGNORE NEXT LINES
 
+
+obj/sv_generate_map.o: src/serveur_src//generate_map.c include/map.h
+	@echo $(CYAN)"    Creating obj/sv_generate_map.o ...\033[0m"
+	@mkdir -p $(OBJDIR);
+	@$(CC) -o $(OBJDIR)sv_generate_map.o \
+-c $(SRCDIR)serveur_src//generate_map.c $(CFLAGS)
 
 obj/sv_main.o: src/serveur_src//main.c libft/include/libft.h \
  libft/include/libft_types.h
