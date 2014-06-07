@@ -6,15 +6,14 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/05 18:16:21 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/06 22:53:20 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/07 10:35:08 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
 #include <iostream>
+#include <cmath>
 #include "MySceneNode.h"
-   
-#define FABS(x) ((x < -0.00000001 ? -x : x))
-   
+
 using namespace std;
 
 scene::MySceneNode::MySceneNode(scene::ISceneNode* parent,
@@ -165,8 +164,8 @@ void						scene::MySceneNode::moveTo(
 		rotation.Y -= 360.0f;
 
 	// animation :
-	animSpeed.X = speed * rotation.X / (FABS(rotation.X) + FABS(rotation.Y));
-	animSpeed.Y = speed * rotation.Y / (FABS(rotation.X) + FABS(rotation.Y));
+	animSpeed.X = speed * rotation.X / (fabs(rotation.X) + fabs(rotation.Y));
+	animSpeed.Y = speed * rotation.Y / (fabs(rotation.X) + fabs(rotation.Y));
 	anim = SceneManager->createRotationAnimator(core::vector3df(animSpeed.X, animSpeed.Y, 0.0f));
 	if (anim)
 	{
@@ -186,9 +185,9 @@ void						scene::MySceneNode::diveTo(
 	m_diveBuf.state = 0;
 	m_diveBuf.to.X = X;
 	m_diveBuf.to.Y = Y;
-	m_diveBuf.offset.X = X;
-	m_diveBuf.offset.Y = Y;
-	moveToSquare(X, 0, 0.05f, 0.0f, 0.1f, 40, 45, 0);
+	m_diveBuf.offset.X = offsetX;
+	m_diveBuf.offset.Y = offsetY;
+	moveToSquare(X, 0, 0.5f, 0.0f, 0.1f, 40, 45, 0);
 }
 
 void						scene::MySceneNode::diveContinue()
@@ -198,6 +197,15 @@ void						scene::MySceneNode::diveContinue()
 	case 0:
 		m_diveBuf.state = 1;
 		moveTo(core::vector3df(0.0f, 0.0f, 0.0f), 0.8f, 87, 106, 1);
+		break ;
+	case 1:
+		m_diveBuf.state = 2;
+		setRotation(core::vector3df(180.0f, 0.0f, 0.0f));
+		moveTo(core::vector3df(180.0f, 0.0f, 0.0f), 0.8f, 0, 0, 2);
+		break ;
+	case 2:
+		m_diveBuf.state = -1;
+		moveToSquare(m_diveBuf.to.X, m_diveBuf.to.Y, m_diveBuf.offset.X, m_diveBuf.offset.Y, 0.8f, 87, 106, -1);
 		break ;
 	}
 }
