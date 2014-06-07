@@ -1,33 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/05/28 12:06:56 by glourdel          #+#    #+#             */
-/*   Updated: 2014/06/07 19:30:43 by dcouly           ###   ########.fr       */
+/*   Created: 2014/05/12 18:27:06 by glourdel          #+#    #+#             */
+/*   Updated: 2014/06/07 18:43:39 by dcouly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include "libft.h"
-#include "server.h"
 
-int			main(int argc, char **argv)
+int			err_function(char *function)
 {
-	int		sock;
+	ft_putstr_fd(RED, 2);
+	ft_putstr_fd(function, 2);
+	ft_putstr_fd("() failed...", 2);
+	ft_putendl_fd(COLOR_END, 2);
+	return (0);
+}
 
-	if (argc < 2)
-	{
-		ft_putendl("Serveur <port>");
-		return (0);
-	}
-	ft_putendl("Serveur here !");
-	if ((sock = create_server(ft_atoi(argv[1]))) < 0)
-		return (0);
-	printf("%d\n", sock);
-	ft_putendl("Serveur create !");
-	sv_loop(sock);
+int			err_malloc(void)
+{
+	ft_putstr_fd(RED, 2);
+	ft_putstr_fd("ERROR: malloc() failed...", 2);
+	ft_putendl_fd(COLOR_END, 2);
 	return (0);
 }
