@@ -6,7 +6,7 @@
 /*   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/31 14:10:08 by glourdel          #+#    #+#             */
-/*   Updated: 2014/06/07 14:20:36 by glourdel         ###   ########.fr       */
+/*   Updated: 2014/06/07 15:49:14 by glourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ public:
 	Engine(MapData *mapData);
 	~Engine();
 	bool	addPlanet();
-	bool	addTrantors();
+	bool	addTrantor();
 	bool	addTrees();
 	void	loop();
 
@@ -39,7 +39,6 @@ private:
 	MapData							*m_mapData;
 // Objets :
 	scene::MySceneNode				*m_emptyParent;
-	scene::IAnimatedMeshSceneNode	*m_trentor1;
 	scene::ISceneNode				*m_planet;
 // Meshes :
 	scene::IAnimatedMesh			*m_trentorMesh;

@@ -6,7 +6,7 @@
 #    By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2013/11/19 11:58:46 by glourdel          #+#    #+#              #
-#    Updated: 2014/06/07 14:52:31 by glourdel         ###   ########.fr        #
+#    Updated: 2014/06/07 15:52:50 by glourdel         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -167,7 +167,7 @@ depend:
 	echo '\t@echo $$(CYAN)"    Creating' $(OBJDIR)visu_$(notdir $(source:.cpp=.o))\
 	'...\\033[0m"' >>.depend; \
 	echo '\t@mkdir -p $$(OBJDIR);' >> .depend; \
-	echo '\t@$$(CCPP) -o $$(OBJDIR)'visu_$(notdir $(source:.cpp=.o)) '\\' >> .depend; \
+	echo '\t@$$(CCPP) -o $$(OBJDIR)'visu_$(notdir $(source:.cpp=.o)) -Wall '\\' >> .depend; \
 	echo '-c $$(SRCDIR)'$(source) '$$(INCL_FLAGS) $$(IRRLICHT_INCL_FLAGS)\n' >> .depend;)
 	@$(foreach source,$(COMMON_CPPFILES), echo '*\c'; \
 	echo $(OBJDIR)'cm_\c' >> .depend; \
@@ -175,7 +175,7 @@ depend:
 	echo '\t@echo $$(CYAN)"    Creating' $(OBJDIR)cm_$(notdir $(source:.cpp=.o))\
 	'...\\033[0m"' >>.depend; \
 	echo '\t@mkdir -p $$(OBJDIR);' >> .depend; \
-	echo '\t@$$(CCPP) -o $$(OBJDIR)'cm_$(notdir $(source:.cpp=.o)) '\\' >> .depend; \
+	echo '\t@$$(CCPP) -o $$(OBJDIR)'cm_$(notdir $(source:.cpp=.o)) -Wall '\\' >> .depend; \
 	echo '-c $$(SRCDIR)'$(source) '$$(CFLAGS)\n' >> .depend;)
 	@echo ']'$(END)
 

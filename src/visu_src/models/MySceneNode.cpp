@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/05 18:16:21 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/07 15:33:37 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/07 15:46:04 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -56,6 +56,8 @@ bool						scene::MySceneNode::init(
 	m_son = SceneManager->addAnimatedMeshSceneNode(mesh, this);
 	if (m_son == NULL)
 		return (false);
+	m_id = itemId;
+	m_type = type;
 	updateOrientation(orientation);
 	m_son->setPosition(core::vector3df(0, PLANET_RADIUS, 0));
 	m_son->setAnimationSpeed(5);
@@ -65,8 +67,6 @@ bool						scene::MySceneNode::init(
 //	m_son->setMaterialFlag(video::EMF_ANISOTROPIC_FILTER, true);
 	m_son->setMaterialType(video::EMT_TRANSPARENT_ALPHA_CHANNEL_REF);
 	placeOn(m_boardPos.X, m_boardPos.Y, m_offset.X, m_offset.Y);
-	m_id = itemId;
-	m_type = type;
 	if (m_type == TRANTOR)
 		m_mapData->registerTrantor(this, m_boardPos.X, m_boardPos.Y);
 	return (true);

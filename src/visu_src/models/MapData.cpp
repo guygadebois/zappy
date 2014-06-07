@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/03 15:25:43 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/07 15:31:13 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/07 16:00:00 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -16,14 +16,16 @@
 
 using namespace std;
 
-MapData::MapData(u32 width, u32 height, u32 textWidth, u32 textHeight) : m_texturePSize(textWidth, textHeight), m_gridSize(width, height), m_matrix(width, vector<t_mapElem>(height))
+MapData::MapData(u32 width, u32 height, u32 textWidth, u32 textHeight)
+	: m_matrix(width, vector<t_mapElem>(height)), m_gridSize(width, height),
+	  m_texturePSize(textWidth, textHeight)
 {
 	m_gridElemPSize.Width = m_texturePSize.Width / width;
 	m_gridElemPSize.Height = m_texturePSize.Height / height / 2;
 // Init matrix
-	for (int i = 0; i < m_gridSize.Width; i++)
+	for (u32 i = 0; i < m_gridSize.Width; i++)
 	{
-		for (int j = 0; j < m_gridSize.Height; j++)
+		for (u32 j = 0; j < m_gridSize.Height; j++)
 		{
 			; // ajouter ce qu'on voudra
 		}
@@ -139,5 +141,8 @@ void					MapData::updatePosition(scene::MySceneNode *parentNode,
 		m_matrix[newPos.X][newPos.Y].trantors.push_back(parentNode);
 		parentNode->setBoardPos(newPos);
 		break ;
+	//
+		// continuer pour les autres types...
+	//
 	}
 }

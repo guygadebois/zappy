@@ -6,7 +6,7 @@
 /*   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/05 17:45:38 by glourdel          #+#    #+#             */
-/*   Updated: 2014/06/07 15:31:46 by glourdel         ###   ########.fr       */
+/*   Updated: 2014/06/07 15:41:13 by glourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,9 @@ namespace irr
 
 			// My methods :
 			bool				init(scene::IAnimatedMesh *mesh, s32 type,
-									 const core::vector2di &boardPos,
-									 const u32 itemId, const u32 level,
-									 const s32 orientation, const char *team);
+									 const core::vector2di &boardPos=core::vector2di(0, 0),
+									 const u32 itemId=0, const u32 level=0,
+									 const s32 orientation=SOUTH, const char *team=NULL);
 			bool				uninitialized();
 			void				updateOrientation(const s32 newOrientation);
 			void				setOffset(const core::vector2d<f32> &offset);

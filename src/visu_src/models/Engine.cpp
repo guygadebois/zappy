@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/05/31 14:10:28 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/07 15:25:46 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/07 15:54:34 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -77,9 +77,9 @@ bool	Engine::addPlanet()
 	img = m_driver->createImage(video::ECF_A8R8G8B8, core::dimension2d<u32>(4000, 2000));
 	if (img)
 	{
-		for(int i = 0; i < 4000; i++)
+		for(u32 i = 0; i < 4000; i++)
 		{
-			for(int j = 0; j < 2000; j++)
+			for(u32 j = 0; j < 2000; j++)
 			{
 				if (j < m_mapData->getTexturePSize().Height / 4
 					|| j >= m_mapData->getTexturePSize().Height / 4 * 3)
@@ -113,7 +113,7 @@ bool	Engine::addPlanet()
 	return (true);
 }
 
-bool	Engine::addTrantors()
+bool	Engine::addTrantor()
 {
 	scene::MySceneNode	*parent;
 
@@ -126,24 +126,21 @@ bool	Engine::addTrantors()
 
 bool	Engine::addTrees()
 {
-	scene::IAnimatedMeshSceneNode	*tree;
 	scene::MySceneNode				*parent;
 
 	if (m_treeMesh == NULL)
 		return (false);
-	for (int i = 0; i < m_mapData->getGridSize().Width; i++)
+	for (u32 i = 0; i < m_mapData->getGridSize().Width; i++)
 	{
-		for (int j = 0; j < m_mapData->getGridSize().Height; j++)
+		for (u32 j = 0; j < m_mapData->getGridSize().Height; j++)
 		{
 			if ((parent = m_emptyParent->clone()) == NULL)
 			{
 				cout << "Parent clone failed..." << endl;
 				return (false);
 			}
-			tree = m_sceneManager->addAnimatedMeshSceneNode(m_treeMesh, parent);
-			tree->setMaterialFlag(video::EMF_LIGHTING, false);
-			tree->setPosition(core::vector3df(0.0f, PLANET_RADIUS, 0.0f));
-			parent->moveToSquare(i, j, 0.5f, 0.5f);
+			parent->init(m_treeMesh, TREE);
+			parent->moveToSquare(i, j, 0.5f, 0.5f, 0.1f);
 		}
 	}
 	return (true);

@@ -6,7 +6,7 @@
 #    By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2013/11/19 11:58:46 by glourdel          #+#    #+#              #
-#    Updated: 2014/06/07 14:52:31 by glourdel         ###   ########.fr        #
+#    Updated: 2014/06/07 15:52:50 by glourdel         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -274,7 +274,7 @@ obj/visu_main.o: src/visu_src//main.cpp irrlicht/include/irrlicht.h \
  include/visu_models/visu_define.h
 	@echo $(CYAN)"    Creating obj/visu_main.o ...\033[0m"
 	@mkdir -p $(OBJDIR);
-	@$(CCPP) -o $(OBJDIR)visu_main.o \
+	@$(CCPP) -o $(OBJDIR)visu_main.o -Wall \
 -c $(SRCDIR)visu_src//main.cpp $(INCL_FLAGS) $(IRRLICHT_INCL_FLAGS)
 
 obj/visu_Engine.o: src/visu_src//models/Engine.cpp include/visu_models/Engine.h \
@@ -393,7 +393,7 @@ obj/visu_Engine.o: src/visu_src//models/Engine.cpp include/visu_models/Engine.h 
  include/visu_models/visu_define.h include/visu_models/MySceneNode.h
 	@echo $(CYAN)"    Creating obj/visu_Engine.o ...\033[0m"
 	@mkdir -p $(OBJDIR);
-	@$(CCPP) -o $(OBJDIR)visu_Engine.o \
+	@$(CCPP) -o $(OBJDIR)visu_Engine.o -Wall \
 -c $(SRCDIR)visu_src//models/Engine.cpp $(INCL_FLAGS) $(IRRLICHT_INCL_FLAGS)
 
 obj/visu_MapData.o: src/visu_src//models/MapData.cpp include/visu_models/MapData.h \
@@ -512,7 +512,7 @@ obj/visu_MapData.o: src/visu_src//models/MapData.cpp include/visu_models/MapData
  include/visu_models/visu_define.h
 	@echo $(CYAN)"    Creating obj/visu_MapData.o ...\033[0m"
 	@mkdir -p $(OBJDIR);
-	@$(CCPP) -o $(OBJDIR)visu_MapData.o \
+	@$(CCPP) -o $(OBJDIR)visu_MapData.o -Wall \
 -c $(SRCDIR)visu_src//models/MapData.cpp $(INCL_FLAGS) $(IRRLICHT_INCL_FLAGS)
 
 obj/visu_MySceneNode.o: src/visu_src//models/MySceneNode.cpp \
@@ -630,6 +630,6 @@ obj/visu_MySceneNode.o: src/visu_src//models/MySceneNode.cpp \
  include/visu_models/MapData.h include/visu_models/visu_define.h
 	@echo $(CYAN)"    Creating obj/visu_MySceneNode.o ...\033[0m"
 	@mkdir -p $(OBJDIR);
-	@$(CCPP) -o $(OBJDIR)visu_MySceneNode.o \
+	@$(CCPP) -o $(OBJDIR)visu_MySceneNode.o -Wall \
 -c $(SRCDIR)visu_src//models/MySceneNode.cpp $(INCL_FLAGS) $(IRRLICHT_INCL_FLAGS)
 
