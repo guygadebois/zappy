@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/05 18:16:21 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/07 18:09:05 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/07 18:14:32 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -62,14 +62,12 @@ scene::IAnimatedMeshSceneNode	*scene::MySceneNode::init(
 	m_son->setPosition(core::vector3df(0, PLANET_RADIUS, 0));
 	m_son->setAnimationSpeed(5);
 	m_son->setFrameLoop(0, 39);
-//	m_son->setMaterialFlag(video::EMF_LIGHTING, false);
 //	m_son->setMaterialFlag(video::EMF_ANTI_ALIASING, true);
 //	m_son->setMaterialFlag(video::EMF_ANISOTROPIC_FILTER, true);
 	if (m_type == TRANTOR)
 		m_son->setMaterialType(video::EMT_TRANSPARENT_ALPHA_CHANNEL_REF);
 	else if (m_type == STONE)
 	{
-//		m_son->setMaterialType(video::EMT_TRANSPARENT_ALPHA_CHANNEL);
 		m_son->getMaterial(0).Shininess = 100.0f;
 		m_son->getMaterial(0).EmissiveColor = irr::video::SColor(255,0,255,255);
 	}
@@ -127,7 +125,6 @@ void						scene::MySceneNode::render()
 
 	driver->setMaterial(m_material);
 	driver->setTransform(video::ETS_WORLD, AbsoluteTransformation);
-	driver->draw3DBox(m_box, video::SColor(255, 255, 255, 255));
 }
 
 const core::aabbox3d<f32>	&scene::MySceneNode::getBoundingBox() const
