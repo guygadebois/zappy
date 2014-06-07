@@ -499,7 +499,8 @@ obj/visu_MapData.o: src/visu_src//models/MapData.cpp include/visu_models/MapData
  irrlicht/include/SMesh.h irrlicht/include/SMeshBuffer.h \
  irrlicht/include/SMeshBufferLightMap.h \
  irrlicht/include/SMeshBufferTangents.h \
- irrlicht/include/SSharedMeshBuffer.h irrlicht/include/SViewFrustum.h
+ irrlicht/include/SSharedMeshBuffer.h irrlicht/include/SViewFrustum.h \
+ include/visu_models/MySceneNode.h include/visu_models/MapData.h
 	@echo $(CYAN)"    Creating obj/visu_MapData.o ...\033[0m"
 	@mkdir -p $(OBJDIR);
 	@$(CCPP) -o $(OBJDIR)visu_MapData.o \
@@ -616,7 +617,8 @@ obj/visu_MySceneNode.o: src/visu_src//models/MySceneNode.cpp \
  irrlicht/include/SMesh.h irrlicht/include/SMeshBuffer.h \
  irrlicht/include/SMeshBufferLightMap.h \
  irrlicht/include/SMeshBufferTangents.h \
- irrlicht/include/SSharedMeshBuffer.h irrlicht/include/SViewFrustum.h
+ irrlicht/include/SSharedMeshBuffer.h irrlicht/include/SViewFrustum.h \
+ include/visu_models/MapData.h
 	@echo $(CYAN)"    Creating obj/visu_MySceneNode.o ...\033[0m"
 	@mkdir -p $(OBJDIR);
 	@$(CCPP) -o $(OBJDIR)visu_MySceneNode.o \

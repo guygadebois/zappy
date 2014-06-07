@@ -6,11 +6,15 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/03 15:25:43 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/05 17:17:44 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/06 22:50:43 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
+#include <iostream>
 #include "MapData.h"
+#include "MySceneNode.h"
+
+using namespace std;
 
 MapData::MapData(u32 width, u32 height, u32 textWidth, u32 textHeight) : m_texturePSize(textWidth, textHeight), m_gridSize(width, height), m_matrix(width, vector<t_mapElem>(height))
 {
@@ -39,4 +43,79 @@ core::dimension2d<u32>	MapData::getTexturePSize()
 core::dimension2d<u32>	MapData::getGridElemPSize()
 {
 	return (m_gridElemPSize);
+}
+
+void					MapData::registerAnimation(scene::ISceneNode *parentNode,
+												   scene::ISceneNodeAnimator *anim,
+												   const core::vector3df &oldRotation,
+												   const core::vector3df &rotation,
+												   int diveState)
+{
+	t_animation	*animation;
+
+	animation = new t_animation;
+	if (animation)
+	{
+		animation->parentNode = parentNode;
+		animation->anim = anim;
+		animation->fromRotation = oldRotation;
+		animation->rotation = rotation;
+		animation->diveState = diveState;
+		m_animations.push_back(animation);
+	}
+}
+
+bool					MapData::rotationAtEnd(const core::vector3df &rotation,
+											   const core::vector3df &actualRotation,
+											   const core::vector3df &fromRotation)
+{
+	bool	xTrue;
+	bool	yTrue;
+
+	xTrue = false;
+	yTrue = false;
+	if (rotation.X >= 0.0000001f)
+	{
+		if (actualRotation.X >= fromRotation.X + rotation.X)
+			xTrue = true;
+	}
+	else if (actualRotation.X <= fromRotation.X + rotation.X)
+		xTrue = true;
+	if (rotation.Y >= 0.0000001f)
+	{
+		if (actualRotation.Y >= fromRotation.Y + rotation.Y)
+			yTrue = true;
+	}
+	else if (actualRotation.Y <= fromRotation.Y + rotation.Y)
+		yTrue = true;
+	return (xTrue && yTrue);
+}
+
+void					MapData::checkAnimationsEnd(void)
+{
+	list<t_animation *>::iterator	it;
+	scene::MySceneNode				*parentNode;
+	scene::IAnimatedMeshSceneNode	*meshNode;
+
+	it = m_animations.begin();
+	while (it != m_animations.end())
+	{
+		parentNode = static_cast<scene::MySceneNode *>((*it)->parentNode);
+		if (rotationAtEnd((*it)->rotation, parentNode->getRotation(), (*it)->fromRotation))
+		{
+			// Stop and delete anim :
+			if ((*it)->diveState != -1)
+				parentNode->diveContinue();
+			parentNode->removeAnimator((*it)->anim);
+			delete (*it);
+			it = m_animations.erase(it);
+			// Stop running :
+			meshNode = static_cast<scene::IAnimatedMeshSceneNode *>(*parentNode->getChildren().begin());
+			meshNode->setFrameLoop(0, 39);
+			if ((*it)->diveState != -1)
+				parentNode->diveContinue();
+		}
+		else
+			++it;
+	}
 }
