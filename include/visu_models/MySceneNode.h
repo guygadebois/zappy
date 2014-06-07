@@ -6,7 +6,7 @@
 /*   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/05 17:45:38 by glourdel          #+#    #+#             */
-/*   Updated: 2014/06/07 14:22:34 by glourdel         ###   ########.fr       */
+/*   Updated: 2014/06/07 15:31:46 by glourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,17 @@ namespace irr
 			virtual video::SMaterial			&getMaterial(u32 i);
 
 			// My methods :
-			bool				init(scene::IAnimatedMesh *mesh,
+			bool				init(scene::IAnimatedMesh *mesh, s32 type,
 									 const core::vector2di &boardPos,
 									 const u32 itemId, const u32 level,
 									 const s32 orientation, const char *team);
+			bool				uninitialized();
 			void				updateOrientation(const s32 newOrientation);
 			void				setOffset(const core::vector2d<f32> &offset);
-			core::vector2d<f32>	&getOffset(void);
+			core::vector2df		&getOffset(void);
+			s32					getType(void);
+			void				setBoardPos(const core::vector2di &newPos);
+			core::vector2di		getBoardPos(void);
 			void				rotate(const core::vector3df &rotation);
 			void				placeOn(const u32 X, const u32 Y,
 										const f32 offsetX=0.5f, const f32 offsetY=0.5f);
@@ -79,6 +83,7 @@ namespace irr
 			core::vector2di					m_boardPos;
 			core::vector2df					m_offset;
 			u32								m_id;
+			s32								m_type;
 			u32								m_level;
 			s32								m_orientation;
 			const char						*m_team;

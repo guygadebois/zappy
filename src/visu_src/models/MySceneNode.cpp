@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/05 18:16:21 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/07 14:23:15 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/07 15:33:37 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -25,6 +25,7 @@ scene::MySceneNode::MySceneNode(scene::ISceneNode* parent,
 	m_offset.Y = 0;
 	m_diveBuf.state = -1;
 	m_box = core::aabbox3d<f32>(-20.0f, -20.0f, -20.0f, 20.0f, 20.0f, 20.0f);
+	m_type = 0; // 0 = uninitialized
 	m_id = -1; // -1 = uninitialized
 }
 
@@ -44,12 +45,11 @@ scene::MySceneNode			*scene::MySceneNode::clone(
 }
 
 bool						scene::MySceneNode::init(
-	scene::IAnimatedMesh *mesh,
+	scene::IAnimatedMesh *mesh, s32 type,
 	const core::vector2di &boardPos, const u32 itemId, const u32 level,
 	const s32 orientation, const char *team)
 {
 	m_boardPos = boardPos;
-	m_id = itemId;
 	m_level = level;
 	m_team = team;
 	setOffset(core::vector2df(0.5f, 0.5f));
@@ -65,13 +65,29 @@ bool						scene::MySceneNode::init(
 //	m_son->setMaterialFlag(video::EMF_ANISOTROPIC_FILTER, true);
 	m_son->setMaterialType(video::EMT_TRANSPARENT_ALPHA_CHANNEL_REF);
 	placeOn(m_boardPos.X, m_boardPos.Y, m_offset.X, m_offset.Y);
+	m_id = itemId;
+	m_type = type;
+	if (m_type == TRANTOR)
+		m_mapData->registerTrantor(this, m_boardPos.X, m_boardPos.Y);
 	return (true);
+}
+
+bool						scene::MySceneNode::uninitialized()
+{
+	if (m_type == 0)
+	{
+		cout << "MySceneNode:: ERROR --> node was not initialized with init()" << endl;
+		return (true);
+	}
+	return (false);
 }
 
 void						scene::MySceneNode::updateOrientation(const s32 newOrientation)
 {
 	f32		rotY;
 
+	if (uninitialized())
+		return ;
 	m_orientation = newOrientation;
 	switch (m_orientation)
 	{
@@ -130,9 +146,22 @@ void						scene::MySceneNode::setOffset(
 	m_offset.Y = offset.Y;
 }
 
-core::vector2d<f32>			&scene::MySceneNode::getOffset(void)
-{
+core::vector2d<f32>			&scene::MySceneNode::getOffset(void) {
 	return (m_offset);
+}
+
+s32							scene::MySceneNode::getType(void) {
+	return (m_type);
+}
+
+void						scene::MySceneNode::setBoardPos(
+	const core::vector2di &newPos)
+{
+	m_boardPos = newPos;
+}
+
+core::vector2di				scene::MySceneNode::getBoardPos(void) {
+	return (m_boardPos);
 }
 
 void						scene::MySceneNode::rotate(
@@ -170,10 +199,7 @@ void						scene::MySceneNode::moveToSquare(
 	const u32 X, const u32 Y, const f32 offsetX, const f32 offsetY,
 	const f32 speed, const u32 frameStart, const u32 frameEnd, u32 diveState)
 {
-	scene::ISceneNodeAnimator*		anim;
 	core::vector3df					rotation;
-	core::vector2df					animSpeed;
-	scene::IAnimatedMeshSceneNode	*meshNode;
 
 	if (offsetX < -0.00000000001f || offsetX > 1.0f)
 	{
@@ -205,6 +231,8 @@ void						scene::MySceneNode::moveTo(
 	core::vector2df					animSpeed;
 	scene::IAnimatedMeshSceneNode	*meshNode;
 
+	if (uninitialized())
+		return ;
 	rotation -= getRotation();
 	if (rotation.X + rotation.Y == 0)
 		return ;
@@ -231,6 +259,8 @@ void						scene::MySceneNode::moveTo(
 void						scene::MySceneNode::diveUpTo(
 	const u32 X, const u32 Y, const f32 offsetX, const f32 offsetY)
 {
+	if (uninitialized())
+		return ;
 	m_diveBuf.state = 0;
 	m_diveBuf.to.X = X;
 	m_diveBuf.to.Y = Y;
@@ -242,6 +272,8 @@ void						scene::MySceneNode::diveUpTo(
 void						scene::MySceneNode::diveDownTo(
 	const u32 X, const u32 Y, const f32 offsetX, const f32 offsetY)
 {
+	if (uninitialized())
+		return ;
 	m_diveBuf.state = 4;
 	m_diveBuf.to.X = X;
 	m_diveBuf.to.Y = Y;

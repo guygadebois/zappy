@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/05/31 14:10:28 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/07 14:24:42 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/07 15:25:46 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -119,7 +119,7 @@ bool	Engine::addTrantors()
 
 	if (m_trentorMesh == NULL || (parent = m_emptyParent->clone()) == NULL)
 		return (false);
-	if (parent->init(m_trentorMesh, core::vector2di(0, 3), 1, 1, EAST, "Super team"))
+	if (parent->init(m_trentorMesh, TRANTOR, core::vector2di(0, 3), 1, 1, EAST, "Super team"))
 		return (true);
 	return (false);
 }

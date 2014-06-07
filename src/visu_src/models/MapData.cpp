@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/03 15:25:43 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/06 22:50:43 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/07 15:31:13 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -45,7 +45,7 @@ core::dimension2d<u32>	MapData::getGridElemPSize()
 	return (m_gridElemPSize);
 }
 
-void					MapData::registerAnimation(scene::ISceneNode *parentNode,
+void					MapData::registerAnimation(scene::MySceneNode *parentNode,
 												   scene::ISceneNodeAnimator *anim,
 												   const core::vector3df &oldRotation,
 												   const core::vector3df &rotation,
@@ -100,7 +100,7 @@ void					MapData::checkAnimationsEnd(void)
 	it = m_animations.begin();
 	while (it != m_animations.end())
 	{
-		parentNode = static_cast<scene::MySceneNode *>((*it)->parentNode);
+		parentNode = (*it)->parentNode;
 		if (rotationAtEnd((*it)->rotation, parentNode->getRotation(), (*it)->fromRotation))
 		{
 			// Stop and delete anim :
@@ -117,5 +117,27 @@ void					MapData::checkAnimationsEnd(void)
 		}
 		else
 			++it;
+	}
+}
+
+void					MapData::registerTrantor(scene::MySceneNode *parentNode, u32 posX, u32 posY)
+{
+	m_trantors.push_back(parentNode);
+	m_matrix[posX][posY].trantors.push_back(parentNode);
+}
+
+void					MapData::updatePosition(scene::MySceneNode *parentNode,
+												const core::vector2di &newPos)
+{
+	core::vector2di		oldPos;
+
+	oldPos = parentNode->getBoardPos();
+	switch (parentNode->getType())
+	{
+	case TRANTOR:
+		m_matrix[oldPos.X][oldPos.Y].trantors.remove(parentNode);
+		m_matrix[newPos.X][newPos.Y].trantors.push_back(parentNode);
+		parentNode->setBoardPos(newPos);
+		break ;
 	}
 }
