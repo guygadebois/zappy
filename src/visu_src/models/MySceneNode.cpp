@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/05 18:16:21 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/07 11:35:29 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/07 14:23:15 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -25,9 +25,10 @@ scene::MySceneNode::MySceneNode(scene::ISceneNode* parent,
 	m_offset.Y = 0;
 	m_diveBuf.state = -1;
 	m_box = core::aabbox3d<f32>(-20.0f, -20.0f, -20.0f, 20.0f, 20.0f, 20.0f);
+	m_id = -1; // -1 = uninitialized
 }
 
-scene::ISceneNode			*scene::MySceneNode::clone(
+scene::MySceneNode			*scene::MySceneNode::clone(
 	scene::ISceneNode *newParent, scene::ISceneManager *newManager)
 {
 	if (!newParent)
@@ -40,6 +41,54 @@ scene::ISceneNode			*scene::MySceneNode::clone(
 	clone->cloneMembers(this, newManager);
 	clone->drop();
 	return (clone);
+}
+
+bool						scene::MySceneNode::init(
+	scene::IAnimatedMesh *mesh,
+	const core::vector2di &boardPos, const u32 itemId, const u32 level,
+	const s32 orientation, const char *team)
+{
+	m_boardPos = boardPos;
+	m_id = itemId;
+	m_level = level;
+	m_team = team;
+	setOffset(core::vector2df(0.5f, 0.5f));
+	m_son = SceneManager->addAnimatedMeshSceneNode(mesh, this);
+	if (m_son == NULL)
+		return (false);
+	updateOrientation(orientation);
+	m_son->setPosition(core::vector3df(0, PLANET_RADIUS, 0));
+	m_son->setAnimationSpeed(5);
+	m_son->setFrameLoop(0, 39);
+	m_son->setMaterialFlag(video::EMF_LIGHTING, false);
+//	m_son->setMaterialFlag(video::EMF_ANTI_ALIASING, true);
+//	m_son->setMaterialFlag(video::EMF_ANISOTROPIC_FILTER, true);
+	m_son->setMaterialType(video::EMT_TRANSPARENT_ALPHA_CHANNEL_REF);
+	placeOn(m_boardPos.X, m_boardPos.Y, m_offset.X, m_offset.Y);
+	return (true);
+}
+
+void						scene::MySceneNode::updateOrientation(const s32 newOrientation)
+{
+	f32		rotY;
+
+	m_orientation = newOrientation;
+	switch (m_orientation)
+	{
+	case NORTH:
+		rotY = 180.0f;
+		break ;
+	case EAST:
+		rotY = -90.0f;
+		break ;
+	case WEST:
+		rotY = 90.0f;
+		break ;
+	default:
+		rotY = 0.0f;
+		break ;
+	}
+	m_son->setRotation(core::vector3df(0.0f, rotY, 0.0f));
 }
 
 void						scene::MySceneNode::OnRegisterSceneNode()
@@ -75,7 +124,7 @@ video::SMaterial			&scene::MySceneNode::getMaterial(u32 i)
 
 // My methods :
 void						scene::MySceneNode::setOffset(
-	const core::vector2d<f32> &offset)
+	const core::vector2df &offset)
 {
 	m_offset.X = offset.X;
 	m_offset.Y = offset.Y;

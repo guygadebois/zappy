@@ -6,7 +6,7 @@
 /*   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/05 17:45:38 by glourdel          #+#    #+#             */
-/*   Updated: 2014/06/07 11:25:46 by glourdel         ###   ########.fr       */
+/*   Updated: 2014/06/07 14:22:34 by glourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <irrlicht.h>
 # include "MapData.h"
+# include "visu_define.h"
 
 using namespace irr;
 
@@ -35,8 +36,8 @@ namespace irr
 		public:
 			// Irr obligatory methods :
 			MySceneNode(scene::ISceneNode *parent, scene::ISceneManager *mgr,
-							MapData *mapData, s32 id = 0);
-			virtual scene::ISceneNode			*clone(scene::ISceneNode *newParent=0, scene::ISceneManager *newManager=0);
+						MapData *mapData, s32 id=-1);
+			virtual scene::MySceneNode			*clone(scene::ISceneNode *newParent=0, scene::ISceneManager *newManager=0);
 			virtual void						OnRegisterSceneNode();
 			virtual void						render();
 			virtual const core::aabbox3d<f32>	&getBoundingBox() const;
@@ -44,6 +45,11 @@ namespace irr
 			virtual video::SMaterial			&getMaterial(u32 i);
 
 			// My methods :
+			bool				init(scene::IAnimatedMesh *mesh,
+									 const core::vector2di &boardPos,
+									 const u32 itemId, const u32 level,
+									 const s32 orientation, const char *team);
+			void				updateOrientation(const s32 newOrientation);
 			void				setOffset(const core::vector2d<f32> &offset);
 			core::vector2d<f32>	&getOffset(void);
 			void				rotate(const core::vector3df &rotation);
@@ -64,13 +70,19 @@ namespace irr
 
 		private:
 			// Irr obligatory attributes :
-			core::aabbox3d<f32>		m_box;
-			video::SMaterial		m_material;
+			core::aabbox3df					m_box;
+			video::SMaterial				m_material;
 
 			// My attributes :
-			MapData					*m_mapData;
-			core::vector2d<f32>		m_offset;
-			t_diveBuf				m_diveBuf;
+			MapData							*m_mapData;
+			t_diveBuf						m_diveBuf;
+			core::vector2di					m_boardPos;
+			core::vector2df					m_offset;
+			u32								m_id;
+			u32								m_level;
+			s32								m_orientation;
+			const char						*m_team;
+			scene::IAnimatedMeshSceneNode	*m_son;
 		};
 	}
 }

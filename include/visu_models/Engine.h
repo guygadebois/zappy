@@ -6,7 +6,7 @@
 /*   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/31 14:10:08 by glourdel          #+#    #+#             */
-/*   Updated: 2014/06/06 16:02:53 by glourdel         ###   ########.fr       */
+/*   Updated: 2014/06/07 14:20:36 by glourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,7 @@
 # include <irrlicht.h>
 # include "MySceneNode.h"
 # include "MapData.h"
-
-# define PLANET_RADIUS 145.0f
+# include "visu_define.h"
 
 using namespace irr;
 

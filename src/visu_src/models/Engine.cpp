@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/05/31 14:10:28 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/07 11:33:24 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/07 14:24:42 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -115,23 +115,13 @@ bool	Engine::addPlanet()
 
 bool	Engine::addTrantors()
 {
-	scene::MySceneNode				*parent;
+	scene::MySceneNode	*parent;
 
-	if (m_trentorMesh == NULL || (parent = static_cast<scene::MySceneNode *>(m_emptyParent->clone())) == NULL)
+	if (m_trentorMesh == NULL || (parent = m_emptyParent->clone()) == NULL)
 		return (false);
-	m_trentor1 = m_sceneManager->addAnimatedMeshSceneNode(m_trentorMesh, parent);
-	m_trentor1->setPosition(core::vector3df(0, PLANET_RADIUS, 0));
-	if (m_trentor1 == NULL)
-		return (false);
-	m_trentor1->setAnimationSpeed(5);
-	m_trentor1->setFrameLoop(0, 39);
-	m_trentor1->setMaterialFlag(video::EMF_LIGHTING, false);
-//	m_trentor1->setMaterialFlag(video::EMF_ANTI_ALIASING, true);
-//	m_trentor1->setMaterialFlag(video::EMF_ANISOTROPIC_FILTER, true);
-	m_trentor1->setMaterialType(video::EMT_TRANSPARENT_ALPHA_CHANNEL_REF);
-	parent->placeOn(0, 10, 0.5f, 0.5f);
-	parent->diveDownTo(0, 0, 0.5f, 0.5f);
-	return (true);
+	if (parent->init(m_trentorMesh, core::vector2di(0, 3), 1, 1, EAST, "Super team"))
+		return (true);
+	return (false);
 }
 
 bool	Engine::addTrees()
@@ -145,7 +135,7 @@ bool	Engine::addTrees()
 	{
 		for (int j = 0; j < m_mapData->getGridSize().Height; j++)
 		{
-			if ((parent = static_cast<scene::MySceneNode *>(m_emptyParent->clone())) == NULL)
+			if ((parent = m_emptyParent->clone()) == NULL)
 			{
 				cout << "Parent clone failed..." << endl;
 				return (false);

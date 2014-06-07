@@ -6,7 +6,7 @@
 /*   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/03 15:17:17 by glourdel          #+#    #+#             */
-/*   Updated: 2014/06/06 22:32:21 by glourdel         ###   ########.fr       */
+/*   Updated: 2014/06/07 13:28:58 by glourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,20 +20,26 @@
 using namespace std;
 using namespace irr;
 
+namespace irr {
+	namespace scene {
+		class MySceneNode;
+	}
+}
+
 typedef struct			s_mapElem
 {
-	list<scene::IAnimatedMeshSceneNode *>	trantors;
-	list<scene::IMeshSceneNode *>			stones;
-	list<scene::IMeshSceneNode *>			food;
+	list<scene::MySceneNode *>		trantors;
+	list<scene::MySceneNode *>		stones;
+	list<scene::MySceneNode *>		food;
 }						t_mapElem;
 
 typedef struct			s_animation
 {
-	scene::ISceneNode						*parentNode;
-	scene::ISceneNodeAnimator				*anim;
-	core::vector3df							fromRotation;
-	core::vector3df							rotation;
-	int										diveState;
+	scene::ISceneNode				*parentNode;
+	scene::ISceneNodeAnimator		*anim;
+	core::vector3df					fromRotation;
+	core::vector3df					rotation;
+	int								diveState;
 }						t_animation;
 
 class MapData
@@ -52,9 +58,9 @@ public:
 	static bool					rotationAtEnd(const core::vector3df &rotation,
 											  const core::vector3df &actualRotation,
 											  const core::vector3df &fromRotation);
-	vector<vector<t_mapElem> >	m_matrix;
 
 private:
+	vector<vector<t_mapElem> >	m_matrix;
 	core::dimension2d<u32>		m_gridSize; // Number of elem in the grip
 	core::dimension2d<u32>		m_texturePSize; // Pixel-size of the texture
 	core::dimension2d<u32>		m_gridElemPSize; // Pixel-size of an elem on the texture
