@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/03 15:25:43 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/09 12:05:03 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/09 12:43:40 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -106,6 +106,8 @@ void					MapData::checkAnimationsEnd(void)
 		parentNode = (*it)->parentNode;
 		if (rotationAtEnd((*it)->rotation, parentNode->getRotation(), (*it)->fromRotation))
 		{
+			// If stops too late : replace on destination :
+			parentNode->setRotation((*it)->fromRotation + (*it)->rotation);
 			// Stop and delete anim :
 			if ((*it)->diveState != -1)
 				parentNode->diveContinue();

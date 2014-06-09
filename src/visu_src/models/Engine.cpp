@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/05/31 14:10:28 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/09 12:13:16 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/09 12:44:38 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -196,7 +196,7 @@ bool	Engine::addGems(void)
 			if ((son = parent->init(m_gemMesh[i % 6], STONE)))
 			{
 				son->setMaterialTexture(0, m_gemTexture[i % 6]);
-				parent->moveToSquare(i, j, 0.5f, 0.5f, 0.1f);
+				parent->moveToSquare(i, j, 0.5f, 0.5f, 0.3f);
 			}
 		}
 	}
