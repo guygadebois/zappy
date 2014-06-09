@@ -6,7 +6,7 @@
 /*   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/03 15:17:17 by glourdel          #+#    #+#             */
-/*   Updated: 2014/06/09 12:42:09 by glourdel         ###   ########.fr       */
+/*   Updated: 2014/06/09 21:38:05 by glourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ namespace irr {
 typedef struct			s_mapElem
 {
 	list<scene::MySceneNode *>		trantors;
-	list<scene::MySceneNode *>		stones;
-	list<scene::MySceneNode *>		food;
+	list<scene::MySceneNode *>		item[7];
+	bool							init;
 }						t_mapElem;
 
 typedef struct			s_animation
@@ -63,8 +63,11 @@ public:
 												u32 posX, u32 posY, const char *team);
 	void						updatePosition(scene::MySceneNode *parentNode,
 											   const core::vector2di &newPos);
+	bool						isReady(void) const;
+	void						updateSquareContent(const string line);
 
 private:
+	void						addItemToList(list<scene::MySceneNode *> *destList, u32 nbr);
 	vector<vector<t_mapElem> >	m_matrix;
 	core::dimension2d<u32>		m_gridSize; // Number of elem in the grip
 	core::dimension2d<u32>		m_texturePSize; // Pixel-size of the texture
@@ -72,6 +75,7 @@ private:
 	list<t_animation *>			m_animations;
 	list<scene::MySceneNode *>	m_trantors;
 	list<string>				m_teams;
+	u32							m_timeUnit;
 };
 
 #endif

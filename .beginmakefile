@@ -6,7 +6,7 @@
 #    By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2013/11/19 11:58:46 by glourdel          #+#    #+#              #
-#    Updated: 2014/06/07 15:52:50 by glourdel         ###   ########.fr        #
+#    Updated: 2014/06/09 16:42:34 by glourdel         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -14,7 +14,7 @@
 .SUFFIXES:
 
 export CC = gcc
-CCPP = g++
+CCPP = g++ -std=c++0x
 NAME = zappy
 SERVEUR_NAME = serveur
 CLIENT_NAME = client
@@ -54,7 +54,7 @@ OBJDIR = obj/
 SERVEUR_OBJ = $(addprefix $(OBJDIR)sv_,$(SERVEUR_OFILES))
 CLIENT_OBJ = $(addprefix $(OBJDIR)cl_,$(CLIENT_OFILES))
 VISU_OBJ = $(addprefix $(OBJDIR)visu_,$(VISU_OFILES))
-COMMON_CPP_OBJ = $(addprefix($(OBJDIR)cm_,$(COMMON_OFILES))
+COMMON_CPP_OBJ = $(addprefix $(OBJDIR)cm_,$(COMMON_CPP_OFILES))
 
 OBJ = $(SERVEUR_OBJ) $(CLIENT_OBJ) $(VISU_OBJ) $(COMMON_CPP_OBJ)
 

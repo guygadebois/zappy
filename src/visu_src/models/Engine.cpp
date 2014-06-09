@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/05/31 14:10:28 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/09 12:44:38 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/09 21:44:48 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -50,12 +50,13 @@ Engine::Engine(MapData *mapData) : m_mapData(mapData)
 	m_camera->setRotation(m_camera->getRotation() + core::vector3df(20.0f, 0.0f, 0.0f));
 	m_trentorMesh = m_sceneManager->getMesh("models/faerie/Faerie.x");
 	m_treeMesh = m_sceneManager->getMesh("models/tree/palm_tree.obj");
-	m_gemMesh[0] = m_sceneManager->getMesh("models/Iso_3DS/cube.3ds");
-	m_gemMesh[1] = m_sceneManager->getMesh("models/Iso_3DS/deltoid_dodec.3ds");
-	m_gemMesh[2] = m_sceneManager->getMesh("models/Iso_3DS/hexoctahedron.3ds");
-	m_gemMesh[3] = m_sceneManager->getMesh("models/Iso_3DS/hextetrahedron.3ds");
-	m_gemMesh[4] = m_sceneManager->getMesh("models/Iso_3DS/rhombic_dodec.3ds");
-	m_gemMesh[5] = m_sceneManager->getMesh("models/Iso_3DS/trapezohedron.3ds");
+	m_itemMesh[0] = m_sceneManager->getMesh("models/Pickle/Pickle.3ds");
+	m_itemMesh[1] = m_sceneManager->getMesh("models/Iso_3DS/cube.3ds");
+	m_itemMesh[2] = m_sceneManager->getMesh("models/Iso_3DS/deltoid_dodec.3ds");
+	m_itemMesh[3] = m_sceneManager->getMesh("models/Iso_3DS/hexoctahedron.3ds");
+	m_itemMesh[4] = m_sceneManager->getMesh("models/Iso_3DS/hextetrahedron.3ds");
+	m_itemMesh[5] = m_sceneManager->getMesh("models/Iso_3DS/rhombic_dodec.3ds");
+	m_itemMesh[6] = m_sceneManager->getMesh("models/Iso_3DS/trapezohedron.3ds");
 	m_planetTexture = m_driver->getTexture("textures/grass.jpg");
 	m_gemTexture[0] = m_driver->getTexture("textures/blue-green.png");
 	m_gemTexture[1] = m_driver->getTexture("textures/yellow.png");
@@ -179,9 +180,9 @@ bool	Engine::addGems(void)
 	scene::MySceneNode				*parent;
 	scene::IAnimatedMeshSceneNode	*son;
 
-	for (u8 i = 0; i < 6; ++i)
+	for (u8 i = 0; i < 7; ++i)
 	{
-		if (m_gemMesh[i] == NULL)
+		if (m_itemMesh[i] == NULL)
 			return (false);
 	}
 	for (u32 i = 0; i < m_mapData->getGridSize().Width; i++)
@@ -193,9 +194,10 @@ bool	Engine::addGems(void)
 				cout << "Parent clone failed..." << endl;
 				return (false);
 			}
-			if ((son = parent->init(m_gemMesh[i % 6], STONE)))
+			if ((son = parent->init(m_itemMesh[i % 7], STONE)))
 			{
-				son->setMaterialTexture(0, m_gemTexture[i % 6]);
+				if (i % 7)
+					son->setMaterialTexture(0, m_gemTexture[i % 6]);
 				parent->moveToSquare(i, j, 0.5f, 0.5f, 0.3f);
 			}
 		}

@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/03 15:25:43 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/09 12:43:40 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/09 21:38:35 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -14,12 +14,13 @@
 #include <algorithm>
 #include "MapData.h"
 #include "MySceneNode.h"
+#include "mystring.h"
 
 using namespace std;
 
 MapData::MapData(u32 width, u32 height, u32 textWidth, u32 textHeight)
 	: m_matrix(width, vector<t_mapElem>(height)), m_gridSize(width, height),
-	  m_texturePSize(textWidth, textHeight)
+	  m_texturePSize(textWidth, textHeight), m_timeUnit(-1)
 {
 	m_gridElemPSize.Width = m_texturePSize.Width / width;
 	m_gridElemPSize.Height = m_texturePSize.Height / height / 2;
@@ -27,25 +28,8 @@ MapData::MapData(u32 width, u32 height, u32 textWidth, u32 textHeight)
 	for (u32 i = 0; i < m_gridSize.Width; i++)
 	{
 		for (u32 j = 0; j < m_gridSize.Height; j++)
-		{
-			; // ajouter ce qu'on voudra
-		}
+			m_matrix[i][j].init = false;
 	}
-}
-
-core::dimension2d<u32>	MapData::getGridSize()
-{
-	return (m_gridSize);
-}
-
-core::dimension2d<u32>	MapData::getTexturePSize()
-{
-	return (m_texturePSize);
-}
-
-core::dimension2d<u32>	MapData::getGridElemPSize()
-{
-	return (m_gridElemPSize);
 }
 
 void					MapData::registerAnimation(scene::MySceneNode *parentNode,
@@ -161,5 +145,53 @@ void					MapData::updatePosition(scene::MySceneNode *parentNode,
 	//
 		// continuer pour les autres types...
 	//
+	}
+}
+
+bool					MapData::isReady(void) const
+{
+	if (m_timeUnit <= 0)
+		return (false);
+	for (u32 i = 0; i < m_gridSize.Width; i++)
+	{
+		for (u32 j = 0; j < m_gridSize.Height; j++)
+		{
+			if (m_matrix[i][j].init == false)
+				return (false);
+		}
+	}
+	return (true);
+}
+
+void					MapData::updateSquareContent(const string line)
+{
+	vector<string>	*tokens;
+	u32				x;
+	u32				y;
+
+	tokens = mystring::strsplit(line);
+	if (tokens->size() != 10)
+	{
+		cout << "MapData::updateSquareContent ERROR --> invalid line format" << endl;
+		return ;
+	}
+	x = stoi((*tokens)[1]);
+	y = stoi((*tokens)[2]);
+	m_matrix[x][y].init = true;
+	addItemToList(&m_matrix[x][y].item[0], stoi((*tokens)[3]));
+	addItemToList(&m_matrix[x][y].item[1], stoi((*tokens)[4]));
+	addItemToList(&m_matrix[x][y].item[2], stoi((*tokens)[5]));
+	addItemToList(&m_matrix[x][y].item[3], stoi((*tokens)[6]));
+	addItemToList(&m_matrix[x][y].item[4], stoi((*tokens)[7]));
+	addItemToList(&m_matrix[x][y].item[5], stoi((*tokens)[8]));
+	addItemToList(&m_matrix[x][y].item[6], stoi((*tokens)[9]));
+	delete (tokens);
+}
+
+void					MapData::addItemToList(list<scene::MySceneNode *> *destList, u32 nbr)
+{
+	for (u32 i = 0; i < nbr; ++i)
+	{
+		//continuer ici...
 	}
 }
