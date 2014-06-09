@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/03 15:25:43 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/07 22:31:26 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/09 12:05:03 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -126,11 +126,21 @@ void					MapData::checkAnimationsEnd(void)
 void					MapData::registerTrantor(scene::MySceneNode *parentNode, u32 posX, u32 posY, const char *team)
 {
 	string	tmp(team);
+	u32		count;
 
+	count = 0;
 	m_trantors.push_back(parentNode);
 	m_matrix[posX][posY].trantors.push_back(parentNode);
-//	if (find(m_teams.begin(), tmp) != m_teams.end())
-//		cout << "TROUVE\n";
+	for (list<string>::iterator it = m_teams.begin(); it != m_teams.end(); ++it, ++count)
+	{
+		if (*it == tmp)
+		{
+			parentNode->setTeamNbr(count);
+			return ;
+		}
+	}
+	parentNode->setTeamNbr(count);
+	m_teams.push_back(tmp);
 }
 
 void					MapData::updatePosition(scene::MySceneNode *parentNode,
@@ -139,7 +149,7 @@ void					MapData::updatePosition(scene::MySceneNode *parentNode,
 	core::vector2di		oldPos;
 
 	oldPos = parentNode->getBoardPos();
-	switch (parentNode->getType())
+	switch (parentNode->getMySceneType())
 	{
 	case TRANTOR:
 		m_matrix[oldPos.X][oldPos.Y].trantors.remove(parentNode);

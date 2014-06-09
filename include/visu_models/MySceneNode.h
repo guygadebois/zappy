@@ -6,7 +6,7 @@
 /*   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/05 17:45:38 by glourdel          #+#    #+#             */
-/*   Updated: 2014/06/07 17:32:22 by glourdel         ###   ########.fr       */
+/*   Updated: 2014/06/09 12:09:25 by glourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,6 @@ namespace irr
 									 const u32 itemId=0, const u32 level=0,
 									 const s32 orientation=SOUTH, const char *team=NULL);
 			bool				uninitialized();
-			void				updateOrientation(const s32 newOrientation);
-			void				setOffset(const core::vector2d<f32> &offset);
-			core::vector2df		&getOffset(void);
-			s32					getType(void);
-			void				setBoardPos(const core::vector2di &newPos);
-			core::vector2di		getBoardPos(void);
 			void				rotate(const core::vector3df &rotation);
 			void				placeOn(const u32 X, const u32 Y,
 										const f32 offsetX=0.5f, const f32 offsetY=0.5f);
@@ -70,7 +64,16 @@ namespace irr
 										 const f32 offsetX=0.5f, const f32 offsetY=0.5f);
 			void				diveDownTo(const u32 X, const u32 Y,
 										 const f32 offsetX=0.5f, const f32 offsetY=0.5f);
-			void				diveContinue();
+			void				diveContinue(void);
+			void				updateOrientation(const s32 newOrientation);
+			void				setBoardPos(const core::vector2di &newPos);
+			core::vector2di		getBoardPos(void) const;
+			void				setOffset(const core::vector2d<f32> &offset);
+			core::vector2df		&getOffset(void);
+			s32					getMySceneType(void) const;
+			void				setTeamNbr(u32 teamNbr);
+			u32					getTeamNbr(void) const;
+			void				setTexture(video::ITexture *texture);
 
 		private:
 			// Irr obligatory attributes :
@@ -87,6 +90,7 @@ namespace irr
 			u32								m_level;
 			s32								m_orientation;
 			const char						*m_team;
+			u32								m_teamNbr;
 			scene::IAnimatedMeshSceneNode	*m_son;
 		};
 	}

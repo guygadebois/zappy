@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/05 18:16:21 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/07 22:19:22 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/09 12:04:25 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -87,31 +87,6 @@ bool						scene::MySceneNode::uninitialized()
 	return (false);
 }
 
-void						scene::MySceneNode::updateOrientation(const s32 newOrientation)
-{
-	f32		rotY;
-
-	if (uninitialized())
-		return ;
-	m_orientation = newOrientation;
-	switch (m_orientation)
-	{
-	case NORTH:
-		rotY = 180.0f;
-		break ;
-	case EAST:
-		rotY = -90.0f;
-		break ;
-	case WEST:
-		rotY = 90.0f;
-		break ;
-	default:
-		rotY = 0.0f;
-		break ;
-	}
-	m_son->setRotation(core::vector3df(0.0f, rotY, 0.0f));
-}
-
 void						scene::MySceneNode::OnRegisterSceneNode()
 {
 	if (IsVisible)
@@ -125,47 +100,6 @@ void						scene::MySceneNode::render()
 
 	driver->setMaterial(m_material);
 	driver->setTransform(video::ETS_WORLD, AbsoluteTransformation);
-}
-
-const core::aabbox3d<f32>	&scene::MySceneNode::getBoundingBox() const
-{
-	return (m_box);
-}
-
-u32							scene::MySceneNode::getMaterialCount() const
-{
-	return (1);
-}
-
-video::SMaterial			&scene::MySceneNode::getMaterial(u32 i)
-{
-	return (m_material);
-}
-
-// My methods :
-void						scene::MySceneNode::setOffset(
-	const core::vector2df &offset)
-{
-	m_offset.X = offset.X;
-	m_offset.Y = offset.Y;
-}
-
-core::vector2d<f32>			&scene::MySceneNode::getOffset(void) {
-	return (m_offset);
-}
-
-s32							scene::MySceneNode::getType(void) {
-	return (m_type);
-}
-
-void						scene::MySceneNode::setBoardPos(
-	const core::vector2di &newPos)
-{
-	m_boardPos = newPos;
-}
-
-core::vector2di				scene::MySceneNode::getBoardPos(void) {
-	return (m_boardPos);
 }
 
 void						scene::MySceneNode::rotate(
