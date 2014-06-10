@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/05 18:16:21 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/10 12:42:56 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/10 17:28:20 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -62,22 +62,28 @@ scene::IAnimatedMeshSceneNode	*scene::MySceneNode::init(
 	m_son->setPosition(core::vector3df(0, PLANET_RADIUS, 0));
 	m_son->setAnimationSpeed(5);
 	m_son->setFrameLoop(0, 39);
+	m_son->setMaterialFlag(video::EMF_NORMALIZE_NORMALS, true);
 //	m_son->setMaterialFlag(video::EMF_ANTI_ALIASING, true);
 //	m_son->setMaterialFlag(video::EMF_ANISOTROPIC_FILTER, true);
 	if (m_type == TRANTOR)
-		m_son->setMaterialType(video::EMT_TRANSPARENT_ALPHA_CHANNEL_REF);
-	else if (m_type == STONE)
 	{
-		m_son->getMaterial(0).Shininess = 100.0f;
-		m_son->getMaterial(0).EmissiveColor = irr::video::SColor(255,0,255,255);
+		m_son->setMaterialType(video::EMT_TRANSPARENT_ALPHA_CHANNEL_REF);
+		m_mapData->registerTrantor(this, m_boardPos.X, m_boardPos.Y, team);
+	}
+	else if (m_type == GEM)
+	{
+		m_son->getMaterial(0).Shininess = 20.0f;
+//		m_son->getMaterial(0).EmissiveColor.set(90, 90, 90, 90);
+//		m_son->getMaterial(0).AmbientColor.set(90, 90, 90, 90);
+//		m_son->getMaterial(0).DiffuseColor.set(90, 90, 90, 90);
+//		m_son->getMaterial(0).SpecularColor.set(255, 255, 255, 255);
+		m_son->setScale(core::vector3df(0.5f, 0.5f, 0.5f));
 	}
 	else if (m_type == FOOD)
 	{
-//		m_son->setScale(core::vector3df(0.5f, 0.5f, 0.5f));
+//
 	}
-	placeOn(m_boardPos.X, m_boardPos.Y, m_offset.X, m_offset.Y);
-	if (m_type == TRANTOR)
-		m_mapData->registerTrantor(this, m_boardPos.X, m_boardPos.Y, team);
+	placeOnSquare(m_boardPos.X, m_boardPos.Y, m_offset.X, m_offset.Y);
 	return (m_son);
 }
 
@@ -112,19 +118,19 @@ void						scene::MySceneNode::rotate(
 	setRotation(getRotation() + rotation);
 }
 
-void						scene::MySceneNode::placeOn(const u32 X, const u32 Y,
-														const f32 offsetX, const f32 offsetY)
+void						scene::MySceneNode::placeOnSquare(
+	const u32 X, const u32 Y, const f32 offsetX, const f32 offsetY)
 {
 	core::vector3df		rotation;
 
 	if (offsetX < -0.00000000001f || offsetX > 1.0f)
 	{
-		cout << "scene::MySceneNode::placeOn(): INVALID ARGUMENT -> offsetX must be between 0 and 1. Given: " << offsetX << endl;
+		cout << "scene::MySceneNode::placeOnSquare(): INVALID ARGUMENT -> offsetX must be between 0 and 1. Given: " << offsetX << endl;
 		return ;
 	}
 	if (offsetY < -0.00000000001f || offsetY > 1.0f)
 	{
-		cout << "scene::MySceneNode::placeOn(): INVALID ARGUMENT -> offsetY must be between 0 and 1. Given: " << offsetY << endl;
+		cout << "scene::MySceneNode::placeOnSquare(): INVALID ARGUMENT -> offsetY must be between 0 and 1. Given: " << offsetY << endl;
 		return ;
 	}
 	rotation.X = 45.0f + 90.0f / m_mapData->getGridSize().Height * Y;

@@ -6,7 +6,7 @@
 /*   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/31 14:10:08 by glourdel          #+#    #+#             */
-/*   Updated: 2014/06/09 21:42:30 by glourdel         ###   ########.fr       */
+/*   Updated: 2014/06/10 16:32:32 by glourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ public:
 	bool	addGems(void);
 	bool	addLights(void);
 	void	loop(void);
+	bool	setSquareContent(const string line);
+	bool	addItem(const u8 itemNbr, const u32 howMany, const u32 x, const u32 y);
 
 private:
 	IrrlichtDevice					*m_device;

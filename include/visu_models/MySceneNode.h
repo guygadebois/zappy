@@ -6,7 +6,7 @@
 /*   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/05 17:45:38 by glourdel          #+#    #+#             */
-/*   Updated: 2014/06/09 12:09:25 by glourdel         ###   ########.fr       */
+/*   Updated: 2014/06/10 16:40:08 by glourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,9 @@ namespace irr
 									 const s32 orientation=SOUTH, const char *team=NULL);
 			bool				uninitialized();
 			void				rotate(const core::vector3df &rotation);
-			void				placeOn(const u32 X, const u32 Y,
-										const f32 offsetX=0.5f, const f32 offsetY=0.5f);
+			void				placeOnSquare(const u32 X, const u32 Y,
+											  const f32 offsetX=0.5f,
+											  const f32 offsetY=0.5f);
 			void				moveTo(const core::vector3df &constRotation,
 									   const f32 speed=0.1f, const u32 frameStart=40,
 									   const u32 frameEnd=45, u32 diveState=-1);

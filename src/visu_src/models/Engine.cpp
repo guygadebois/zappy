@@ -6,13 +6,16 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/05/31 14:10:28 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/10 12:43:50 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/10 17:20:58 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
 #include <iostream>
+#include <stdlib.h>
 #include "Engine.h"
 #include "MySceneNode.h"
+#include "mystring.h"
+#include "errors.h"
 
 using namespace std;
 
@@ -50,8 +53,7 @@ Engine::Engine(MapData *mapData) : m_mapData(mapData)
 	m_camera->setRotation(m_camera->getRotation() + core::vector3df(20.0f, 0.0f, 0.0f));
 	m_trentorMesh = m_sceneManager->getMesh("models/faerie/Faerie.x");
 	m_treeMesh = m_sceneManager->getMesh("models/tree/palm_tree.obj");
-//	m_itemMesh[0] = m_sceneManager->getMesh("models/Goat_02/Goat.obj");
-	m_itemMesh[0] = m_sceneManager->getMesh("models/zebra/zebra02.3ds");
+	m_itemMesh[0] = m_sceneManager->getMesh("models/fourmis/formica rufa 17384.3ds");
 	m_itemMesh[1] = m_sceneManager->getMesh("models/Iso_3DS/cube.3ds");
 	m_itemMesh[2] = m_sceneManager->getMesh("models/Iso_3DS/deltoid_dodec.3ds");
 	m_itemMesh[3] = m_sceneManager->getMesh("models/Iso_3DS/hexoctahedron.3ds");
@@ -149,6 +151,7 @@ bool	Engine::addTrantor(int id, int X, int Y, int orientation, int level,
 	{
 		teamNbr = parent->getTeamNbr();
 		parent->setTexture(m_trantorTexture[teamNbr % 10]);
+//		parent->diveUpTo(0, 19);
 		return (true);
 	}
 	return (false);
@@ -197,7 +200,7 @@ bool	Engine::addGems(void)
 			}
 			if (i % 7)
 			{
-				if ((son = parent->init(m_itemMesh[i % 7], STONE)))
+				if ((son = parent->init(m_itemMesh[i % 7], GEM)))
 				{
 					son->setMaterialTexture(0, m_gemTexture[i % 6]);
 					parent->moveToSquare(i, j, 0.5f, 0.5f, 0.3f);
@@ -208,8 +211,8 @@ bool	Engine::addGems(void)
 				if ((son = parent->init(m_itemMesh[0], FOOD)))
 				{
 					parent->moveToSquare(i, j, 0.5f, 0.5f, 0.3f);
-					son->setScale(core::vector3df(0.5f, 0.5f, 0.5f));
-					son->setMaterialTexture(0, m_gemTexture[i % 6]);
+					son->setMaterialTexture(0, m_gemTexture[5]);
+					son->setScale(core::vector3df(2.0f, 2.0f, 2.0f));
 				}
 			}
 		}
@@ -223,9 +226,11 @@ bool	Engine::addLights(void)
 
 	m_sceneManager->setAmbientLight(irr::video::SColorf(0.3f, 0.3f, 0.3f, 0.0f));
 	light = m_sceneManager->addLightSceneNode(0,
-						  irr::core::vector3df(100, 300, 300),
-						  irr::video::SColorf(0.4f, 0.4f, 0.6f, 0.0f), 10000.0f);
-	light->getLightData().SpecularColor = irr::video::SColorf(0.5, 0.5, 0.5, 0.5);
+						  irr::core::vector3df(1000, 3000, 3000),
+						  irr::video::SColorf(0.4f, 0.4f, 0.6f, 0.0f), 50000.0f);
+	light->getLightData().AmbientColor = irr::video::SColorf(0.01, 0.01, 0.01, 0.01);
+	light->getLightData().DiffuseColor = irr::video::SColorf(0.5, 0.5, 0.5, 0.2);
+	light->getLightData().SpecularColor = irr::video::SColorf(0.7, 0.7, 0.7, 0.7);
 	return (true);
 }
 
@@ -239,4 +244,53 @@ void	Engine::loop(void)
 		m_sceneManager->drawAll();
 		m_driver->endScene();
 	}
+}
+
+bool	Engine::setSquareContent(const string line)
+{
+	vector<string>	*tokens;
+	u32				x;
+	u32				y;
+	bool			ret;
+
+	ret = true;
+	tokens = mystring::strsplit(line);
+	if (tokens->size() != 10)
+	{
+		cout << "Engine::setSquareContent ERROR --> invalid line format" << endl;
+		return (false);
+	}
+	x = stoi((*tokens)[1]);
+	y = stoi((*tokens)[2]);
+	m_mapData->setMatrixSquareInit(x, y, true);
+	ret = ret && addItem(0, stoi((*tokens)[3]), x, y);
+	ret = ret && addItem(1, stoi((*tokens)[4]), x, y);
+	ret = ret && addItem(2, stoi((*tokens)[5]), x, y);
+	ret = ret && addItem(3, stoi((*tokens)[6]), x, y);
+	ret = ret && addItem(4, stoi((*tokens)[7]), x, y);
+	ret = ret && addItem(5, stoi((*tokens)[8]), x, y);
+	ret = ret && addItem(6, stoi((*tokens)[9]), x, y);
+	delete (tokens);
+	return (ret);
+}
+
+bool	Engine::addItem(const u8 itemNbr, const u32 howMany, const u32 x, const u32 y)
+{
+	scene::MySceneNode				*parent;
+	scene::IAnimatedMeshSceneNode	*son;
+
+	for (u32 i = 0; i < howMany; ++i)
+	{
+		if (m_itemMesh[itemNbr] == NULL || (parent = m_emptyParent->clone()) == NULL)
+			return (err_msg("Engine::addItem ERROR -> m_emptyParent->clone() failed..."));
+		if (!(son = parent->init(m_itemMesh[itemNbr], itemNbr ? GEM : FOOD)))
+			return (err_msg("Engine::addItem ERROR -> parent->init() failed..."));
+		parent->placeOnSquare(x, y, (float)rand() / RAND_MAX, (float)rand() / RAND_MAX);
+		if (itemNbr == 0)
+			son->setMaterialTexture(0, m_gemTexture[5]);
+		else
+			son->setMaterialTexture(0, m_gemTexture[itemNbr - 1]);
+		m_mapData->registerItem(parent, x, y, itemNbr);
+	}
+	return (true);
 }

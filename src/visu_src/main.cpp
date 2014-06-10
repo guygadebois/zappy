@@ -6,18 +6,18 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/05/28 11:59:19 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/09 16:07:48 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/10 16:59:42 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
 #include <irrlicht.h>
 #include <iostream>
+#include <stdlib.h>
+#include <time.h>
 #include "MapData.h"
 #include "Engine.h"
 #include "visu_define.h"
-  
-#include "mystring.h"
-   
+
 using namespace std;
 
 // static bool	getMapData(MapData **mapData)
@@ -43,6 +43,7 @@ int			main(void)
 	MapData	*mapData;
 	Engine	*engine;
 
+	srand(time(NULL));
 //connect and send "GRAPHIC\n"
 //	if (!getMapData(&mapData))
 //		return (1);
@@ -59,8 +60,9 @@ int			main(void)
 		&& engine->addTrantor(8, 0, 7, EAST, 1, "8")
 		&& engine->addTrantor(9, 0, 8, EAST, 1, "9")
 		&& engine->addTrantor(10, 0, 9, EAST, 1, "10")
+		&& engine->setSquareContent("bct 1 1 3 1 1 1 1 1 1")
 //&& engine->addTrees()
-		&& engine->addGems() && engine->addLights())
+		&& engine->addLights())
 		engine->loop();
 	else
 		cout << "Failed before engine loop" << endl;

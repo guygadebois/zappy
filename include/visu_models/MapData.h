@@ -6,7 +6,7 @@
 /*   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/03 15:17:17 by glourdel          #+#    #+#             */
-/*   Updated: 2014/06/09 21:38:05 by glourdel         ###   ########.fr       */
+/*   Updated: 2014/06/10 16:37:25 by glourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ public:
 	core::dimension2d<u32>		getGridSize();
 	core::dimension2d<u32>		getTexturePSize();
 	core::dimension2d<u32>		getGridElemPSize();
+	void						setMatrixSquareInit(u32 x, u32 y, bool toSet);
 	void						registerAnimation(scene::MySceneNode *parentNode,
 												  scene::ISceneNodeAnimator *anim,
 												  const core::vector3df &oldRotation,
@@ -60,20 +61,23 @@ public:
 											  const core::vector3df &actualRotation,
 											  const core::vector3df &fromRotation);
 	void						registerTrantor(scene::MySceneNode *parentNode,
-												u32 posX, u32 posY, const char *team);
+												const u32 posX, const u32 posY,
+												const char *team);
+	void						registerItem(scene::MySceneNode *parentNode,
+											 const u32 posX, const u32 posY,
+											 const u8 itemNbr);
 	void						updatePosition(scene::MySceneNode *parentNode,
 											   const core::vector2di &newPos);
 	bool						isReady(void) const;
-	void						updateSquareContent(const string line);
 
 private:
-	void						addItemToList(list<scene::MySceneNode *> *destList, u32 nbr);
 	vector<vector<t_mapElem> >	m_matrix;
 	core::dimension2d<u32>		m_gridSize; // Number of elem in the grip
 	core::dimension2d<u32>		m_texturePSize; // Pixel-size of the texture
 	core::dimension2d<u32>		m_gridElemPSize; // Pixel-size of an elem on the texture
 	list<t_animation *>			m_animations;
 	list<scene::MySceneNode *>	m_trantors;
+	list<scene::MySceneNode *>	m_freeItem[7];
 	list<string>				m_teams;
 	u32							m_timeUnit;
 };
