@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/05/31 14:10:28 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/10 17:20:58 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/10 22:21:04 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -151,7 +151,6 @@ bool	Engine::addTrantor(int id, int X, int Y, int orientation, int level,
 	{
 		teamNbr = parent->getTeamNbr();
 		parent->setTexture(m_trantorTexture[teamNbr % 10]);
-//		parent->diveUpTo(0, 19);
 		return (true);
 	}
 	return (false);
@@ -174,47 +173,6 @@ bool	Engine::addTrees(void)
 			}
 			parent->init(m_treeMesh, TREE);
 			parent->moveToSquare(i, j, 0.5f, 0.5f, 0.1f);
-		}
-	}
-	return (true);
-}
-
-bool	Engine::addGems(void)
-{
-	scene::MySceneNode				*parent;
-	scene::IAnimatedMeshSceneNode	*son;
-
-	for (u8 i = 0; i < 7; ++i)
-	{
-		if (m_itemMesh[i] == NULL)
-			return (false);
-	}
-	for (u32 i = 0; i < m_mapData->getGridSize().Width; i++)
-	{
-		for (u32 j = 0; j < m_mapData->getGridSize().Height; j++)
-		{
-			if ((parent = m_emptyParent->clone()) == NULL)
-			{
-				cout << "Parent clone failed..." << endl;
-				return (false);
-			}
-			if (i % 7)
-			{
-				if ((son = parent->init(m_itemMesh[i % 7], GEM)))
-				{
-					son->setMaterialTexture(0, m_gemTexture[i % 6]);
-					parent->moveToSquare(i, j, 0.5f, 0.5f, 0.3f);
-				}
-			}
-			else
-			{
-				if ((son = parent->init(m_itemMesh[0], FOOD)))
-				{
-					parent->moveToSquare(i, j, 0.5f, 0.5f, 0.3f);
-					son->setMaterialTexture(0, m_gemTexture[5]);
-					son->setScale(core::vector3df(2.0f, 2.0f, 2.0f));
-				}
-			}
 		}
 	}
 	return (true);

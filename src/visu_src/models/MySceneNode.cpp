@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/05 18:16:21 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/10 17:28:20 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/10 22:20:32 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -242,8 +242,6 @@ void						scene::MySceneNode::diveContinue()
 	case 1:
 		m_diveBuf.state = 2;
 		setRotation(core::vector3df(180.0f, 0.0f, 0.0f));
-		moveTo(core::vector3df(180.0f, 0.0f, 0.0f), 0.8f, 0, 0, 2);
-		break ;
 	case 2:
 		m_diveBuf.state = 3;
 		moveToSquare(m_diveBuf.to.X, m_diveBuf.to.Y, 0.5f, 0.9f, 0.8f, 87, 106, 3);
@@ -251,7 +249,6 @@ void						scene::MySceneNode::diveContinue()
 		// End state of both dives :
 	case 3:
 		m_diveBuf.state = -1;
-		// moveTo uniquement pour declancher le prochain diveContinue :
 		moveToSquare(m_diveBuf.to.X, m_diveBuf.to.Y, m_diveBuf.offset.X, m_diveBuf.offset.Y, 0.1f, 40, 45, -1);
 		break ;
 		// Dive Down ==> states 4 to 6 :
@@ -262,9 +259,6 @@ void						scene::MySceneNode::diveContinue()
 	case 5:
 		m_diveBuf.state = 6;
 		setRotation(core::vector3df(0.0f, 0.0f, 0.0f));
-		// moveTo uniquement pour declancher le prochain diveContinue :
-		moveTo(core::vector3df(0.0f, 0.0f, 0.0f), 0.8f, 0, 0, 6);
-		break ;
 	case 6:
 		m_diveBuf.state = 3;
 		moveToSquare(m_diveBuf.to.X, m_diveBuf.to.Y, 0.5f, 0.0f, 0.8f, 87, 106, 3);

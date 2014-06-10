@@ -6,7 +6,7 @@
 /*   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/31 14:10:08 by glourdel          #+#    #+#             */
-/*   Updated: 2014/06/10 16:32:32 by glourdel         ###   ########.fr       */
+/*   Updated: 2014/06/10 21:46:19 by glourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ public:
 	bool	addTrantor(int id, int X, int Y, int orientation, int level,
 					   const char *team);
 	bool	addTrees(void);
-	bool	addGems(void);
 	bool	addLights(void);
 	void	loop(void);
 	bool	setSquareContent(const string line);

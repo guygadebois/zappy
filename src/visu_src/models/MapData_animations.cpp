@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/10 16:29:24 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/10 16:29:46 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/10 22:11:28 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -67,6 +67,7 @@ void					MapData::checkAnimationsEnd(void)
 	list<t_animation *>::iterator	it;
 	scene::MySceneNode				*parentNode;
 	scene::IAnimatedMeshSceneNode	*meshNode;
+	bool							diveContinue;
 
 	it = m_animations.begin();
 	while (it != m_animations.end())
@@ -77,15 +78,14 @@ void					MapData::checkAnimationsEnd(void)
 			// If stops too late : replace on destination :
 			parentNode->setRotation((*it)->fromRotation + (*it)->rotation);
 			// Stop and delete anim :
-			if ((*it)->diveState != -1)
-				parentNode->diveContinue();
+			diveContinue = (*it)->diveState != -1 ? true : false;
 			parentNode->removeAnimator((*it)->anim);
 			delete (*it);
 			it = m_animations.erase(it);
 			// Stop running :
 			meshNode = static_cast<scene::IAnimatedMeshSceneNode *>(*parentNode->getChildren().begin());
 			meshNode->setFrameLoop(0, 39);
-			if ((*it)->diveState != -1)
+			if (diveContinue)
 				parentNode->diveContinue();
 		}
 		else
