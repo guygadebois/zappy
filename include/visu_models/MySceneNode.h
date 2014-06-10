@@ -6,7 +6,7 @@
 /*   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/05 17:45:38 by glourdel          #+#    #+#             */
-/*   Updated: 2014/06/10 16:40:08 by glourdel         ###   ########.fr       */
+/*   Updated: 2014/06/10 17:46:21 by glourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ namespace irr
 			void				setTeamNbr(u32 teamNbr);
 			u32					getTeamNbr(void) const;
 			void				setTexture(video::ITexture *texture);
+			u32					getId(void) const;
 
 		private:
 			// Irr obligatory attributes :

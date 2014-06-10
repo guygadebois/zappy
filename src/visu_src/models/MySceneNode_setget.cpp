@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/09 11:57:24 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/09 12:11:19 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/10 17:46:27 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -93,4 +93,9 @@ u32							scene::MySceneNode::getMaterialCount() const
 video::SMaterial			&scene::MySceneNode::getMaterial(u32 i)
 {
 	return (m_material);
+}
+
+u32							scene::MySceneNode::getId(void) const
+{
+	return (m_id);
 }

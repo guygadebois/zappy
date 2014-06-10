@@ -6,7 +6,7 @@
 /*   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/03 15:17:17 by glourdel          #+#    #+#             */
-/*   Updated: 2014/06/10 16:37:25 by glourdel         ###   ########.fr       */
+/*   Updated: 2014/06/10 17:45:19 by glourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,9 @@ public:
 	core::dimension2d<u32>		getTexturePSize();
 	core::dimension2d<u32>		getGridElemPSize();
 	void						setMatrixSquareInit(u32 x, u32 y, bool toSet);
+	u32							getTimeUnit(void);
+	void						setTimeUnit(u32 time);
+	scene::MySceneNode			*getTrantorById(u32 id);
 	void						registerAnimation(scene::MySceneNode *parentNode,
 												  scene::ISceneNodeAnimator *anim,
 												  const core::vector3df &oldRotation,

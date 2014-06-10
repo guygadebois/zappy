@@ -372,8 +372,7 @@ obj/visu_main.o: src/visu_src//main.cpp irrlicht/include/irrlicht.h \
  irrlicht/include/SSharedMeshBuffer.h irrlicht/include/SViewFrustum.h \
  include/visu_models/MapData.h include/visu_models/Engine.h \
  include/visu_models/MySceneNode.h include/visu_models/MapData.h \
- include/visu_models/visu_define.h include/visu_models/visu_define.h \
- include/mystring.h
+ include/visu_models/visu_define.h include/visu_models/visu_define.h
 	@echo $(CYAN)"    Creating obj/visu_main.o ...\033[0m"
 	@mkdir -p $(OBJDIR);
 	@$(CCPP) -o $(OBJDIR)visu_main.o -Wall \
