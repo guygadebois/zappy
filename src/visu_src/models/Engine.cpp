@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/05/31 14:10:28 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/09 21:44:48 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/10 12:43:50 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -50,7 +50,8 @@ Engine::Engine(MapData *mapData) : m_mapData(mapData)
 	m_camera->setRotation(m_camera->getRotation() + core::vector3df(20.0f, 0.0f, 0.0f));
 	m_trentorMesh = m_sceneManager->getMesh("models/faerie/Faerie.x");
 	m_treeMesh = m_sceneManager->getMesh("models/tree/palm_tree.obj");
-	m_itemMesh[0] = m_sceneManager->getMesh("models/Pickle/Pickle.3ds");
+//	m_itemMesh[0] = m_sceneManager->getMesh("models/Goat_02/Goat.obj");
+	m_itemMesh[0] = m_sceneManager->getMesh("models/zebra/zebra02.3ds");
 	m_itemMesh[1] = m_sceneManager->getMesh("models/Iso_3DS/cube.3ds");
 	m_itemMesh[2] = m_sceneManager->getMesh("models/Iso_3DS/deltoid_dodec.3ds");
 	m_itemMesh[3] = m_sceneManager->getMesh("models/Iso_3DS/hexoctahedron.3ds");
@@ -194,11 +195,22 @@ bool	Engine::addGems(void)
 				cout << "Parent clone failed..." << endl;
 				return (false);
 			}
-			if ((son = parent->init(m_itemMesh[i % 7], STONE)))
+			if (i % 7)
 			{
-				if (i % 7)
+				if ((son = parent->init(m_itemMesh[i % 7], STONE)))
+				{
 					son->setMaterialTexture(0, m_gemTexture[i % 6]);
-				parent->moveToSquare(i, j, 0.5f, 0.5f, 0.3f);
+					parent->moveToSquare(i, j, 0.5f, 0.5f, 0.3f);
+				}
+			}
+			else
+			{
+				if ((son = parent->init(m_itemMesh[0], FOOD)))
+				{
+					parent->moveToSquare(i, j, 0.5f, 0.5f, 0.3f);
+					son->setScale(core::vector3df(0.5f, 0.5f, 0.5f));
+					son->setMaterialTexture(0, m_gemTexture[i % 6]);
+				}
 			}
 		}
 	}

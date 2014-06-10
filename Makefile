@@ -42,32 +42,32 @@ OFILES = $(notdir $(CFILES:.c=.o)) $(notdir $(CPPFILES:.cpp=.o))
 # START INSERT .source
 
 SERVEUR_CFILES= \
-		serveur_src/append_in_workbuff.c \
-		serveur_src/create_server.c \
-		serveur_src/errors.c \
-		serveur_src/find_ret.c \
-		serveur_src/generate_map.c \
-		serveur_src/getclientbysock.c \
-		serveur_src/insert_trant.c \
-		serveur_src/listen_fd.c \
-		serveur_src/loop.c \
-		serveur_src/main.c \
-		serveur_src/read_from_client.c \
-		serveur_src/sv_send.c \
+		serveur_src//append_in_workbuff.c \
+		serveur_src//create_server.c \
+		serveur_src//errors.c \
+		serveur_src//find_ret.c \
+		serveur_src//generate_map.c \
+		serveur_src//getclientbysock.c \
+		serveur_src//insert_trant.c \
+		serveur_src//listen_fd.c \
+		serveur_src//loop.c \
+		serveur_src//main.c \
+		serveur_src//read_from_client.c \
+		serveur_src//sv_send.c \
 
 CLIENT_CPPFILES= \
-		client_src/main.cpp \
+		client_src//main.cpp \
 
 VISU_CPPFILES= \
-		visu_src/main.cpp \
-		visu_src/models/Engine.cpp \
-		visu_src/models/MapData.cpp \
-		visu_src/models/MapData_setget.cpp \
-		visu_src/models/MySceneNode.cpp \
-		visu_src/models/MySceneNode_setget.cpp \
+		visu_src//main.cpp \
+		visu_src//models/Engine.cpp \
+		visu_src//models/MapData.cpp \
+		visu_src//models/MapData_setget.cpp \
+		visu_src//models/MySceneNode.cpp \
+		visu_src//models/MySceneNode_setget.cpp \
 
 COMMON_CPPFILES= \
-		common_cpp_src/mystring.cpp \
+		common_cpp_src//mystring.cpp \
 
 CFILES= $(SERVEUR_CFILES)
 CPPFILES= $(CLIENT_CPPFILES) $(VISU_CPPFILES) $(COMMON_CPPFILES)
@@ -152,105 +152,105 @@ re:	fclean all
 # IGNORE NEXT LINES
 
 
-obj/sv_append_in_workbuff.o: src/serveur_src/append_in_workbuff.c \
+obj/sv_append_in_workbuff.o: src/serveur_src//append_in_workbuff.c \
  libft/include/libft.h libft/include/libft_types.h include/server.h \
  include/types.h include/common.h include/types.h
 	@echo $(CYAN)"    Creating obj/sv_append_in_workbuff.o ...\033[0m"
 	@mkdir -p $(OBJDIR);
 	@$(CC) -o $(OBJDIR)sv_append_in_workbuff.o \
--c $(SRCDIR)serveur_src/append_in_workbuff.c $(CFLAGS)
+-c $(SRCDIR)serveur_src//append_in_workbuff.c $(CFLAGS)
 
-obj/sv_create_server.o: src/serveur_src/create_server.c libft/include/libft.h \
+obj/sv_create_server.o: src/serveur_src//create_server.c libft/include/libft.h \
  libft/include/libft_types.h include/server.h include/types.h \
  include/common.h
 	@echo $(CYAN)"    Creating obj/sv_create_server.o ...\033[0m"
 	@mkdir -p $(OBJDIR);
 	@$(CC) -o $(OBJDIR)sv_create_server.o \
--c $(SRCDIR)serveur_src/create_server.c $(CFLAGS)
+-c $(SRCDIR)serveur_src//create_server.c $(CFLAGS)
 
-obj/sv_errors.o: src/serveur_src/errors.c libft/include/libft.h \
+obj/sv_errors.o: src/serveur_src//errors.c libft/include/libft.h \
  libft/include/libft_types.h
 	@echo $(CYAN)"    Creating obj/sv_errors.o ...\033[0m"
 	@mkdir -p $(OBJDIR);
 	@$(CC) -o $(OBJDIR)sv_errors.o \
--c $(SRCDIR)serveur_src/errors.c $(CFLAGS)
+-c $(SRCDIR)serveur_src//errors.c $(CFLAGS)
 
-obj/sv_find_ret.o: src/serveur_src/find_ret.c libft/include/libft.h \
+obj/sv_find_ret.o: src/serveur_src//find_ret.c libft/include/libft.h \
  libft/include/libft_types.h
 	@echo $(CYAN)"    Creating obj/sv_find_ret.o ...\033[0m"
 	@mkdir -p $(OBJDIR);
 	@$(CC) -o $(OBJDIR)sv_find_ret.o \
--c $(SRCDIR)serveur_src/find_ret.c $(CFLAGS)
+-c $(SRCDIR)serveur_src//find_ret.c $(CFLAGS)
 
-obj/sv_generate_map.o: src/serveur_src/generate_map.c include/map.h
+obj/sv_generate_map.o: src/serveur_src//generate_map.c include/map.h
 	@echo $(CYAN)"    Creating obj/sv_generate_map.o ...\033[0m"
 	@mkdir -p $(OBJDIR);
 	@$(CC) -o $(OBJDIR)sv_generate_map.o \
--c $(SRCDIR)serveur_src/generate_map.c $(CFLAGS)
+-c $(SRCDIR)serveur_src//generate_map.c $(CFLAGS)
 
-obj/sv_getclientbysock.o: src/serveur_src/getclientbysock.c \
+obj/sv_getclientbysock.o: src/serveur_src//getclientbysock.c \
  libft/include/libft.h libft/include/libft_types.h include/types.h \
  include/common.h
 	@echo $(CYAN)"    Creating obj/sv_getclientbysock.o ...\033[0m"
 	@mkdir -p $(OBJDIR);
 	@$(CC) -o $(OBJDIR)sv_getclientbysock.o \
--c $(SRCDIR)serveur_src/getclientbysock.c $(CFLAGS)
+-c $(SRCDIR)serveur_src//getclientbysock.c $(CFLAGS)
 
-obj/sv_insert_trant.o: src/serveur_src/insert_trant.c include/types.h \
+obj/sv_insert_trant.o: src/serveur_src//insert_trant.c include/types.h \
  include/common.h libft/include/libft.h libft/include/libft_types.h \
  include/server.h include/types.h
 	@echo $(CYAN)"    Creating obj/sv_insert_trant.o ...\033[0m"
 	@mkdir -p $(OBJDIR);
 	@$(CC) -o $(OBJDIR)sv_insert_trant.o \
--c $(SRCDIR)serveur_src/insert_trant.c $(CFLAGS)
+-c $(SRCDIR)serveur_src//insert_trant.c $(CFLAGS)
 
-obj/sv_listen_fd.o: src/serveur_src/listen_fd.c include/types.h include/common.h \
- libft/include/libft.h libft/include/libft_types.h include/server.h \
- include/types.h
+obj/sv_listen_fd.o: src/serveur_src//listen_fd.c include/types.h \
+ include/common.h libft/include/libft.h libft/include/libft_types.h \
+ include/server.h include/types.h
 	@echo $(CYAN)"    Creating obj/sv_listen_fd.o ...\033[0m"
 	@mkdir -p $(OBJDIR);
 	@$(CC) -o $(OBJDIR)sv_listen_fd.o \
--c $(SRCDIR)serveur_src/listen_fd.c $(CFLAGS)
+-c $(SRCDIR)serveur_src//listen_fd.c $(CFLAGS)
 
-obj/sv_loop.o: src/serveur_src/loop.c include/server.h include/types.h \
+obj/sv_loop.o: src/serveur_src//loop.c include/server.h include/types.h \
  include/common.h libft/include/libft.h libft/include/libft_types.h \
  include/types.h
 	@echo $(CYAN)"    Creating obj/sv_loop.o ...\033[0m"
 	@mkdir -p $(OBJDIR);
 	@$(CC) -o $(OBJDIR)sv_loop.o \
--c $(SRCDIR)serveur_src/loop.c $(CFLAGS)
+-c $(SRCDIR)serveur_src//loop.c $(CFLAGS)
 
-obj/sv_main.o: src/serveur_src/main.c libft/include/libft.h \
+obj/sv_main.o: src/serveur_src//main.c libft/include/libft.h \
  libft/include/libft_types.h include/server.h include/types.h \
  include/common.h
 	@echo $(CYAN)"    Creating obj/sv_main.o ...\033[0m"
 	@mkdir -p $(OBJDIR);
 	@$(CC) -o $(OBJDIR)sv_main.o \
--c $(SRCDIR)serveur_src/main.c $(CFLAGS)
+-c $(SRCDIR)serveur_src//main.c $(CFLAGS)
 
-obj/sv_read_from_client.o: src/serveur_src/read_from_client.c include/common.h \
+obj/sv_read_from_client.o: src/serveur_src//read_from_client.c include/common.h \
  include/server.h include/types.h include/common.h libft/include/libft.h \
  libft/include/libft_types.h
 	@echo $(CYAN)"    Creating obj/sv_read_from_client.o ...\033[0m"
 	@mkdir -p $(OBJDIR);
 	@$(CC) -o $(OBJDIR)sv_read_from_client.o \
--c $(SRCDIR)serveur_src/read_from_client.c $(CFLAGS)
+-c $(SRCDIR)serveur_src//read_from_client.c $(CFLAGS)
 
-obj/sv_sv_send.o: src/serveur_src/sv_send.c include/types.h include/common.h \
+obj/sv_sv_send.o: src/serveur_src//sv_send.c include/types.h include/common.h \
  libft/include/libft.h libft/include/libft_types.h include/server.h \
  include/types.h
 	@echo $(CYAN)"    Creating obj/sv_sv_send.o ...\033[0m"
 	@mkdir -p $(OBJDIR);
 	@$(CC) -o $(OBJDIR)sv_sv_send.o \
--c $(SRCDIR)serveur_src/sv_send.c $(CFLAGS)
+-c $(SRCDIR)serveur_src//sv_send.c $(CFLAGS)
 
-obj/cl_main.o: src/client_src/main.cpp
+obj/cl_main.o: src/client_src//main.cpp
 	@echo $(CYAN)"    Creating obj/cl_main.o ...\033[0m"
 	@mkdir -p $(OBJDIR);
 	@$(CCPP) -o $(OBJDIR)cl_main.o \
--c $(SRCDIR)client_src/main.cpp $(CFLAGS)
+-c $(SRCDIR)client_src//main.cpp $(CFLAGS)
 
-obj/visu_main.o: src/visu_src/main.cpp irrlicht/include/irrlicht.h \
+obj/visu_main.o: src/visu_src//main.cpp irrlicht/include/irrlicht.h \
  irrlicht/include/IrrCompileConfig.h irrlicht/include/aabbox3d.h \
  irrlicht/include/irrMath.h irrlicht/include/irrTypes.h \
  irrlicht/include/plane3d.h irrlicht/include/vector3d.h \
@@ -368,9 +368,9 @@ obj/visu_main.o: src/visu_src/main.cpp irrlicht/include/irrlicht.h \
 	@echo $(CYAN)"    Creating obj/visu_main.o ...\033[0m"
 	@mkdir -p $(OBJDIR);
 	@$(CCPP) -o $(OBJDIR)visu_main.o -Wall \
--c $(SRCDIR)visu_src/main.cpp $(INCL_FLAGS) $(IRRLICHT_INCL_FLAGS)
+-c $(SRCDIR)visu_src//main.cpp $(INCL_FLAGS) $(IRRLICHT_INCL_FLAGS)
 
-obj/visu_Engine.o: src/visu_src/models/Engine.cpp include/visu_models/Engine.h \
+obj/visu_Engine.o: src/visu_src//models/Engine.cpp include/visu_models/Engine.h \
  irrlicht/include/irrlicht.h irrlicht/include/IrrCompileConfig.h \
  irrlicht/include/aabbox3d.h irrlicht/include/irrMath.h \
  irrlicht/include/irrTypes.h irrlicht/include/plane3d.h \
@@ -487,9 +487,9 @@ obj/visu_Engine.o: src/visu_src/models/Engine.cpp include/visu_models/Engine.h \
 	@echo $(CYAN)"    Creating obj/visu_Engine.o ...\033[0m"
 	@mkdir -p $(OBJDIR);
 	@$(CCPP) -o $(OBJDIR)visu_Engine.o -Wall \
--c $(SRCDIR)visu_src/models/Engine.cpp $(INCL_FLAGS) $(IRRLICHT_INCL_FLAGS)
+-c $(SRCDIR)visu_src//models/Engine.cpp $(INCL_FLAGS) $(IRRLICHT_INCL_FLAGS)
 
-obj/visu_MapData.o: src/visu_src/models/MapData.cpp include/visu_models/MapData.h \
+obj/visu_MapData.o: src/visu_src//models/MapData.cpp include/visu_models/MapData.h \
  irrlicht/include/irrlicht.h irrlicht/include/IrrCompileConfig.h \
  irrlicht/include/aabbox3d.h irrlicht/include/irrMath.h \
  irrlicht/include/irrTypes.h irrlicht/include/plane3d.h \
@@ -606,9 +606,9 @@ obj/visu_MapData.o: src/visu_src/models/MapData.cpp include/visu_models/MapData.
 	@echo $(CYAN)"    Creating obj/visu_MapData.o ...\033[0m"
 	@mkdir -p $(OBJDIR);
 	@$(CCPP) -o $(OBJDIR)visu_MapData.o -Wall \
--c $(SRCDIR)visu_src/models/MapData.cpp $(INCL_FLAGS) $(IRRLICHT_INCL_FLAGS)
+-c $(SRCDIR)visu_src//models/MapData.cpp $(INCL_FLAGS) $(IRRLICHT_INCL_FLAGS)
 
-obj/visu_MapData_setget.o: src/visu_src/models/MapData_setget.cpp \
+obj/visu_MapData_setget.o: src/visu_src//models/MapData_setget.cpp \
  include/visu_models/MapData.h irrlicht/include/irrlicht.h \
  irrlicht/include/IrrCompileConfig.h irrlicht/include/aabbox3d.h \
  irrlicht/include/irrMath.h irrlicht/include/irrTypes.h \
@@ -723,9 +723,9 @@ obj/visu_MapData_setget.o: src/visu_src/models/MapData_setget.cpp \
 	@echo $(CYAN)"    Creating obj/visu_MapData_setget.o ...\033[0m"
 	@mkdir -p $(OBJDIR);
 	@$(CCPP) -o $(OBJDIR)visu_MapData_setget.o -Wall \
--c $(SRCDIR)visu_src/models/MapData_setget.cpp $(INCL_FLAGS) $(IRRLICHT_INCL_FLAGS)
+-c $(SRCDIR)visu_src//models/MapData_setget.cpp $(INCL_FLAGS) $(IRRLICHT_INCL_FLAGS)
 
-obj/visu_MySceneNode.o: src/visu_src/models/MySceneNode.cpp \
+obj/visu_MySceneNode.o: src/visu_src//models/MySceneNode.cpp \
  include/visu_models/MySceneNode.h irrlicht/include/irrlicht.h \
  irrlicht/include/IrrCompileConfig.h irrlicht/include/aabbox3d.h \
  irrlicht/include/irrMath.h irrlicht/include/irrTypes.h \
@@ -841,9 +841,9 @@ obj/visu_MySceneNode.o: src/visu_src/models/MySceneNode.cpp \
 	@echo $(CYAN)"    Creating obj/visu_MySceneNode.o ...\033[0m"
 	@mkdir -p $(OBJDIR);
 	@$(CCPP) -o $(OBJDIR)visu_MySceneNode.o -Wall \
--c $(SRCDIR)visu_src/models/MySceneNode.cpp $(INCL_FLAGS) $(IRRLICHT_INCL_FLAGS)
+-c $(SRCDIR)visu_src//models/MySceneNode.cpp $(INCL_FLAGS) $(IRRLICHT_INCL_FLAGS)
 
-obj/visu_MySceneNode_setget.o: src/visu_src/models/MySceneNode_setget.cpp \
+obj/visu_MySceneNode_setget.o: src/visu_src//models/MySceneNode_setget.cpp \
  include/visu_models/MySceneNode.h irrlicht/include/irrlicht.h \
  irrlicht/include/IrrCompileConfig.h irrlicht/include/aabbox3d.h \
  irrlicht/include/irrMath.h irrlicht/include/irrTypes.h \
@@ -959,11 +959,11 @@ obj/visu_MySceneNode_setget.o: src/visu_src/models/MySceneNode_setget.cpp \
 	@echo $(CYAN)"    Creating obj/visu_MySceneNode_setget.o ...\033[0m"
 	@mkdir -p $(OBJDIR);
 	@$(CCPP) -o $(OBJDIR)visu_MySceneNode_setget.o -Wall \
--c $(SRCDIR)visu_src/models/MySceneNode_setget.cpp $(INCL_FLAGS) $(IRRLICHT_INCL_FLAGS)
+-c $(SRCDIR)visu_src//models/MySceneNode_setget.cpp $(INCL_FLAGS) $(IRRLICHT_INCL_FLAGS)
 
-obj/cm_mystring.o: src/common_cpp_src/mystring.cpp include/mystring.h
+obj/cm_mystring.o: src/common_cpp_src//mystring.cpp include/mystring.h
 	@echo $(CYAN)"    Creating obj/cm_mystring.o ...\033[0m"
 	@mkdir -p $(OBJDIR);
 	@$(CCPP) -o $(OBJDIR)cm_mystring.o -Wall \
--c $(SRCDIR)common_cpp_src/mystring.cpp $(CFLAGS)
+-c $(SRCDIR)common_cpp_src//mystring.cpp $(CFLAGS)
 

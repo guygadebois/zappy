@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/05 18:16:21 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/09 12:04:25 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/10 12:42:56 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -70,6 +70,10 @@ scene::IAnimatedMeshSceneNode	*scene::MySceneNode::init(
 	{
 		m_son->getMaterial(0).Shininess = 100.0f;
 		m_son->getMaterial(0).EmissiveColor = irr::video::SColor(255,0,255,255);
+	}
+	else if (m_type == FOOD)
+	{
+//		m_son->setScale(core::vector3df(0.5f, 0.5f, 0.5f));
 	}
 	placeOn(m_boardPos.X, m_boardPos.Y, m_offset.X, m_offset.Y);
 	if (m_type == TRANTOR)
