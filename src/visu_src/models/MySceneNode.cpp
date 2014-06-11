@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/05 18:16:21 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/11 15:40:09 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/11 16:04:23 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -95,7 +95,7 @@ bool						scene::MySceneNode::uninitialized()
 {
 	if (m_type == 0)
 	{
-		cout << "MySceneNode:: ERROR --> node was not initialized with init()" << endl;
+		cout << "MySceneNode:: ERROR --> node was not iniitalized with init()" << endl;
 		return (true);
 	}
 	return (false);

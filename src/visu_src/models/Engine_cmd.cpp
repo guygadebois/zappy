@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/11 11:38:27 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/11 16:00:39 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/11 16:15:36 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -41,9 +41,6 @@ bool	Engine::setSquareContent(const string line)
 	ret = ret && addItem(5, stoi((*tokens)[8]), x, y);
 	ret = ret && addItem(6, stoi((*tokens)[9]), x, y);
 	delete (tokens);
-	// repondre "bct X Y\n"
-//	if (m_mapData->knowAllSquares())
-		// repondre "mct\n"
 	return (ret);
 }
 
@@ -91,7 +88,6 @@ bool	Engine::updateTrantorPosition(const string line)
 	if (actualPos.X != x || actualPos.Y != y)
 		trantor->moveToSquare(x, y);
 	delete (tokens);
-//	repondre "ppo #n\n"
 	return (true);
 }
 
@@ -129,6 +125,25 @@ bool	Engine::updateTrantorLevel(const string line)
 		return (false);
 	ret = trantor->updateLevel(stoi((*tokens)[2]));
 	delete (tokens);
-	// repondre "plv #n\n"
+	return (ret);
+}
+
+bool	Engine::takeRessource(const string line)
+{
+	scene::MySceneNode	*trantor;
+	vector<string>		*tokens;
+	u32					id;
+	bool				ret;
+
+	tokens = mystring::strsplit(line);
+	if (tokens->size() != 3)
+		return (err_msg("Engine::takeRessource ERROR --> invalid line format"));
+	id = stoi((*tokens)[1]);
+	if ((trantor = m_mapData->getTrantorById(id)) == NULL)
+		return (false);
+//	ret = trantor->pickRessource(stoi((*tokens)[2]));
+// continuer ici...
+	ret = true;
+	delete (tokens);
 	return (ret);
 }
