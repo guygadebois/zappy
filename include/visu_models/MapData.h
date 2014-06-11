@@ -6,7 +6,7 @@
 /*   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/03 15:17:17 by glourdel          #+#    #+#             */
-/*   Updated: 2014/06/11 13:40:37 by glourdel         ###   ########.fr       */
+/*   Updated: 2014/06/11 15:07:44 by glourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ public:
 											  const core::vector3df &fromRotation);
 	void						registerTrantor(scene::MySceneNode *parentNode,
 												const u32 posX, const u32 posY,
-												const char *team);
+												const string team);
 	void						registerItem(scene::MySceneNode *parentNode,
 											 const u32 posX, const u32 posY,
 											 const u8 itemNbr);

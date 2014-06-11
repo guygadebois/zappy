@@ -6,7 +6,7 @@
 /*   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/05 17:45:38 by glourdel          #+#    #+#             */
-/*   Updated: 2014/06/11 11:59:52 by glourdel         ###   ########.fr       */
+/*   Updated: 2014/06/11 15:21:34 by glourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ namespace irr
 				scene::IAnimatedMesh *mesh, s32 type,
 				const core::vector2di &boardPos=core::vector2di(0, 0),
 				const u32 itemId=0, const u32 level=0,
-				const s32 orientation=SOUTH, const char *team=NULL);
+				const s32 orientation=SOUTH, const string team="aucune");
 			bool				uninitialized();
 			void				rotate(const core::vector3df &rotation);
 			void				placeOnSquare(const u32 X, const u32 Y,
@@ -94,7 +94,7 @@ namespace irr
 			s32								m_type;
 			u32								m_level;
 			s32								m_orientation;
-			const char						*m_team;
+			string							m_team;
 			u32								m_teamNbr;
 			scene::IAnimatedMeshSceneNode	*m_son;
 		};

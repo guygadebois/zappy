@@ -6,7 +6,7 @@
 /*   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/31 14:10:08 by glourdel          #+#    #+#             */
-/*   Updated: 2014/06/11 13:40:52 by glourdel         ###   ########.fr       */
+/*   Updated: 2014/06/11 15:01:42 by glourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ public:
 	~Engine(void);
 	bool	addPlanet(void);
 	bool	addTrantor(int id, int X, int Y, int orientation, int level,
-					   const char *team);
+					   const string team);
 	bool	addTrees(void);
 	bool	addLights(void);
 	void	loop(void);
@@ -36,6 +36,7 @@ public:
 // Action suite aux commandes :
 	bool	setSquareContent(const string line);
 	bool	updateTrantorPosition(const string line);
+	bool	newClientConnected(const string line);
 
 private:
 	IrrlichtDevice					*m_device;

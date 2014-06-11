@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/11 11:38:27 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/11 13:57:57 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/11 15:22:00 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -29,10 +29,7 @@ bool	Engine::setSquareContent(const string line)
 	ret = true;
 	tokens = mystring::strsplit(line);
 	if (tokens->size() != 10)
-	{
-		cout << "Engine::setSquareContent ERROR --> invalid line format" << endl;
-		return (false);
-	}
+		return (err_msg("Engine::setSquareContent ERROR --> invalid line format"));
 	x = stoi((*tokens)[1]);
 	y = stoi((*tokens)[2]);
 	m_mapData->setMatrixSquareInit(x, y, true);
@@ -82,10 +79,7 @@ bool	Engine::updateTrantorPosition(const string line)
 
 	tokens = mystring::strsplit(line);
 	if (tokens->size() != 5)
-	{
-		cout << "Engine::updateTrantorPosition ERROR --> invalid line format" << endl;
-		return (false);
-	}
+		return (err_msg("Engine::updateTrantorPosition ERROR --> invalid line format"));
 	if ((trantor = m_mapData->getTrantorById(stoi((*tokens)[1]))) == NULL)
 		return (false);
 	x = stoi((*tokens)[2]);
@@ -96,6 +90,22 @@ bool	Engine::updateTrantorPosition(const string line)
 	actualPos = trantor->getBoardPos();
 	if (actualPos.X != x || actualPos.Y != y)
 		trantor->moveToSquare(x, y);
+	delete (tokens);
 //	repondre "ppo #n\n"
 	return (true);
+}
+
+bool	Engine::newClientConnected(const string line)
+{
+	vector<string>		*tokens;
+	bool				ret;
+
+	tokens = mystring::strsplit(line);
+	if (tokens->size() != 7)
+		return (err_msg("Engine::newClientConnected ERROR --> invalid line format"));
+	ret = addTrantor(stoi((*tokens)[1]), stoi((*tokens)[2]), stoi((*tokens)[3]),
+					 stoi((*tokens)[4]), stoi((*tokens)[5]), (*tokens)[6]);
+	ret = true;
+	delete (tokens);
+	return (ret);
 }

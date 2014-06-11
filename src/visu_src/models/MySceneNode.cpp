@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/05 18:16:21 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/10 22:20:32 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/11 15:02:49 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -47,7 +47,7 @@ scene::MySceneNode			*scene::MySceneNode::clone(
 scene::IAnimatedMeshSceneNode	*scene::MySceneNode::init(
 	scene::IAnimatedMesh *mesh, s32 type,
 	const core::vector2di &boardPos, const u32 itemId, const u32 level,
-	const s32 orientation, const char *team)
+	const s32 orientation, const string team)
 {
 	m_boardPos = boardPos;
 	m_level = level;

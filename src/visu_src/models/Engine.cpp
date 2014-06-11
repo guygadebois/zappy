@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/05/31 14:10:28 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/11 13:39:32 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/11 15:04:45 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -138,7 +138,7 @@ bool	Engine::addPlanet(void)
 }
 
 bool	Engine::addTrantor(int id, int X, int Y, int orientation, int level,
-						   const char *team)
+						   const string team)
 {
 	scene::MySceneNode	*parent;
 	u32					teamNbr;
