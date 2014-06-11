@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/05/28 11:59:19 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/17 12:26:52 by glourdel         ###   ########.fr       //
+/*   Updated: 2014/06/17 13:44:50 by dcouly           ###   ########.fr       */
 //                                                                            //
 // ************************************************************************** //
 
@@ -16,12 +16,22 @@
 #include <time.h>
 #include "MapData.h"
 #include "Engine.h"
+#include "common.h"
 #include "visu_define.h"
 
 using namespace std;
 
-// static bool	getMapData(MapData **mapData)
-// {
+/*static bool	getMapData(MapData **mapData, int sock)
+{
+	char	buf[1024];
+	char	*cmd;
+	char	*tmp;
+	int		nb_char;
+
+	nb_char = recv(sock, buf, 1023, 0);
+	buf[nb_char] = 0;
+	cmd = strdup(buf);
+
 // 	while (42)
 // 	{
 // 		if (//receive grid size
@@ -35,17 +45,20 @@ using namespace std;
 // 	{
 // 		//receive datas
 // 	}
-// 	return (true);
-// }
+	return (true);
+}*/
 
-int			main(void)
+int			main(int argc, char **argv)
 {
 	MapData	*mapData;
 	Engine	*engine;
+//	int		sock;
 
+	if (argc != 3)
+		return (1);
 	srand(time(NULL));
-//connect and send "GRAPHIC\n"
-//	if (!getMapData(&mapData))
+//	sock = cl_new_connection(argv[1], argv[2], "GRAPHIC\n");
+//	if (!getMapData(&mapData, sock))
 //		return (1);
 	mapData = new MapData(40, 20);
 	engine = new Engine(mapData);
