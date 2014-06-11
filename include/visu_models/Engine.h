@@ -6,7 +6,7 @@
 /*   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/31 14:10:08 by glourdel          #+#    #+#             */
-/*   Updated: 2014/06/11 15:01:42 by glourdel         ###   ########.fr       */
+/*   Updated: 2014/06/11 15:52:54 by glourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ public:
 	bool	setSquareContent(const string line);
 	bool	updateTrantorPosition(const string line);
 	bool	newClientConnected(const string line);
+	bool	updateTrantorLevel(const string line);
 
 private:
 	IrrlichtDevice					*m_device;

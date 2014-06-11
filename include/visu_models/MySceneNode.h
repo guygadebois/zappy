@@ -6,7 +6,7 @@
 /*   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/05 17:45:38 by glourdel          #+#    #+#             */
-/*   Updated: 2014/06/11 15:21:34 by glourdel         ###   ########.fr       */
+/*   Updated: 2014/06/11 15:57:31 by glourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,8 @@ namespace irr
 			void				diveDownTo(const u32 X, const u32 Y,
 										 const f32 offsetX=0.5f, const f32 offsetY=0.5f);
 			void				diveContinue(void);
-// Accesseurs :
+
+			// Accesseurs :
 			u8					getOrientation(void) const;
 			void				updateOrientation(const s32 newOrientation);
 			void				setBoardPos(const core::vector2di &newPos);
@@ -79,6 +80,8 @@ namespace irr
 			u32					getTeamNbr(void) const;
 			void				setTexture(video::ITexture *texture);
 			u32					getId(void) const;
+			u8					getLevel(void) const;
+			bool				updateLevel(u8 level);
 
 		private:
 			// Irr obligatory attributes :

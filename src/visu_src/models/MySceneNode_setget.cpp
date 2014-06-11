@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/09 11:57:24 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/11 11:59:39 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/11 16:01:53 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -103,4 +103,19 @@ video::SMaterial			&scene::MySceneNode::getMaterial(u32 i)
 u32							scene::MySceneNode::getId(void) const
 {
 	return (m_id);
+}
+
+u8							scene::MySceneNode::getLevel(void) const
+{
+	return (m_level);
+}
+
+bool						scene::MySceneNode::updateLevel(u8 level)
+{
+	f32		scale;
+
+	m_level = level;
+	scale = 0.8f + (level - 1) * 0.1f;
+	m_son->setScale(core::vector3df(scale, scale, scale));
+	return (true);
 }

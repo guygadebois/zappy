@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/11 11:38:27 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/11 15:22:00 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/11 16:00:39 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -99,13 +99,36 @@ bool	Engine::newClientConnected(const string line)
 {
 	vector<string>		*tokens;
 	bool				ret;
+	u32					id;
 
 	tokens = mystring::strsplit(line);
 	if (tokens->size() != 7)
 		return (err_msg("Engine::newClientConnected ERROR --> invalid line format"));
-	ret = addTrantor(stoi((*tokens)[1]), stoi((*tokens)[2]), stoi((*tokens)[3]),
+	id = stoi((*tokens)[1]);
+	if (m_mapData->getTrantorById(id) != NULL)
+		return (err_msg("Engine::newClientConnected ERROR -> client alwready exists whit the same id"));
+	ret = addTrantor(id, stoi((*tokens)[2]), stoi((*tokens)[3]),
 					 stoi((*tokens)[4]), stoi((*tokens)[5]), (*tokens)[6]);
 	ret = true;
 	delete (tokens);
+	return (ret);
+}
+
+bool	Engine::updateTrantorLevel(const string line)
+{
+	scene::MySceneNode	*trantor;
+	vector<string>		*tokens;
+	u32					id;
+	bool				ret;
+
+	tokens = mystring::strsplit(line);
+	if (tokens->size() != 3)
+		return (err_msg("Engine::updateTrantorLevel ERROR --> invalid line format"));
+	id = stoi((*tokens)[1]);
+	if ((trantor = m_mapData->getTrantorById(id)) == NULL)
+		return (false);
+	ret = trantor->updateLevel(stoi((*tokens)[2]));
+	delete (tokens);
+	// repondre "plv #n\n"
 	return (ret);
 }

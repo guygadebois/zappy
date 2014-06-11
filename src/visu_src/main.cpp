@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/05/28 11:59:19 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/11 15:24:36 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/11 16:01:21 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -57,6 +57,8 @@ int			main(void)
 		&& engine->newClientConnected("pnw 5 0 5 1 1 toto")
 		&& engine->newClientConnected("pnw 6 0 6 1 1 totu")
 		&& engine->newClientConnected("pnw 7 0 7 1 1 toto")
+		&& engine->newClientConnected("pnw 8 0 8 1 1 toto")
+		&& engine->updateTrantorLevel("plv 2 8")
 		&& engine->setSquareContent("bct 1 1 3 1 1 1 1 1 1")
 		&& engine->updateTrantorPosition("pnw 5 5 4 4")
 		&& engine->addLights())

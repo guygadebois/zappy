@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/05 18:16:21 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/11 15:02:49 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/11 15:40:09 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -49,6 +49,8 @@ scene::IAnimatedMeshSceneNode	*scene::MySceneNode::init(
 	const core::vector2di &boardPos, const u32 itemId, const u32 level,
 	const s32 orientation, const string team)
 {
+	f32			scale;
+
 	m_boardPos = boardPos;
 	m_level = level;
 	m_team = team;
@@ -69,6 +71,8 @@ scene::IAnimatedMeshSceneNode	*scene::MySceneNode::init(
 	{
 		m_son->setMaterialType(video::EMT_TRANSPARENT_ALPHA_CHANNEL_REF);
 		m_mapData->registerTrantor(this, m_boardPos.X, m_boardPos.Y, team);
+		scale = 0.8f + (level - 1) * 0.1f;
+		m_son->setScale(core::vector3df(scale, scale, scale));
 	}
 	else if (m_type == GEM)
 	{
