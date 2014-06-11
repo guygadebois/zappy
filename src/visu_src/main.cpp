@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/05/28 11:59:19 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/11 13:43:37 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/11 13:58:55 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -61,7 +61,7 @@ int			main(void)
 		&& engine->addTrantor(9, 0, 8, EAST, 1, "9")
 		&& engine->addTrantor(10, 0, 9, EAST, 1, "10")
 		&& engine->setSquareContent("bct 1 1 3 1 1 1 1 1 1")
-//		&& engine->updateTrantorPosition("pnw 5 0 4 SOUTH")
+		&& engine->updateTrantorPosition("pnw 5 5 4 4")
 //&& engine->addTrees()
 		&& engine->addLights())
 		engine->loop();

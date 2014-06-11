@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/11 11:38:27 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/11 13:42:58 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/11 13:57:57 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -96,6 +96,6 @@ bool	Engine::updateTrantorPosition(const string line)
 	actualPos = trantor->getBoardPos();
 	if (actualPos.X != x || actualPos.Y != y)
 		trantor->moveToSquare(x, y);
-	// repondre "ppo #n\n"
+//	repondre "ppo #n\n"
 	return (true);
 }
