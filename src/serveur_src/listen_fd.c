@@ -6,7 +6,7 @@
 /*   By: dcouly <dcouly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/07 17:07:17 by dcouly            #+#    #+#             */
-/*   Updated: 2014/06/07 19:17:15 by dcouly           ###   ########.fr       */
+/*   Updated: 2014/06/10 17:05:30 by dcouly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,23 +39,40 @@ int			sv_listen_fd(t_data *game, int *fdmax, t_fds *fds)
 {
 	int		i;
 	int		cs;
+	char	buf[1024];
+	int		nb;
 
 	i = 0;
 	while (i <= *fdmax)
 	{
+		if (FD_ISSET(i, &(fds->write)))
+			sv_send(game, i);
 		if (FD_ISSET(i, &(fds->read)))
 		{
-			if (i == game->sock)
+			if ((i == game->sock) && (cs = sv_new_connection(game->sock,\
+							fdmax, &(fds->master))) != -1)
 			{
-				if ((cs = sv_new_connection(game->sock, fdmax, &(fds->master))) \
-					   	!= -1)
-					sv_insert_trant(game, cs);
+				send(cs, "BIENVENUE\n", 10, 0);
+				nb = recv(cs, buf, 1023, 0);
+				buf[nb] = 0;
+				if (ft_strcmp("GRAPHIC\n", buf))
+				{
+					sv_insert_trant(game, cs, buf);
+				}
+				else if (game->fd_visu == -1)
+				{
+					game->fd_visu = cs;
+					game->visu.sock = cs;
+					ft_bzero(game->visu.cmd_in, WORK_BUFSIZE);
+					ft_bzero(game->visu.cmd_out, BUF_VISU);
+					sv_send_visu(game);
+				}
+				else
+					FD_CLR(cs, &(fds->master));
 			}
 			else
 				sv_read_from_client(game, i, &(fds->master));
 		}
-		if (FD_ISSET(i, &(fds->write)))
-			sv_send(game, i);
 		i++;
 	}
 	return (1);

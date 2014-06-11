@@ -6,7 +6,7 @@
 /*   By: dcouly <dcouly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/07 18:24:06 by dcouly            #+#    #+#             */
-/*   Updated: 2014/06/07 18:44:52 by dcouly           ###   ########.fr       */
+/*   Updated: 2014/06/09 17:11:13 by dcouly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "server.h"
 #include "libft.h"
 
-static int	sv_o_trant_init(t_trant **trant, int sock)
+static int	sv_o_trant_init(t_trant **trant, int sock, char buf[1024])
 {
 	if (!(*trant = (t_trant *)malloc(sizeof(t_trant))))
 		return (err_malloc());
@@ -27,20 +27,22 @@ static int	sv_o_trant_init(t_trant **trant, int sock)
 	(*trant)->y = rand();
 	(*trant)->level = 1;
 	(*trant)->life = 126;
+	(*trant)->direct = 0;
 	(*trant)->lin = 0;
 	(*trant)->der = 0;
 	(*trant)->sib = 0;
 	(*trant)->men = 0;
 	(*trant)->phi = 0;
 	(*trant)->thy = 0;
+	(*trant)->team = ft_strdup(buf);
 	return (1);
 }
 
-int			sv_insert_trant(t_data *game, int cs)
+int			sv_insert_trant(t_data *game, int cs, char buf[1024])
 {
 	t_trant	*new_trant;
 
-	if (!sv_o_trant_init(&new_trant, cs))
+	if (!sv_o_trant_init(&new_trant, cs, buf))
 		return (0);
 	if (!ft_lstpushback(&game->trant, new_trant, 0))
 		return (err_malloc());

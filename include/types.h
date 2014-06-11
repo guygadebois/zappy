@@ -6,7 +6,7 @@
 /*   By: dcouly <dcouly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/07 17:03:25 by dcouly            #+#    #+#             */
-/*   Updated: 2014/06/07 19:22:14 by dcouly           ###   ########.fr       */
+/*   Updated: 2014/06/10 19:26:25 by dcouly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <sys/select.h>
 # include "common.h"
+# include "map.h"
 # include "libft.h"
 
 typedef struct	s_fds
@@ -24,29 +25,23 @@ typedef struct	s_fds
 	fd_set	write;
 }				t_fds;
 
-typedef struct	s_trant
+typedef struct	s_visu
 {
 	int		sock;
-	char	*team;
 	char	cmd_in[WORK_BUFSIZE];
-	char	cmd_out[WORK_BUFSIZE];
-	int		x;
-	int		y;
-	int		level;
-	int		life;
-	int		lin;
-	int		der;
-	int		sib;
-	int		men;
-	int		phi;
-	int 	thy;
-}				t_trant;
+	char	cmd_out[BUF_VISU];
+}				t_visu;
 
 typedef struct	s_data
 {
+	int		time;
+	int		length;
+	int		width;
+	t_area	***map;
 	t_list	*trant;
+	t_visu	visu;
 	int		sock;
+	int		fd_visu;
 }				t_data;
-
 
 #endif

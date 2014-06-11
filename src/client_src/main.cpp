@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/05/28 11:59:19 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/07 21:29:55 by glourdel         ###   ########.fr       //
+/*   Updated: 2014/06/10 19:15:23 by dcouly           ###   ########.fr       */
 //                                                                            //
 // ************************************************************************** //
 
@@ -16,16 +16,22 @@
 #include <arpa/inet.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include <string.h>
+#include <cstring>
+#include "common.h"
 
 using namespace std;
 
 void		co_cmd(int sock, char *buf, char *cmd)
 {
+	int	i;
+
 	sleep(1);
 	cout << cmd << endl;
 	send(sock, cmd, strlen(cmd) + 1, 0);
-	recv(sock, buf, 1024, 0);
+	bzero(buf, 1024);
+	i = recv(sock, buf, 1023, 0);
+	buf[i] = 0;
+	printf("BUF : %s\n", buf);
 }
 
 void		*cl_calcul(char *buf, int sock)
@@ -33,7 +39,7 @@ void		*cl_calcul(char *buf, int sock)
 	int		c;
 	char	*cmd;
 
-	c = rand() % 12;
+	c = rand() % 3;
 	switch (c)
 	{
 	case (0) :
@@ -78,41 +84,22 @@ void		*cl_calcul(char *buf, int sock)
 	return (buf);
 }
 
-int			cl_new_connection(char **argv)
-{
-	struct protoent		*proto;
-	int					sock;
-	struct sockaddr_in	sin;
-	int					v;
-
-	proto = getprotobyname("tcp");
-	sock = socket(PF_INET, SOCK_STREAM, proto->p_proto);
-	cout << sock << endl;
-	sin.sin_family = AF_INET;
-	sin.sin_port = htons(atoi(argv[2]));
-	sin.sin_addr.s_addr = inet_addr(argv[1]);
-	if ((v = connect(sock, (const struct sockaddr *)&sin, sizeof(sin))) == -1)
-	{
-		cout << "CONNECTION ERROR" << endl;
-		exit(-1);
-	}
-	return (sock);
-}
-
 int			main(int argc, char **argv)
 {
 	char				*buf;
 	int					sock;
+	char				*team;
 
 	buf = (char*)malloc(1000);
-	if (argc != 3)
+	if (argc != 4)
 		return (0);
 	cout << "client here ! " << endl;
-	sock = cl_new_connection(argv);
+	team = strcat(argv[3], "\n");
+	sock = cl_new_connection(argv[1], argv[2], team);
 	if (fork())
 	{
 		sleep(3);
-		sock = cl_new_connection(argv);
+		sock = cl_new_connection(argv[1], argv[2], team);
 	}
 	do
 	{

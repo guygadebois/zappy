@@ -6,7 +6,7 @@
 /*   By: dcouly <dcouly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/07 17:42:35 by dcouly            #+#    #+#             */
-/*   Updated: 2014/06/07 18:47:33 by dcouly           ###   ########.fr       */
+/*   Updated: 2014/06/09 19:42:01 by dcouly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,10 @@ int			sv_read_from_client(t_data *game, int cs, fd_set *master)
 	{
 		buf[rd_oct] = 0;
 		printf("%s\n", buf);
-		append_in_workbuf(game, sv_getclientbysock(game, cs), buf, rd_oct);
+		if (cs == game->fd_visu)
+			sv_cmd_visu(game, buf, rd_oct);
+		else
+			append_in_workbuf(game, sv_getclientbysock(game, cs), buf, rd_oct);
 	}
 	return (1);
 }
