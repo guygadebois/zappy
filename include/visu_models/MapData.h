@@ -6,7 +6,7 @@
 /*   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/03 15:17:17 by glourdel          #+#    #+#             */
-/*   Updated: 2014/06/10 22:07:15 by glourdel         ###   ########.fr       */
+/*   Updated: 2014/06/11 13:40:37 by glourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ public:
 											 const u8 itemNbr);
 	void						updatePosition(scene::MySceneNode *parentNode,
 											   const core::vector2di &newPos);
+	bool						knowAllSquares(void) const;
 	bool						isReady(void) const;
 
 private:

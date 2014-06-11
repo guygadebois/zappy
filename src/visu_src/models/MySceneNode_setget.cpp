@@ -6,11 +6,16 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/09 11:57:24 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/10 17:46:27 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/11 11:59:39 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
 #include "MySceneNode.h"
+
+u8							scene::MySceneNode::getOrientation(void) const
+{
+	return (m_orientation);
+}
 
 void						scene::MySceneNode::updateOrientation(const s32 newOrientation)
 {
@@ -64,7 +69,7 @@ s32							scene::MySceneNode::getMySceneType(void) const
 	return (m_type);
 }
 
-core::vector2di				scene::MySceneNode::getBoardPos(void) const
+core::vector2di				&scene::MySceneNode::getBoardPos(void)
 {
 	return (m_boardPos);
 }

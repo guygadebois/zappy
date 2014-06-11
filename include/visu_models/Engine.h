@@ -6,7 +6,7 @@
 /*   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/31 14:10:08 by glourdel          #+#    #+#             */
-/*   Updated: 2014/06/10 21:46:19 by glourdel         ###   ########.fr       */
+/*   Updated: 2014/06/11 13:40:52 by glourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,10 @@ public:
 	bool	addTrees(void);
 	bool	addLights(void);
 	void	loop(void);
-	bool	setSquareContent(const string line);
 	bool	addItem(const u8 itemNbr, const u32 howMany, const u32 x, const u32 y);
+// Action suite aux commandes :
+	bool	setSquareContent(const string line);
+	bool	updateTrantorPosition(const string line);
 
 private:
 	IrrlichtDevice					*m_device;
