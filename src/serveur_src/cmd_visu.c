@@ -6,7 +6,7 @@
 /*   By: dcouly <dcouly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/09 17:47:05 by dcouly            #+#    #+#             */
-/*   Updated: 2014/06/09 17:51:36 by dcouly           ###   ########.fr       */
+/*   Updated: 2014/06/11 13:19:12 by dcouly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	sv_cmd_visu(t_data *game, char *buf, int rd_oct)
 		if ((cmd = ft_strndup(game->visu.cmd_in, offset)))
 		{
 			printf("ok visu %d\n", game->visu.sock);//	sv_treat_cmd(data, cmd, trant->sock);
-			ft_strcpy(game->visu.cmd_out, "ok\n");
+			ft_strcpy(game->visu.cmd_out, "visu\n");
 		}
 		ft_strcpy(game->visu.cmd_out, "ok\n");
 		free(cmd);

@@ -6,7 +6,7 @@
 /*   By: dcouly <dcouly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/10 15:14:35 by dcouly            #+#    #+#             */
-/*   Updated: 2014/06/10 16:54:52 by dcouly           ###   ########.fr       */
+/*   Updated: 2014/06/11 14:01:01 by dcouly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <arpa/inet.h>
 #include <netdb.h>
 #include <cstring>
+#include "common.h"
 
 using namespace std;
 

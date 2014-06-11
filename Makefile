@@ -1488,7 +1488,7 @@ obj/cm_mystring.o: src/common_cpp_src//mystring.cpp include/mystring.h
 	@$(CCPP) -o $(OBJDIR)cm_mystring.o -Wall \
 -c $(SRCDIR)common_cpp_src//mystring.cpp $(CFLAGS)
 
-obj/cm_new_connection.o: src/common_cpp_src//new_connection.cpp
+obj/cm_new_connection.o: src/common_cpp_src//new_connection.cpp include/common.h
 	@echo $(CYAN)"    Creating obj/cm_new_connection.o ...\033[0m"
 	@mkdir -p $(OBJDIR);
 	@$(CCPP) -o $(OBJDIR)cm_new_connection.o -Wall \
