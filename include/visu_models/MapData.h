@@ -6,7 +6,7 @@
 /*   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/03 15:17:17 by glourdel          #+#    #+#             */
-/*   Updated: 2014/06/11 15:07:44 by glourdel         ###   ########.fr       */
+/*   Updated: 2014/06/12 15:28:16 by glourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,16 @@ typedef struct			s_animation
 	int								diveState;
 }						t_animation;
 
+typedef struct			s_frameAnimation
+{
+	scene::MySceneNode				*parentNode;
+	u32								endFrame;
+	u32								nextBeginLoopFrame;
+	u32								nextEndLoopFrame;
+	bool							hideObjectAtEnd;
+	scene::MySceneNode				*objectToHide;
+}						t_frameAnimation;
+
 class MapData
 {
 public:
@@ -53,12 +63,18 @@ public:
 	void						setMatrixSquareInit(u32 x, u32 y, bool toSet);
 	u32							getTimeUnit(void);
 	void						setTimeUnit(u32 time);
-	scene::MySceneNode			*getTrantorById(u32 id);
+	scene::MySceneNode			*getTrantorById(const u32 id, const bool verbose=true);
 	void						registerAnimation(scene::MySceneNode *parentNode,
 												  scene::ISceneNodeAnimator *anim,
 												  const core::vector3df &oldRotation,
 												  const core::vector3df &rotation,
 												  int diveState=-1);
+	void						registerPickAnimation(scene::MySceneNode *parentNode,
+													  u32 endFrame,
+													  u32 nextBeginLoopFrame,
+													  u32 nextEndLoopFrame,
+													  bool hideObjectAtEnd=false,
+													  scene::MySceneNode *objectToHide=NULL);
 	void						checkAnimationsEnd(void);
 	static bool					rotationAtEnd(const core::vector3df &rotation,
 											  const core::vector3df &actualRotation,
@@ -73,8 +89,12 @@ public:
 											   const core::vector2di &newPos);
 	bool						knowAllSquares(void) const;
 	bool						isReady(void) const;
+	scene::MySceneNode			*pickItemFromList(const u32 itemNbr, const core::vector2di &boardPos);
 
 private:
+	void						checkFrameAnimationsEnd(void);
+	void						checkDiveAnimationsEnd(void);
+
 	vector<vector<t_mapElem> >	m_matrix;
 	core::dimension2d<u32>		m_gridSize; // Number of elem in the grip
 	core::dimension2d<u32>		m_texturePSize; // Pixel-size of the texture
@@ -84,6 +104,7 @@ private:
 	list<scene::MySceneNode *>	m_freeItem[7];
 	list<string>				m_teams;
 	u32							m_timeUnit;
+	list<t_frameAnimation *>	m_pickAnimations;
 };
 
 #endif

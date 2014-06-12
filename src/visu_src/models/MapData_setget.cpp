@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/09 15:31:30 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/10 17:54:17 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/12 13:00:41 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -45,7 +45,7 @@ void					MapData::setTimeUnit(u32 time)
 	m_timeUnit = time;
 }
 
-scene::MySceneNode		*MapData::getTrantorById(u32 id)
+scene::MySceneNode		*MapData::getTrantorById(const u32 id, const bool verbose)
 {
 	list<scene::MySceneNode *>::iterator	it;
 
@@ -54,7 +54,10 @@ scene::MySceneNode		*MapData::getTrantorById(u32 id)
 		if ((*it)->getId() == id)
 			return (*it);
 	}
-	cout << "MapData::getTrantorByID ERROR -> could not find trantor with id ";
-	cout << id << endl;
+	if (verbose)
+	{
+		cout << "MapData::getTrantorByID ERROR -> could not find trantor with id ";
+		cout << id << endl;
+	}
 	return (NULL);
 }

@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/10 16:29:24 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/10 22:11:28 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/12 15:55:45 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -36,6 +36,28 @@ void					MapData::registerAnimation(scene::MySceneNode *parentNode,
 	}
 }
 
+void					MapData::registerPickAnimation(scene::MySceneNode *parentNode,
+													   u32 endFrame,
+													   u32 nextBeginLoopFrame,
+													   u32 nextEndLoopFrame,
+													   bool hideObjectAtEnd,
+													   scene::MySceneNode *objectToHide)
+{
+	t_frameAnimation	*animation;
+
+	animation = new t_frameAnimation;
+	if (animation)
+	{
+		animation->parentNode = parentNode;
+		animation->endFrame = endFrame;
+		animation->nextBeginLoopFrame = nextBeginLoopFrame;
+		animation->nextEndLoopFrame = nextEndLoopFrame;
+		animation->hideObjectAtEnd = hideObjectAtEnd;
+		animation->objectToHide = objectToHide;
+		m_pickAnimations.push_back(animation);
+	}
+}
+
 bool					MapData::rotationAtEnd(const core::vector3df &rotation,
 											   const core::vector3df &actualRotation,
 											   const core::vector3df &fromRotation)
@@ -62,7 +84,31 @@ bool					MapData::rotationAtEnd(const core::vector3df &rotation,
 	return (xTrue && yTrue);
 }
 
-void					MapData::checkAnimationsEnd(void)
+void					MapData::checkFrameAnimationsEnd(void)
+{
+	list<t_frameAnimation *>::iterator	it;
+	scene::MySceneNode					*parentNode;
+	scene::IAnimatedMeshSceneNode		*meshNode;
+
+	it = m_pickAnimations.begin();
+	while (it != m_pickAnimations.end())
+	{
+		parentNode = (*it)->parentNode;
+		meshNode = static_cast<scene::IAnimatedMeshSceneNode *>(*parentNode->getChildren().begin());
+		if (meshNode->getFrameNr() >= (*it)->endFrame)
+		{
+			meshNode->setFrameLoop((*it)->nextBeginLoopFrame, (*it)->nextEndLoopFrame);
+			if ((*it)->hideObjectAtEnd)
+				(*it)->objectToHide->setVisible(false);
+			delete (*it);
+			it = m_pickAnimations.erase(it);
+		}
+		else
+			++it;
+	}
+}
+
+void					MapData::checkDiveAnimationsEnd(void)
 {
 	list<t_animation *>::iterator	it;
 	scene::MySceneNode				*parentNode;
@@ -91,4 +137,10 @@ void					MapData::checkAnimationsEnd(void)
 		else
 			++it;
 	}
+}
+
+void					MapData::checkAnimationsEnd(void)
+{
+	checkDiveAnimationsEnd();
+	checkFrameAnimationsEnd();
 }

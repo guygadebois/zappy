@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/11 11:38:27 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/11 16:15:36 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/12 15:25:59 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -101,7 +101,7 @@ bool	Engine::newClientConnected(const string line)
 	if (tokens->size() != 7)
 		return (err_msg("Engine::newClientConnected ERROR --> invalid line format"));
 	id = stoi((*tokens)[1]);
-	if (m_mapData->getTrantorById(id) != NULL)
+	if (m_mapData->getTrantorById(id, false) != NULL)
 		return (err_msg("Engine::newClientConnected ERROR -> client alwready exists whit the same id"));
 	ret = addTrantor(id, stoi((*tokens)[2]), stoi((*tokens)[3]),
 					 stoi((*tokens)[4]), stoi((*tokens)[5]), (*tokens)[6]);
@@ -141,9 +141,7 @@ bool	Engine::takeRessource(const string line)
 	id = stoi((*tokens)[1]);
 	if ((trantor = m_mapData->getTrantorById(id)) == NULL)
 		return (false);
-//	ret = trantor->pickRessource(stoi((*tokens)[2]));
-// continuer ici...
-	ret = true;
+	ret = trantor->pickRessource(stoi((*tokens)[2]));
 	delete (tokens);
 	return (ret);
 }

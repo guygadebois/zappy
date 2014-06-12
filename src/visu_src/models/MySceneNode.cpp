@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/05 18:16:21 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/11 16:04:23 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/12 15:55:21 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -268,4 +268,31 @@ void						scene::MySceneNode::diveContinue()
 		moveToSquare(m_diveBuf.to.X, m_diveBuf.to.Y, 0.5f, 0.0f, 0.8f, 87, 106, 3);
 		break ;
 	}
+}
+
+bool						scene::MySceneNode::pickRessource(const u8 itemNbr)
+{
+	scene::IAnimatedMeshSceneNode	*meshNode;
+	scene::MySceneNode				*item;
+	scene::ISceneNodeAnimator*		anim;
+	core::vector3df					startPoint;
+	core::vector3df					endPoint;
+
+	if (uninitialized())
+		return (false);
+	meshNode = static_cast<scene::IAnimatedMeshSceneNode *>(*getChildren().begin());
+	if ((item = m_mapData->pickItemFromList(itemNbr, getBoardPos())))
+	{
+		startPoint = item->m_son->getPosition();
+		endPoint = startPoint + core::vector3df(0.0f, 10.0f, 0.0f);
+		anim = SceneManager->createFlyStraightAnimator(startPoint, endPoint, 1500);
+		if (anim)
+		{
+			item->m_son->addAnimator(anim);
+			anim->drop();
+		}
+		m_mapData->registerPickAnimation(this, 128, 1, 39, true, item);
+		meshNode->setFrameLoop(121, 219);
+	}
+	return (true);
 }

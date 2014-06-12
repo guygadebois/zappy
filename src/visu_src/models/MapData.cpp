@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/03 15:25:43 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/11 13:41:25 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/12 15:37:48 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -17,8 +17,10 @@
 using namespace std;
 
 MapData::MapData(u32 width, u32 height, u32 textWidth, u32 textHeight)
-	: m_matrix(width, vector<t_mapElem>(height)), m_gridSize(width, height),
-	  m_texturePSize(textWidth, textHeight), m_timeUnit(-1)
+	: m_matrix(width, vector<t_mapElem>(height)),
+	  m_gridSize(width, height),
+	  m_texturePSize(textWidth, textHeight),
+	  m_timeUnit(-1)
 {
 	m_gridElemPSize.Width = m_texturePSize.Width / width;
 	m_gridElemPSize.Height = m_texturePSize.Height / height / 2;
@@ -67,4 +69,19 @@ bool					MapData::isReady(void) const
 	if (m_timeUnit <= 0)
 		return (false);
 	return (knowAllSquares());
+}
+
+scene::MySceneNode		*MapData::pickItemFromList(const u32 itemNbr, const core::vector2di &boardPos)
+{
+	scene::MySceneNode			*item;
+	list<scene::MySceneNode *>	*list;
+
+	if ((list = &m_matrix[boardPos.X][boardPos.Y].item[itemNbr]))
+	{
+		item = list->front();
+		list->pop_front();
+		m_freeItem[itemNbr].push_back(item);
+		return (item);
+	}
+	return (NULL);
 }
