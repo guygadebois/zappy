@@ -6,7 +6,7 @@
 /*   By: bjacob <bjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/11 08:07:02 by bjacob            #+#    #+#             */
-/*   Updated: 2014/06/11 17:57:50 by bjacob           ###   ########.fr       */
+/*   Updated: 2014/06/13 14:38:27 by sbodovsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ t_arg	*ft_get_arg(int argc, char **argv)
 	t_arg	*arg;
 
 	i = 1;
+	arg = NULL;
 	arg = ft_init_arg(arg);
 	while (i < argc)
 	{
