@@ -6,7 +6,7 @@
 /*   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/03 15:17:17 by glourdel          #+#    #+#             */
-/*   Updated: 2014/06/13 18:09:17 by glourdel         ###   ########.fr       */
+/*   Updated: 2014/06/13 18:53:35 by glourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ public:
 	u32							getTimeUnit(void);
 	void						setTimeUnit(u32 time);
 	scene::MySceneNode			*getTrantorById(const u32 id, const bool verbose=true);
+	list<scene::MySceneNode*>	*getTrantorsByPos(const core::vector2di &pos);
 
 private:
 	void						checkFrameAnimationsEnd(void);

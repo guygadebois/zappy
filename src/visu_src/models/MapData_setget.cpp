@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/09 15:31:30 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/12 13:00:41 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/13 18:53:31 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -60,4 +60,9 @@ scene::MySceneNode		*MapData::getTrantorById(const u32 id, const bool verbose)
 		cout << id << endl;
 	}
 	return (NULL);
+}
+
+list<scene::MySceneNode*>	*MapData::getTrantorsByPos(const core::vector2di &pos)
+{
+	return (&m_matrix[pos.X][pos.Y].trantors);
 }

@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/11 11:38:27 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/13 18:39:24 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/13 18:50:08 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -156,7 +156,7 @@ bool	Engine::takeRessource(const string line)
 
 bool	Engine::expulse(const string line)
 {
-	list<scene::MySceneNode *>				trantorList;
+	list<scene::MySceneNode *>				*trantorList;
 	list<scene::MySceneNode *>::iterator	it;
 	scene::MySceneNode						*trantor;
 	vector<string>							*tokens;
@@ -170,15 +170,14 @@ bool	Engine::expulse(const string line)
 	if ((trantor = m_mapData->getTrantorById(id)) == NULL)
 		return (false);
 	ret = trantor->expulse();
-	// IMPLEMENTER getTrantorsByPos()
-	// if ((trantorList = m_mapData->getTrantorsByPos()))
-	// {
-	// 	for (it = trantorList.begin(); it != trantorList.end(); ++it)
-	// 	{
-	// 		if (*it != trantor)
-	// 			(*it)->isExpulsed(trantor->getOrientation());
-	// 	}
-	// }
+	if ((trantorList = m_mapData->getTrantorsByPos(trantor->getBoardPos())))
+	{
+		for (it = trantorList->begin(); it != trantorList->end(); ++it)
+		{
+			if (*it != trantor)
+				(*it)->isExpulsed(trantor->getOrientation());
+		}
+	}
 	delete (tokens);
 	return (ret);
 }
