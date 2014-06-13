@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/05 18:16:21 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/12 15:55:21 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/13 18:39:50 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -291,8 +291,45 @@ bool						scene::MySceneNode::pickRessource(const u8 itemNbr)
 			item->m_son->addAnimator(anim);
 			anim->drop();
 		}
-		m_mapData->registerPickAnimation(this, 128, 1, 39, true, item);
+		m_mapData->registerFrameAnimation(this, 121, 128, 1, 39, 5, 1, true, item);
 		meshNode->setFrameLoop(121, 219);
 	}
 	return (true);
+}
+
+bool						scene::MySceneNode::expulse(void)
+{
+	m_mapData->registerFrameAnimation(this, 46, 53, 1, 39, 5, 2);
+	m_son->setFrameLoop(46, 219);
+	m_son->setAnimationSpeed(10);
+	return (true);
+}
+
+void						scene::MySceneNode::isExpulsed(const u8 orientation)
+{
+	s32						x;
+	s32						y;
+	core::dimension2d<s32>	board;
+
+	board = m_mapData->getGridSize();
+	x = m_boardPos.X;
+	y = m_boardPos.Y;
+	switch (orientation)
+	{
+	case 1:
+		y = (y + board.Height - 1) % board.Height;
+	case 2:
+		x = (x + 1) % board.Width;
+	case 3:
+		y = (y + 1) % board.Height;
+	case 4:
+		x = (x + board.Width - 1) % board.Width;
+	}
+	m_mapData->updatePosition(this, core::vector2di(x, y));
+	if (m_boardPos.Y == 0 && y == board.Height - 1)
+		diveUpTo(x, y);
+	else if (m_boardPos.Y == board.Height - 1 && y == 0)
+		diveDownTo(x, y);
+	else
+		moveToSquare(x, y);
 }

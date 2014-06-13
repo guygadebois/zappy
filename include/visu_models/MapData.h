@@ -6,7 +6,7 @@
 /*   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/03 15:17:17 by glourdel          #+#    #+#             */
-/*   Updated: 2014/06/12 15:28:16 by glourdel         ###   ########.fr       */
+/*   Updated: 2014/06/13 18:09:17 by glourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,12 @@ typedef struct			s_animation
 typedef struct			s_frameAnimation
 {
 	scene::MySceneNode				*parentNode;
+	u32								begFrame;
 	u32								endFrame;
 	u32								nextBeginLoopFrame;
 	u32								nextEndLoopFrame;
+	u8								nextFrameSpeed;
+	u32								loopNbr;
 	bool							hideObjectAtEnd;
 	scene::MySceneNode				*objectToHide;
 }						t_frameAnimation;
@@ -57,24 +60,20 @@ class MapData
 {
 public:
 	MapData(u32 width, u32 height, u32 textWidth = 4000, u32 textHeight = 2000);
-	core::dimension2d<u32>		getGridSize();
-	core::dimension2d<u32>		getTexturePSize();
-	core::dimension2d<u32>		getGridElemPSize();
-	void						setMatrixSquareInit(u32 x, u32 y, bool toSet);
-	u32							getTimeUnit(void);
-	void						setTimeUnit(u32 time);
-	scene::MySceneNode			*getTrantorById(const u32 id, const bool verbose=true);
 	void						registerAnimation(scene::MySceneNode *parentNode,
 												  scene::ISceneNodeAnimator *anim,
 												  const core::vector3df &oldRotation,
 												  const core::vector3df &rotation,
 												  int diveState=-1);
-	void						registerPickAnimation(scene::MySceneNode *parentNode,
-													  u32 endFrame,
-													  u32 nextBeginLoopFrame,
-													  u32 nextEndLoopFrame,
-													  bool hideObjectAtEnd=false,
-													  scene::MySceneNode *objectToHide=NULL);
+	void						registerFrameAnimation(scene::MySceneNode *parentNode,
+													   u32 begFrame,
+													   u32 endFrame,
+													   u32 nextBeginLoopFrame,
+													   u32 nextEndLoopFrame,
+													   u8 nextFrameSpeed=5,
+													   u8 loopNbr=1,
+													   bool hideObjectAtEnd=false,
+													   scene::MySceneNode *objectToHide=NULL);
 	void						checkAnimationsEnd(void);
 	static bool					rotationAtEnd(const core::vector3df &rotation,
 											  const core::vector3df &actualRotation,
@@ -90,6 +89,14 @@ public:
 	bool						knowAllSquares(void) const;
 	bool						isReady(void) const;
 	scene::MySceneNode			*pickItemFromList(const u32 itemNbr, const core::vector2di &boardPos);
+	// Accesseur
+	core::dimension2d<u32>		getGridSize();
+	core::dimension2d<u32>		getTexturePSize();
+	core::dimension2d<u32>		getGridElemPSize();
+	void						setMatrixSquareInit(u32 x, u32 y, bool toSet);
+	u32							getTimeUnit(void);
+	void						setTimeUnit(u32 time);
+	scene::MySceneNode			*getTrantorById(const u32 id, const bool verbose=true);
 
 private:
 	void						checkFrameAnimationsEnd(void);

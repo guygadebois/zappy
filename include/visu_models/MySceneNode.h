@@ -6,7 +6,7 @@
 /*   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/05 17:45:38 by glourdel          #+#    #+#             */
-/*   Updated: 2014/06/12 15:26:08 by glourdel         ###   ########.fr       */
+/*   Updated: 2014/06/13 18:28:09 by glourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,21 +68,27 @@ namespace irr
 										 const f32 offsetX=0.5f, const f32 offsetY=0.5f);
 			void				diveContinue(void);
 			bool				pickRessource(const u8 itemNbr);
+			bool				expulse(void);
+			void				isExpulsed(const u8 orientation);
 
 			// Accesseurs :
-			u8					getOrientation(void) const;
-			void				updateOrientation(const s32 newOrientation);
-			void				setBoardPos(const core::vector2di &newPos);
-			core::vector2di		&getBoardPos(void);
-			void				setOffset(const core::vector2d<f32> &offset);
-			core::vector2df		&getOffset(void);
-			s32					getMySceneType(void) const;
-			void				setTeamNbr(u32 teamNbr);
-			u32					getTeamNbr(void) const;
-			void				setTexture(video::ITexture *texture);
-			u32					getId(void) const;
-			u8					getLevel(void) const;
-			bool				updateLevel(u8 level);
+			u8								getOrientation(void) const;
+			void							updateOrientation(
+				const s32 newOrientation);
+			void							setBoardPos(
+				const core::vector2di &newPos);
+			core::vector2di					&getBoardPos(void);
+			void							setOffset(
+				const core::vector2d<f32> &offset);
+			core::vector2df					&getOffset(void);
+			s32								getMySceneType(void) const;
+			void							setTeamNbr(u32 teamNbr);
+			u32								getTeamNbr(void) const;
+			void							setTexture(video::ITexture *texture);
+			u32								getId(void) const;
+			u8								getLevel(void) const;
+			bool							updateLevel(u8 level);
+			scene::IAnimatedMeshSceneNode	*getSon(void) const;
 
 		private:
 			// Irr obligatory attributes :

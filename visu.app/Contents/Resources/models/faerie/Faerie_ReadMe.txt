@@ -31,9 +31,9 @@ Salute ( Flying kiss ) = 75 to 86
 Jump Spine = 87 to 106
 Bye = 107 to 120
 Power Attack = 121 to 128
-Pain1 = 129 to 133
+Pain1 = 129 to 133 ==> est expulsé
 Pain2 = 133 to 138
-Pain3 = 139 to 146
+Pain3 = 139 to 146  ==> INCANTATION
 Duck Idle = 147 to 175
 Duck Walk = 176 to 182
 Duck Attack = 183 to 189

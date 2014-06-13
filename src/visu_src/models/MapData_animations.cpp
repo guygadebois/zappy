@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/10 16:29:24 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/12 15:55:45 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/13 17:48:45 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -36,12 +36,15 @@ void					MapData::registerAnimation(scene::MySceneNode *parentNode,
 	}
 }
 
-void					MapData::registerPickAnimation(scene::MySceneNode *parentNode,
-													   u32 endFrame,
-													   u32 nextBeginLoopFrame,
-													   u32 nextEndLoopFrame,
-													   bool hideObjectAtEnd,
-													   scene::MySceneNode *objectToHide)
+void					MapData::registerFrameAnimation(scene::MySceneNode *parentNode,
+														u32 begFrame,
+														u32 endFrame,
+														u32 nextBeginLoopFrame,
+														u32 nextEndLoopFrame,
+														u8 nextFrameSpeed,
+														u8 loopNbr,
+														bool hideObjectAtEnd,
+														scene::MySceneNode *objectToHide)
 {
 	t_frameAnimation	*animation;
 
@@ -49,9 +52,13 @@ void					MapData::registerPickAnimation(scene::MySceneNode *parentNode,
 	if (animation)
 	{
 		animation->parentNode = parentNode;
+		animation->begFrame = begFrame;
 		animation->endFrame = endFrame;
 		animation->nextBeginLoopFrame = nextBeginLoopFrame;
 		animation->nextEndLoopFrame = nextEndLoopFrame;
+		animation->nextFrameSpeed = nextFrameSpeed;
+		animation->loopNbr = loopNbr;
+		cout << "register LoopNbr = " << loopNbr << endl;
 		animation->hideObjectAtEnd = hideObjectAtEnd;
 		animation->objectToHide = objectToHide;
 		m_pickAnimations.push_back(animation);
@@ -87,21 +94,28 @@ bool					MapData::rotationAtEnd(const core::vector3df &rotation,
 void					MapData::checkFrameAnimationsEnd(void)
 {
 	list<t_frameAnimation *>::iterator	it;
-	scene::MySceneNode					*parentNode;
 	scene::IAnimatedMeshSceneNode		*meshNode;
 
 	it = m_pickAnimations.begin();
 	while (it != m_pickAnimations.end())
 	{
-		parentNode = (*it)->parentNode;
-		meshNode = static_cast<scene::IAnimatedMeshSceneNode *>(*parentNode->getChildren().begin());
+		meshNode = (*it)->parentNode->getSon();
 		if (meshNode->getFrameNr() >= (*it)->endFrame)
 		{
-			meshNode->setFrameLoop((*it)->nextBeginLoopFrame, (*it)->nextEndLoopFrame);
-			if ((*it)->hideObjectAtEnd)
-				(*it)->objectToHide->setVisible(false);
-			delete (*it);
-			it = m_pickAnimations.erase(it);
+			if (--(*it)->loopNbr > 0)
+			{
+				(*it)->parentNode->getSon()->setFrameLoop((*it)->begFrame, 219);
+				++it;
+			}
+			else
+			{
+				(*it)->parentNode->getSon()->setAnimationSpeed((*it)->nextFrameSpeed);
+				meshNode->setFrameLoop((*it)->nextBeginLoopFrame, (*it)->nextEndLoopFrame);
+				if ((*it)->hideObjectAtEnd)
+					(*it)->objectToHide->setVisible(false);
+				delete (*it);
+				it = m_pickAnimations.erase(it);
+			}
 		}
 		else
 			++it;

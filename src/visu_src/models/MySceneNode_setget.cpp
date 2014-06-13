@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/09 11:57:24 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/11 16:01:53 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/13 17:43:38 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -118,4 +118,9 @@ bool						scene::MySceneNode::updateLevel(u8 level)
 	scale = 0.8f + (level - 1) * 0.1f;
 	m_son->setScale(core::vector3df(scale, scale, scale));
 	return (true);
+}
+
+scene::IAnimatedMeshSceneNode	*scene::MySceneNode::getSon(void) const
+{
+	return (m_son);
 }

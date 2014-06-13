@@ -48,6 +48,7 @@ SERVEUR_CFILES= \
 		serveur_src//errors.c \
 		serveur_src//find_ret.c \
 		serveur_src//generate_map.c \
+		serveur_src//get_arg.c \
 		serveur_src//getclientbysock.c \
 		serveur_src//insert_trant.c \
 		serveur_src//listen_fd.c \
@@ -203,6 +204,13 @@ obj/sv_generate_map.o: src/serveur_src//generate_map.c include/map.h \
 	@mkdir -p $(OBJDIR);
 	@$(CC) -o $(OBJDIR)sv_generate_map.o \
 -c $(SRCDIR)serveur_src//generate_map.c $(CFLAGS)
+
+obj/sv_get_arg.o: src/serveur_src//get_arg.c include/get_arg.h \
+ libft/include/libft.h libft/include/libft_types.h
+	@echo $(CYAN)"    Creating obj/sv_get_arg.o ...\033[0m"
+	@mkdir -p $(OBJDIR);
+	@$(CC) -o $(OBJDIR)sv_get_arg.o \
+-c $(SRCDIR)serveur_src//get_arg.c $(CFLAGS)
 
 obj/sv_getclientbysock.o: src/serveur_src//getclientbysock.c \
  libft/include/libft.h libft/include/libft_types.h include/types.h \

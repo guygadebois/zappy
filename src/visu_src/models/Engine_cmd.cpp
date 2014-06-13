@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/11 11:38:27 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/12 15:25:59 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/13 18:39:24 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -85,8 +85,16 @@ bool	Engine::updateTrantorPosition(const string line)
 	if (trantor->getOrientation() != orientation)
 		trantor->updateOrientation(orientation);
 	actualPos = trantor->getBoardPos();
+	m_mapData->updatePosition(trantor, core::vector2di(x, y));
 	if (actualPos.X != x || actualPos.Y != y)
-		trantor->moveToSquare(x, y);
+	{
+		if (actualPos.Y == 0 && y == (s32)m_mapData->getGridSize().Height - 1)
+			trantor->diveUpTo(x, y);
+		else if (actualPos.Y == (s32)m_mapData->getGridSize().Height - 1 && y == 0)
+			trantor->diveDownTo(x, y);
+		else
+			trantor->moveToSquare(x, y);
+	}
 	delete (tokens);
 	return (true);
 }
@@ -142,6 +150,35 @@ bool	Engine::takeRessource(const string line)
 	if ((trantor = m_mapData->getTrantorById(id)) == NULL)
 		return (false);
 	ret = trantor->pickRessource(stoi((*tokens)[2]));
+	delete (tokens);
+	return (ret);
+}
+
+bool	Engine::expulse(const string line)
+{
+	list<scene::MySceneNode *>				trantorList;
+	list<scene::MySceneNode *>::iterator	it;
+	scene::MySceneNode						*trantor;
+	vector<string>							*tokens;
+	u32										id;
+	bool									ret;
+
+	tokens = mystring::strsplit(line);
+	if (tokens->size() != 2)
+		return (err_msg("Engine::expulse ERROR --> invalid line format"));
+	id = stoi((*tokens)[1]);
+	if ((trantor = m_mapData->getTrantorById(id)) == NULL)
+		return (false);
+	ret = trantor->expulse();
+	// IMPLEMENTER getTrantorsByPos()
+	// if ((trantorList = m_mapData->getTrantorsByPos()))
+	// {
+	// 	for (it = trantorList.begin(); it != trantorList.end(); ++it)
+	// 	{
+	// 		if (*it != trantor)
+	// 			(*it)->isExpulsed(trantor->getOrientation());
+	// 	}
+	// }
 	delete (tokens);
 	return (ret);
 }

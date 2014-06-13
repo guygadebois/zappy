@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/05/28 11:59:19 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/12 15:56:09 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/13 16:55:00 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -62,6 +62,7 @@ int			main(void)
 		&& engine->setSquareContent("bct 0 2 3 1 1 1 1 1 1")
 		&& engine->updateTrantorPosition("pnw 5 5 4 4")
 		&& engine->takeRessource("pgt 2 2")
+		&& engine->expulse("pex 1")
 		&& engine->addLights())
 		engine->loop();
 	else

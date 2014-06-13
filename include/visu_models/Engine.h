@@ -6,7 +6,7 @@
 /*   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/31 14:10:08 by glourdel          #+#    #+#             */
-/*   Updated: 2014/06/11 16:13:11 by glourdel         ###   ########.fr       */
+/*   Updated: 2014/06/13 16:50:45 by glourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ public:
 	bool	newClientConnected(const string line);
 	bool	updateTrantorLevel(const string line);
 	bool	takeRessource(const string line);
+	bool	expulse(const string line);
 
 private:
 	IrrlichtDevice					*m_device;
@@ -55,7 +56,7 @@ private:
 	scene::IAnimatedMesh			*m_itemMesh[7];
 // Textures :
 	video::ITexture					*m_planetTexture;
-	video::ITexture					*m_trantorTexture[6];
+	video::ITexture					*m_trantorTexture[10];
 	video::ITexture					*m_gemTexture[7];
 // Images :
 	video::IImage					*m_planetGrid;
