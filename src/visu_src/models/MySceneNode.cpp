@@ -6,16 +6,14 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/05 18:16:21 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/14 14:55:16 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/14 15:14:58 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
 #include <iostream>
 #include <cmath>
 #include "MySceneNode.h"
-  
-#include <stdio.h>
-   
+
 using namespace std;
 
 scene::MySceneNode::MySceneNode(scene::ISceneNode* parent,
@@ -204,7 +202,6 @@ void						scene::MySceneNode::moveTo(
 	{
 		addAnimator(anim);
 		anim->drop();
-		dprintf(2, "Register Anim from %f, %f to %f, %f\n", getRotation().X, getRotation().Y, rotation.X, rotation.Y);
 		m_mapData->registerAnimation(this, anim, getRotation(), rotation, diveState);
 		meshNode = static_cast<scene::IAnimatedMeshSceneNode *>(*getChildren().begin());
 		meshNode->setFrameLoop(frameStart, frameEnd);
@@ -343,4 +340,9 @@ void						scene::MySceneNode::isExpulsed(const u8 orientation)
 	else
 		moveToSquare(x, y, offset.X, offset.Y);
 	m_mapData->updatePosition(this, core::vector2di(x, y));
+}
+
+bool						scene::MySceneNode::broadcast(const string msg)
+{
+	return (true);
 }

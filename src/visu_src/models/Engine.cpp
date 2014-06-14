@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/05/31 14:10:28 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/14 12:46:54 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/14 15:43:13 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -52,6 +52,7 @@ Engine::Engine(MapData *mapData) : m_mapData(mapData)
 	m_camera->setRotation(m_camera->getRotation() + core::vector3df(20.0f, 0.0f, 0.0f));
 	m_trentorMesh = m_sceneManager->getMesh("models/faerie/Faerie.x");
 	m_treeMesh = m_sceneManager->getMesh("models/tree/palm_tree.obj");
+	m_treeMesh = m_sceneManager->getMesh("models/Circle.3DS");
 	m_itemMesh[0] = m_sceneManager->getMesh("models/fourmis/formica rufa 17384.3ds");
 	m_itemMesh[1] = m_sceneManager->getMesh("models/Iso_3DS/cube.3ds");
 	m_itemMesh[2] = m_sceneManager->getMesh("models/Iso_3DS/deltoid_dodec.3ds");
@@ -140,14 +141,17 @@ bool	Engine::addPlanet(void)
 bool	Engine::addTrantor(int id, int X, int Y, int orientation, int level,
 						   const string team)
 {
-	scene::MySceneNode	*parent;
-	u32					teamNbr;
+	scene::MySceneNode				*parent;
+	scene::IAnimatedMeshSceneNode	*circle;
+	u32								teamNbr;
 
-	if (m_trentorMesh == NULL || (parent = m_emptyParent->clone()) == NULL)
+	if (m_trentorMesh == NULL || m_circleMesh == NULL
+		|| (parent = m_emptyParent->clone()) == NULL)
 		return (false);
 	if (parent->init(m_trentorMesh, TRANTOR, core::vector2di(X, Y), id, level,
 					 orientation, team))
 	{
+//		circle = m_sceneManager->addAnimatedMeshSceneNode(m_circleMesh, parent);
 		teamNbr = parent->getTeamNbr();
 		parent->setTexture(m_trantorTexture[teamNbr % 10]);
 		parent->placeOnSquare(X, Y, (float)rand() / RAND_MAX, (float)rand() / RAND_MAX);
