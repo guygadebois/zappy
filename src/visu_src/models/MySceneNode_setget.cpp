@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/09 11:57:24 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/13 17:43:38 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/14 14:52:10 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -30,10 +30,10 @@ void						scene::MySceneNode::updateOrientation(const s32 newOrientation)
 		rotY = 180.0f;
 		break ;
 	case EAST:
-		rotY = -90.0f;
+		rotY = 90.0f;
 		break ;
 	case WEST:
-		rotY = 90.0f;
+		rotY = -90.0f;
 		break ;
 	default:
 		rotY = 0.0f;
