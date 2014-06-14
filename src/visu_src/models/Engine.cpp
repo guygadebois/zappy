@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/05/31 14:10:28 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/11 15:04:45 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/14 12:46:54 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -150,6 +150,7 @@ bool	Engine::addTrantor(int id, int X, int Y, int orientation, int level,
 	{
 		teamNbr = parent->getTeamNbr();
 		parent->setTexture(m_trantorTexture[teamNbr % 10]);
+		parent->placeOnSquare(X, Y, (float)rand() / RAND_MAX, (float)rand() / RAND_MAX);
 		return (true);
 	}
 	return (false);

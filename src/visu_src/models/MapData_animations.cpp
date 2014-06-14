@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/10 16:29:24 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/13 17:48:45 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/14 12:36:24 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -58,7 +58,6 @@ void					MapData::registerFrameAnimation(scene::MySceneNode *parentNode,
 		animation->nextEndLoopFrame = nextEndLoopFrame;
 		animation->nextFrameSpeed = nextFrameSpeed;
 		animation->loopNbr = loopNbr;
-		cout << "register LoopNbr = " << loopNbr << endl;
 		animation->hideObjectAtEnd = hideObjectAtEnd;
 		animation->objectToHide = objectToHide;
 		m_pickAnimations.push_back(animation);

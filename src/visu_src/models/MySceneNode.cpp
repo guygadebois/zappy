@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/05 18:16:21 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/13 18:39:50 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/14 13:17:44 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -310,7 +310,9 @@ void						scene::MySceneNode::isExpulsed(const u8 orientation)
 	s32						x;
 	s32						y;
 	core::dimension2d<s32>	board;
+	core::vector2df			offset;
 
+	offset = getOffset();
 	board = m_mapData->getGridSize();
 	x = m_boardPos.X;
 	y = m_boardPos.Y;
@@ -318,18 +320,22 @@ void						scene::MySceneNode::isExpulsed(const u8 orientation)
 	{
 	case 1:
 		y = (y + board.Height - 1) % board.Height;
+		break ;
 	case 2:
 		x = (x + 1) % board.Width;
+		break ;
 	case 3:
 		y = (y + 1) % board.Height;
+		break ;
 	case 4:
 		x = (x + board.Width - 1) % board.Width;
+		break ;
 	}
-	m_mapData->updatePosition(this, core::vector2di(x, y));
 	if (m_boardPos.Y == 0 && y == board.Height - 1)
-		diveUpTo(x, y);
+		diveUpTo(x, y, offset.X, offset.Y);
 	else if (m_boardPos.Y == board.Height - 1 && y == 0)
-		diveDownTo(x, y);
+		diveDownTo(x, y, offset.X, offset.Y);
 	else
-		moveToSquare(x, y);
+		moveToSquare(x, y, offset.X, offset.Y);
+	m_mapData->updatePosition(this, core::vector2di(x, y));
 }

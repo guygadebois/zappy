@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/03 15:25:43 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/12 15:37:48 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/14 13:11:52 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -76,7 +76,7 @@ scene::MySceneNode		*MapData::pickItemFromList(const u32 itemNbr, const core::ve
 	scene::MySceneNode			*item;
 	list<scene::MySceneNode *>	*list;
 
-	if ((list = &m_matrix[boardPos.X][boardPos.Y].item[itemNbr]))
+	if ((list = &m_matrix[boardPos.X][boardPos.Y].item[itemNbr]) && list->size() > 0)
 	{
 		item = list->front();
 		list->pop_front();

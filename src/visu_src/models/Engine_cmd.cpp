@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/11 11:38:27 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/13 18:50:08 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/14 13:14:17 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -172,10 +172,16 @@ bool	Engine::expulse(const string line)
 	ret = trantor->expulse();
 	if ((trantorList = m_mapData->getTrantorsByPos(trantor->getBoardPos())))
 	{
-		for (it = trantorList->begin(); it != trantorList->end(); ++it)
+		while (trantorList->size() > 1)
 		{
-			if (*it != trantor)
-				(*it)->isExpulsed(trantor->getOrientation());
+			for (it = trantorList->begin(); it != trantorList->end(); ++it)
+			{
+				if (*it != trantor)
+				{
+					(*it)->isExpulsed(trantor->getOrientation());
+					break ;
+				}
+			}
 		}
 	}
 	delete (tokens);
