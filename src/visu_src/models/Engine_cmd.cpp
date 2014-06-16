@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/11 11:38:27 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/16 22:46:01 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/16 22:55:36 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -236,7 +236,7 @@ bool		Engine::launchBroadcastParticles(scene::MySceneNode *trantor)
 	affector->drop();
 	partSys->setRotation(trantor->getRotation());
 	anim = new PartEmitterAnim(partSys, emitter,
-							   m_device->getTimer()->getTime(), 2000);
+							   m_device->getTimer()->getTime(), 10000);
 	m_mapData->registerPartEmitterAnim(anim);
 	return (true);
 }
