@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/16 12:05:36 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/16 14:15:12 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/16 14:17:15 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -25,10 +25,10 @@ void					MapData::AnimParticleEmitters(const u32 now)
 	{
 		if ((*it)->update(now) == false)
 		{
-//			delete (*it);
-//			it = m_partEmitterAnimations.erase(it);
-//		}
-//		else
+			delete (*it);
+			it = m_partEmitterAnimations.erase(it);
+		}
+		else
 			++it;
 	}
 }

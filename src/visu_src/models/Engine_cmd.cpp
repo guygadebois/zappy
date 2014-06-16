@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/11 11:38:27 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/16 14:12:41 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/16 14:44:05 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -218,13 +218,13 @@ bool		Engine::launchBroadcastParticles(scene::MySceneNode *trantor)
 	emitter = partSys->createRingEmitter(
 		core::vector3df(0.0f, PLANET_RADIUS, 0.0f),
 		10.0f,
-		2.0f,
+		1.0f,
 		core::vector3df(0.0f, 0.03f, 0.0f),
-		500, 1000,
+		5000, 10000,
 		video::SColor(255, 0, 0, 0),
 		video::SColor(255, 255, 255, 255),
-		300,
-		300,
+		200,
+		200,
 		0,
 		core::dimension2df(1.0f, 1.0f),
 		core::dimension2df(2.0f, 2.0f)
