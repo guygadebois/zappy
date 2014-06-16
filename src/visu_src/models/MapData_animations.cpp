@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/10 16:29:24 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/16 12:05:30 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/16 22:48:53 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -156,4 +156,21 @@ void					MapData::checkAnimationsEnd(void)
 {
 	checkDiveAnimationsEnd();
 	checkFrameAnimationsEnd();
+}
+
+void					MapData::AnimParticleEmitters(const u32 now)
+{
+	list<PartEmitterAnim *>::iterator	it;
+
+	it = m_partEmitterAnimations.begin();
+	while (it != m_partEmitterAnimations.end())
+	{
+		if ((*it)->update(now) == false)
+		{
+			delete (*it);
+			it = m_partEmitterAnimations.erase(it);
+		}
+		else
+			++it;
+	}
 }

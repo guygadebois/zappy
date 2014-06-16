@@ -6,7 +6,7 @@
 /*   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/16 12:07:43 by glourdel          #+#    #+#             */
-/*   Updated: 2014/06/16 14:39:40 by glourdel         ###   ########.fr       */
+/*   Updated: 2014/06/16 22:25:06 by glourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define PARTEMITTERANIM_H
 
 #include <list>
+#include <iostream>
 #include <irrlicht.h>
 #include "visu_define.h"
 

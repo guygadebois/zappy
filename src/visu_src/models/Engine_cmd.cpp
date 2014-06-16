@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/11 11:38:27 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/16 14:44:05 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/16 22:46:01 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -230,7 +230,7 @@ bool		Engine::launchBroadcastParticles(scene::MySceneNode *trantor)
 		core::dimension2df(2.0f, 2.0f)
 		);
 	partSys->setEmitter(emitter);
-//	m_emitterBc->drop();
+	emitter->drop();
 	affector = partSys->createRotationAffector();
 	partSys->addAffector(affector);
 	affector->drop();
