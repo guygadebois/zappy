@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/05 18:16:21 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/14 15:14:58 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/16 14:06:28 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -19,7 +19,8 @@ using namespace std;
 scene::MySceneNode::MySceneNode(scene::ISceneNode* parent,
 								scene::ISceneManager* mgr,
 								MapData *mapData, s32 id)
-	: scene::ISceneNode(parent, mgr, id), m_mapData(mapData)
+	: scene::ISceneNode(parent, mgr, id),
+	  m_mapData(mapData)
 {
 	m_offset.X = 0;
 	m_offset.Y = 0;

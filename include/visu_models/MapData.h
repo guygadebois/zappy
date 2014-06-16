@@ -6,7 +6,7 @@
 /*   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/03 15:17:17 by glourdel          #+#    #+#             */
-/*   Updated: 2014/06/13 18:53:35 by glourdel         ###   ########.fr       */
+/*   Updated: 2014/06/16 12:48:54 by glourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include <list>
 #include <string>
 #include <irrlicht.h>
+#include "PartEmitterAnim.h"
 
 using namespace std;
 using namespace irr;
@@ -98,6 +99,8 @@ public:
 	void						setTimeUnit(u32 time);
 	scene::MySceneNode			*getTrantorById(const u32 id, const bool verbose=true);
 	list<scene::MySceneNode*>	*getTrantorsByPos(const core::vector2di &pos);
+	void						registerPartEmitterAnim(PartEmitterAnim *anim);
+	void						AnimParticleEmitters(const u32 now);
 
 private:
 	void						checkFrameAnimationsEnd(void);
@@ -113,6 +116,7 @@ private:
 	list<string>				m_teams;
 	u32							m_timeUnit;
 	list<t_frameAnimation *>	m_pickAnimations;
+	list<PartEmitterAnim *>		m_partEmitterAnimations;
 };
 
 #endif

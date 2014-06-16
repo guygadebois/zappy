@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/10 16:28:45 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/11 15:08:39 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/16 12:47:57 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -42,4 +42,9 @@ void		MapData::registerItem(scene::MySceneNode *parentNode,
 								  const u8 itemNbr)
 {
 	m_matrix[posX][posY].item[itemNbr].push_back(parentNode);
+}
+
+void		MapData::registerPartEmitterAnim(PartEmitterAnim *anim)
+{
+	m_partEmitterAnimations.push_back(anim);
 }

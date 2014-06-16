@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/11 11:38:27 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/14 15:04:19 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/16 14:12:41 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -190,10 +190,10 @@ bool	Engine::expulse(const string line)
 
 bool	Engine::broadcast(const string line)
 {
-	scene::MySceneNode	*trantor;
-	vector<string>		*tokens;
-	u32					id;
-	bool				ret;
+	scene::MySceneNode				*trantor;
+	vector<string>					*tokens;
+	u32								id;
+	bool							ret;
 
 	tokens = mystring::strsplit(line);
 	if (tokens->size() != 3)
@@ -201,7 +201,42 @@ bool	Engine::broadcast(const string line)
 	id = stoi((*tokens)[1]);
 	if ((trantor = m_mapData->getTrantorById(id)) == NULL)
 		return (false);
+	launchBroadcastParticles(trantor);
 	ret = trantor->broadcast((*tokens)[2]);
 	delete (tokens);
 	return (ret);
+}
+
+bool		Engine::launchBroadcastParticles(scene::MySceneNode *trantor)
+{
+	scene::IParticleSystemSceneNode		*partSys;
+	scene::IParticleRingEmitter			*emitter;
+	scene::IParticleRotationAffector	*affector;
+	PartEmitterAnim						*anim;
+
+	partSys = m_sceneManager->addParticleSystemSceneNode(false);
+	emitter = partSys->createRingEmitter(
+		core::vector3df(0.0f, PLANET_RADIUS, 0.0f),
+		10.0f,
+		2.0f,
+		core::vector3df(0.0f, 0.03f, 0.0f),
+		500, 1000,
+		video::SColor(255, 0, 0, 0),
+		video::SColor(255, 255, 255, 255),
+		300,
+		300,
+		0,
+		core::dimension2df(1.0f, 1.0f),
+		core::dimension2df(2.0f, 2.0f)
+		);
+	partSys->setEmitter(emitter);
+//	m_emitterBc->drop();
+	affector = partSys->createRotationAffector();
+	partSys->addAffector(affector);
+	affector->drop();
+	partSys->setRotation(trantor->getRotation());
+	anim = new PartEmitterAnim(partSys, emitter,
+							   m_device->getTimer()->getTime(), 2000);
+	m_mapData->registerPartEmitterAnim(anim);
+	return (true);
 }

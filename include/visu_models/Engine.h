@@ -6,7 +6,7 @@
 /*   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/31 14:10:08 by glourdel          #+#    #+#             */
-/*   Updated: 2014/06/14 15:15:37 by glourdel         ###   ########.fr       */
+/*   Updated: 2014/06/16 14:05:37 by glourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ public:
 	bool	broadcast(const string line);
 
 private:
+	bool	launchBroadcastParticles(scene::MySceneNode *trantor);
+
 	IrrlichtDevice					*m_device;
 	video::IVideoDriver*			m_driver;
 	scene::ISceneManager			*m_sceneManager;
@@ -54,7 +56,6 @@ private:
 // Meshes :
 	scene::IAnimatedMesh			*m_trentorMesh;
 	scene::IAnimatedMesh			*m_treeMesh;
-	scene::IAnimatedMesh			*m_circleMesh;
 	scene::IAnimatedMesh			*m_itemMesh[7];
 // Textures :
 	video::ITexture					*m_planetTexture;
@@ -62,7 +63,6 @@ private:
 	video::ITexture					*m_gemTexture[7];
 // Images :
 	video::IImage					*m_planetGrid;
-
 };
 
 #endif
