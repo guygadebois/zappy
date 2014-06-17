@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/05/28 11:59:19 by glourdel          #+#    #+#             //
-/*   Updated: 2014/06/17 13:49:48 by dcouly           ###   ########.fr       */
+/*   Updated: 2014/06/17 14:08:31 by dcouly           ###   ########.fr       */
 //                                                                            //
 // ************************************************************************** //
 
@@ -67,6 +67,7 @@ static bool	getMapData(int sock, MapData **mapData)
 	string			tmp;
 	string			cmd2;
 	fd_set			read_fd;
+	fd_set			write_fd;
 	int				nb_char;
 
 	cmd = "";
@@ -74,7 +75,9 @@ static bool	getMapData(int sock, MapData **mapData)
  	{
 		FD_ZERO(&read_fd);
 		FD_SET(sock, &read_fd);
-		if (select(sock + 1, &(read_fd), NULL, NULL, NULL) == -1)
+		FD_ZERO(&write_fd);
+		FD_SET(1, &write_fd);
+		if (select(sock + 1, &(read_fd), &(write_fd), NULL, NULL) == -1)
 		{
 			cout << "Error Select" << endl;
 			return (false);
@@ -94,24 +97,21 @@ static bool	getMapData(int sock, MapData **mapData)
 		}
 	}
 	cmd2 = getCmdBuf(&cmd);
-	cout << "\nNEXT\n" << endl;
 	cout << cmd << endl;
  	while ((*mapData)->isReady() == false)
  	{
 		FD_ZERO(&read_fd);
 		FD_SET(sock, &read_fd);
-		cout << "SELECT" << endl;
-		if (select(sock + 1, &(read_fd), NULL, NULL, NULL) == -1)
+		FD_ZERO(&write_fd);
+		FD_SET(1, &write_fd);
+		if (select(sock + 1, &(read_fd), &(write_fd), NULL, NULL) == -1)
 		{
 			cout << "Error Select" << endl;
 			return (false);
 		}
-		cout << "END_SELECT" << endl;
 		if (FD_ISSET(sock, &read_fd))
 		{
-			cout << "ICI" << endl;
 		 	nb_char = recv(sock, buf, 1023, 0);
-			cout << "ReCU" << endl;
 			buf[nb_char] = 0;
 			tmp = strdup(buf);
 			cmd = cmd + tmp;
@@ -119,10 +119,7 @@ static bool	getMapData(int sock, MapData **mapData)
 /*		if ((cmd2 = getCmdBuf(&cmd)) != "")
 			(mapData)->setSquareContent(cmd2);
 */		sleep(1);
-		cout << "\nNEXT\n" << endl;
-		cout << cmd << endl;
  	}
-			cout << "END" << endl;
 	return (true);
 }
 
