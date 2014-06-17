@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/11 11:38:27 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/16 22:55:36 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/17 12:11:14 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -213,6 +213,7 @@ bool		Engine::launchBroadcastParticles(scene::MySceneNode *trantor)
 	scene::IParticleRingEmitter			*emitter;
 	scene::IParticleRotationAffector	*affector;
 	PartEmitterAnim						*anim;
+	video::ITexture						*texture;
 
 	partSys = m_sceneManager->addParticleSystemSceneNode(false);
 	emitter = partSys->createRingEmitter(
@@ -235,6 +236,9 @@ bool		Engine::launchBroadcastParticles(scene::MySceneNode *trantor)
 	partSys->addAffector(affector);
 	affector->drop();
 	partSys->setRotation(trantor->getRotation());
+	if ((texture = m_driver->getTexture("textures/particle.png")))
+		partSys->setMaterialTexture(0, texture);
+	partSys->setMaterialType(irr::video::EMT_TRANSPARENT_ALPHA_CHANNEL);
 	anim = new PartEmitterAnim(partSys, emitter,
 							   m_device->getTimer()->getTime(), 10000);
 	m_mapData->registerPartEmitterAnim(anim);

@@ -6,7 +6,7 @@
 /*   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/31 14:10:08 by glourdel          #+#    #+#             */
-/*   Updated: 2014/06/16 14:05:37 by glourdel         ###   ########.fr       */
+/*   Updated: 2014/06/17 11:44:34 by glourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ public:
 	bool	newClientConnected(const string line);
 	bool	updateTrantorLevel(const string line);
 	bool	takeRessource(const string line);
+	bool	dropRessource(const string line);
 	bool	expulse(const string line);
 	bool	broadcast(const string line);
 
