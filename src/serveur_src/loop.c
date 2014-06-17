@@ -6,7 +6,7 @@
 /*   By: dcouly <dcouly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/07 16:44:18 by dcouly            #+#    #+#             */
-/*   Updated: 2014/06/17 16:48:36 by glourdel         ###   ########.fr       */
+/*   Updated: 2014/06/17 17:18:58 by dcouly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,20 @@
 #include <stdio.h>
 #include "server.h"
 #include "types.h"
+#include "get_arg.h"
 #include "map.h"
 
-int	sv_loop(int sock)
+int	sv_loop(int sock, t_arg *arg)
 {
 	t_fds	fds;
 	int		fd_max;
 	t_data	game;
 
 	game.trant = NULL;
-	game.length = 10;
-	game.width = 10;
-	game.time = 10;
-	game.map = ft_create_map(10, 10, 50);
+	game.length = arg->height;
+	game.width = arg->width;
+	game.time = arg->t;
+	game.map = ft_create_map(game.length, game.width, 50);
 	game.sock = sock;
 	game.fd_visu = -1;
 	fd_max = sock;

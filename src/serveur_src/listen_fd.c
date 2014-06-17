@@ -6,7 +6,7 @@
 /*   By: dcouly <dcouly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/07 17:07:17 by dcouly            #+#    #+#             */
-/*   Updated: 2014/06/10 17:05:30 by dcouly           ###   ########.fr       */
+/*   Updated: 2014/06/17 17:10:14 by dcouly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,8 @@ int			sv_listen_fd(t_data *game, int *fdmax, t_fds *fds)
 				nb = recv(cs, buf, 1023, 0);
 				buf[nb] = 0;
 				if (ft_strcmp("GRAPHIC\n", buf))
-				{
 					sv_insert_trant(game, cs, buf);
-				}
-				else if (game->fd_visu == -1)
+				else
 				{
 					game->fd_visu = cs;
 					game->visu.sock = cs;
@@ -67,8 +65,6 @@ int			sv_listen_fd(t_data *game, int *fdmax, t_fds *fds)
 					ft_bzero(game->visu.cmd_out, BUF_VISU);
 					sv_send_visu(game);
 				}
-				else
-					FD_CLR(cs, &(fds->master));
 			}
 			else
 				sv_read_from_client(game, i, &(fds->master));

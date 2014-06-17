@@ -6,7 +6,7 @@
 /*   By: dcouly <dcouly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/09 18:31:03 by dcouly            #+#    #+#             */
-/*   Updated: 2014/06/12 17:40:11 by dcouly           ###   ########.fr       */
+/*   Updated: 2014/06/17 17:10:39 by dcouly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,9 @@ void			ft_strstrcat(char cmd_out[BUF_VISU], char *cmd, int nb, ...)
 
 static void		sv_map(t_data *game)
 {
-	int	cnt2;
-	int	cnt;
+	int		cnt2;
+	int		cnt;
+	fd_set	write_fd;
 
 	cnt = -1;
 	while (++cnt < game->length)
@@ -45,11 +46,16 @@ static void		sv_map(t_data *game)
 		cnt2 = -1;
 		while (++cnt2 < game->width)
 		{
+			FD_ZERO(&write_fd);
+			FD_SET(game->fd_visu, &write_fd);
 			ft_strstrcat(game->visu.cmd_out, "bct", 9, cnt, cnt2,\
 			game->map[cnt][cnt2]->food, \
 			game->map[cnt][cnt2]->linemate, game->map[cnt][cnt2]->deraumere,\
 			game->map[cnt][cnt2]->sibur, game->map[cnt][cnt2]->mendiane,\
 			game->map[cnt][cnt2]->phiras, game->map[cnt][cnt2]->thystame);
+			select(game->fd_visu + 1, NULL, &write_fd, NULL, NULL);
+			if (FD_ISSET(game->fd_visu, &write_fd))	
+				sv_send(game, game->fd_visu);
 		}
 	}
 }
