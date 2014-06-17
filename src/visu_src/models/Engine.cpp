@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/05/31 14:10:28 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/17 13:51:31 by dcouly           ###   ########.fr       //
+//   Updated: 2014/06/17 14:56:45 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -18,7 +18,33 @@
 
 using namespace std;
 
-Engine::Engine(MapData *mapData) : m_mapData(mapData)
+Engine::Engine(MapData *mapData)
+	: m_device(NULL),
+	  m_driver(NULL),
+	  m_sceneManager(NULL),
+	  m_camera(NULL),
+	  m_mapData(mapData),
+	  m_emptyParent(NULL),
+	  m_planet(NULL),
+	  m_trentorMesh(NULL),
+	  m_treeMesh(NULL),
+	  m_planetTexture(NULL),
+	  m_planetGrid(NULL)
+{
+	for (u8 i = 0; i < 7; i++)
+		m_itemMesh[i] = NULL;
+	for (u8 i = 0; i < 10; i++)
+		m_trantorTexture[i] = NULL;
+	for (u8 i = 0; i < 7; i++)
+		m_gemTexture[i] = NULL;
+}
+
+Engine::~Engine(void)
+{
+	m_device->drop();
+}
+
+bool	Engine::initAndStart(void)
 {
 	SKeyMap	keyMap[5];
 
@@ -76,18 +102,10 @@ Engine::Engine(MapData *mapData) : m_mapData(mapData)
 	m_trantorTexture[7] = m_driver->getTexture("models/faerie/FaerieH_Skin.jpg");
 	m_trantorTexture[8] = m_driver->getTexture("models/faerie/FaerieI_Skin.jpg");
 	m_trantorTexture[9] = m_driver->getTexture("models/faerie/FaerieJ_Skin.jpg");
+	if (!addPlanet() || !addLights())
+		return (false);
+	return (true);
 }
-
-Engine::~Engine(void)
-{
-	m_device->drop();
-}
-
-bool	Engine::isReady(void)
-{
-	return (m_mapData->isReady());
-}
-	
 
 bool	Engine::addPlanet(void)
 {

@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/05/28 11:59:19 by glourdel          #+#    #+#             //
-/*   Updated: 2014/06/17 14:08:31 by dcouly           ###   ########.fr       */
+//   Updated: 2014/06/17 14:51:38 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -25,7 +25,7 @@
 
 using namespace std;
 
-size_t     find_ret(string str)
+size_t     find_ret(const string &str)
 {
 	size_t	found;
 
@@ -33,23 +33,23 @@ size_t     find_ret(string str)
 	return (found);
 }
 
-string  getCmdBuf(string *buf)
+string  getCmdBuf(string &buf)
 {
 	size_t	nb_char;
 	string	cmd;
 
-	if ((nb_char = find_ret(*buf)))
+	if ((nb_char = find_ret(buf)) != string::npos)
 	{
-		cmd = *buf;
+		cmd = buf;
 		cmd.resize(nb_char);
-		*buf = buf->substr(nb_char + 1, buf->size() - nb_char - 1);
+		buf = buf.substr(nb_char + 1, buf.size() - nb_char - 1);
 		return (cmd);
 	}
 	return ("");
 }
 
 
-MapData *setMap(const string line)
+MapData		*setMap(const string line)
 {
 	vector<string>	*tokens;
 	MapData			*map;
@@ -60,17 +60,17 @@ MapData *setMap(const string line)
 	return (map);
 }
 
-static bool	getMapData(int sock, MapData **mapData)
+static bool	getMapData(int sock, string &work_buf, MapData *&mapData, Engine *&engine)
 {
 	char			buf[1024];
-	string			cmd;
 	string			tmp;
 	string			cmd2;
 	fd_set			read_fd;
 	fd_set			write_fd;
 	int				nb_char;
+	bool			first_cmd = true;
 
-	cmd = "";
+	work_buf = "";
  	while (42)
  	{
 		FD_ZERO(&read_fd);
@@ -84,61 +84,50 @@ static bool	getMapData(int sock, MapData **mapData)
 		}
 		if (FD_ISSET(sock, &read_fd))
 		{
-		 	nb_char = recv(sock, buf, 1023, 0);
+			nb_char = recv(sock, buf, 1023, 0);
 			buf[nb_char] = 0;
 			tmp = strdup(buf);
-			cmd = cmd + tmp;
-			cout << cmd << endl;
- 			if ((cmd2 = getCmdBuf(&cmd)) != "")
-	 		{
- 				*mapData = setMap(cmd2);
-				break ;
- 			}
+			work_buf = work_buf + tmp;
+			cout << "Workbuf = " << work_buf << endl;
+		}
+		if ((cmd2 = getCmdBuf(work_buf)) != "")
+		{
+			// verifier qu'il s'agit bien de la cmde "msz"
+			if (first_cmd)
+			{
+				first_cmd = false;
+				mapData = setMap(cmd2);
+				engine = new Engine(mapData);
+			}
+			else
+			{
+				// cmd2 : faire fonction generale engine->
+				if (mapData->isReady() == true)
+				{
+					engine->initAndStart();
+					cout << "I'm ready to go !!!!!!\n";
+					break ;
+				}
+			}
 		}
 	}
-	cmd2 = getCmdBuf(&cmd);
-	cout << cmd << endl;
- 	while ((*mapData)->isReady() == false)
- 	{
-		FD_ZERO(&read_fd);
-		FD_SET(sock, &read_fd);
-		FD_ZERO(&write_fd);
-		FD_SET(1, &write_fd);
-		if (select(sock + 1, &(read_fd), &(write_fd), NULL, NULL) == -1)
-		{
-			cout << "Error Select" << endl;
-			return (false);
-		}
-		if (FD_ISSET(sock, &read_fd))
-		{
-		 	nb_char = recv(sock, buf, 1023, 0);
-			buf[nb_char] = 0;
-			tmp = strdup(buf);
-			cmd = cmd + tmp;
-		}
-/*		if ((cmd2 = getCmdBuf(&cmd)) != "")
-			(mapData)->setSquareContent(cmd2);
-*/		sleep(1);
- 	}
 	return (true);
 }
 
 int			main(int argc, char **argv)
 {
-//	Engine	*engine;
+	Engine	*engine;
 	int		sock;
 	MapData	*mapData;
+	string	work_buf;
 
 	if (argc != 3)
 		return (1);
 	srand(time(NULL));
 	sock = cl_new_connection(argv[1], argv[2], (char*)"GRAPHIC\n");
-	if (!getMapData(sock, &mapData))
+	if (!getMapData(sock, work_buf, mapData, engine))
 		return (1);
-//	engine = new Engine(mapData);
-/*	if (engine->addPlanet()
-
-		&& engine->addTrantor(1, 0, 0, EAST, 1, "1")
+/*	if (&& engine->addTrantor(1, 0, 0, EAST, 1, "1")
 		&& engine->addTrantor(2, 0, 1, EAST, 1, "2")
 		&& engine->addTrantor(3, 0, 2, EAST, 1, "3")
 		&& engine->addTrantor(4, 0, 3, EAST, 1, "4")
@@ -151,14 +140,8 @@ int			main(int argc, char **argv)
 		&& engine->setSquareContent("bct 1 1 3 1 1 1 1 1 1")
 		&& engine->updateTrantorPosition("pnw 5 5 4 4")
 //		&& engine->addTrees()
-		&& engine->addLights())
 		engine->loop();
 	delete (engine);
 */
-	while(1)
-	{
-		sleep(1);
-		cout << "ok\n" << endl;
-	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/31 14:10:08 by glourdel          #+#    #+#             */
-/*   Updated: 2014/06/17 13:48:37 by dcouly           ###   ########.fr       */
+/*   Updated: 2014/06/17 14:53:03 by glourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ public:
 	Engine(MapData *mapData);
 	~Engine(void);
 
-	bool	isReady(void);
+	bool	initAndStart(void);
 	bool	addPlanet(void);
 	bool	addTrantor(int id, int X, int Y, int orientation, int level,
 					   const string team);
@@ -50,7 +50,7 @@ private:
 	bool	launchBroadcastParticles(scene::MySceneNode *trantor);
 
 	IrrlichtDevice					*m_device;
-	video::IVideoDriver*			m_driver;
+	video::IVideoDriver				*m_driver;
 	scene::ISceneManager			*m_sceneManager;
 	scene::ICameraSceneNode			*m_camera;
 	MapData							*m_mapData;
