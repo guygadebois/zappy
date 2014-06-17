@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/05/31 14:10:28 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/17 14:56:45 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/17 16:27:39 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -31,21 +31,6 @@ Engine::Engine(MapData *mapData)
 	  m_planetTexture(NULL),
 	  m_planetGrid(NULL)
 {
-	for (u8 i = 0; i < 7; i++)
-		m_itemMesh[i] = NULL;
-	for (u8 i = 0; i < 10; i++)
-		m_trantorTexture[i] = NULL;
-	for (u8 i = 0; i < 7; i++)
-		m_gemTexture[i] = NULL;
-}
-
-Engine::~Engine(void)
-{
-	m_device->drop();
-}
-
-bool	Engine::initAndStart(void)
-{
 	SKeyMap	keyMap[5];
 
 	m_device = createDevice(video::EDT_OPENGL,
@@ -57,9 +42,9 @@ bool	Engine::initAndStart(void)
 							32, true, true, false, 0);
 	m_device->getCursorControl()->setVisible(false);
 #ifdef _IRR_OSX_PLATFORM_
-	m_device->getFileSystem()->changeWorkingDirectoryTo ("visu.app");
-	m_device->getFileSystem()->changeWorkingDirectoryTo ("Contents");
-	m_device->getFileSystem()->changeWorkingDirectoryTo ("Resources");
+	m_device->getFileSystem()->changeWorkingDirectoryTo("visu.app");
+	m_device->getFileSystem()->changeWorkingDirectoryTo("Contents");
+	m_device->getFileSystem()->changeWorkingDirectoryTo("Resources");
 #endif
 	m_driver = m_device->getVideoDriver();
 	m_sceneManager = m_device->getSceneManager();
@@ -85,6 +70,8 @@ bool	Engine::initAndStart(void)
 	m_itemMesh[4] = m_sceneManager->getMesh("models/Iso_3DS/hextetrahedron.3ds");
 	m_itemMesh[5] = m_sceneManager->getMesh("models/Iso_3DS/rhombic_dodec.3ds");
 	m_itemMesh[6] = m_sceneManager->getMesh("models/Iso_3DS/trapezohedron.3ds");
+	for (u8 i = 0; i < 7; i++)
+		m_itemMesh[i]->setHardwareMappingHint(scene::EHM_STATIC);
 	m_planetTexture = m_driver->getTexture("textures/grass.jpg");
 	m_gemTexture[0] = m_driver->getTexture("textures/blue-green.png");
 	m_gemTexture[1] = m_driver->getTexture("textures/yellow.png");
@@ -102,8 +89,17 @@ bool	Engine::initAndStart(void)
 	m_trantorTexture[7] = m_driver->getTexture("models/faerie/FaerieH_Skin.jpg");
 	m_trantorTexture[8] = m_driver->getTexture("models/faerie/FaerieI_Skin.jpg");
 	m_trantorTexture[9] = m_driver->getTexture("models/faerie/FaerieJ_Skin.jpg");
-	if (!addPlanet() || !addLights())
-		return (false);
+	addPlanet();
+	addLights();
+}
+
+Engine::~Engine(void)
+{
+	m_device->drop();
+}
+
+bool	Engine::start(void)
+{
 	return (true);
 }
 

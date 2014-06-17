@@ -6,7 +6,7 @@
 /*   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/31 14:10:08 by glourdel          #+#    #+#             */
-/*   Updated: 2014/06/17 14:53:03 by glourdel         ###   ########.fr       */
+/*   Updated: 2014/06/17 15:39:47 by glourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ public:
 	Engine(MapData *mapData);
 	~Engine(void);
 
-	bool	initAndStart(void);
+	bool	start(void);
 	bool	addPlanet(void);
 	bool	addTrantor(int id, int X, int Y, int orientation, int level,
 					   const string team);
@@ -36,6 +36,8 @@ public:
 	void	loop(void);
 	bool	addItem(const u8 itemNbr, const u32 howMany, const u32 x, const u32 y);
 // Action suite aux commandes :
+	bool	treatCmd(const string line);
+	bool	setTimeUnit(const string line);
 	bool	setSquareContent(const string line);
 	bool	updateTrantorPosition(const string line);
 	bool	newClientConnected(const string line);

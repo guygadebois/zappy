@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/11 11:38:27 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/17 13:51:43 by dcouly           ###   ########.fr       //
+//   Updated: 2014/06/17 15:43:02 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -18,6 +18,34 @@
 #include "errors.h"
 
 using namespace std;
+
+bool	Engine::treatCmd(const string line)
+{
+	string	cmd = line.substr(0, 3);
+
+//	cout << "Traite commande : " << line << endl;
+	if (cmd == "bct")
+		return (setSquareContent(line));
+	if (cmd == "sgt")
+		return (setTimeUnit(line));
+	return (false);
+}
+
+bool	Engine::setTimeUnit(const string line)
+{
+	vector<string>	*tokens;
+	s32				timeUnit;
+
+	tokens = mystring::strsplit(line);
+	if (tokens->size() != 2)
+		return (err_msg("Engine::setTimeUnit ERROR --> invalid line format"));
+	timeUnit = stoi((*tokens)[1]);
+	if (timeUnit <= 0)
+		return (err_msg("Engine::setTimeUnit ERROR --> time unit must be greater than 0"));
+	m_mapData->setTimeUnit(timeUnit);
+	delete (tokens);
+	return (true);
+}
 
 bool	Engine::setSquareContent(const string line)
 {

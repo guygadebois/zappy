@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/09 15:31:30 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/13 18:53:31 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/17 15:36:08 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -40,7 +40,7 @@ u32						MapData::getTimeUnit(void)
 	return (m_timeUnit);
 }
 
-void					MapData::setTimeUnit(u32 time)
+void					MapData::setTimeUnit(s32 time)
 {
 	m_timeUnit = time;
 }

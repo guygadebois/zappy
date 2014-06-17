@@ -6,7 +6,7 @@
 /*   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/03 15:17:17 by glourdel          #+#    #+#             */
-/*   Updated: 2014/06/17 13:48:20 by dcouly           ###   ########.fr       */
+/*   Updated: 2014/06/17 15:34:39 by glourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ public:
 	core::dimension2d<u32>		getGridElemPSize();
 	void						setMatrixSquareInit(u32 x, u32 y, bool toSet);
 	u32							getTimeUnit(void);
-	void						setTimeUnit(u32 time);
+	void						setTimeUnit(s32 time);
 	scene::MySceneNode			*getTrantorById(const u32 id, const bool verbose=true);
 	list<scene::MySceneNode*>	*getTrantorsByPos(const core::vector2di &pos);
 	void						registerPartEmitterAnim(PartEmitterAnim *anim);
@@ -116,7 +116,7 @@ private:
 	list<scene::MySceneNode *>	m_trantors;
 	list<scene::MySceneNode *>	m_freeItem[7];
 	list<string>				m_teams;
-	u32							m_timeUnit;
+	s32							m_timeUnit;
 	list<t_frameAnimation *>	m_pickAnimations;
 	list<PartEmitterAnim *>		m_partEmitterAnimations;
 };
