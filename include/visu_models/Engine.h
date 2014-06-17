@@ -6,7 +6,7 @@
 /*   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/31 14:10:08 by glourdel          #+#    #+#             */
-/*   Updated: 2014/06/17 12:34:53 by glourdel         ###   ########.fr       */
+/*   Updated: 2014/06/17 13:48:37 by dcouly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ class Engine
 public:
 	Engine(MapData *mapData);
 	~Engine(void);
+
+	bool	isReady(void);
 	bool	addPlanet(void);
 	bool	addTrantor(int id, int X, int Y, int orientation, int level,
 					   const string team);

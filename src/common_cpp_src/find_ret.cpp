@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   find_ret.c                                         :+:      :+:    :+:   */
+/*   find_ret.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dcouly <dcouly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/06/07 19:01:32 by dcouly            #+#    #+#             */
-/*   Updated: 2014/06/11 14:38:45 by dcouly           ###   ########.fr       */
+/*   Created: 2014/06/11 14:47:24 by dcouly            #+#    #+#             */
+/*   Updated: 2014/06/11 14:49:42 by dcouly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <cstring>
 
-int			ft_find_ret(char *str)
+int		find_ret(char *str)
 {
 	char	*target;
 
-	if ((target = ft_strchr(str, '\n')) != NULL)
+	if ((target = strchr(str, '\n')) != NULL)
 		return (target - str);
 	return (-1);
 }

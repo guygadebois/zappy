@@ -75,8 +75,10 @@ VISU_CPPFILES= \
 		visu_src//models/PartEmitterAnim.cpp \
 
 COMMON_CPPFILES= \
+		common_cpp_src//find_ret.cpp \
 		common_cpp_src//mystring.cpp \
 		common_cpp_src//new_connection.cpp \
+		common_cpp_src//read_buf.cpp \
 
 CFILES= $(SERVEUR_CFILES)
 CPPFILES= $(CLIENT_CPPFILES) $(VISU_CPPFILES) $(COMMON_CPPFILES)
@@ -403,7 +405,7 @@ obj/visu_main.o: src/visu_src//main.cpp irrlicht/include/irrlicht.h \
  include/visu_models/MapData.h include/visu_models/PartEmitterAnim.h \
  include/visu_models/visu_define.h include/visu_models/Engine.h \
  include/visu_models/MySceneNode.h include/visu_models/MapData.h \
- include/common.h include/visu_models/visu_define.h
+ include/common.h include/mystring.h include/visu_models/visu_define.h
 	@echo $(CYAN)"    Creating obj/visu_main.o ...\033[0m"
 	@mkdir -p $(OBJDIR);
 	@$(CCPP) -o $(OBJDIR)visu_main.o -Wall \
@@ -763,7 +765,8 @@ obj/visu_MapData.o: src/visu_src//models/MapData.cpp include/visu_models/MapData
  irrlicht/include/SMeshBufferTangents.h \
  irrlicht/include/SSharedMeshBuffer.h irrlicht/include/SViewFrustum.h \
  include/visu_models/PartEmitterAnim.h include/visu_models/visu_define.h \
- include/visu_models/MySceneNode.h include/visu_models/MapData.h
+ include/Mystring.h include/visu_models/MySceneNode.h \
+ include/visu_models/MapData.h
 	@echo $(CYAN)"    Creating obj/visu_MapData.o ...\033[0m"
 	@mkdir -p $(OBJDIR);
 	@$(CCPP) -o $(OBJDIR)visu_MapData.o -Wall \
@@ -1482,6 +1485,12 @@ obj/visu_PartEmitterAnim.o: src/visu_src//models/PartEmitterAnim.cpp \
 	@$(CCPP) -o $(OBJDIR)visu_PartEmitterAnim.o -Wall \
 -c $(SRCDIR)visu_src//models/PartEmitterAnim.cpp $(INCL_FLAGS) $(IRRLICHT_INCL_FLAGS)
 
+obj/cm_find_ret.o: src/common_cpp_src//find_ret.cpp
+	@echo $(CYAN)"    Creating obj/cm_find_ret.o ...\033[0m"
+	@mkdir -p $(OBJDIR);
+	@$(CCPP) -o $(OBJDIR)cm_find_ret.o -Wall \
+-c $(SRCDIR)common_cpp_src//find_ret.cpp $(CFLAGS)
+
 obj/cm_mystring.o: src/common_cpp_src//mystring.cpp include/mystring.h
 	@echo $(CYAN)"    Creating obj/cm_mystring.o ...\033[0m"
 	@mkdir -p $(OBJDIR);
@@ -1493,4 +1502,10 @@ obj/cm_new_connection.o: src/common_cpp_src//new_connection.cpp include/common.h
 	@mkdir -p $(OBJDIR);
 	@$(CCPP) -o $(OBJDIR)cm_new_connection.o -Wall \
 -c $(SRCDIR)common_cpp_src//new_connection.cpp $(CFLAGS)
+
+obj/cm_read_buf.o: src/common_cpp_src//read_buf.cpp include/common.h
+	@echo $(CYAN)"    Creating obj/cm_read_buf.o ...\033[0m"
+	@mkdir -p $(OBJDIR);
+	@$(CCPP) -o $(OBJDIR)cm_read_buf.o -Wall \
+-c $(SRCDIR)common_cpp_src//read_buf.cpp $(CFLAGS)
 

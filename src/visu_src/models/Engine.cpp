@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/05/31 14:10:28 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/16 12:34:05 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/17 13:51:31 by dcouly           ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -82,6 +82,12 @@ Engine::~Engine(void)
 {
 	m_device->drop();
 }
+
+bool	Engine::isReady(void)
+{
+	return (m_mapData->isReady());
+}
+	
 
 bool	Engine::addPlanet(void)
 {

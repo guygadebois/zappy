@@ -6,82 +6,162 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/05/28 11:59:19 by glourdel          #+#    #+#             //
-/*   Updated: 2014/06/17 13:44:50 by dcouly           ###   ########.fr       */
+/*   Updated: 2014/06/17 13:49:48 by dcouly           ###   ########.fr       */
 //                                                                            //
 // ************************************************************************** //
 
 #include <irrlicht.h>
 #include <iostream>
 #include <stdlib.h>
+#include <netdb.h>
 #include <time.h>
+#include <unistd.h>
+#include <sys/select.h>
 #include "MapData.h"
 #include "Engine.h"
 #include "common.h"
+#include "mystring.h"
 #include "visu_define.h"
 
 using namespace std;
 
-/*static bool	getMapData(MapData **mapData, int sock)
+size_t     find_ret(string str)
 {
-	char	buf[1024];
-	char	*cmd;
-	char	*tmp;
-	int		nb_char;
+	size_t	found;
 
-	nb_char = recv(sock, buf, 1023, 0);
-	buf[nb_char] = 0;
-	cmd = strdup(buf);
+	found = str.find("\n");
+	return (found);
+}
 
-// 	while (42)
-// 	{
-// 		if (//receive grid size
-// 			)
-// 		{
-// 			mapData = new MapData(40, 20);
-// 			break ;
-// 		}
-// 	}
-// 	while (mapData->isReady() == false)
-// 	{
-// 		//receive datas
-// 	}
+string  getCmdBuf(string *buf)
+{
+	size_t	nb_char;
+	string	cmd;
+
+	if ((nb_char = find_ret(*buf)))
+	{
+		cmd = *buf;
+		cmd.resize(nb_char);
+		*buf = buf->substr(nb_char + 1, buf->size() - nb_char - 1);
+		return (cmd);
+	}
+	return ("");
+}
+
+
+MapData *setMap(const string line)
+{
+	vector<string>	*tokens;
+	MapData			*map;
+
+	tokens = mystring::strsplit(line);
+	map = new MapData(stoi((*tokens)[1]), stoi((*tokens)[2]));
+	delete(tokens);
+	return (map);
+}
+
+static bool	getMapData(int sock, MapData **mapData)
+{
+	char			buf[1024];
+	string			cmd;
+	string			tmp;
+	string			cmd2;
+	fd_set			read_fd;
+	int				nb_char;
+
+	cmd = "";
+ 	while (42)
+ 	{
+		FD_ZERO(&read_fd);
+		FD_SET(sock, &read_fd);
+		if (select(sock + 1, &(read_fd), NULL, NULL, NULL) == -1)
+		{
+			cout << "Error Select" << endl;
+			return (false);
+		}
+		if (FD_ISSET(sock, &read_fd))
+		{
+		 	nb_char = recv(sock, buf, 1023, 0);
+			buf[nb_char] = 0;
+			tmp = strdup(buf);
+			cmd = cmd + tmp;
+			cout << cmd << endl;
+ 			if ((cmd2 = getCmdBuf(&cmd)) != "")
+	 		{
+ 				*mapData = setMap(cmd2);
+				break ;
+ 			}
+		}
+	}
+	cmd2 = getCmdBuf(&cmd);
+	cout << "\nNEXT\n" << endl;
+	cout << cmd << endl;
+ 	while ((*mapData)->isReady() == false)
+ 	{
+		FD_ZERO(&read_fd);
+		FD_SET(sock, &read_fd);
+		cout << "SELECT" << endl;
+		if (select(sock + 1, &(read_fd), NULL, NULL, NULL) == -1)
+		{
+			cout << "Error Select" << endl;
+			return (false);
+		}
+		cout << "END_SELECT" << endl;
+		if (FD_ISSET(sock, &read_fd))
+		{
+			cout << "ICI" << endl;
+		 	nb_char = recv(sock, buf, 1023, 0);
+			cout << "ReCU" << endl;
+			buf[nb_char] = 0;
+			tmp = strdup(buf);
+			cmd = cmd + tmp;
+		}
+/*		if ((cmd2 = getCmdBuf(&cmd)) != "")
+			(mapData)->setSquareContent(cmd2);
+*/		sleep(1);
+		cout << "\nNEXT\n" << endl;
+		cout << cmd << endl;
+ 	}
+			cout << "END" << endl;
 	return (true);
-}*/
+}
 
 int			main(int argc, char **argv)
 {
+//	Engine	*engine;
+	int		sock;
 	MapData	*mapData;
-	Engine	*engine;
-//	int		sock;
 
 	if (argc != 3)
 		return (1);
 	srand(time(NULL));
-//	sock = cl_new_connection(argv[1], argv[2], "GRAPHIC\n");
-//	if (!getMapData(&mapData, sock))
-//		return (1);
-	mapData = new MapData(40, 20);
-	engine = new Engine(mapData);
-	if (engine->addPlanet()
-		&& engine->newClientConnected("pnw 1 0 1 2 1 toto")
-		&& engine->newClientConnected("pnw 2 0 2 1 1 tota")
-		&& engine->newClientConnected("pnw 3 0 3 1 1 toto")
-		&& engine->newClientConnected("pnw 4 0 4 1 1 toti")
-		&& engine->newClientConnected("pnw 5 0 5 1 1 toto")
-		&& engine->newClientConnected("pnw 6 0 6 1 1 totu")
-		&& engine->newClientConnected("pnw 7 0 7 1 1 toto")
-		&& engine->newClientConnected("pnw 8 0 8 1 1 toto")
-		&& engine->updateTrantorLevel("plv 2 8")
-		&& engine->setSquareContent("bct 0 2 3 1 1 1 1 1 1")
-		&& engine->updateTrantorPosition("pnw 5 5 4 2")
-		&& engine->takeRessource("pgt 2 0")
-		&& engine->dropRessource("pdr 2 0")
-		&& engine->broadcast("pbc 1 Coucou")
+	sock = cl_new_connection(argv[1], argv[2], (char*)"GRAPHIC\n");
+	if (!getMapData(sock, &mapData))
+		return (1);
+//	engine = new Engine(mapData);
+/*	if (engine->addPlanet()
+
+		&& engine->addTrantor(1, 0, 0, EAST, 1, "1")
+		&& engine->addTrantor(2, 0, 1, EAST, 1, "2")
+		&& engine->addTrantor(3, 0, 2, EAST, 1, "3")
+		&& engine->addTrantor(4, 0, 3, EAST, 1, "4")
+		&& engine->addTrantor(5, 0, 4, EAST, 1, "5")
+		&& engine->addTrantor(6, 0, 5, EAST, 1, "6")
+		&& engine->addTrantor(7, 0, 6, EAST, 1, "7")
+		&& engine->addTrantor(8, 0, 7, EAST, 1, "8")
+		&& engine->addTrantor(9, 0, 8, EAST, 1, "9")
+		&& engine->addTrantor(10, 0, 9, EAST, 1, "10")
+		&& engine->setSquareContent("bct 1 1 3 1 1 1 1 1 1")
+		&& engine->updateTrantorPosition("pnw 5 5 4 4")
+//		&& engine->addTrees()
 		&& engine->addLights())
 		engine->loop();
-	else
-		cout << "Failed before engine loop" << endl;
-	delete (mapData);
 	delete (engine);
+*/
+	while(1)
+	{
+		sleep(1);
+		cout << "ok\n" << endl;
+	}
 	return (0);
 }

@@ -1,22 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   find_ret.c                                         :+:      :+:    :+:   */
+/*   read_buf.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dcouly <dcouly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/06/07 19:01:32 by dcouly            #+#    #+#             */
-/*   Updated: 2014/06/11 14:38:45 by dcouly           ###   ########.fr       */
+/*   Created: 2014/06/11 14:40:43 by dcouly            #+#    #+#             */
+/*   Updated: 2014/06/12 16:06:06 by dcouly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <cstring>
+#include <cstdlib>
+#include "common.h"
 
-int			ft_find_ret(char *str)
+char	*read_buf(char *buf)
 {
-	char	*target;
+	int		nb_char;
+	char	*cmd;
+	char	*tmp;
 
-	if ((target = ft_strchr(str, '\n')) != NULL)
-		return (target - str);
-	return (-1);
+	if ((nb_char = find_ret(buf)))
+	{
+		cmd = strndup(buf, nb_char);
+		tmp = strdup(&((buf)[nb_char + 1]));
+		free(buf);
+		buf = strdup(tmp);
+		free(tmp);
+		return (cmd);
+	}
+	return (NULL);
 }
