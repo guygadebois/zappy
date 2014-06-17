@@ -6,7 +6,7 @@
 /*   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/31 14:10:08 by glourdel          #+#    #+#             */
-/*   Updated: 2014/06/17 11:44:34 by glourdel         ###   ########.fr       */
+/*   Updated: 2014/06/17 12:34:53 by glourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ public:
 	bool	dropRessource(const string line);
 	bool	expulse(const string line);
 	bool	broadcast(const string line);
+	bool	die(const string line);
 
 private:
 	bool	launchBroadcastParticles(scene::MySceneNode *trantor);

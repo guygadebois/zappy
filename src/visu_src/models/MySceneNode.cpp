@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/05 18:16:21 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/17 12:31:26 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/17 12:34:41 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -371,4 +371,9 @@ void						scene::MySceneNode::isExpulsed(const u8 orientation)
 bool						scene::MySceneNode::broadcast(const string msg)
 {
 	return (true);
+}
+
+void						scene::MySceneNode::die(void)
+{
+	m_son->setFrameLoop(207, 211);
 }

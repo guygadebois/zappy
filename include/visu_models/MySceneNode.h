@@ -6,7 +6,7 @@
 /*   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/05 17:45:38 by glourdel          #+#    #+#             */
-/*   Updated: 2014/06/17 12:13:20 by glourdel         ###   ########.fr       */
+/*   Updated: 2014/06/17 12:34:14 by glourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ namespace irr
 			bool				expulse(void);
 			void				isExpulsed(const u8 orientation);
 			bool				broadcast(const string msg);
+			void				die(void);
 
 			// Accesseurs :
 			u8								getOrientation(void) const;

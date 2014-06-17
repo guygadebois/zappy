@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/11 11:38:27 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/17 12:12:45 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/17 12:39:06 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -225,7 +225,7 @@ bool	Engine::broadcast(const string line)
 	return (ret);
 }
 
-bool		Engine::launchBroadcastParticles(scene::MySceneNode *trantor)
+bool	Engine::launchBroadcastParticles(scene::MySceneNode *trantor)
 {
 	scene::IParticleSystemSceneNode		*partSys;
 	scene::IParticleRingEmitter			*emitter;
@@ -261,4 +261,23 @@ bool		Engine::launchBroadcastParticles(scene::MySceneNode *trantor)
 							   m_device->getTimer()->getTime(), 10000);
 	m_mapData->registerPartEmitterAnim(anim);
 	return (true);
+}
+
+bool	Engine::die(const string line)
+{
+	// scene::MySceneNode				*trantor;
+	// vector<string>					*tokens;
+	// u32								id;
+	// bool							ret;
+
+	// tokens = mystring::strsplit(line);
+	// if (tokens->size() != 3)
+	// 	return (err_msg("Engine::takeRessource ERROR --> invalid line format"));
+	// id = stoi((*tokens)[1]);
+	// if ((trantor = m_mapData->getTrantorById(id)) == NULL)
+	// 	return (false);
+	// launchBroadcastParticles(trantor);
+	// ret = trantor->broadcast((*tokens)[2]);
+	// delete (tokens);
+	// return (ret);
 }
