@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/05/31 14:10:28 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/17 16:27:39 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/17 17:19:39 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -220,6 +220,7 @@ void	Engine::loop(void)
 							  video::SColor(255, 0, 0, 0));
 		m_mapData->AnimParticleEmitters(m_device->getTimer()->getTime());
 		m_mapData->checkAnimationsEnd();
+		m_mapData->hideItemsOnInoccupiedSquares();
 		m_sceneManager->drawAll();
 		m_driver->endScene();
 	}

@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/05 18:16:21 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/17 16:32:47 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/17 17:19:01 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -83,11 +83,10 @@ scene::IAnimatedMeshSceneNode	*scene::MySceneNode::init(
 //		m_son->getMaterial(0).DiffuseColor.set(90, 90, 90, 90);
 //		m_son->getMaterial(0).SpecularColor.set(255, 255, 255, 255);
 		m_son->setScale(core::vector3df(0.5f, 0.5f, 0.5f));
-		setVisible(false);
 	}
 	else if (m_type == FOOD)
 	{
-		setVisible(false);
+//
 	}
 	placeOnSquare(m_boardPos.X, m_boardPos.Y, m_offset.X, m_offset.Y);
 	return (m_son);
@@ -376,5 +375,7 @@ bool						scene::MySceneNode::broadcast(const string msg)
 
 void						scene::MySceneNode::die(void)
 {
-	m_son->setFrameLoop(207, 211);
+	m_mapData->registerFrameAnimation(this, 207, 211, 211, 211, 5, 1, true, this);
+	m_son->setAnimationSpeed(4);
+	m_son->setFrameLoop(207, 219);
 }

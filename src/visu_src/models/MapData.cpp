@@ -6,11 +6,12 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/03 15:25:43 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/17 13:52:03 by dcouly           ###   ########.fr       //
+//   Updated: 2014/06/17 17:25:38 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
 #include <iostream>
+#include <algorithm>
 #include "MapData.h"
 #include "Mystring.h"
 #include "MySceneNode.h"
@@ -99,4 +100,28 @@ scene::MySceneNode		*MapData::pickFreeItem(const u32 itemNbr, const core::vector
 		return (item);
 	}
 	return (NULL);
+}
+
+void					MapData::hideItem(scene::MySceneNode *item)
+{
+	item->setVisible(false);
+}
+
+void					MapData::hideItemsOnInoccupiedSquares(void)
+{
+	for (u32 i = 0; i < m_gridSize.Width; i++)
+	{
+		for (u32 j = 0; j < m_gridSize.Height; j++)
+		{
+			if (m_matrix[i][j].trantors.size() <= 0)
+			{
+				for (u8 k = 0; k < 7; k++)
+				{
+					for_each(m_matrix[i][j].item[k].begin(),
+							 m_matrix[i][j].item[k].end(),
+							 hideItem);
+				}
+			}
+		}
+	}
 }

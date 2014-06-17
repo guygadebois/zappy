@@ -6,7 +6,7 @@
 /*   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/03 15:17:17 by glourdel          #+#    #+#             */
-/*   Updated: 2014/06/17 15:34:39 by glourdel         ###   ########.fr       */
+/*   Updated: 2014/06/17 17:23:39 by glourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,9 @@ public:
 	bool						isReady(void) const;
 	scene::MySceneNode			*pickItemFromList(const u32 itemNbr, const core::vector2di &boardPos);
 	scene::MySceneNode			*pickFreeItem(const u32 itemNbr, const core::vector2di &boardPos);
+	void						registerPartEmitterAnim(PartEmitterAnim *anim);
+	void						AnimParticleEmitters(const u32 now);
+	void						hideItemsOnInoccupiedSquares(void);
 
 	// Accesseur
 	core::dimension2d<u32>		getGridSize();
@@ -101,12 +104,11 @@ public:
 	void						setTimeUnit(s32 time);
 	scene::MySceneNode			*getTrantorById(const u32 id, const bool verbose=true);
 	list<scene::MySceneNode*>	*getTrantorsByPos(const core::vector2di &pos);
-	void						registerPartEmitterAnim(PartEmitterAnim *anim);
-	void						AnimParticleEmitters(const u32 now);
 
 private:
 	void						checkFrameAnimationsEnd(void);
 	void						checkDiveAnimationsEnd(void);
+	static void					hideItem(scene::MySceneNode *item);
 
 	vector<vector<t_mapElem> >	m_matrix;
 	core::dimension2d<u32>		m_gridSize; // Number of elem in the grip

@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/11 11:38:27 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/17 16:47:05 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/17 17:05:39 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -23,13 +23,27 @@ bool	Engine::treatCmd(const string line)
 {
 	string	cmd = line.substr(0, 3);
 
-	if (cmd == "bct")
-		return (setSquareContent(line));
 	if (cmd == "sgt")
 		return (setTimeUnit(line));
+	if (cmd == "bct")
+		return (setSquareContent(line));
+	if (cmd == "pnw")
+		return (newClientConnected(line));
+	if (cmd == "ppo")
+		return (updateTrantorPosition(line));
+	if (cmd == "plv")
+		return (updateTrantorLevel(line));
+	if (cmd == "pgt")
+		return (takeRessource(line));
+	if (cmd == "pdr")
+		return (dropRessource(line));
+	if (cmd == "pex")
+		return (expulse(line));
+	if (cmd == "pbc")
+		return (broadcast(line));
 	if (cmd == "pdi")
 		return (die(line));
-	cout << "Commande inconnue : " << line << endl;
+	cout << "WARNING -> Commande inconnue : " << line << endl;
 	return (false);
 }
 
