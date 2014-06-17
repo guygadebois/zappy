@@ -6,7 +6,7 @@
 /*   By: dcouly <dcouly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/07 16:44:18 by dcouly            #+#    #+#             */
-/*   Updated: 2014/06/10 19:26:53 by dcouly           ###   ########.fr       */
+/*   Updated: 2014/06/17 16:48:36 by glourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,6 @@ int	sv_loop(int sock)
 		fds.write = fds.master;
 		if (select(fd_max + 1, &(fds.read), &(fds.write), NULL, NULL) == -1)
 			return (err_function("select"));
-		sv_listen_fd(&game, &fd_max, &fds);	
+		sv_listen_fd(&game, &fd_max, &fds);
 	}
 }

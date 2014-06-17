@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/11 11:38:27 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/17 15:43:02 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/17 16:47:05 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -23,11 +23,13 @@ bool	Engine::treatCmd(const string line)
 {
 	string	cmd = line.substr(0, 3);
 
-//	cout << "Traite commande : " << line << endl;
 	if (cmd == "bct")
 		return (setSquareContent(line));
 	if (cmd == "sgt")
 		return (setTimeUnit(line));
+	if (cmd == "pdi")
+		return (die(line));
+	cout << "Commande inconnue : " << line << endl;
 	return (false);
 }
 
@@ -293,19 +295,17 @@ bool	Engine::launchBroadcastParticles(scene::MySceneNode *trantor)
 
 bool	Engine::die(const string line)
 {
-	// scene::MySceneNode				*trantor;
-	// vector<string>					*tokens;
-	// u32								id;
-	// bool							ret;
+	scene::MySceneNode				*trantor;
+	vector<string>					*tokens;
+	u32								id;
 
-	// tokens = mystring::strsplit(line);
-	// if (tokens->size() != 3)
-	// 	return (err_msg("Engine::takeRessource ERROR --> invalid line format"));
-	// id = stoi((*tokens)[1]);
-	// if ((trantor = m_mapData->getTrantorById(id)) == NULL)
-	// 	return (false);
-	// launchBroadcastParticles(trantor);
-	// ret = trantor->broadcast((*tokens)[2]);
-	// delete (tokens);
-	// return (ret);
+	tokens = mystring::strsplit(line);
+	if (tokens->size() != 2)
+		return (err_msg("Engine::die ERROR --> invalid line format"));
+	id = stoi((*tokens)[1]);
+	if ((trantor = m_mapData->getTrantorById(id)) == NULL)
+		return (false);
+	trantor->die();
+	delete (tokens);
+	return (true);
 }
