@@ -6,7 +6,7 @@
 /*   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/05 17:45:38 by glourdel          #+#    #+#             */
-/*   Updated: 2014/06/16 14:02:04 by glourdel         ###   ########.fr       */
+/*   Updated: 2014/06/17 12:13:20 by glourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ namespace irr
 										 const f32 offsetX=0.5f, const f32 offsetY=0.5f);
 			void				diveContinue(void);
 			bool				pickRessource(const u8 itemNbr);
+			bool				dropRessource(const u8 itemNbr);
 			bool				expulse(void);
 			void				isExpulsed(const u8 orientation);
 			bool				broadcast(const string msg);

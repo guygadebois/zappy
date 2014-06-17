@@ -6,7 +6,7 @@
 /*   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/03 15:17:17 by glourdel          #+#    #+#             */
-/*   Updated: 2014/06/16 12:48:54 by glourdel         ###   ########.fr       */
+/*   Updated: 2014/06/17 12:18:58 by glourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,8 @@ public:
 	bool						knowAllSquares(void) const;
 	bool						isReady(void) const;
 	scene::MySceneNode			*pickItemFromList(const u32 itemNbr, const core::vector2di &boardPos);
+	scene::MySceneNode			*pickFreeItem(const u32 itemNbr, const core::vector2di &boardPos);
+
 	// Accesseur
 	core::dimension2d<u32>		getGridSize();
 	core::dimension2d<u32>		getTexturePSize();

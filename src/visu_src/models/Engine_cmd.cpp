@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/11 11:38:27 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/17 12:11:14 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/17 12:12:45 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -150,6 +150,24 @@ bool	Engine::takeRessource(const string line)
 	if ((trantor = m_mapData->getTrantorById(id)) == NULL)
 		return (false);
 	ret = trantor->pickRessource(stoi((*tokens)[2]));
+	delete (tokens);
+	return (ret);
+}
+
+bool	Engine::dropRessource(const string line)
+{
+	scene::MySceneNode	*trantor;
+	vector<string>		*tokens;
+	u32					id;
+	bool				ret;
+
+	tokens = mystring::strsplit(line);
+	if (tokens->size() != 3)
+		return (err_msg("Engine::dropRessource ERROR --> invalid line format"));
+	id = stoi((*tokens)[1]);
+	if ((trantor = m_mapData->getTrantorById(id)) == NULL)
+		return (false);
+	ret = trantor->dropRessource(stoi((*tokens)[2]));
 	delete (tokens);
 	return (ret);
 }

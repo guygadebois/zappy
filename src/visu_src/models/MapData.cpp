@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/03 15:25:43 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/14 13:11:52 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/17 12:18:50 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -81,6 +81,20 @@ scene::MySceneNode		*MapData::pickItemFromList(const u32 itemNbr, const core::ve
 		item = list->front();
 		list->pop_front();
 		m_freeItem[itemNbr].push_back(item);
+		return (item);
+	}
+	return (NULL);
+}
+
+scene::MySceneNode		*MapData::pickFreeItem(const u32 itemNbr, const core::vector2di &boardPos)
+{
+	scene::MySceneNode			*item;
+
+	if (m_freeItem[itemNbr].size() > 0)
+	{
+		item = m_freeItem[itemNbr].front();
+		m_freeItem[itemNbr].pop_front();
+		m_matrix[boardPos.X][boardPos.Y].item[itemNbr].push_back(item);
 		return (item);
 	}
 	return (NULL);

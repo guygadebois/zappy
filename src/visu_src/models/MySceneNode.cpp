@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/05 18:16:21 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/16 14:06:28 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/17 12:31:26 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -275,7 +275,6 @@ void						scene::MySceneNode::diveContinue()
 
 bool						scene::MySceneNode::pickRessource(const u8 itemNbr)
 {
-	scene::IAnimatedMeshSceneNode	*meshNode;
 	scene::MySceneNode				*item;
 	scene::ISceneNodeAnimator*		anim;
 	core::vector3df					startPoint;
@@ -283,7 +282,6 @@ bool						scene::MySceneNode::pickRessource(const u8 itemNbr)
 
 	if (uninitialized())
 		return (false);
-	meshNode = static_cast<scene::IAnimatedMeshSceneNode *>(*getChildren().begin());
 	if ((item = m_mapData->pickItemFromList(itemNbr, getBoardPos())))
 	{
 		startPoint = item->m_son->getPosition();
@@ -295,7 +293,34 @@ bool						scene::MySceneNode::pickRessource(const u8 itemNbr)
 			anim->drop();
 		}
 		m_mapData->registerFrameAnimation(this, 121, 128, 1, 39, 5, 1, true, item);
-		meshNode->setFrameLoop(121, 219);
+		m_son->setFrameLoop(121, 219);
+	}
+	return (true);
+}
+
+bool						scene::MySceneNode::dropRessource(const u8 itemNbr)
+{
+	scene::MySceneNode				*item;
+	scene::ISceneNodeAnimator*		anim;
+	core::vector3df					startPoint;
+	core::vector3df					endPoint;
+
+	if (uninitialized())
+		return (false);
+	if ((item = m_mapData->pickFreeItem(itemNbr, getBoardPos())))
+	{
+		item->setVisible(true);
+		startPoint = item->m_son->getPosition();
+		endPoint = core::vector3df(0.0f, PLANET_RADIUS, 0.0f);
+		anim = SceneManager->createFlyStraightAnimator(startPoint, endPoint, 1500);
+		if (anim)
+		{
+			item->m_son->addAnimator(anim);
+			anim->drop();
+		}
+		m_mapData->registerFrameAnimation(this, 46, 50, 1, 39, 5, 1);
+		m_son->setAnimationSpeed(7.0f);
+		m_son->setFrameLoop(46, 219);
 	}
 	return (true);
 }
