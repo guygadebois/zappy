@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/05/31 14:10:28 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/18 12:32:38 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/18 14:52:41 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -89,6 +89,8 @@ Engine::Engine(MapData *mapData)
 	m_trantorTexture[7] = m_driver->getTexture("models/faerie/FaerieH_Skin.jpg");
 	m_trantorTexture[8] = m_driver->getTexture("models/faerie/FaerieI_Skin.jpg");
 	m_trantorTexture[9] = m_driver->getTexture("models/faerie/FaerieJ_Skin.jpg");
+	m_particleTexture1 = m_driver->getTexture("textures/particle.png");
+	m_particleTexture2 = m_driver->getTexture("textures/particle2.png");
 	addPlanet();
 	addLights();
 }

@@ -6,7 +6,7 @@
 /*   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/05 17:45:38 by glourdel          #+#    #+#             */
-/*   Updated: 2014/06/18 12:25:48 by glourdel         ###   ########.fr       */
+/*   Updated: 2014/06/18 15:19:57 by glourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ namespace irr
 			bool				broadcast(const string msg);
 			void				die(void);
 			void				startIncantation(void);
+			void				stopIncantation(void);
 
 			// Accesseurs :
 			u8								getOrientation(void) const;

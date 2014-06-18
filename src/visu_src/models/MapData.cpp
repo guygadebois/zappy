@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/03 15:25:43 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/18 12:06:37 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/18 14:59:58 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -30,7 +30,10 @@ MapData::MapData(u32 width, u32 height, u32 textWidth, u32 textHeight)
 	for (u32 i = 0; i < m_gridSize.Width; i++)
 	{
 		for (u32 j = 0; j < m_gridSize.Height; j++)
+		{
 			m_matrix[i][j].init = false;
+			m_matrix[i][j].partSys = NULL;
+		}
 	}
 }
 

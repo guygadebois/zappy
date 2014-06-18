@@ -6,7 +6,7 @@
 /*   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/31 14:10:08 by glourdel          #+#    #+#             */
-/*   Updated: 2014/06/18 12:09:41 by glourdel         ###   ########.fr       */
+/*   Updated: 2014/06/18 15:09:31 by glourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,11 @@ public:
 	bool	broadcast(const string line);
 	bool	die(const string line);
 	bool	startIncantation(const string line);
+	bool	endIncantation(const string line);
 
 private:
 	bool	launchBroadcastParticles(scene::MySceneNode *trantor);
+	bool	startIncantationParticles(u32 posX, u32 posY);
 
 	IrrlichtDevice					*m_device;
 	video::IVideoDriver				*m_driver;
@@ -68,6 +70,8 @@ private:
 	video::ITexture					*m_planetTexture;
 	video::ITexture					*m_trantorTexture[10];
 	video::ITexture					*m_gemTexture[7];
+	video::ITexture					*m_particleTexture1;
+	video::ITexture					*m_particleTexture2;
 // Images :
 	video::IImage					*m_planetGrid;
 };

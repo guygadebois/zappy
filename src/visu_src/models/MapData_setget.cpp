@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/09 15:31:30 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/17 15:36:08 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/18 15:07:39 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -65,4 +65,15 @@ scene::MySceneNode		*MapData::getTrantorById(const u32 id, const bool verbose)
 list<scene::MySceneNode*>	*MapData::getTrantorsByPos(const core::vector2di &pos)
 {
 	return (&m_matrix[pos.X][pos.Y].trantors);
+}
+
+void						MapData::setMatrixPartSys(
+	u32 x, u32 y, scene::IParticleSystemSceneNode *partSys)
+{
+	m_matrix[x][y].partSys = partSys;
+}
+
+scene::IParticleSystemSceneNode	*MapData::getMatrixPartSys(u32 x, u32 y)
+{
+	return (m_matrix[x][y].partSys);
 }

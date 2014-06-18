@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/11 11:38:27 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/18 12:22:18 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/18 15:29:15 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -45,6 +45,8 @@ bool	Engine::treatCmd(const string line)
 		return (die(line));
 	if (cmd == "pic")
 		return (startIncantation(line));
+	if (cmd == "pie")
+		return (endIncantation(line));
 	cout << "WARNING -> Commande inconnue : " << line << endl;
 	return (false);
 }
@@ -277,7 +279,6 @@ bool	Engine::launchBroadcastParticles(scene::MySceneNode *trantor)
 	scene::IParticleRingEmitter			*emitter;
 	scene::IParticleRotationAffector	*affector;
 	PartEmitterAnim						*anim;
-	video::ITexture						*texture;
 
 	partSys = m_sceneManager->addParticleSystemSceneNode(false);
 	emitter = partSys->createRingEmitter(
@@ -300,8 +301,8 @@ bool	Engine::launchBroadcastParticles(scene::MySceneNode *trantor)
 	partSys->addAffector(affector);
 	affector->drop();
 	partSys->setRotation(trantor->getRotation());
-	if ((texture = m_driver->getTexture("textures/particle.png")))
-		partSys->setMaterialTexture(0, texture);
+	if (m_particleTexture1)
+		partSys->setMaterialTexture(0, m_particleTexture1);
 	partSys->setMaterialType(irr::video::EMT_TRANSPARENT_ALPHA_CHANNEL);
 	anim = new PartEmitterAnim(partSys, emitter,
 							   m_device->getTimer()->getTime(), 10000);
@@ -345,6 +346,77 @@ bool	Engine::startIncantation(const string line)
 			return (false);
 		trantor->startIncantation();
 	}
+	startIncantationParticles(x, y);
+	delete (tokens);
+	return (true);
+}
+
+bool	Engine::startIncantationParticles(u32 posX, u32 posY)
+{
+	scene::IParticleSystemSceneNode		*partSys;
+	scene::IParticleRingEmitter			*emitter;
+	scene::IParticleAffector			*affector;
+	core::vector3df						rotation;
+	f32									radiusX;
+	f32									radiusY;
+
+	radiusX = 90.0f / m_mapData->getGridSize().Height;
+	radiusY = 250.0f / m_mapData->getGridSize().Width;
+	partSys = m_sceneManager->addParticleSystemSceneNode(false);
+	emitter = partSys->createRingEmitter(
+		core::vector3df(0.0f, PLANET_RADIUS, 0.0f),
+		(radiusX > radiusY ? radiusX : radiusY),
+		1.0f,
+		core::vector3df(0.0f, 0.03f, 0.0f),
+		1500, 2000,
+		video::SColor(255, 0, 0, 0),
+		video::SColor(255, 255, 255, 255),
+		300,
+		600,
+		0,
+		core::dimension2df(0.8f, 0.8f),
+		core::dimension2df(0.4f, 0.4f)
+		);
+	partSys->setEmitter(emitter);
+	emitter->drop();
+	affector = partSys->createFadeOutParticleAffector(irr::video::SColor(0,0,0,0),
+		100);
+	partSys->addAffector(affector);
+	affector->drop();
+	rotation.X = 45.0f + 90.0f / m_mapData->getGridSize().Height * posY;
+	rotation.Y = 360.0f / m_mapData->getGridSize().Width * posX;
+	rotation.Z = 0.0f;
+	// add offset :
+	rotation.X += 90.0f / m_mapData->getGridSize().Height * 0.5f;
+	rotation.Y += 360.0f / m_mapData->getGridSize().Width * 0.5f;
+	partSys->setRotation(rotation);
+	if (m_particleTexture2)
+		partSys->setMaterialTexture(0, m_particleTexture2);
+	partSys->setMaterialFlag(video::EMF_ZWRITE_ENABLE, false);
+	partSys->setMaterialType(video::EMT_TRANSPARENT_ADD_COLOR);
+	m_mapData->setMatrixPartSys(posX, posY, partSys);
+	return (true);
+}
+
+bool	Engine::endIncantation(const string line)
+{
+	list<scene::MySceneNode *>		*trantors;
+	vector<string>					*tokens;
+	u32								x;
+	u32								y;
+
+	tokens = mystring::strsplit(line);
+	if (tokens->size() != 4)
+		return (err_msg("Engine::endIncantation ERROR --> invalid line format"));
+	x = stoi((*tokens)[1]);
+	y = stoi((*tokens)[2]);
+	trantors = m_mapData->getTrantorsByPos(core::vector2di(x, y));
+	for (list<scene::MySceneNode *>::iterator it = trantors->begin();
+		 it != trantors->end(); it++)
+	{
+		(*it)->stopIncantation();
+	}
+	m_mapData->getMatrixPartSys(x, y)->setEmitter(NULL);
 	delete (tokens);
 	return (true);
 }

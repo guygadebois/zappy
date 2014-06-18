@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/05 18:16:21 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/18 12:23:52 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/18 15:21:17 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -170,7 +170,6 @@ void						scene::MySceneNode::moveToSquare(
 	// add offset to move somewhere on the square :
 	rotation.X += 90.0f / m_mapData->getGridSize().Height * offsetY;
 	rotation.Y += 360.0f / m_mapData->getGridSize().Width * offsetX;
-	// relative to actual position :
 	moveTo(rotation, speed, frameStart, frameEnd, diveState);
 	setOffset(core::vector2d<f32>(offsetX, offsetY));
 }
@@ -383,6 +382,12 @@ void						scene::MySceneNode::die(void)
 
 void						scene::MySceneNode::startIncantation(void)
 {
-	m_son->setAnimationSpeed(4);
+	m_son->setAnimationSpeed(3);
 	m_son->setFrameLoop(139, 146);
+}
+
+void						scene::MySceneNode::stopIncantation(void)
+{
+	m_son->setAnimationSpeed(5);
+	m_son->setFrameLoop(1, 39);
 }
