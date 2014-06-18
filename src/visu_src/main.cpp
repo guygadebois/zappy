@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/05/28 11:59:19 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/18 11:55:02 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/18 11:57:54 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -123,7 +123,7 @@ int			main(int argc, char **argv)
 
 	if (argc != 3)
 	{
-		cerr << "Usage: ./client -n <team> -p <port> [-h <hostname>]" << endl;
+		cerr << "Usage: visu <hostname> <port>" << endl;
 		return (1);
 	}
 	srand(time(NULL));
