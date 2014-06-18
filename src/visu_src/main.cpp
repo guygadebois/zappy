@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/05/28 11:59:19 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/18 11:57:54 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/18 12:26:33 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -131,18 +131,18 @@ int			main(int argc, char **argv)
 	if (!getMapData(sock, work_buf, mapData, engine))
 		return (1);
 	if (engine->addTrantor(1, 0, 0, EAST, 1, "1")
-		&& engine->addTrantor(2, 0, 1, EAST, 1, "2")
+		&& engine->addTrantor(2, 0, 2, EAST, 1, "2")
 		&& engine->addTrantor(3, 0, 2, EAST, 1, "3")
-		&& engine->addTrantor(4, 0, 3, EAST, 1, "4")
-		&& engine->addTrantor(5, 0, 4, EAST, 1, "5")
+		&& engine->addTrantor(4, 0, 2, EAST, 1, "4")
+		&& engine->addTrantor(5, 0, 2, WEST, 1, "5")
 		// && engine->addTrantor(6, 0, 5, EAST, 1, "6")
 		// && engine->addTrantor(7, 0, 6, EAST, 1, "7")
 		// && engine->addTrantor(8, 0, 7, EAST, 1, "8")
 		// && engine->addTrantor(9, 0, 8, EAST, 1, "9")
 		// && engine->addTrantor(10, 0, 9, EAST, 1, "10")
-		&& engine->updateTrantorPosition("pnw 5 5 4 4")
 		&& engine->broadcast("pcb 2 toto")
-		&& engine->die("pdi 1"))
+		&& engine->die("pdi 1")
+		&& engine->treatCmd("pic 0 2 2 2 3 4 5"))
 		engine->loop();
 	delete (engine);
 	return (0);

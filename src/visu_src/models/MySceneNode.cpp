@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/05 18:16:21 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/17 17:19:01 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/18 12:23:52 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -378,4 +378,11 @@ void						scene::MySceneNode::die(void)
 	m_mapData->registerFrameAnimation(this, 207, 211, 211, 211, 5, 1, true, this);
 	m_son->setAnimationSpeed(4);
 	m_son->setFrameLoop(207, 219);
+	m_mapData->removeDeadTrantor(this);
+}
+
+void						scene::MySceneNode::startIncantation(void)
+{
+	m_son->setAnimationSpeed(4);
+	m_son->setFrameLoop(139, 146);
 }

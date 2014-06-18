@@ -6,7 +6,7 @@
 /*   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/05 17:45:38 by glourdel          #+#    #+#             */
-/*   Updated: 2014/06/17 16:40:00 by glourdel         ###   ########.fr       */
+/*   Updated: 2014/06/18 12:25:48 by glourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ namespace irr
 			void				isExpulsed(const u8 orientation);
 			bool				broadcast(const string msg);
 			void				die(void);
+			void				startIncantation(void);
 
 			// Accesseurs :
 			u8								getOrientation(void) const;

@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/03 15:25:43 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/17 17:25:38 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/18 12:06:37 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -51,6 +51,15 @@ void					MapData::updatePosition(scene::MySceneNode *parentNode,
 		// continuer pour les autres types...
 	//
 	}
+}
+
+void					MapData::removeDeadTrantor(scene::MySceneNode *parentNode)
+{
+	core::vector2di		pos;
+
+	pos = parentNode->getBoardPos();
+	m_matrix[pos.X][pos.Y].trantors.remove(parentNode);
+	m_trantors.remove(parentNode);
 }
 
 bool					MapData::knowAllSquares(void) const

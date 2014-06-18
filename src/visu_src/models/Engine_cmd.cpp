@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/11 11:38:27 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/17 17:05:39 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/18 12:22:18 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -43,6 +43,8 @@ bool	Engine::treatCmd(const string line)
 		return (broadcast(line));
 	if (cmd == "pdi")
 		return (die(line));
+	if (cmd == "pic")
+		return (startIncantation(line));
 	cout << "WARNING -> Commande inconnue : " << line << endl;
 	return (false);
 }
@@ -320,6 +322,29 @@ bool	Engine::die(const string line)
 	if ((trantor = m_mapData->getTrantorById(id)) == NULL)
 		return (false);
 	trantor->die();
+	delete (tokens);
+	return (true);
+}
+
+bool	Engine::startIncantation(const string line)
+{
+	scene::MySceneNode				*trantor;
+	vector<string>					*tokens;
+	u32								x;
+	u32								y;
+	u8								tokensSize;
+
+	tokens = mystring::strsplit(line);
+	if ((tokensSize = tokens->size()) < 5)
+		return (err_msg("Engine::startIncantation ERROR --> invalid line format"));
+	x = stoi((*tokens)[1]);
+	y = stoi((*tokens)[2]);
+	for (u8 i = 4; i < tokensSize; i++)
+	{
+		if ((trantor = m_mapData->getTrantorById(stoi((*tokens)[i]))) == NULL)
+			return (false);
+		trantor->startIncantation();
+	}
 	delete (tokens);
 	return (true);
 }

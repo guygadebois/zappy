@@ -6,7 +6,7 @@
 /*   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/31 14:10:08 by glourdel          #+#    #+#             */
-/*   Updated: 2014/06/17 16:59:01 by glourdel         ###   ########.fr       */
+/*   Updated: 2014/06/18 12:09:41 by glourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ public:
 	bool	expulse(const string line);
 	bool	broadcast(const string line);
 	bool	die(const string line);
+	bool	startIncantation(const string line);
 
 private:
 	bool	launchBroadcastParticles(scene::MySceneNode *trantor);

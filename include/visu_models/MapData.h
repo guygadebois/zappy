@@ -6,7 +6,7 @@
 /*   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/03 15:17:17 by glourdel          #+#    #+#             */
-/*   Updated: 2014/06/17 17:23:39 by glourdel         ###   ########.fr       */
+/*   Updated: 2014/06/18 12:04:18 by glourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ public:
 											 const u8 itemNbr);
 	void						updatePosition(scene::MySceneNode *parentNode,
 											   const core::vector2di &newPos);
+	void						removeDeadTrantor(scene::MySceneNode *parentNode);
 	bool						knowAllSquares(void) const;
 	bool						isReady(void) const;
 	scene::MySceneNode			*pickItemFromList(const u32 itemNbr, const core::vector2di &boardPos);
