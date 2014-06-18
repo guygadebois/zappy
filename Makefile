@@ -165,7 +165,8 @@ re:	fclean all
 
 obj/sv_append_in_workbuff.o: src/serveur_src//append_in_workbuff.c \
  libft/include/libft.h libft/include/libft_types.h include/server.h \
- include/types.h include/common.h include/map.h include/types.h
+ include/types.h include/common.h include/map.h include/get_arg.h \
+ include/types.h
 	@echo $(CYAN)"    Creating obj/sv_append_in_workbuff.o ...\033[0m"
 	@mkdir -p $(OBJDIR);
 	@$(CC) -o $(OBJDIR)sv_append_in_workbuff.o \
@@ -173,7 +174,7 @@ obj/sv_append_in_workbuff.o: src/serveur_src//append_in_workbuff.c \
 
 obj/sv_cmd_visu.o: src/serveur_src//cmd_visu.c libft/include/libft.h \
  libft/include/libft_types.h include/server.h include/types.h \
- include/common.h include/map.h include/types.h
+ include/common.h include/map.h include/get_arg.h include/types.h
 	@echo $(CYAN)"    Creating obj/sv_cmd_visu.o ...\033[0m"
 	@mkdir -p $(OBJDIR);
 	@$(CC) -o $(OBJDIR)sv_cmd_visu.o \
@@ -181,7 +182,7 @@ obj/sv_cmd_visu.o: src/serveur_src//cmd_visu.c libft/include/libft.h \
 
 obj/sv_create_server.o: src/serveur_src//create_server.c libft/include/libft.h \
  libft/include/libft_types.h include/server.h include/types.h \
- include/common.h include/map.h
+ include/common.h include/map.h include/get_arg.h
 	@echo $(CYAN)"    Creating obj/sv_create_server.o ...\033[0m"
 	@mkdir -p $(OBJDIR);
 	@$(CC) -o $(OBJDIR)sv_create_server.o \
@@ -225,7 +226,8 @@ obj/sv_getclientbysock.o: src/serveur_src//getclientbysock.c \
 
 obj/sv_insert_trant.o: src/serveur_src//insert_trant.c include/types.h \
  include/common.h include/map.h libft/include/libft.h \
- libft/include/libft_types.h include/server.h include/types.h
+ libft/include/libft_types.h include/server.h include/types.h \
+ include/get_arg.h
 	@echo $(CYAN)"    Creating obj/sv_insert_trant.o ...\033[0m"
 	@mkdir -p $(OBJDIR);
 	@$(CC) -o $(OBJDIR)sv_insert_trant.o \
@@ -233,7 +235,8 @@ obj/sv_insert_trant.o: src/serveur_src//insert_trant.c include/types.h \
 
 obj/sv_listen_fd.o: src/serveur_src//listen_fd.c include/types.h \
  include/common.h include/map.h libft/include/libft.h \
- libft/include/libft_types.h include/server.h include/types.h
+ libft/include/libft_types.h include/server.h include/types.h \
+ include/get_arg.h
 	@echo $(CYAN)"    Creating obj/sv_listen_fd.o ...\033[0m"
 	@mkdir -p $(OBJDIR);
 	@$(CC) -o $(OBJDIR)sv_listen_fd.o \
@@ -241,7 +244,8 @@ obj/sv_listen_fd.o: src/serveur_src//listen_fd.c include/types.h \
 
 obj/sv_loop.o: src/serveur_src//loop.c include/server.h include/types.h \
  include/common.h include/map.h libft/include/libft.h \
- libft/include/libft_types.h include/types.h include/map.h
+ libft/include/libft_types.h include/get_arg.h include/types.h \
+ include/get_arg.h include/map.h
 	@echo $(CYAN)"    Creating obj/sv_loop.o ...\033[0m"
 	@mkdir -p $(OBJDIR);
 	@$(CC) -o $(OBJDIR)sv_loop.o \
@@ -249,7 +253,7 @@ obj/sv_loop.o: src/serveur_src//loop.c include/server.h include/types.h \
 
 obj/sv_main.o: src/serveur_src//main.c libft/include/libft.h \
  libft/include/libft_types.h include/server.h include/types.h \
- include/common.h include/map.h
+ include/common.h include/map.h include/get_arg.h include/get_arg.h
 	@echo $(CYAN)"    Creating obj/sv_main.o ...\033[0m"
 	@mkdir -p $(OBJDIR);
 	@$(CC) -o $(OBJDIR)sv_main.o \
@@ -257,7 +261,7 @@ obj/sv_main.o: src/serveur_src//main.c libft/include/libft.h \
 
 obj/sv_read_from_client.o: src/serveur_src//read_from_client.c include/common.h \
  include/server.h include/types.h include/common.h include/map.h \
- libft/include/libft.h libft/include/libft_types.h
+ libft/include/libft.h libft/include/libft_types.h include/get_arg.h
 	@echo $(CYAN)"    Creating obj/sv_read_from_client.o ...\033[0m"
 	@mkdir -p $(OBJDIR);
 	@$(CC) -o $(OBJDIR)sv_read_from_client.o \
@@ -265,7 +269,7 @@ obj/sv_read_from_client.o: src/serveur_src//read_from_client.c include/common.h 
 
 obj/sv_send_visu.o: src/serveur_src//send_visu.c include/common.h \
  include/server.h include/types.h include/common.h include/map.h \
- libft/include/libft.h libft/include/libft_types.h
+ libft/include/libft.h libft/include/libft_types.h include/get_arg.h
 	@echo $(CYAN)"    Creating obj/sv_send_visu.o ...\033[0m"
 	@mkdir -p $(OBJDIR);
 	@$(CC) -o $(OBJDIR)sv_send_visu.o \
@@ -273,7 +277,7 @@ obj/sv_send_visu.o: src/serveur_src//send_visu.c include/common.h \
 
 obj/sv_sv_send.o: src/serveur_src//sv_send.c include/types.h include/common.h \
  include/map.h libft/include/libft.h libft/include/libft_types.h \
- include/server.h include/types.h
+ include/server.h include/types.h include/get_arg.h
 	@echo $(CYAN)"    Creating obj/sv_sv_send.o ...\033[0m"
 	@mkdir -p $(OBJDIR);
 	@$(CC) -o $(OBJDIR)sv_sv_send.o \
