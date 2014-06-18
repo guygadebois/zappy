@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/05/28 11:59:19 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/17 16:51:42 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/18 11:55:02 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -122,7 +122,10 @@ int			main(int argc, char **argv)
 	string	work_buf;
 
 	if (argc != 3)
+	{
+		cerr << "Usage: ./client -n <team> -p <port> [-h <hostname>]" << endl;
 		return (1);
+	}
 	srand(time(NULL));
 	sock = cl_new_connection(argv[1], argv[2], (char*)"GRAPHIC\n");
 	if (!getMapData(sock, work_buf, mapData, engine))

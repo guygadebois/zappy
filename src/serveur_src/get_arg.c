@@ -6,7 +6,7 @@
 /*   By: bjacob <bjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/11 08:07:02 by bjacob            #+#    #+#             */
-/*   Updated: 2014/06/13 14:38:27 by sbodovsk         ###   ########.fr       */
+/*   Updated: 2014/06/18 11:55:27 by glourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,14 +104,15 @@ t_arg	*ft_get_arg(int argc, char **argv)
 			i = i + ft_parse(arg, argc, argv, i);
 		else
 		{
-			ft_putendl("ERROR: parsing error.");
+			ft_putendl_fd("ERROR: parsing error.", 2);
 			return (NULL);
 		}
 		i++;
 	}
 	if (ft_valid_param(arg) == 0)
 	{
-		ft_putendl("ERROR: missing parameter.");
+		ft_putstr_fd("Usage: ./serveur -p <port> -x <width> -y <height> ", 2);
+		ft_putendl_fd("-n <team> [<team>] [<team>] ... -c <nb> -t <t>", 2);
 		return (NULL);
 	}
 	return (arg);
