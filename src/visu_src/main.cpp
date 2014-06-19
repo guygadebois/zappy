@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/05/28 11:59:19 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/19 15:36:12 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/19 17:49:02 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -146,6 +146,7 @@ int			main(int argc, char **argv)
 		&& engine->treatCmd("enw 42 6 0 5")
 		&& engine->treatCmd("ppo 6 2 5 2")
 		&& engine->treatCmd("eht 42")
+		&& engine->treatCmd("seg TOTO")
 		&& engine->treatCmd("pic 0 2 2 2 3 4 5"))
 		engine->loop();
 	delete (engine);

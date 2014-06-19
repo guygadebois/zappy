@@ -45,6 +45,7 @@ SERVEUR_CFILES= \
 		serveur_src//append_in_workbuff.c \
 		serveur_src//cmd_visu.c \
 		serveur_src//create_server.c \
+		serveur_src//drop_obj.c \
 		serveur_src//errors.c \
 		serveur_src//find_ret.c \
 		serveur_src//generate_map.c \
@@ -58,8 +59,10 @@ SERVEUR_CFILES= \
 		serveur_src//read_from_client.c \
 		serveur_src//send_visu.c \
 		serveur_src//sv_send.c \
+		serveur_src//take_obj.c \
 		serveur_src//turn_left.c \
 		serveur_src//turn_right.c \
+		serveur_src//under_space.c \
 
 CLIENT_CPPFILES= \
 		client_src//main.cpp \
@@ -191,6 +194,13 @@ obj/sv_create_server.o: src/serveur_src//create_server.c libft/include/libft.h \
 	@$(CC) -o $(OBJDIR)sv_create_server.o \
 -c $(SRCDIR)serveur_src//create_server.c $(CFLAGS)
 
+obj/sv_drop_obj.o: src/serveur_src//drop_obj.c include/map.h include/common.h \
+ libft/include/libft.h libft/include/libft_types.h
+	@echo $(CYAN)"    Creating obj/sv_drop_obj.o ...\033[0m"
+	@mkdir -p $(OBJDIR);
+	@$(CC) -o $(OBJDIR)sv_drop_obj.o \
+-c $(SRCDIR)serveur_src//drop_obj.c $(CFLAGS)
+
 obj/sv_errors.o: src/serveur_src//errors.c libft/include/libft.h \
  libft/include/libft_types.h
 	@echo $(CYAN)"    Creating obj/sv_errors.o ...\033[0m"
@@ -293,6 +303,13 @@ obj/sv_sv_send.o: src/serveur_src//sv_send.c include/types.h include/common.h \
 	@$(CC) -o $(OBJDIR)sv_sv_send.o \
 -c $(SRCDIR)serveur_src//sv_send.c $(CFLAGS)
 
+obj/sv_take_obj.o: src/serveur_src//take_obj.c include/map.h include/common.h \
+ libft/include/libft.h libft/include/libft_types.h
+	@echo $(CYAN)"    Creating obj/sv_take_obj.o ...\033[0m"
+	@mkdir -p $(OBJDIR);
+	@$(CC) -o $(OBJDIR)sv_take_obj.o \
+-c $(SRCDIR)serveur_src//take_obj.c $(CFLAGS)
+
 obj/sv_turn_left.o: src/serveur_src//turn_left.c include/map.h include/common.h \
  libft/include/libft.h libft/include/libft_types.h
 	@echo $(CYAN)"    Creating obj/sv_turn_left.o ...\033[0m"
@@ -306,6 +323,12 @@ obj/sv_turn_right.o: src/serveur_src//turn_right.c include/map.h \
 	@mkdir -p $(OBJDIR);
 	@$(CC) -o $(OBJDIR)sv_turn_right.o \
 -c $(SRCDIR)serveur_src//turn_right.c $(CFLAGS)
+
+obj/sv_under_space.o: src/serveur_src//under_space.c
+	@echo $(CYAN)"    Creating obj/sv_under_space.o ...\033[0m"
+	@mkdir -p $(OBJDIR);
+	@$(CC) -o $(OBJDIR)sv_under_space.o \
+-c $(SRCDIR)serveur_src//under_space.c $(CFLAGS)
 
 obj/cl_main.o: src/client_src//main.cpp include/common.h
 	@echo $(CYAN)"    Creating obj/cl_main.o ...\033[0m"

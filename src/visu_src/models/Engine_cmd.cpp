@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/11 11:38:27 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/19 15:46:31 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/19 17:58:57 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -484,11 +484,18 @@ bool	Engine::eggHatchOut(const string line)
 bool	Engine::endOfGame(const string line)
 {
 	vector<string>					*tokens;
+	string							msg;
+	wstring							w_msg;
 
 	tokens = mystring::strsplit(line);
 	if (tokens->size() != 2)
 		return (err_msg("Engine::endOfGame ERROR --> invalid line format"));
 	m_mapData->setEndOfGame((*tokens)[1]);
+	msg = (*tokens)[1] + " won the game !";
+	mystring::StringToWString(w_msg, msg);
+	irr::gui::IGUIStaticText *texte = m_gui->addStaticText(w_msg.c_str(),
+						 irr::core::rect<irr::s32>(100, 20, 400, 60),
+						 true);
 	delete (tokens);
 	return (true);
 }

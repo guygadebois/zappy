@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/05/31 14:10:28 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/19 14:27:24 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/19 18:03:25 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -29,7 +29,8 @@ Engine::Engine(MapData *mapData)
 	  m_trentorMesh(NULL),
 	  m_treeMesh(NULL),
 	  m_planetTexture(NULL),
-	  m_planetGrid(NULL)
+	  m_planetGrid(NULL),
+	  m_gui(NULL)
 {
 	SKeyMap	keyMap[5];
 
@@ -92,6 +93,8 @@ Engine::Engine(MapData *mapData)
 	m_trantorTexture[9] = m_driver->getTexture("models/faerie/FaerieJ_Skin.jpg");
 	m_particleTexture1 = m_driver->getTexture("textures/particle.png");
 	m_particleTexture2 = m_driver->getTexture("textures/particle2.png");
+	m_gui = m_device->getGUIEnvironment();
+	m_gui->getSkin()->setFont(m_gui->getFont("fonts/fontlucida.png"), irr::gui::EGDF_DEFAULT);
 	addPlanet();
 	addLights();
 }
@@ -244,6 +247,7 @@ void	Engine::loop(void)
 		m_mapData->checkAnimationsEnd();
 		m_mapData->hideItemsOnInoccupiedSquares();
 		m_sceneManager->drawAll();
+		m_gui->drawAll();
 		m_driver->endScene();
 	}
 }

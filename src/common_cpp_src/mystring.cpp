@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/09 15:52:49 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/09 16:05:51 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/19 17:46:29 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -25,4 +25,12 @@ vector<string>		*mystring::strsplit(const string str)
 	while (ss >> buf)
 		tokens->push_back(buf);
 	return (tokens);
+}
+
+int					mystring::StringToWString(std::wstring &ws, const std::string &s)
+{
+	std::wstring wsTmp(s.begin(), s.end());
+
+	ws = wsTmp;
+	return 0;
 }
