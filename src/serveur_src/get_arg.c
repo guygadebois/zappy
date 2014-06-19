@@ -80,7 +80,7 @@ static int		ft_parse(t_arg *arg, int argc, char **argv, int	i)
 	{
 		while ((i + j) < argc && argv[i + j][0] != '-')
 		{
-			ft_add_team(arg, argv[i + j]);
+			ft_add_team(arg, ft_under_space(argv[i + j]));
 			j++;
 		}
 		j--;

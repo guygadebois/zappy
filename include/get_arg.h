@@ -25,4 +25,6 @@ typedef struct	s_arg
 	t_list		*team;
 }				t_arg;
 
+char		*ft_under_space(char *s);
+
 #endif
