@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/11 11:38:27 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/19 12:10:18 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/19 14:08:54 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -49,6 +49,8 @@ bool	Engine::treatCmd(const string line)
 		return (endIncantation(line));
 	if (cmd == "pfk")
 		return (deliverEgg(line));
+	if (cmd == "enw")
+		return (eggDelivered(line));
 	cout << "WARNING -> Commande inconnue : " << line << endl;
 	return (false);
 }
@@ -434,6 +436,28 @@ bool	Engine::deliverEgg(const string line)
 	if ((trantor = m_mapData->getTrantorById(stoi((*tokens)[1]))) == NULL)
 		return (false);
 	trantor->deliverEgg();
+	delete (tokens);
+	return (true);
+}
+
+bool	Engine::eggDelivered(const string line)
+{
+	scene::MySceneNode				*trantor;
+	vector<string>					*tokens;
+	u32								x;
+	u32								y;
+	core::vector2df					offset;
+
+	tokens = mystring::strsplit(line);
+	if (tokens->size() != 5)
+		return (err_msg("Engine::eggDeliver ERROR --> invalid line format"));
+	x = stoi((*tokens)[3]);
+	y = stoi((*tokens)[4]);
+	if ((trantor = m_mapData->getTrantorById(stoi((*tokens)[2]))) == NULL)
+		return (false);
+	trantor->stopDeliveringEgg();
+	offset = trantor->getOffset();
+	addEgg(stoi((*tokens)[1]), x, y, offset.X, offset.Y, trantor->getTeam());
 	delete (tokens);
 	return (true);
 }

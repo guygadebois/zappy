@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/05/28 11:59:19 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/19 12:06:17 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/19 14:16:52 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -143,7 +143,8 @@ int			main(int argc, char **argv)
 		&& engine->broadcast("pcb 2 toto")
 		&& engine->die("pdi 1")
 		&& engine->treatCmd("pfk 6")
-		&& engine->addEgg(42, 0, 5, 0.5f, 0.5f, "toto")
+		&& engine->treatCmd("enw 42 6 0 5")
+		&& engine->treatCmd("ppo 6 2 5 4")
 		&& engine->treatCmd("pic 0 2 2 2 3 4 5"))
 		engine->loop();
 	delete (engine);

@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/05/31 14:10:28 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/19 12:10:56 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/19 14:11:41 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -183,14 +183,12 @@ bool	Engine::addEgg(int id, u32 X, u32 Y, f32 offsetX, f32 offsetY,
 					   const string team)
 {
 	scene::MySceneNode				*parent;
-	u32								teamNbr;
 
 	if (m_eggMesh == NULL || (parent = m_emptyParent->clone()) == NULL)
 		return (false);
 	if (parent->init(m_eggMesh, EGG, core::vector2di(X, Y), id, 1,
 					 SOUTH, team))
 	{
-		teamNbr = parent->getTeamNbr();
 		parent->placeOnSquare(X, Y, offsetX, offsetY);
 		return (true);
 	}

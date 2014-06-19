@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/09 11:57:24 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/16 11:57:59 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/19 14:10:31 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -123,4 +123,9 @@ bool						scene::MySceneNode::updateLevel(u8 level)
 scene::IAnimatedMeshSceneNode	*scene::MySceneNode::getSon(void) const
 {
 	return (m_son);
+}
+
+string						scene::MySceneNode::getTeam(void) const
+{
+	return (m_team);
 }

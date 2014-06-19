@@ -6,7 +6,7 @@
 #    By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2013/11/19 11:58:46 by glourdel          #+#    #+#              #
-#    Updated: 2014/06/09 16:42:34 by glourdel         ###   ########.fr        #
+#    Updated: 2014/06/19 13:56:48 by glourdel         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -57,6 +57,8 @@ SERVEUR_CFILES= \
 		serveur_src//read_from_client.c \
 		serveur_src//send_visu.c \
 		serveur_src//sv_send.c \
+		serveur_src//turn_left.c \
+		serveur_src//turn_right.c \
 
 CLIENT_CPPFILES= \
 		client_src//main.cpp \
@@ -216,6 +218,13 @@ obj/sv_get_arg.o: src/serveur_src//get_arg.c include/get_arg.h \
 	@$(CC) -o $(OBJDIR)sv_get_arg.o \
 -c $(SRCDIR)serveur_src//get_arg.c $(CFLAGS)
 
+obj/sv_get_inventory.o: src/serveur_src//get_inventory.c include/map.h \
+ include/common.h libft/include/libft.h libft/include/libft_types.h
+	@echo $(CYAN)"    Creating obj/sv_get_inventory.o ...\033[0m"
+	@mkdir -p $(OBJDIR);
+	@$(CC) -o $(OBJDIR)sv_get_inventory.o \
+-c $(SRCDIR)serveur_src//get_inventory.c $(CFLAGS)
+
 obj/sv_getclientbysock.o: src/serveur_src//getclientbysock.c \
  libft/include/libft.h libft/include/libft_types.h include/types.h \
  include/common.h include/map.h
@@ -282,6 +291,20 @@ obj/sv_sv_send.o: src/serveur_src//sv_send.c include/types.h include/common.h \
 	@mkdir -p $(OBJDIR);
 	@$(CC) -o $(OBJDIR)sv_sv_send.o \
 -c $(SRCDIR)serveur_src//sv_send.c $(CFLAGS)
+
+obj/sv_turn_left.o: src/serveur_src//turn_left.c include/map.h include/common.h \
+ libft/include/libft.h libft/include/libft_types.h
+	@echo $(CYAN)"    Creating obj/sv_turn_left.o ...\033[0m"
+	@mkdir -p $(OBJDIR);
+	@$(CC) -o $(OBJDIR)sv_turn_left.o \
+-c $(SRCDIR)serveur_src//turn_left.c $(CFLAGS)
+
+obj/sv_turn_right.o: src/serveur_src//turn_right.c include/map.h \
+ include/common.h libft/include/libft.h libft/include/libft_types.h
+	@echo $(CYAN)"    Creating obj/sv_turn_right.o ...\033[0m"
+	@mkdir -p $(OBJDIR);
+	@$(CC) -o $(OBJDIR)sv_turn_right.o \
+-c $(SRCDIR)serveur_src//turn_right.c $(CFLAGS)
 
 obj/cl_main.o: src/client_src//main.cpp include/common.h
 	@echo $(CYAN)"    Creating obj/cl_main.o ...\033[0m"

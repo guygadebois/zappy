@@ -6,7 +6,7 @@
 /*   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/05 17:45:38 by glourdel          #+#    #+#             */
-/*   Updated: 2014/06/19 12:07:03 by glourdel         ###   ########.fr       */
+/*   Updated: 2014/06/19 14:09:14 by glourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ namespace irr
 			void				startIncantation(void);
 			void				stopIncantation(void);
 			void				deliverEgg(void);
+			void				stopDeliveringEgg(void);
 
 			// Accesseurs :
 			u8								getOrientation(void) const;
@@ -95,6 +96,7 @@ namespace irr
 			u8								getLevel(void) const;
 			bool							updateLevel(u8 level);
 			scene::IAnimatedMeshSceneNode	*getSon(void) const;
+			string							getTeam(void) const;
 
 		private:
 			// Irr obligatory attributes :
