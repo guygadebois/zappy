@@ -6,7 +6,7 @@
 /*   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/07 14:20:05 by glourdel          #+#    #+#             */
-/*   Updated: 2014/06/10 15:41:17 by glourdel         ###   ########.fr       */
+/*   Updated: 2014/06/19 11:33:43 by glourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,6 @@
 # define FOOD 2
 # define GEM 3
 # define TREE 4
+# define EGG 5
 
 #endif

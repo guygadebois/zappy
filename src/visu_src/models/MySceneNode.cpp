@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/05 18:16:21 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/18 15:21:17 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/19 12:07:42 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -74,6 +74,11 @@ scene::IAnimatedMeshSceneNode	*scene::MySceneNode::init(
 		m_mapData->registerTrantor(this, m_boardPos.X, m_boardPos.Y, team);
 		scale = 0.8f + (level - 1) * 0.1f;
 		m_son->setScale(core::vector3df(scale, scale, scale));
+	}
+	else if (m_type == EGG)
+	{
+		m_son->setScale(core::vector3df(0.07f, 0.07f, 0.07f));
+		m_son->setPosition(core::vector3df(0, PLANET_RADIUS + 0.5f, 0));
 	}
 	else if (m_type == GEM)
 	{
@@ -390,4 +395,10 @@ void						scene::MySceneNode::stopIncantation(void)
 {
 	m_son->setAnimationSpeed(5);
 	m_son->setFrameLoop(1, 39);
+}
+
+void						scene::MySceneNode::deliverEgg(void)
+{
+	m_son->setAnimationSpeed(5);
+	m_son->setFrameLoop(147, 175);
 }

@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/11 11:38:27 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/18 15:29:15 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/19 12:10:18 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -47,6 +47,8 @@ bool	Engine::treatCmd(const string line)
 		return (startIncantation(line));
 	if (cmd == "pie")
 		return (endIncantation(line));
+	if (cmd == "pfk")
+		return (deliverEgg(line));
 	cout << "WARNING -> Commande inconnue : " << line << endl;
 	return (false);
 }
@@ -417,6 +419,21 @@ bool	Engine::endIncantation(const string line)
 		(*it)->stopIncantation();
 	}
 	m_mapData->getMatrixPartSys(x, y)->setEmitter(NULL);
+	delete (tokens);
+	return (true);
+}
+
+bool	Engine::deliverEgg(const string line)
+{
+	scene::MySceneNode				*trantor;
+	vector<string>					*tokens;
+
+	tokens = mystring::strsplit(line);
+	if (tokens->size() != 2)
+		return (err_msg("Engine::deliverEgg ERROR --> invalid line format"));
+	if ((trantor = m_mapData->getTrantorById(stoi((*tokens)[1]))) == NULL)
+		return (false);
+	trantor->deliverEgg();
 	delete (tokens);
 	return (true);
 }

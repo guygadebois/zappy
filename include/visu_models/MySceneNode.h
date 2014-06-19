@@ -6,7 +6,7 @@
 /*   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/05 17:45:38 by glourdel          #+#    #+#             */
-/*   Updated: 2014/06/18 15:19:57 by glourdel         ###   ########.fr       */
+/*   Updated: 2014/06/19 12:07:03 by glourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ namespace irr
 			void				die(void);
 			void				startIncantation(void);
 			void				stopIncantation(void);
+			void				deliverEgg(void);
 
 			// Accesseurs :
 			u8								getOrientation(void) const;

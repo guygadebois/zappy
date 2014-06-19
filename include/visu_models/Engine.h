@@ -6,7 +6,7 @@
 /*   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/31 14:10:08 by glourdel          #+#    #+#             */
-/*   Updated: 2014/06/18 15:09:31 by glourdel         ###   ########.fr       */
+/*   Updated: 2014/06/19 12:03:10 by glourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,10 @@ public:
 
 	bool	start(void);
 	bool	addPlanet(void);
-	bool	addTrantor(int id, int X, int Y, int orientation, int level,
+	bool	addTrantor(int id, u32 X, u32 Y, u8 orientation, u8 level,
 					   const string team);
+	bool	addEgg(int id, u32 X, u32 Y, f32 offsetX, f32 offsetY,
+				   const string team);
 	bool	addTrees(void);
 	bool	addLights(void);
 	void	loop(void);
@@ -49,6 +51,7 @@ public:
 	bool	die(const string line);
 	bool	startIncantation(const string line);
 	bool	endIncantation(const string line);
+	bool	deliverEgg(const string line);
 
 private:
 	bool	launchBroadcastParticles(scene::MySceneNode *trantor);
@@ -65,6 +68,7 @@ private:
 // Meshes :
 	scene::IAnimatedMesh			*m_trentorMesh;
 	scene::IAnimatedMesh			*m_treeMesh;
+	scene::IAnimatedMesh			*m_eggMesh;
 	scene::IAnimatedMesh			*m_itemMesh[7];
 // Textures :
 	video::ITexture					*m_planetTexture;

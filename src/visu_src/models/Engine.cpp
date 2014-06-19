@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/05/31 14:10:28 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/18 14:52:41 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/19 12:10:56 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -63,6 +63,7 @@ Engine::Engine(MapData *mapData)
 	m_camera->setRotation(m_camera->getRotation() + core::vector3df(20.0f, 0.0f, 0.0f));
 	m_trentorMesh = m_sceneManager->getMesh("models/faerie/Faerie.x");
 	m_treeMesh = m_sceneManager->getMesh("models/tree/palm_tree.obj");
+	m_eggMesh = m_sceneManager->getMesh("models/egg.3DS");
 	m_itemMesh[0] = m_sceneManager->getMesh("models/fourmis/formica rufa 17384.3ds");
 	m_itemMesh[1] = m_sceneManager->getMesh("models/Iso_3DS/cube.3ds");
 	m_itemMesh[2] = m_sceneManager->getMesh("models/Iso_3DS/deltoid_dodec.3ds");
@@ -159,7 +160,7 @@ bool	Engine::addPlanet(void)
 	return (true);
 }
 
-bool	Engine::addTrantor(int id, int X, int Y, int orientation, int level,
+bool	Engine::addTrantor(int id, u32 X, u32 Y, u8 orientation, u8 level,
 						   const string team)
 {
 	scene::MySceneNode				*parent;
@@ -173,6 +174,24 @@ bool	Engine::addTrantor(int id, int X, int Y, int orientation, int level,
 		teamNbr = parent->getTeamNbr();
 		parent->setTexture(m_trantorTexture[teamNbr % 10]);
 		parent->placeOnSquare(X, Y, (float)rand() / RAND_MAX, (float)rand() / RAND_MAX);
+		return (true);
+	}
+	return (false);
+}
+
+bool	Engine::addEgg(int id, u32 X, u32 Y, f32 offsetX, f32 offsetY,
+					   const string team)
+{
+	scene::MySceneNode				*parent;
+	u32								teamNbr;
+
+	if (m_eggMesh == NULL || (parent = m_emptyParent->clone()) == NULL)
+		return (false);
+	if (parent->init(m_eggMesh, EGG, core::vector2di(X, Y), id, 1,
+					 SOUTH, team))
+	{
+		teamNbr = parent->getTeamNbr();
+		parent->placeOnSquare(X, Y, offsetX, offsetY);
 		return (true);
 	}
 	return (false);
