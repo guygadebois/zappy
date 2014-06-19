@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/05 18:16:21 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/19 14:12:08 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/19 15:30:11 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -20,7 +20,8 @@ scene::MySceneNode::MySceneNode(scene::ISceneNode* parent,
 								scene::ISceneManager* mgr,
 								MapData *mapData, s32 id)
 	: scene::ISceneNode(parent, mgr, id),
-	  m_mapData(mapData)
+	  m_mapData(mapData),
+	  m_trantorTexture(NULL)
 {
 	m_offset.X = 0;
 	m_offset.Y = 0;
@@ -77,7 +78,7 @@ scene::IAnimatedMeshSceneNode	*scene::MySceneNode::init(
 	}
 	else if (m_type == EGG)
 	{
-		m_son->setScale(core::vector3df(0.07f, 0.07f, 0.07f));
+		m_son->setScale(core::vector3df(0.1f, 0.1f, 0.1f));
 		m_son->setPosition(core::vector3df(0, PLANET_RADIUS + 0.5f, 0));
 		m_mapData->registerTrantor(this, m_boardPos.X, m_boardPos.Y, team);
 	}
@@ -408,4 +409,18 @@ void						scene::MySceneNode::stopDeliveringEgg(void)
 {
 	m_son->setAnimationSpeed(5);
 	m_son->setFrameLoop(1, 39);
+}
+
+void						scene::MySceneNode::eggBecomeTrantor(
+	scene::IAnimatedMesh *trantorMesh)
+{
+	f32		scale;
+
+	m_son->setMesh(trantorMesh);
+	scale = 0.9f;
+	m_son->setScale(core::vector3df(scale, scale, scale));
+	m_son->setAnimationSpeed(5);
+	m_son->setFrameLoop(1, 39);
+	m_son->setMaterialType(video::EMT_TRANSPARENT_ALPHA_CHANNEL_REF);
+	setTexture(m_trantorTexture);
 }

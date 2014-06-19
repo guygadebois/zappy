@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/11 11:38:27 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/19 14:08:54 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/19 14:35:08 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -51,6 +51,8 @@ bool	Engine::treatCmd(const string line)
 		return (deliverEgg(line));
 	if (cmd == "enw")
 		return (eggDelivered(line));
+	if (cmd == "eht")
+		return (eggHatchOut(line));
 	cout << "WARNING -> Commande inconnue : " << line << endl;
 	return (false);
 }
@@ -458,6 +460,21 @@ bool	Engine::eggDelivered(const string line)
 	trantor->stopDeliveringEgg();
 	offset = trantor->getOffset();
 	addEgg(stoi((*tokens)[1]), x, y, offset.X, offset.Y, trantor->getTeam());
+	delete (tokens);
+	return (true);
+}
+
+bool	Engine::eggHatchOut(const string line)
+{
+	scene::MySceneNode				*egg;
+	vector<string>					*tokens;
+
+	tokens = mystring::strsplit(line);
+	if (tokens->size() != 2)
+		return (err_msg("Engine::eggHatchOut ERROR --> invalid line format"));
+	if ((egg = m_mapData->getTrantorById(stoi((*tokens)[1]))) == NULL)
+		return (false);
+	egg->eggBecomeTrantor(m_trentorMesh);
 	delete (tokens);
 	return (true);
 }

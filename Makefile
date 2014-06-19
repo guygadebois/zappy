@@ -6,7 +6,7 @@
 #    By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2013/11/19 11:58:46 by glourdel          #+#    #+#              #
-#    Updated: 2014/06/19 13:56:48 by glourdel         ###   ########.fr        #
+#    Updated: 2014/06/09 16:42:34 by glourdel         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -49,6 +49,7 @@ SERVEUR_CFILES= \
 		serveur_src//find_ret.c \
 		serveur_src//generate_map.c \
 		serveur_src//get_arg.c \
+		serveur_src//get_inventory.c \
 		serveur_src//getclientbysock.c \
 		serveur_src//insert_trant.c \
 		serveur_src//listen_fd.c \

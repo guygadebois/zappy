@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/09 11:57:24 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/19 14:10:31 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/19 15:28:58 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -83,6 +83,7 @@ void						scene::MySceneNode::setBoardPos(
 void						scene::MySceneNode::setTexture(video::ITexture *texture)
 {
 	m_son->setMaterialTexture(0, texture);
+	m_trantorTexture = texture;
 }
 
 const core::aabbox3d<f32>	&scene::MySceneNode::getBoundingBox() const

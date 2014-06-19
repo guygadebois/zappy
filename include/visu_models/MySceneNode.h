@@ -6,7 +6,7 @@
 /*   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/05 17:45:38 by glourdel          #+#    #+#             */
-/*   Updated: 2014/06/19 14:09:14 by glourdel         ###   ########.fr       */
+/*   Updated: 2014/06/19 15:29:22 by glourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ namespace irr
 			void				stopIncantation(void);
 			void				deliverEgg(void);
 			void				stopDeliveringEgg(void);
+			void				eggBecomeTrantor(scene::IAnimatedMesh *trantorMesh);
 
 			// Accesseurs :
 			u8								getOrientation(void) const;
@@ -115,6 +116,7 @@ namespace irr
 			string							m_team;
 			u32								m_teamNbr;
 			scene::IAnimatedMeshSceneNode	*m_son;
+			video::ITexture					*m_trantorTexture;
 		};
 	}
 }

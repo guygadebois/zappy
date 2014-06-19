@@ -6,7 +6,7 @@
 /*   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/31 14:10:08 by glourdel          #+#    #+#             */
-/*   Updated: 2014/06/19 13:53:01 by glourdel         ###   ########.fr       */
+/*   Updated: 2014/06/19 14:20:39 by glourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ public:
 	bool	endIncantation(const string line);
 	bool	deliverEgg(const string line);
 	bool	eggDelivered(const string line);
+	bool	eggHatchOut(const string line);
 
 private:
 	bool	launchBroadcastParticles(scene::MySceneNode *trantor);
