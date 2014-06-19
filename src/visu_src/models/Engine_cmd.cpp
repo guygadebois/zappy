@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/11 11:38:27 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/19 14:35:08 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/19 15:46:31 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -41,7 +41,7 @@ bool	Engine::treatCmd(const string line)
 		return (expulse(line));
 	if (cmd == "pbc")
 		return (broadcast(line));
-	if (cmd == "pdi")
+	if (cmd == "pdi" || cmd == "edi")
 		return (die(line));
 	if (cmd == "pic")
 		return (startIncantation(line));
@@ -53,6 +53,8 @@ bool	Engine::treatCmd(const string line)
 		return (eggDelivered(line));
 	if (cmd == "eht")
 		return (eggHatchOut(line));
+	if (cmd == "seg")
+		return (endOfGame(line));
 	cout << "WARNING -> Commande inconnue : " << line << endl;
 	return (false);
 }
@@ -475,6 +477,18 @@ bool	Engine::eggHatchOut(const string line)
 	if ((egg = m_mapData->getTrantorById(stoi((*tokens)[1]))) == NULL)
 		return (false);
 	egg->eggBecomeTrantor(m_trentorMesh);
+	delete (tokens);
+	return (true);
+}
+
+bool	Engine::endOfGame(const string line)
+{
+	vector<string>					*tokens;
+
+	tokens = mystring::strsplit(line);
+	if (tokens->size() != 2)
+		return (err_msg("Engine::endOfGame ERROR --> invalid line format"));
+	m_mapData->setEndOfGame((*tokens)[1]);
 	delete (tokens);
 	return (true);
 }

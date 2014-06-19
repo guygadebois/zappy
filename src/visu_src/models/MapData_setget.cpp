@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/09 15:31:30 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/18 15:07:39 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/19 15:49:03 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -76,4 +76,10 @@ void						MapData::setMatrixPartSys(
 scene::IParticleSystemSceneNode	*MapData::getMatrixPartSys(u32 x, u32 y)
 {
 	return (m_matrix[x][y].partSys);
+}
+
+void						MapData::setEndOfGame(const string winnerTeam)
+{
+	m_endOfGame = true;
+	m_winnerTeam = winnerTeam;
 }

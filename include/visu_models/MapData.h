@@ -6,7 +6,7 @@
 /*   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/03 15:17:17 by glourdel          #+#    #+#             */
-/*   Updated: 2014/06/18 15:22:21 by glourdel         ###   ########.fr       */
+/*   Updated: 2014/06/19 15:48:22 by glourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ public:
 	void						setMatrixPartSys(
 		u32 x, u32 y, scene::IParticleSystemSceneNode *partSys);
 	scene::IParticleSystemSceneNode	*getMatrixPartSys(u32 x, u32 y);
+	void						setEndOfGame(const string winnerTeam);
 
 private:
 	void						checkFrameAnimationsEnd(void);
@@ -126,6 +127,8 @@ private:
 	s32							m_timeUnit;
 	list<t_frameAnimation *>	m_pickAnimations;
 	list<PartEmitterAnim *>		m_partEmitterAnimations;
+	bool						m_endOfGame;
+	string						m_winnerTeam;
 };
 
 #endif

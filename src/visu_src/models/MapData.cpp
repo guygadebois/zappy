@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/03 15:25:43 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/18 14:59:58 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/19 15:47:56 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -22,7 +22,8 @@ MapData::MapData(u32 width, u32 height, u32 textWidth, u32 textHeight)
 	: m_matrix(width, vector<t_mapElem>(height)),
 	  m_gridSize(width, height),
 	  m_texturePSize(textWidth, textHeight),
-	  m_timeUnit(-1)
+	  m_timeUnit(-1),
+	  m_endOfGame(false)
 {
 	m_gridElemPSize.Width = m_texturePSize.Width / width;
 	m_gridElemPSize.Height = m_texturePSize.Height / height / 2;

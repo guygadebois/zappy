@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/05 18:16:21 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/19 15:30:11 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/19 15:35:05 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -423,4 +423,5 @@ void						scene::MySceneNode::eggBecomeTrantor(
 	m_son->setFrameLoop(1, 39);
 	m_son->setMaterialType(video::EMT_TRANSPARENT_ALPHA_CHANNEL_REF);
 	setTexture(m_trantorTexture);
+	m_type = TRANTOR;
 }
