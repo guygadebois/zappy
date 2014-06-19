@@ -6,7 +6,7 @@
 /*   By: dcouly <dcouly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/07 18:24:06 by dcouly            #+#    #+#             */
-/*   Updated: 2014/06/09 17:11:13 by dcouly           ###   ########.fr       */
+/*   Updated: 2014/06/19 12:53:31 by dcouly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ static int	sv_o_trant_init(t_trant **trant, int sock, char buf[1024])
 	(*trant)->men = 0;
 	(*trant)->phi = 0;
 	(*trant)->thy = 0;
+	(*trant)->send = 0;
 	(*trant)->team = ft_strdup(buf);
 	return (1);
 }

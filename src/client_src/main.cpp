@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/05/28 11:59:19 by glourdel          #+#    #+#             //
-/*   Updated: 2014/06/10 19:15:23 by dcouly           ###   ########.fr       */
+/*   Updated: 2014/06/19 13:10:27 by dcouly           ###   ########.fr       */
 //                                                                            //
 // ************************************************************************** //
 
@@ -96,12 +96,12 @@ int			main(int argc, char **argv)
 	cout << "client here ! " << endl;
 	team = strcat(argv[3], "\n");
 	sock = cl_new_connection(argv[1], argv[2], team);
-	if (fork())
+/*	if (fork())
 	{
 		sleep(3);
 		sock = cl_new_connection(argv[1], argv[2], team);
 	}
-	do
+*/	do
 	{
 		cl_calcul(buf, sock);
 	} while (strcmp(buf, "end"));

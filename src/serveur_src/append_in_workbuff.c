@@ -6,17 +6,37 @@
 /*   By: dcouly <dcouly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/07 18:51:09 by dcouly            #+#    #+#             */
-/*   Updated: 2014/06/07 19:10:42 by dcouly           ###   ########.fr       */
+/*   Updated: 2014/06/19 13:02:46 by dcouly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include "libft.h"
 #include "server.h"
 #include "types.h"
 
-void	append_in_workbuf(t_data *game, t_trant *trant, char *buf, int rd_oct)
+static void	sv_add_time(int time, t_data *game, t_trant *trant)
+{
+	float	tmp;
+	float	micro;
+
+	tmp = time;
+	tmp = tmp / game->time;
+	micro = tmp - time / game->time;
+	time = time / game->time;
+	trant->time.tv_usec += micro;
+	if (trant->time.tv_usec >= 1000000)
+	{
+		trant->time.tv_usec %= 1000000;
+		time++;
+	}
+	trant->time.tv_sec += time;
+}
+
+void		append_in_workbuf(t_data *game, t_trant *trant, char *buf,
+		int rd_oct)
 {
 	char	*tmp;
 	char	*cmd;
@@ -30,6 +50,9 @@ void	append_in_workbuf(t_data *game, t_trant *trant, char *buf, int rd_oct)
 		if ((cmd = ft_strndup(trant->cmd_in, offset)))
 		{
 			printf("ok %d\n", game->sock);//	sv_treat_cmd(data, cmd, trant->sock);
+			trant->send = 1;
+			gettimeofday(&(trant->time), NULL);
+			sv_add_time(95, game, trant);
 			ft_strcpy(trant->cmd_out, "ok\n");
 		}
 		ft_strcpy(trant->cmd_out, "ok\n");

@@ -6,7 +6,7 @@
 /*   By: dcouly <dcouly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/07 16:44:18 by dcouly            #+#    #+#             */
-/*   Updated: 2014/06/17 17:18:58 by dcouly           ###   ########.fr       */
+/*   Updated: 2014/06/19 12:41:43 by dcouly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ int	sv_loop(int sock, t_arg *arg)
 	t_data	game;
 
 	game.trant = NULL;
-	game.length = arg->height;
-	game.width = arg->width;
+	game.length = arg->width;
+	game.width = arg->height;
 	game.time = arg->t;
 	game.map = ft_create_map(game.length, game.width, 50);
 	game.sock = sock;
