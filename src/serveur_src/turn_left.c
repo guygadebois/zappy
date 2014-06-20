@@ -6,17 +6,21 @@
 /*   By: bjacob <bjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/18 10:35:20 by bjacob            #+#    #+#             */
-/*   Updated: 2014/06/20 18:49:14 by dcouly           ###   ########.fr       */
+/*   Updated: 2014/06/20 19:23:30 by dcouly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "map.h"
+#include "types.h"
 #include "libft.h"
+#include "server.h"
 
-void	ft_turn_left(t_trant *trant)
+void	ft_turn_left(t_trant *trant, t_data *game)
 {
 	trant->direct--;
 	if (trant->direct == 0)
 		trant->direct = 4;
-	ft_putendl("ok");
+	ft_strcpy(trant->cmd_out, "ok\n");
+	ft_strstrcat(game->visu.cmd_out, "ppo", 4, trant->sock, trant->x,
+		trant->y, trant->direct);
 }
