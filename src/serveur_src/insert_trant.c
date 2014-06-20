@@ -6,7 +6,7 @@
 /*   By: dcouly <dcouly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/07 18:24:06 by dcouly            #+#    #+#             */
-/*   Updated: 2014/06/20 18:32:26 by dcouly           ###   ########.fr       */
+/*   Updated: 2014/06/20 18:48:39 by dcouly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ void	sv_new_trant_to_visu(t_data *game, t_trant *trant)
 		ft_strcat(game->visu.cmd_out, " ");
 		ft_strcat(game->visu.cmd_out, ft_itoa(trant->direct));
 		ft_strcat(game->visu.cmd_out, " ");
+		ft_strcat(game->visu.cmd_out, ft_itoa(trant->level));
+		ft_strcat(game->visu.cmd_out, " ");
 		ft_strcat(game->visu.cmd_out, trant->team);
 		ft_strcat(game->visu.cmd_out, "\n");
 	}
@@ -47,7 +49,7 @@ static int	sv_o_trant_init(t_trant **trant, int sock, char buf[1024],
 	(*trant)->y = rand() % game->width;
 	(*trant)->level = 1;
 	(*trant)->life = 126;
-	(*trant)->direct = 0;
+	(*trant)->direct = 1;
 	(*trant)->lin = 0;
 	(*trant)->der = 0;
 	(*trant)->sib = 0;
