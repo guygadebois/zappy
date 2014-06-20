@@ -6,7 +6,7 @@
 /*   By: dcouly <dcouly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/07 16:44:18 by dcouly            #+#    #+#             */
-/*   Updated: 2014/06/19 12:41:43 by dcouly           ###   ########.fr       */
+/*   Updated: 2014/06/20 18:16:37 by dcouly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ int	sv_loop(int sock, t_arg *arg)
 	game.time = arg->t;
 	game.map = ft_create_map(game.length, game.width, 50);
 	game.sock = sock;
+	game.nbmax = arg->nbmax;
+	game.team = arg->team;
 	game.fd_visu = -1;
 	fd_max = sock;
 	FD_ZERO(&(fds.master));

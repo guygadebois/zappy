@@ -6,7 +6,7 @@
 /*   By: dcouly <dcouly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/09 18:31:03 by dcouly            #+#    #+#             */
-/*   Updated: 2014/06/17 17:10:39 by dcouly           ###   ########.fr       */
+/*   Updated: 2014/06/20 18:32:57 by dcouly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,23 @@ static void		sv_map(t_data *game)
 
 void			sv_send_visu(t_data *game)
 {
+	t_list	*lst;
+
 	ft_strstrcat(game->visu.cmd_out, "msz", 2, game->length, game->width);
 	ft_strstrcat(game->visu.cmd_out, "sgt", 1, game->time);
 	sv_map(game);
+	lst = game->team;
+	while (lst)
+	{
+		ft_strcat(game->visu.cmd_out, "tna ");
+		ft_strcat(game->visu.cmd_out, (char*)lst->content);
+		ft_strcat(game->visu.cmd_out, "\n");
+		lst = lst->next;
+	}
+	lst = game->trant;
+	while (lst)
+	{
+		sv_new_trant_to_visu(game, (t_trant*)lst->content);
+		lst = lst->next;
+	}
 }

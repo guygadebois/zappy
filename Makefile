@@ -42,6 +42,8 @@ OFILES = $(notdir $(CFILES:.c=.o)) $(notdir $(CPPFILES:.cpp=.o))
 # START INSERT .source
 
 SERVEUR_CFILES= \
+		serveur_src//add_trant_map.c \
+		serveur_src//answer_cmd.c \
 		serveur_src//append_in_workbuff.c \
 		serveur_src//cmd_visu.c \
 		serveur_src//create_server.c \
@@ -56,6 +58,7 @@ SERVEUR_CFILES= \
 		serveur_src//listen_fd.c \
 		serveur_src//loop.c \
 		serveur_src//main.c \
+		serveur_src//move_forward.c \
 		serveur_src//read_from_client.c \
 		serveur_src//send_visu.c \
 		serveur_src//sv_send.c \
@@ -169,6 +172,24 @@ re:	fclean all
 # IGNORE NEXT LINES
 
 
+obj/sv_add_trant_map.o: src/serveur_src//add_trant_map.c include/types.h \
+ include/common.h include/map.h libft/include/libft.h \
+ libft/include/libft_types.h include/server.h include/types.h \
+ include/get_arg.h
+	@echo $(CYAN)"    Creating obj/sv_add_trant_map.o ...\033[0m"
+	@mkdir -p $(OBJDIR);
+	@$(CC) -o $(OBJDIR)sv_add_trant_map.o \
+-c $(SRCDIR)serveur_src//add_trant_map.c $(CFLAGS)
+
+obj/sv_answer_cmd.o: src/serveur_src//answer_cmd.c include/types.h \
+ include/common.h include/map.h libft/include/libft.h \
+ libft/include/libft_types.h include/map.h include/server.h \
+ include/types.h include/get_arg.h
+	@echo $(CYAN)"    Creating obj/sv_answer_cmd.o ...\033[0m"
+	@mkdir -p $(OBJDIR);
+	@$(CC) -o $(OBJDIR)sv_answer_cmd.o \
+-c $(SRCDIR)serveur_src//answer_cmd.c $(CFLAGS)
+
 obj/sv_append_in_workbuff.o: src/serveur_src//append_in_workbuff.c \
  libft/include/libft.h libft/include/libft_types.h include/server.h \
  include/types.h include/common.h include/map.h include/get_arg.h \
@@ -278,6 +299,14 @@ obj/sv_main.o: src/serveur_src//main.c libft/include/libft.h \
 	@mkdir -p $(OBJDIR);
 	@$(CC) -o $(OBJDIR)sv_main.o \
 -c $(SRCDIR)serveur_src//main.c $(CFLAGS)
+
+obj/sv_move_forward.o: src/serveur_src//move_forward.c include/map.h \
+ include/common.h include/types.h include/map.h libft/include/libft.h \
+ libft/include/libft_types.h include/get_arg.h
+	@echo $(CYAN)"    Creating obj/sv_move_forward.o ...\033[0m"
+	@mkdir -p $(OBJDIR);
+	@$(CC) -o $(OBJDIR)sv_move_forward.o \
+-c $(SRCDIR)serveur_src//move_forward.c $(CFLAGS)
 
 obj/sv_read_from_client.o: src/serveur_src//read_from_client.c include/common.h \
  include/server.h include/types.h include/common.h include/map.h \

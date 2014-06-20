@@ -6,7 +6,7 @@
 /*   By: dcouly <dcouly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/07 16:29:11 by dcouly            #+#    #+#             */
-/*   Updated: 2014/06/17 17:20:44 by dcouly           ###   ########.fr       */
+/*   Updated: 2014/06/20 18:31:12 by dcouly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,12 @@ void	sv_send(t_data *game, int sock);
 t_area	***ft_create_map(int x, int y, int nb_max);
 void	sv_cmd_visu(t_data *game, char *buf, int rd_oct);
 void	sv_send_visu(t_data *game);
+void	sv_answer_cmd(t_data *game, t_trant *trant);
+void	ft_move_forward(t_data *game, t_trant *trant, t_area ***map);
+void	add_trant_map(t_area ***map, t_trant *trant);
+void	t_turn_right(t_trant *trant);
+void	t_turn_left(t_trant *trant);
+void	ft_strstrcat(char cmd_out[BUF_VISU], char *cmd, int nb, ...);
+void	sv_new_trant_to_visu(t_data *game, t_trant *trant);
 
 #endif

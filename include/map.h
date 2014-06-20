@@ -6,7 +6,7 @@
 /*   By: bjacob <bjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/06 16:25:20 by bjacob            #+#    #+#             */
-/*   Updated: 2014/06/20 15:11:24 by bjacob           ###   ########.fr       */
+/*   Updated: 2014/06/20 16:12:42 by dcouly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ typedef struct			s_trant
 	char				*team;
 	char				cmd_in[WORK_BUFSIZE];
 	char				cmd_out[WORK_BUFSIZE];
+	char				*current_cmd;
 	int					x;
 	int					y;
 	int					direct;

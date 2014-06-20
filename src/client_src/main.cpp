@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/05/28 11:59:19 by glourdel          #+#    #+#             //
-/*   Updated: 2014/06/19 13:10:27 by dcouly           ###   ########.fr       */
+/*   Updated: 2014/06/20 16:31:08 by dcouly           ###   ########.fr       */
 //                                                                            //
 // ************************************************************************** //
 
@@ -25,7 +25,6 @@ void		co_cmd(int sock, char *buf, char *cmd)
 {
 	int	i;
 
-	sleep(1);
 	cout << cmd << endl;
 	send(sock, cmd, strlen(cmd) + 1, 0);
 	bzero(buf, 1024);

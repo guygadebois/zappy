@@ -6,7 +6,7 @@
 /*   By: dcouly <dcouly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/07 18:51:09 by dcouly            #+#    #+#             */
-/*   Updated: 2014/06/19 13:02:46 by dcouly           ###   ########.fr       */
+/*   Updated: 2014/06/20 16:30:03 by dcouly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,11 @@ void		append_in_workbuf(t_data *game, t_trant *trant, char *buf,
 		if ((cmd = ft_strndup(trant->cmd_in, offset)))
 		{
 			printf("ok %d\n", game->sock);//	sv_treat_cmd(data, cmd, trant->sock);
+			trant->current_cmd = ft_strdup(cmd);
 			trant->send = 1;
 			gettimeofday(&(trant->time), NULL);
-			sv_add_time(95, game, trant);
-			ft_strcpy(trant->cmd_out, "ok\n");
+			sv_add_time(10, game, trant);
+		//	ft_strcpy(trant->cmd_out, "ok\n");
 		}
 		ft_strcpy(trant->cmd_out, "ok\n");
 		free(cmd);
