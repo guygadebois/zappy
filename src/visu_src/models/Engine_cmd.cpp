@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/11 11:38:27 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/19 17:58:57 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/20 12:07:07 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -493,9 +493,7 @@ bool	Engine::endOfGame(const string line)
 	m_mapData->setEndOfGame((*tokens)[1]);
 	msg = (*tokens)[1] + " won the game !";
 	mystring::StringToWString(w_msg, msg);
-	irr::gui::IGUIStaticText *texte = m_gui->addStaticText(w_msg.c_str(),
-						 irr::core::rect<irr::s32>(100, 20, 400, 60),
-						 true);
+	m_gui->addMessageBox(L"End of game", w_msg.c_str());
 	delete (tokens);
 	return (true);
 }
