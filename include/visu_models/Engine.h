@@ -6,7 +6,7 @@
 /*   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/31 14:10:08 by glourdel          #+#    #+#             */
-/*   Updated: 2014/06/20 12:29:36 by glourdel         ###   ########.fr       */
+/*   Updated: 2014/06/20 18:35:11 by glourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # include "visu_define.h"
 
 using namespace irr;
+
+class VisuComm;
 
 class Engine
 {
@@ -36,7 +38,7 @@ public:
 				   const string team);
 	bool	addTrees(void);
 	bool	addLights(void);
-	void	loop(void);
+	void	loop(VisuComm *visuComm);
 	bool	addItem(const u8 itemNbr, const u32 howMany, const u32 x, const u32 y);
 // Action suite aux commandes :
 	bool	treatCmd(const string line);

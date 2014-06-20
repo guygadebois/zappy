@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/05/31 14:10:28 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/20 14:11:08 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/20 18:36:33 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -14,6 +14,7 @@
 #include <stdlib.h>
 #include "Engine.h"
 #include "MySceneNode.h"
+#include "VisuComm.h"
 #include "errors.h"
 
 using namespace std;
@@ -244,12 +245,13 @@ bool	Engine::addLights(void)
 	return (true);
 }
 
-void	Engine::loop(void)
+void	Engine::loop(VisuComm *visuComm)
 {
 	while (m_device->run())
 	{
 		m_driver->beginScene (true, true,
 							  video::SColor(255, 0, 0, 0));
+		visuComm->launchOnce();
 		m_mapData->AnimParticleEmitters(m_device->getTimer()->getTime());
 		m_mapData->checkAnimationsEnd();
 		m_mapData->hideItemsOnInoccupiedSquares();
