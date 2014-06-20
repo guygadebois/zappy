@@ -6,7 +6,7 @@
 /*   By: bjacob <bjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/17 15:41:21 by bjacob            #+#    #+#             */
-/*   Updated: 2014/06/20 18:47:29 by dcouly           ###   ########.fr       */
+/*   Updated: 2014/06/20 19:08:49 by dcouly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,21 +47,21 @@ void		ft_move(t_area ***map, t_trant *trant, int x, int y)
 
 void		ft_move_forward(t_data *game, t_trant *trant, t_area ***map)
 {
-	if (trant->direct == 1 && (trant->x - 1) >= 0)
+	if (trant->direct == 2 && (trant->x - 1) >= 0)
 		ft_move(map, trant, (trant->x - 1), trant->y);
-	else if (trant->direct == 1 && (trant->x - 1) < 0)
+	else if (trant->direct == 2 && (trant->x - 1) < 0)
 		ft_move(map, trant, (game->length - 1), trant->y);
-	else if (trant->direct == 2 && (trant->y + 1) == game->width)
+	else if (trant->direct == 3 && (trant->y + 1) == game->width)
 		ft_move(map, trant, trant->x, 0);
-	else if (trant->direct == 2 && (trant->y + 1) != game->width)
+	else if (trant->direct == 3 && (trant->y + 1) != game->width)
 		ft_move(map, trant, trant->x, (trant->y + 1));
-	else if (trant->direct == 3 && (trant->x + 1) == game->length)
+	else if (trant->direct == 4 && (trant->x + 1) == game->length)
 		ft_move(map, trant, 0, trant->y);
-	else if (trant->direct == 3 && (trant->x + 1) != game->length)
+	else if (trant->direct == 4 && (trant->x + 1) != game->length)
 		ft_move(map, trant, (trant->x + 1), trant->y);
-	else if (trant->direct == 4 && (trant->y) >= 0)
+	else if (trant->direct == 1 && (trant->y) > 0)
 		ft_move(map, trant, trant->x, (trant->y - 1));
-	else if (trant->direct == 4 && (trant->y - 1) < 0)
+	else if (trant->direct == 1 && (trant->y - 1) < 0)
 		ft_move(map, trant, trant->x, game->width - 1);
 	ft_strcpy(trant->cmd_out, "ok\n");
 	ft_strstrcat(game->visu.cmd_out, "ppo", 4, trant->sock, trant->x,
