@@ -301,9 +301,10 @@ obj/sv_main.o: src/serveur_src//main.c libft/include/libft.h \
 	@$(CC) -o $(OBJDIR)sv_main.o \
 -c $(SRCDIR)serveur_src//main.c $(CFLAGS)
 
-obj/sv_move_forward.o: src/serveur_src//move_forward.c include/map.h \
- include/common.h include/types.h include/map.h libft/include/libft.h \
- libft/include/libft_types.h include/get_arg.h
+obj/sv_move_forward.o: src/serveur_src//move_forward.c include/server.h \
+ include/types.h include/common.h include/map.h libft/include/libft.h \
+ libft/include/libft_types.h include/get_arg.h include/map.h \
+ include/types.h include/get_arg.h
 	@echo $(CYAN)"    Creating obj/sv_move_forward.o ...\033[0m"
 	@mkdir -p $(OBJDIR);
 	@$(CC) -o $(OBJDIR)sv_move_forward.o \
@@ -607,7 +608,8 @@ obj/visu_Engine.o: src/visu_src//models/Engine.cpp include/visu_models/Engine.h 
  irrlicht/include/SSharedMeshBuffer.h irrlicht/include/SViewFrustum.h \
  include/visu_models/MySceneNode.h include/visu_models/MapData.h \
  include/visu_models/PartEmitterAnim.h include/visu_models/visu_define.h \
- include/visu_models/MySceneNode.h include/visu_models/errors.h
+ include/visu_models/MySceneNode.h include/visu_models/VisuComm.h \
+ include/visu_models/Engine.h include/visu_models/errors.h
 	@echo $(CYAN)"    Creating obj/visu_Engine.o ...\033[0m"
 	@mkdir -p $(OBJDIR);
 	@$(CCPP) -o $(OBJDIR)visu_Engine.o -Wall \
