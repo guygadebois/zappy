@@ -6,7 +6,7 @@
 /*   By: bjacob <bjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/11 08:07:02 by bjacob            #+#    #+#             */
-/*   Updated: 2014/06/18 11:55:27 by glourdel         ###   ########.fr       */
+/*   Updated: 2014/06/20 07:39:31 by bjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ static int		ft_parse(t_arg *arg, int argc, char **argv, int	i)
 	return (j);
 }
 
-t_arg	*ft_get_arg(int argc, char **argv)
+t_arg			*ft_get_arg(int argc, char **argv)
 {
 	int		i;
 	t_arg	*arg;
