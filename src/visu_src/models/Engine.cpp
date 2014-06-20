@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/05/31 14:10:28 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/19 18:03:25 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/20 12:30:40 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -24,6 +24,7 @@ Engine::Engine(MapData *mapData)
 	  m_sceneManager(NULL),
 	  m_camera(NULL),
 	  m_mapData(mapData),
+	  m_started(false),
 	  m_emptyParent(NULL),
 	  m_planet(NULL),
 	  m_trentorMesh(NULL),
@@ -106,7 +107,13 @@ Engine::~Engine(void)
 
 bool	Engine::start(void)
 {
+	m_started = true;
 	return (true);
+}
+
+bool	Engine::isStarted(void) const
+{
+	return (m_started);
 }
 
 bool	Engine::addPlanet(void)
@@ -239,7 +246,7 @@ bool	Engine::addLights(void)
 
 void	Engine::loop(void)
 {
-	while(m_device->run())
+	while (m_device->run())
 	{
 		m_driver->beginScene (true, true,
 							  video::SColor(255, 0, 0, 0));

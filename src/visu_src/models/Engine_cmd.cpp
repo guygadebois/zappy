@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/11 11:38:27 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/20 12:07:07 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/20 12:24:39 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -71,6 +71,9 @@ bool	Engine::setTimeUnit(const string line)
 	if (timeUnit <= 0)
 		return (err_msg("Engine::setTimeUnit ERROR --> time unit must be greater than 0"));
 	m_mapData->setTimeUnit(timeUnit);
+	if (timeUnit <= VISU_MIN_TIMEUNIT)
+		;
+// repondre "sst 100\n" au serveur
 	delete (tokens);
 	return (true);
 }

@@ -6,7 +6,7 @@
 /*   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/31 14:10:08 by glourdel          #+#    #+#             */
-/*   Updated: 2014/06/19 16:18:25 by glourdel         ###   ########.fr       */
+/*   Updated: 2014/06/20 12:29:36 by glourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ public:
 	~Engine(void);
 
 	bool	start(void);
+	bool	isStarted(void) const;
 	bool	addPlanet(void);
 	bool	addTrantor(int id, u32 X, u32 Y, u8 orientation, u8 level,
 					   const string team);
@@ -65,6 +66,7 @@ private:
 	scene::ISceneManager			*m_sceneManager;
 	scene::ICameraSceneNode			*m_camera;
 	MapData							*m_mapData;
+	bool							m_started;
 // Objets :
 	scene::MySceneNode				*m_emptyParent;
 	scene::ISceneNode				*m_planet;
