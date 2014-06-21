@@ -6,7 +6,7 @@
 /*   By: dcouly <dcouly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/07 17:07:17 by dcouly            #+#    #+#             */
-/*   Updated: 2014/06/17 17:10:14 by dcouly           ###   ########.fr       */
+/*   Updated: 2014/06/21 20:04:52 by dcouly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,15 +42,16 @@ int			sv_listen_fd(t_data *game, int *fdmax, t_fds *fds)
 	char	buf[1024];
 	int		nb;
 
+	*fdmax = *fdmax + 0;
 	i = 0;
-	while (i <= *fdmax)
+	while (i <= game->fd_max)
 	{
 		if (FD_ISSET(i, &(fds->write)))
 			sv_send(game, i);
 		if (FD_ISSET(i, &(fds->read)))
 		{
 			if ((i == game->sock) && (cs = sv_new_connection(game->sock,\
-							fdmax, &(fds->master))) != -1)
+					&game->fd_max, &(fds->master))) != -1)
 			{
 				send(cs, "BIENVENUE\n", 10, 0);
 				nb = recv(cs, buf, 1023, 0);

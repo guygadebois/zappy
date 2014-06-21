@@ -6,7 +6,7 @@
 /*   By: dcouly <dcouly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/07 19:18:50 by dcouly            #+#    #+#             */
-/*   Updated: 2014/06/20 16:42:45 by dcouly           ###   ########.fr       */
+/*   Updated: 2014/06/21 17:42:58 by dcouly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,14 @@ void		sv_send(t_data *game, int sock)
 	if (sock != game->fd_visu)
 	{
 		trant = sv_getclientbysock(game, sock);
+		if (trant == NULL)
+			return ;
 		if (trant->send && sv_timer(trant))
 		{
 			sv_answer_cmd(game, trant);
 			send(sock, trant->cmd_out, ft_strlen(trant->cmd_out), 0);
 			ft_bzero(trant->cmd_out, WORK_BUFSIZE);
 			trant->send = 0;
-//			ft_strcat(game->visu.cmd_out, "ok\n");
 		}
 	}
 	else

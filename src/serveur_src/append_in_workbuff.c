@@ -6,7 +6,7 @@
 /*   By: dcouly <dcouly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/07 18:51:09 by dcouly            #+#    #+#             */
-/*   Updated: 2014/06/20 19:13:37 by dcouly           ###   ########.fr       */
+/*   Updated: 2014/06/21 17:13:09 by dcouly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,41 @@
 #include "server.h"
 #include "types.h"
 
-static void	sv_add_time(int time, t_data *game, t_trant *trant)
+static int	sv_time_cmd(char *cmd)
+{
+	if (!ft_strcmp(cmd, "avance") || !ft_strcmp(cmd, "droite"))
+		return (7);
+	if (!ft_strcmp(cmd, "gauche") || !ft_strcmp(cmd, "voir"))
+		return (7);
+	if (!ft_strcmp(cmd, "inventaire"))
+		return (1);
+	if (!ft_strncmp(cmd, "prend", 5))
+		return (7);
+	if (!ft_strncmp(cmd, "pose", 4))
+		return (7);
+	if (!ft_strcmp(cmd, "expulse"))
+		return (7);
+	if (!ft_strncmp(cmd, "broadcast", 9))
+		return (7);
+	if (!ft_strcmp(cmd, "incantation"))
+		return (300);
+	if (!ft_strcmp(cmd, "fork"))
+		return (42);
+	if (!ft_strcmp(cmd, "connect_nbr"))
+		return (0);
+	return (0);
+}
+
+static void	sv_add_time(char *cmd, t_data *game, t_trant *trant)
 {
 	float	tmp;
 	float	micro;
+	int		time;
 
+	time = sv_time_cmd(cmd);
 	tmp = time;
 	tmp = tmp / game->time;
-	micro = tmp - time / game->time;
+	micro = (tmp - time / game->time) * 1000000;
 	time = time / game->time;
 	trant->time.tv_usec += micro;
 	if (trant->time.tv_usec >= 1000000)
@@ -53,10 +80,10 @@ void		append_in_workbuf(t_data *game, t_trant *trant, char *buf,
 			trant->current_cmd = ft_strdup(cmd);
 			trant->send = 1;
 			gettimeofday(&(trant->time), NULL);
-			sv_add_time(10, game, trant);
+			sv_add_time(cmd, game, trant);
 		//	ft_strcpy(trant->cmd_out, "ok\n");
 		}
-		ft_strcpy(trant->cmd_out, "ok\n");
+//		ft_strcpy(trant->cmd_out, "ok\n");
 		free(cmd);
 		tmp = ft_strdup(trant->cmd_in + offset + 1);
 		ft_bzero(trant->cmd_in, WORK_BUFSIZE);

@@ -6,7 +6,7 @@
 /*   By: dcouly <dcouly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/07 17:03:25 by dcouly            #+#    #+#             */
-/*   Updated: 2014/06/20 18:17:10 by dcouly           ###   ########.fr       */
+/*   Updated: 2014/06/21 19:31:37 by dcouly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,16 +34,17 @@ typedef struct	s_visu
 
 typedef struct	s_data
 {
-	int		time;
-	int		length;
-	int		width;
-	t_area	***map;
-	t_list	*trant;
-	t_visu	visu;
-	int		sock;
-	int		nbmax;
-	t_list	*team;
-	int		fd_visu;
+	int			fd_max;
+	int			time;
+	int			length;
+	int			width;
+	t_area		***map;
+	t_list		*trant;
+	t_visu		visu;
+	int			sock;
+	int			nbmax;
+	t_list		*team;
+	int			fd_visu;
 }				t_data;
 
 #endif

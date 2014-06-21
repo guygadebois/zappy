@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/05/28 11:59:19 by glourdel          #+#    #+#             //
-/*   Updated: 2014/06/20 19:23:58 by dcouly           ###   ########.fr       */
+/*   Updated: 2014/06/21 20:12:03 by dcouly           ###   ########.fr       */
 //                                                                            //
 // ************************************************************************** //
 
@@ -38,7 +38,7 @@ void		*cl_calcul(char *buf, int sock)
 	int		c;
 	char	*cmd;
 
-	c = rand() % 4;
+	c = rand() % 1;
 	switch (c)
 	{
 	case (0) :
@@ -57,10 +57,10 @@ void		*cl_calcul(char *buf, int sock)
 		cmd = strdup("inventaire\n");
 		break ;
 	case (5) :
-		cmd = strdup("prend truc\n");
+		cmd = strdup("prend linemate\n");
 		break ;
 	case (6) :
-		cmd = strdup("poser truc\n");
+		cmd = strdup("pose linemate\n");
 		break ;
 	case (7) :
 		cmd = strdup("expulse\n");
@@ -88,7 +88,9 @@ int			main(int argc, char **argv)
 	char				*buf;
 	int					sock;
 	char				*team;
+	int					nb;
 
+	nb = 0;
 	buf = (char*)malloc(1000);
 	if (argc != 4)
 		return (0);
@@ -102,7 +104,10 @@ int			main(int argc, char **argv)
 	}
 */	do
 	{
+		nb++;
+		cout << nb <<endl;
 		cl_calcul(buf, sock);
+		cout << buf << endl;
 	} while (strcmp(buf, "end"));
 	return (0);
 }

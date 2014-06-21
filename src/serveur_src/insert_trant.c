@@ -6,7 +6,7 @@
 /*   By: dcouly <dcouly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/07 18:24:06 by dcouly            #+#    #+#             */
-/*   Updated: 2014/06/20 19:13:05 by dcouly           ###   ########.fr       */
+/*   Updated: 2014/06/21 20:13:16 by dcouly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static int	sv_o_trant_init(t_trant **trant, int sock, char buf[1024],
 	(*trant)->x = rand() % game->length;
 	(*trant)->y = rand() % game->width;
 	(*trant)->level = 1;
-	(*trant)->life = 126;
+	(*trant)->life = 10;
 	(*trant)->direct = 1;
 	(*trant)->lin = 0;
 	(*trant)->der = 0;
@@ -57,6 +57,7 @@ static int	sv_o_trant_init(t_trant **trant, int sock, char buf[1024],
 	(*trant)->phi = 0;
 	(*trant)->thy = 0;
 	(*trant)->send = 0;
+	gettimeofday(&(*trant)->t_life, NULL);
 	(*trant)->team = ft_strdup(buf);
 	(*trant)->current_cmd = NULL;
 	add_trant_map(game->map, *trant);

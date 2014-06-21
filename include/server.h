@@ -6,7 +6,7 @@
 /*   By: dcouly <dcouly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/07 16:29:11 by dcouly            #+#    #+#             */
-/*   Updated: 2014/06/20 19:16:01 by dcouly           ###   ########.fr       */
+/*   Updated: 2014/06/21 17:54:58 by dcouly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,8 @@ void	ft_turn_right(t_trant *trant, t_data *game);
 void	ft_turn_left(t_trant *trant, t_data *game);
 void	ft_strstrcat(char cmd_out[BUF_VISU], char *cmd, int nb, ...);
 void	sv_new_trant_to_visu(t_data *game, t_trant *trant);
+void	ft_drop_obj(t_area ***map, t_trant *trant, char *obj, t_data *game);
+void	ft_take_obj(t_area ***map, t_trant *trant, char *obj, t_data *game);
+void	ft_get_inventory(t_trant *trant);
 
 #endif

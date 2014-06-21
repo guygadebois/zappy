@@ -6,7 +6,7 @@
 /*   By: bjacob <bjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/17 15:41:21 by bjacob            #+#    #+#             */
-/*   Updated: 2014/06/20 19:34:37 by dcouly           ###   ########.fr       */
+/*   Updated: 2014/06/21 15:51:44 by dcouly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ void		ft_move(t_area ***map, t_trant *trant, int x, int y)
 
 void		ft_move_forward(t_data *game, t_trant *trant, t_area ***map)
 {
-	printf("%d %d\n", trant->x, trant->y);
 	if (trant->direct == 4 && (trant->x - 1) >= 0)
 		ft_move(map, trant, (trant->x - 1), trant->y);
 	else if (trant->direct == 4 && (trant->x - 1) < 0)
@@ -65,8 +64,7 @@ void		ft_move_forward(t_data *game, t_trant *trant, t_area ***map)
 		ft_move(map, trant, trant->x, (trant->y - 1));
 	else if (trant->direct == 1 && (trant->y - 1) < 0)
 		ft_move(map, trant, trant->x, game->width - 1);
-	printf("%d %d\n", trant->x, trant->y);
-	ft_strcpy(trant->cmd_out, "ok\n");
+	ft_strcat(trant->cmd_out, "ok\n");
 	ft_strstrcat(game->visu.cmd_out, "ppo", 4, trant->sock, trant->x,
 			trant->y, trant->direct);
 }

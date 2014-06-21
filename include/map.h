@@ -6,7 +6,7 @@
 /*   By: bjacob <bjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/06 16:25:20 by bjacob            #+#    #+#             */
-/*   Updated: 2014/06/20 16:12:42 by dcouly           ###   ########.fr       */
+/*   Updated: 2014/06/21 19:32:36 by dcouly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct			s_trant
 	int					direct;
 	int					level;
 	int					life;
+	struct timeval		t_life;
 	int					lin;
 	int					der;
 	int					sib;
