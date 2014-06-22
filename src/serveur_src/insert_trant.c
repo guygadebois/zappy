@@ -6,7 +6,7 @@
 /*   By: dcouly <dcouly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/07 18:24:06 by dcouly            #+#    #+#             */
-/*   Updated: 2014/06/21 20:13:16 by dcouly           ###   ########.fr       */
+/*   Updated: 2014/06/22 20:52:41 by dcouly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int			sv_insert_trant(t_data *game, int cs, char buf[1024])
 
 	if (!sv_o_trant_init(&new_trant, cs, buf, game))
 		return (0);
-	if (!ft_lstpushback(&game->trant, new_trant, 0))
+	if (!ft_lstpushback(&(game->trant), new_trant, 0))
 		return (err_malloc());
 	return (1);
 }

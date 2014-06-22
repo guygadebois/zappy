@@ -6,11 +6,12 @@
 /*   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/11/28 11:48:28 by glourdel          #+#    #+#             */
-/*   Updated: 2014/01/20 15:54:12 by glourdel         ###   ########.fr       */
+/*   Updated: 2014/06/22 22:08:46 by dcouly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdio.h>
 
 static t_list	*to_the_end(t_list **begin_list)
 {

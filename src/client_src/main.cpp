@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/05/28 11:59:19 by glourdel          #+#    #+#             //
-/*   Updated: 2014/06/21 20:12:03 by dcouly           ###   ########.fr       */
+/*   Updated: 2014/06/22 18:55:37 by dcouly           ###   ########.fr       */
 //                                                                            //
 // ************************************************************************** //
 
@@ -39,6 +39,7 @@ void		*cl_calcul(char *buf, int sock)
 	char	*cmd;
 
 	c = rand() % 1;
+	c = 1;
 	switch (c)
 	{
 	case (0) :
@@ -66,7 +67,7 @@ void		*cl_calcul(char *buf, int sock)
 		cmd = strdup("expulse\n");
 		break ;
 	case (8) :
-		cmd = strdup("broadcaster\n");
+		cmd = strdup("broadcaster TOTO\n");
 		break ;
 	case (9) :
 		cmd = strdup("incantation\n");
@@ -107,7 +108,7 @@ int			main(int argc, char **argv)
 		nb++;
 		cout << nb <<endl;
 		cl_calcul(buf, sock);
-		cout << buf << endl;
-	} while (strcmp(buf, "end"));
+		cout << "end" << endl;
+	} while (strcmp(buf, "mort\n"));
 	return (0);
 }

@@ -6,11 +6,12 @@
 /*   By: dcouly <dcouly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/07 16:44:18 by dcouly            #+#    #+#             */
-/*   Updated: 2014/06/21 20:13:44 by dcouly           ###   ########.fr       */
+/*   Updated: 2014/06/22 20:52:37 by dcouly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <sys/select.h>
+#include <sys/socket.h>
 #include <unistd.h>
 #include <stdio.h>
 #include "server.h"
@@ -40,27 +41,43 @@ static int sv_diff_time(struct timeval t1, struct timeval t2, int t)
 	return (0);
 }
 
-static void	sv_loose_life(t_data game)
+static void	sv_loose_life(t_data *game, t_fds *fd)
 {
 	t_list			*lst;
 	struct timeval	time;
 	struct timeval	time_trant;
+	fd_set			fd_dead;
 
 	gettimeofday(&time, NULL);
-	lst = game.trant;
+	lst = game->trant;
 	while (lst)
 	{
 		time_trant = ((t_trant*)(lst->content))->t_life;
-		if (sv_diff_time(time_trant, time, game.time))
+		if (sv_diff_time(time_trant, time, game->time))
 		{
 			((t_trant*)(lst->content))->t_life = time;
 			((t_trant*)(lst->content))->life--;
-/*			if (((t_trant*)(lst->content))->life == 0)
-			{	printf("DIE\n");
-				sleep(100);
+			if (((t_trant*)(lst->content))->life == 0)
+			{	
+				ft_strcpy(game->visu.cmd_out, "pdi ");
+				ft_strcpy(game->visu.cmd_out,
+						ft_itoa(((t_trant*)lst->content)->sock));
+				ft_strcpy(game->visu.cmd_out, "\n");
+				FD_ZERO(&fd_dead);
+				FD_SET(((t_trant*)lst->content)->sock, &fd_dead);
+				while (select((((t_trant*)lst->content)->sock) + 1, NULL,
+						&fd_dead, NULL, NULL) == 0)
+					FD_SET(((t_trant*)lst->content)->sock, &fd_dead);
+				send(((t_trant*)lst->content)->sock, "mort\n", 5, 0);
+				FD_CLR(((t_trant*)lst->content)->sock, &fd->master);
+				sv_del_trant(game, ((t_trant*)lst->content)->sock);
+				lst = game->trant;
 			}
-*/		}
-		lst = lst->next;
+			else
+				lst = lst->next;
+		}
+		else
+			lst = lst->next;
 	}
 }
 
@@ -87,7 +104,7 @@ int			sv_loop(int sock, t_arg *arg)
 	FD_SET(sock, &(fds.master));
 	while (1)
 	{
-		sv_loose_life(game);
+		sv_loose_life(&game, &fds);
 		fds.read = fds.master;
 		fds.write = fds.master;
 		if (select(game.fd_max + 1, &(fds.read), &(fds.write), NULL, NULL) == -1)

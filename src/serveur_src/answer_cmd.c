@@ -6,7 +6,7 @@
 /*   By: dcouly <dcouly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/20 16:07:06 by dcouly            #+#    #+#             */
-/*   Updated: 2014/06/21 17:55:32 by dcouly           ###   ########.fr       */
+/*   Updated: 2014/06/22 18:22:35 by dcouly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ void	sv_answer_cmd(t_data *game, t_trant *trant)
 		ft_drop_obj(game->map, trant, &trant->current_cmd[5], game);
 	else if (!ft_strcmp(trant->current_cmd, "inventaire"))
 		ft_get_inventory(trant);
-		//	else if (!ft_strncmp(trant->current_cmd, "poser", 5))
+	else if (!ft_strncmp(trant->current_cmd, "broadcaster", 11))
+		broadcast(game, &trant->current_cmd[12], trant->sock);
 /*	else if (!ft_strcmp(trant->current_cmd, "gauche"))
 	else if (!ft_strcmp(trant->current_cmd, "gauche"))
 	else if (!ft_strcmp(trant->current_cmd, "gauche"))

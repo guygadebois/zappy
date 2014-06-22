@@ -6,7 +6,7 @@
 /*   By: dcouly <dcouly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/07 17:42:35 by dcouly            #+#    #+#             */
-/*   Updated: 2014/06/21 17:25:30 by dcouly           ###   ########.fr       */
+/*   Updated: 2014/06/22 18:39:25 by dcouly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ int			sv_read_from_client(t_data *game, int cs, fd_set *master)
 			err_function("recv");
 		if (game->fd_visu == cs)
 			game->fd_visu = -1;
+		else
+			sv_del_trant(game, cs);
 		close(cs);
 		FD_CLR(cs, master);
 	}
@@ -44,4 +46,3 @@ int			sv_read_from_client(t_data *game, int cs, fd_set *master)
 	}
 	return (1);
 }
-

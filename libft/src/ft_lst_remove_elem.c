@@ -6,7 +6,7 @@
 /*   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/28 11:46:43 by glourdel          #+#    #+#             */
-/*   Updated: 2013/12/28 11:52:10 by glourdel         ###   ########.fr       */
+/*   Updated: 2014/06/22 20:40:27 by dcouly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,12 @@ void	ft_lst_remove_elem(t_list **list, size_t index)
 	t_list	*ptr;
 
 	buf_tail = NULL;
+	if (index == 0)
+	{
+		ptr = (*list)->next;
+	 	*list = ptr;
+		return ;
+	}
 	if (list && *list)
 	{
 		ptr = *list;

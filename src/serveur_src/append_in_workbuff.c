@@ -6,7 +6,7 @@
 /*   By: dcouly <dcouly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/07 18:51:09 by dcouly            #+#    #+#             */
-/*   Updated: 2014/06/21 17:13:09 by dcouly           ###   ########.fr       */
+/*   Updated: 2014/06/22 18:38:56 by dcouly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static int	sv_time_cmd(char *cmd)
 		return (7);
 	if (!ft_strcmp(cmd, "expulse"))
 		return (7);
-	if (!ft_strncmp(cmd, "broadcast", 9))
+	if (!ft_strncmp(cmd, "broadcaster", 11))
 		return (7);
 	if (!ft_strcmp(cmd, "incantation"))
 		return (300);
@@ -76,14 +76,11 @@ void		append_in_workbuf(t_data *game, t_trant *trant, char *buf,
 	{
 		if ((cmd = ft_strndup(trant->cmd_in, offset)))
 		{
-			printf("ok %d\n", trant->sock);//	sv_treat_cmd(data, cmd, trant->sock);
 			trant->current_cmd = ft_strdup(cmd);
 			trant->send = 1;
 			gettimeofday(&(trant->time), NULL);
 			sv_add_time(cmd, game, trant);
-		//	ft_strcpy(trant->cmd_out, "ok\n");
 		}
-//		ft_strcpy(trant->cmd_out, "ok\n");
 		free(cmd);
 		tmp = ft_strdup(trant->cmd_in + offset + 1);
 		ft_bzero(trant->cmd_in, WORK_BUFSIZE);

@@ -6,13 +6,14 @@
 /*   By: sbodovsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/19 05:21:50 by sbodovsk          #+#    #+#             */
-/*   Updated: 2014/06/21 05:36:02 by sbodovsk         ###   ########.fr       */
+/*   Updated: 2014/06/22 18:21:40 by dcouly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "server.h"
 #include <math.h>
 #include <stdarg.h>
+#include <stdlib.h>
 #include <string.h>
 
 int		ft_quadrant(int xa, int xb, int ya, int yb)
@@ -102,6 +103,7 @@ int		ft_sym(t_data *game, t_trant *emet, t_trant *others, int res)
 		res = ft_sym_x(res);
 	if (fabs(emet->y - others->y) > game->length)
 		res = ft_sym_y(res);
+	return (res);
 }
 
 char	*ft_strstrjoin(int nb, ...)
@@ -128,31 +130,44 @@ char	*ft_strstrjoin(int nb, ...)
 	return (ptr);
 }
 
+#include <stdio.h>
+
 void	broadcast(t_data *game, char *msg, int sock)
 {
 	t_trant		*emet;
-	t_trant		*others;
+	t_list		*others;
 	int			orient;
 	int			res;
 	char		*result;
 
 	orient = 0;
 	res = 0;
-	emet = sv_getclientbysock(sock);
-	others = (t_trant *)game->trant;
+	emet = sv_getclientbysock(game, sock);
+	ft_strcat(emet->cmd_out, "ok\n");
+	ft_strcat(game->visu.cmd_out, "pbc "); 
+	ft_strcat(game->visu.cmd_out, ft_itoa(sock));
+	ft_strcat(game->visu.cmd_out, " "); 
+	ft_strcat(game->visu.cmd_out, msg); 
+	ft_strcat(game->visu.cmd_out, "\n");
+   printf("%s\n", msg);	
+	others = (t_list *)game->trant;
 	while (others != NULL)
 	{
-		if (others->sock != sock)
-			orient = ft_quadrant(emet->x, others->x, emet->y, others->y);
-		res = ft_getresbyorient(emet, others, orient);
-		res = ft_sym(game, emet, others, res);
-		res = (res + 4 + others->direct) % 8;
+		if (((t_trant*)others->content)->sock != sock)
+			orient = ft_quadrant(emet->x,
+				((t_trant*)others->content)->x, emet->y,
+				((t_trant*)others)->y);
+		res = ft_getresbyorient(emet, (t_trant*)others->content,
+				orient);
+		res = ft_sym(game, emet, (t_trant*)others->content, res);
+		res = (res + 4 + ((t_trant*)others->content)->direct) % 8;
 		if (res == 0)
 			res = 8;
-		if ((emet->x == others->x) && (emet->y == others->y))
+		if ((emet->x == ((t_trant*)others->content)->x)
+				&& (emet->y == ((t_trant*)others->content)->y))
 			res = 0;
-		result = ft_strstrjoin(4, "message ", ft_itoa(res), ", ", msg);
-		others->cmd_out = result;
+		result = ft_strstrjoin(5, "message ", ft_itoa(res), ", ", msg, "\n");
+		ft_strcat(((t_trant*)others->content)->cmd_out, result);
 		others = others->next;
 	}
 }

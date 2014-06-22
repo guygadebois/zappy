@@ -45,8 +45,10 @@ SERVEUR_CFILES= \
 		serveur_src//add_trant_map.c \
 		serveur_src//answer_cmd.c \
 		serveur_src//append_in_workbuff.c \
+		serveur_src//broad.c \
 		serveur_src//cmd_visu.c \
 		serveur_src//create_server.c \
+		serveur_src//del_trant.c \
 		serveur_src//drop_obj.c \
 		serveur_src//errors.c \
 		serveur_src//find_ret.c \
@@ -200,6 +202,14 @@ obj/sv_append_in_workbuff.o: src/serveur_src//append_in_workbuff.c \
 	@$(CC) -o $(OBJDIR)sv_append_in_workbuff.o \
 -c $(SRCDIR)serveur_src//append_in_workbuff.c $(CFLAGS)
 
+obj/sv_broad.o: src/serveur_src//broad.c include/server.h include/types.h \
+ include/common.h include/map.h libft/include/libft.h \
+ libft/include/libft_types.h include/get_arg.h
+	@echo $(CYAN)"    Creating obj/sv_broad.o ...\033[0m"
+	@mkdir -p $(OBJDIR);
+	@$(CC) -o $(OBJDIR)sv_broad.o \
+-c $(SRCDIR)serveur_src//broad.c $(CFLAGS)
+
 obj/sv_cmd_visu.o: src/serveur_src//cmd_visu.c libft/include/libft.h \
  libft/include/libft_types.h include/server.h include/types.h \
  include/common.h include/map.h include/get_arg.h include/types.h
@@ -216,8 +226,17 @@ obj/sv_create_server.o: src/serveur_src//create_server.c libft/include/libft.h \
 	@$(CC) -o $(OBJDIR)sv_create_server.o \
 -c $(SRCDIR)serveur_src//create_server.c $(CFLAGS)
 
+obj/sv_del_trant.o: src/serveur_src//del_trant.c include/server.h \
+ include/types.h include/common.h include/map.h libft/include/libft.h \
+ libft/include/libft_types.h include/get_arg.h include/types.h
+	@echo $(CYAN)"    Creating obj/sv_del_trant.o ...\033[0m"
+	@mkdir -p $(OBJDIR);
+	@$(CC) -o $(OBJDIR)sv_del_trant.o \
+-c $(SRCDIR)serveur_src//del_trant.c $(CFLAGS)
+
 obj/sv_drop_obj.o: src/serveur_src//drop_obj.c include/map.h include/common.h \
- libft/include/libft.h libft/include/libft_types.h
+ include/server.h include/types.h include/map.h libft/include/libft.h \
+ libft/include/libft_types.h include/get_arg.h include/types.h
 	@echo $(CYAN)"    Creating obj/sv_drop_obj.o ...\033[0m"
 	@mkdir -p $(OBJDIR);
 	@$(CC) -o $(OBJDIR)sv_drop_obj.o \
@@ -335,21 +354,26 @@ obj/sv_sv_send.o: src/serveur_src//sv_send.c include/types.h include/common.h \
 -c $(SRCDIR)serveur_src//sv_send.c $(CFLAGS)
 
 obj/sv_take_obj.o: src/serveur_src//take_obj.c include/map.h include/common.h \
- libft/include/libft.h libft/include/libft_types.h
+ libft/include/libft.h libft/include/libft_types.h include/types.h \
+ include/map.h include/server.h include/types.h include/get_arg.h
 	@echo $(CYAN)"    Creating obj/sv_take_obj.o ...\033[0m"
 	@mkdir -p $(OBJDIR);
 	@$(CC) -o $(OBJDIR)sv_take_obj.o \
 -c $(SRCDIR)serveur_src//take_obj.c $(CFLAGS)
 
 obj/sv_turn_left.o: src/serveur_src//turn_left.c include/map.h include/common.h \
- libft/include/libft.h libft/include/libft_types.h
+ include/types.h include/map.h libft/include/libft.h \
+ libft/include/libft_types.h include/server.h include/types.h \
+ include/get_arg.h
 	@echo $(CYAN)"    Creating obj/sv_turn_left.o ...\033[0m"
 	@mkdir -p $(OBJDIR);
 	@$(CC) -o $(OBJDIR)sv_turn_left.o \
 -c $(SRCDIR)serveur_src//turn_left.c $(CFLAGS)
 
 obj/sv_turn_right.o: src/serveur_src//turn_right.c include/map.h \
- include/common.h libft/include/libft.h libft/include/libft_types.h
+ include/common.h include/types.h include/map.h libft/include/libft.h \
+ libft/include/libft_types.h include/server.h include/types.h \
+ include/get_arg.h
 	@echo $(CYAN)"    Creating obj/sv_turn_right.o ...\033[0m"
 	@mkdir -p $(OBJDIR);
 	@$(CC) -o $(OBJDIR)sv_turn_right.o \

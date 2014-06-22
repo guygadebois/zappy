@@ -6,7 +6,7 @@
 #    By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2013/11/19 11:58:46 by glourdel          #+#    #+#              #
-#    Updated: 2014/04/23 16:44:12 by glourdel         ###   ########.fr        #
+#    Updated: 2014/06/22 20:28:41 by dcouly           ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -15,7 +15,7 @@
 
 export CC = gcc
 NAME = libft.a
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror -g
 INCL_FLAGS = -Iinclude
 CFLAGS = $(INCL_FLAGS) $(FLAGS)
 
