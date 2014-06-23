@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/05/28 11:59:19 by glourdel          #+#    #+#             //
-/*   Updated: 2014/06/22 18:55:37 by dcouly           ###   ########.fr       */
+/*   Updated: 2014/06/23 16:12:28 by dcouly           ###   ########.fr       */
 //                                                                            //
 // ************************************************************************** //
 
@@ -39,7 +39,7 @@ void		*cl_calcul(char *buf, int sock)
 	char	*cmd;
 
 	c = rand() % 1;
-	c = 1;
+	c = 3;
 	switch (c)
 	{
 	case (0) :

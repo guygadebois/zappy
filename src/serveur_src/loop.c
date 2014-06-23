@@ -6,7 +6,7 @@
 /*   By: dcouly <dcouly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/07 16:44:18 by dcouly            #+#    #+#             */
-/*   Updated: 2014/06/22 20:52:37 by dcouly           ###   ########.fr       */
+/*   Updated: 2014/06/23 15:29:59 by dcouly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,12 +97,13 @@ int			sv_loop(int sock, t_arg *arg)
 	game.fd_max = sock;
 	game.team = arg->team;
 	game.fd_visu = -1;
+	game.lvl_max = 1;
 	fd_max = sock;
 	FD_ZERO(&(fds.master));
 	FD_ZERO(&(fds.read));
 	FD_ZERO(&(fds.write));
 	FD_SET(sock, &(fds.master));
-	while (1)
+	while (game.lvl_max != 8)
 	{
 		sv_loose_life(&game, &fds);
 		fds.read = fds.master;
@@ -111,4 +112,5 @@ int			sv_loop(int sock, t_arg *arg)
 			return (err_function("select"));
 		sv_listen_fd(&game, &fd_max, &fds);
 	}
+	return (1);
 }

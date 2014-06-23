@@ -6,7 +6,7 @@
 /*   By: dcouly <dcouly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/07 17:03:25 by dcouly            #+#    #+#             */
-/*   Updated: 2014/06/21 19:31:37 by dcouly           ###   ########.fr       */
+/*   Updated: 2014/06/23 15:28:26 by dcouly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ typedef struct	s_data
 	int			nbmax;
 	t_list		*team;
 	int			fd_visu;
+	int			lvl_max;
 }				t_data;
 
 #endif

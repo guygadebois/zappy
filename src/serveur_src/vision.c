@@ -6,7 +6,7 @@
 /*   By: sbodovsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/22 16:19:07 by sbodovsk          #+#    #+#             */
-/*   Updated: 2014/06/23 14:51:24 by sbodovsk         ###   ########.fr       */
+/*   Updated: 2014/06/23 16:23:20 by dcouly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,15 +158,15 @@ char	*ft_rep(t_list *cases, t_trant *trant)
 	return (rep);
 }
 
-int		voir(t_data *game, int sock)
+
+int		voir(t_data *game, t_trant *trant)
 {
 	int			lvl;
 	int			x;
 	int			y;
-	t_trant		*trant;
 	t_list		*cases;
+	char		*rep;
 
-	trant = sv_getclientbysock(game, sock);
 	lvl = trant->level;
 	while (lvl > 0)
 	{
@@ -180,5 +180,8 @@ int		voir(t_data *game, int sock)
 		lvl--;
 	}
 	ft_lstpushback(&cases, ft_case(0, game, trant->x, trant->y), 1);
+	rep = ft_rep(cases, trant);
+	ft_strcat(trant->cmd_out, rep);
+	free(rep);
 	return (0);
 }
