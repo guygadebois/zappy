@@ -6,7 +6,7 @@
 /*   By: sbodovsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/22 16:19:07 by sbodovsk          #+#    #+#             */
-/*   Updated: 2014/06/23 02:49:24 by sbodovsk         ###   ########.fr       */
+/*   Updated: 2014/06/23 02:51:14 by sbodovsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,6 +150,7 @@ char	*ft_rep(t_list *cases, t_trant *trant)
 		rep = ft_strstrjoin(2, rep, ", ");
 		i++;
 	}
+	rep = ft_strstrjoin(2, rep, "}");
 	return (rep);
 }
 
