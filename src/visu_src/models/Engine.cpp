@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/05/31 14:10:28 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/23 16:55:26 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/23 17:01:59 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -119,6 +119,9 @@ bool	Engine::isStarted(void) const
 
 bool	Engine::addPlanet(void)
 {
+	scene::ISceneNode	*center;
+
+	center = m_sceneManager->addSphereSceneNode(1, 36, 0, -1);
 	m_planet = m_sceneManager->addSphereSceneNode(PLANET_RADIUS, 36, 0, -1);
 	if (m_planet == NULL)
 		return (false);
@@ -126,7 +129,7 @@ bool	Engine::addPlanet(void)
 	m_planet->setMaterialTexture(0, m_planetTexture);
 
 // Create parent node that will be cloned for each object
-	m_emptyParent = new scene::MySceneNode(m_planet, m_sceneManager, m_mapData);
+	m_emptyParent = new scene::MySceneNode(center, m_sceneManager, m_mapData);
 	m_emptyParent->drop();
 
 // Draw the grid :
@@ -151,8 +154,8 @@ bool	Engine::addPlanet(void)
 					img->setPixel(i, j, video::SColor(255, 255, 255, 255));
 				else
 					img->setPixel(i, j, video::SColor(255, 0, 0, 0));
-				if (i == 0)
-					img->setPixel(i, j, video::SColor(255, 55, 255, 55));
+				// if (i == 0)
+				// 	img->setPixel(i, j, video::SColor(255, 55, 255, 55));
 			}
 		}
 		texture = m_driver->addTexture("grid", img);

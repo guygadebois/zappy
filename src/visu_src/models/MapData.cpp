@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/03 15:25:43 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/23 16:46:31 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/23 17:01:21 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -25,9 +25,9 @@ MapData::MapData(u32 width, u32 height)
 	  m_timeUnit(-1),
 	  m_endOfGame(false)
 {
-	cout << "NEW MAPDATA : " << m_gridSize.Width << " x " << m_gridSize.Height << endl;
+//	cout << "NEW MAPDATA : " << m_gridSize.Width << " x " << m_gridSize.Height << endl;
 	m_gridElemPSize.Width = static_cast<u32>(static_cast<f32>(m_texturePSize.Width) / static_cast<f32>(width));
-	cout << "m_gridElemPSize.Width = " << m_texturePSize.Width << " / " << width << " = " << m_gridElemPSize.Width << endl;
+//	cout << "m_gridElemPSize.Width = " << m_texturePSize.Width << " / " << width << " = " << m_gridElemPSize.Width << endl;
 	m_gridElemPSize.Height = static_cast<u32>(static_cast<f32>(m_texturePSize.Height) / static_cast<f32>(height) / 2.0f);
 // Init matrix
 	for (u32 i = 0; i < m_gridSize.Width; i++)
