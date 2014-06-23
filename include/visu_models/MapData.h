@@ -6,7 +6,7 @@
 /*   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/03 15:17:17 by glourdel          #+#    #+#             */
-/*   Updated: 2014/06/23 14:31:26 by glourdel         ###   ########.fr       */
+/*   Updated: 2014/06/23 16:46:18 by glourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ typedef struct			s_frameAnimation
 class MapData
 {
 public:
-	MapData(u32 width, u32 height, u32 textWidth = 4000, u32 textHeight = 2000);
+	MapData(u32 width, u32 height);
 	void						registerAnimation(scene::MySceneNode *parentNode,
 												  scene::ISceneNodeAnimator *anim,
 												  const core::vector3df &oldRotation,

@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/05/31 14:10:28 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/23 14:28:32 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/23 16:55:26 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -122,9 +122,10 @@ bool	Engine::addPlanet(void)
 	m_planet = m_sceneManager->addSphereSceneNode(PLANET_RADIUS, 36, 0, -1);
 	if (m_planet == NULL)
 		return (false);
+	m_planet->setRotation(core::vector3df(0.0f, -90.0f, 0.0f));
 	m_planet->setMaterialTexture(0, m_planetTexture);
 
-// Create parent node tha will be cloned for each object
+// Create parent node that will be cloned for each object
 	m_emptyParent = new scene::MySceneNode(m_planet, m_sceneManager, m_mapData);
 	m_emptyParent->drop();
 
@@ -138,18 +139,20 @@ bool	Engine::addPlanet(void)
 								core::dimension2d<u32>(texturePSize.Width, texturePSize.Height));
 	if (img)
 	{
-		for(u32 i = 0; i < texturePSize.Width; i++)
+		for (u32 i = 0; i < texturePSize.Width; i++)
 		{
-			for(u32 j = 0; j < texturePSize.Height; j++)
+			for (u32 j = 0; j < texturePSize.Height; j++)
 			{
 				if (j < static_cast<f32>(texturePSize.Height) / 4.0f
 					|| j >= static_cast<f32>(texturePSize.Height) / 4.0f * 3.0f)
 					img->setPixel(i, j, video::SColor(255, 255, 55, 55));
 				else if (i % m_mapData->getGridElemPSize().Width == 0
-						 || j % m_mapData->getGridElemPSize().Height == 0)
+						 || static_cast<u32>(j - static_cast<f32>(texturePSize.Height) / 4.0f) % m_mapData->getGridElemPSize().Height == 0)
 					img->setPixel(i, j, video::SColor(255, 255, 255, 255));
 				else
 					img->setPixel(i, j, video::SColor(255, 0, 0, 0));
+				if (i == 0)
+					img->setPixel(i, j, video::SColor(255, 55, 255, 55));
 			}
 		}
 		texture = m_driver->addTexture("grid", img);
