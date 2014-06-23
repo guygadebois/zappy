@@ -6,7 +6,7 @@
 /*   By: dcouly <dcouly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/07 16:44:18 by dcouly            #+#    #+#             */
-/*   Updated: 2014/06/23 17:23:28 by sbodovsk         ###   ########.fr       */
+/*   Updated: 2014/06/23 17:56:58 by glourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int sv_diff_time(struct timeval t1, struct timeval t2, int t)
 
 	res.tv_sec = t2.tv_sec - t1.tv_sec;
 	if (t2.tv_usec < t1.tv_usec)
-	{	
+	{
 		res.tv_sec--;
 		res.tv_usec = 1000000 + t2.tv_usec - t1.tv_usec;
 	}
@@ -58,7 +58,7 @@ static void	sv_loose_life(t_data *game, t_fds *fd)
 			((t_trant*)(lst->content))->t_life = time;
 			((t_trant*)(lst->content))->life--;
 			if (((t_trant*)(lst->content))->life == 0)
-			{	
+			{
 				ft_strcpy(game->visu.cmd_out, "pdi ");
 				ft_strcpy(game->visu.cmd_out,
 						ft_itoa(((t_trant*)lst->content)->sock));
@@ -68,7 +68,7 @@ static void	sv_loose_life(t_data *game, t_fds *fd)
 				while (select((((t_trant*)lst->content)->sock) + 1, NULL,
 						&fd_dead, NULL, NULL) == 0)
 					FD_SET(((t_trant*)lst->content)->sock, &fd_dead);
-				send(((t_trant*)lst->content)->sock, "mort\n", 5, 0);
+				ft_sendall(((t_trant*)lst->content)->sock, "mort\n", 5);
 				FD_CLR(((t_trant*)lst->content)->sock, &fd->master);
 				sv_del_trant(game, ((t_trant*)lst->content)->sock);
 				lst = game->trant;

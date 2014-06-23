@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/20 18:31:22 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/20 18:31:23 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/23 17:55:59 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -104,6 +104,8 @@ bool			VisuComm::launchOnce(void)
 			}
 		}
 	}
+//	if (FD_ISSET(m_sock, &m_write_fd))
+//		sendFromBuffer();
 	return (true);
 }
 

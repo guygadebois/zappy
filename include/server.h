@@ -6,7 +6,7 @@
 /*   By: dcouly <dcouly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/07 16:29:11 by dcouly            #+#    #+#             */
-/*   Updated: 2014/06/23 16:20:21 by dcouly           ###   ########.fr       */
+/*   Updated: 2014/06/23 17:54:17 by glourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,6 @@ void	ft_get_inventory(t_trant *trant);
 void	broadcast(t_data *game, char *msg, int sock);
 int		sv_del_trant(t_data *data, int cs);
 int		voir(t_data *data, t_trant *trant);
+int		ft_sendall(int s, char *buf, int len);
 
 #endif

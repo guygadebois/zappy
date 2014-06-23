@@ -64,6 +64,7 @@ SERVEUR_CFILES= \
 		serveur_src//read_from_client.c \
 		serveur_src//send_visu.c \
 		serveur_src//sv_send.c \
+		serveur_src//sv_sendall.c \
 		serveur_src//take_obj.c \
 		serveur_src//turn_left.c \
 		serveur_src//turn_right.c \
@@ -355,6 +356,13 @@ obj/sv_sv_send.o: src/serveur_src//sv_send.c include/types.h include/common.h \
 	@mkdir -p $(OBJDIR);
 	@$(CC) -o $(OBJDIR)sv_sv_send.o \
 -c $(SRCDIR)serveur_src//sv_send.c $(CFLAGS)
+
+obj/sv_sv_sendall.o: src/serveur_src//sv_sendall.c libft/include/libft.h \
+ libft/include/libft_types.h
+	@echo $(CYAN)"    Creating obj/sv_sv_sendall.o ...\033[0m"
+	@mkdir -p $(OBJDIR);
+	@$(CC) -o $(OBJDIR)sv_sv_sendall.o \
+-c $(SRCDIR)serveur_src//sv_sendall.c $(CFLAGS)
 
 obj/sv_take_obj.o: src/serveur_src//take_obj.c include/map.h include/common.h \
  libft/include/libft.h libft/include/libft_types.h include/types.h \

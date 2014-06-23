@@ -6,7 +6,7 @@
 /*   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/20 17:56:52 by glourdel          #+#    #+#             */
-/*   Updated: 2014/06/20 18:13:46 by glourdel         ###   ########.fr       */
+/*   Updated: 2014/06/23 17:50:03 by glourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ public:
 private:
 	size_t			find_ret(const string &str);
 	string			getCmdBuf(void);
+	void			sendFromBuffer(void);
 
 	Engine			*&m_engine;
 	MapData			*&m_mapData;
