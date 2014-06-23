@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/05/28 11:59:19 by glourdel          #+#    #+#             //
-/*   Updated: 2014/06/23 16:12:28 by dcouly           ###   ########.fr       */
+//   Updated: 2014/06/23 17:33:13 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -18,6 +18,7 @@
 #include <unistd.h>
 #include <cstring>
 #include "common.h"
+#include "client.h"
 
 using namespace std;
 
@@ -89,15 +90,17 @@ int			main(int argc, char **argv)
 	char				*buf;
 	int					sock;
 	char				*team;
+	char				*addr;
+	char				*port;
 	int					nb;
 
 	nb = 0;
 	buf = (char*)malloc(1000);
-	if (argc != 4)
-		return (0);
+	if (argc < 5 || argc > 7 || !cl_parse_line(argc, argv, &addr, &port, &team))
+		return (cl_err_usage());
 	cout << "client here ! " << endl;
-	team = strcat(argv[3], "\n");
-	sock = cl_new_connection(argv[1], argv[2], team);
+	team = strcat(team, "\n");
+	sock = cl_new_connection(addr, port, team);
 /*	if (fork())
 	{
 		sleep(3);
