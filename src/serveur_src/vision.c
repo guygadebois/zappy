@@ -6,11 +6,15 @@
 /*   By: sbodovsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/22 16:19:07 by sbodovsk          #+#    #+#             */
-/*   Updated: 2014/06/23 02:51:14 by sbodovsk         ###   ########.fr       */
+/*   Updated: 2014/06/23 14:51:24 by sbodovsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "types.h"
+#include "server.h"
+
+#include <unistd.h>
+#include <stdlib.h>
 
 typedef struct		s_case
 {
@@ -18,7 +22,7 @@ typedef struct		s_case
 	t_area			*contenu_case;	
 }					t_case;
 
-char	*ft_strstrjoin(int nb, ...)
+static char	*ft_strstrjoin(int nb, ...)
 {
 	va_list		ap;
 	char		*str;
@@ -60,7 +64,7 @@ t_list	*ft_view(t_data *game, t_trant *trant, int x, int y, int lvl)
 	int			nb_case;
 	int			len;
 	t_list		*cases;
-	t_case		cas;
+	t_case		*cas;
 
 	len = ((lvl + 1) * 2) -1;
 	nb_case = lvl * lvl;
@@ -70,7 +74,7 @@ t_list	*ft_view(t_data *game, t_trant *trant, int x, int y, int lvl)
 		while (len > 0)
 		{
 			cas = ft_case(nb_case, game, x, y);
-			ft_lstpushback(cases, cas, sizeof(t_case));
+			ft_lstpushback(&cases, cas, sizeof(t_case));
 			y = y + 1 % game->width;
 			nb_case++;
 			len--;
@@ -81,7 +85,7 @@ t_list	*ft_view(t_data *game, t_trant *trant, int x, int y, int lvl)
 		while (len > 0)
 		{
 			cas = ft_case(nb_case, game, x, y);
-			ft_lstpushback(cases, cas, sizeof(t_case));
+			ft_lstpushback(&cases, cas, sizeof(t_case));
 			x = x + 1 % game->length;
 			nb_case++;
 			len--;
@@ -96,55 +100,55 @@ char	*ft_rep(t_list *cases, t_trant *trant)
 	int		nb_cas;
 	int		i;
 	char	*rep;
-	t_area	temp;
+	t_area	*temp;
 
 	i = 0;
-	nb_cas = (trant->lvl * trant->lvl) + ((trant->lvl + 1) * 2) - 1;
+	nb_cas = (trant->level * trant->level) + ((trant->level + 1) * 2) - 1;
 	rep = ft_strstrjoin(1, "{");
 	while (i < nb_cas)
 	{
-		while (cases->nb != i)
+		while (((t_case*)cases->content)->nb != i)
 		{
-			temp = cases->contenu_case;
-			while (temp.food > 0)
+			temp = ((t_case *)cases->content)->contenu_case;
+			while (temp->food > 0)
 			{
 				rep = ft_strstrjoin(2, rep, "nourriture ");
-				temp.food--;
+				temp->food--;
 			}
-			while (temp.linemate > 0)
+			while (temp->linemate > 0)
 			{
 				rep = ft_strstrjoin(2, rep, "linemate ");
-				temp.linemate--;
+				temp->linemate--;
 			}
-			while (temp.deraumere > 0)
+			while (temp->deraumere > 0)
 			{
 				rep = ft_strstrjoin(2, rep, "deraumere ");
-				temp.deraumere--;
+				temp->deraumere--;
 			}
-			while (temp.sibur > 0)
+			while (temp->sibur > 0)
 			{
 				rep = ft_strstrjoin(2, rep, "sibur ");
-				temp.sibur--;
+				temp->sibur--;
 			}
-			while (temp.mendiane > 0)
+			while (temp->mendiane > 0)
 			{
 				rep = ft_strstrjoin(2, rep, "mendiane ");
-				temp.mendiane--;
+				temp->mendiane--;
 			}
-			while (temp.phiras > 0)
+			while (temp->phiras > 0)
 			{
 				rep = ft_strstrjoin(2, rep, "phiras ");
-				temp.phiras--;
+				temp->phiras--;
 			}
-			while (temp.thystame > 0)
+			while (temp->thystame > 0)
 			{
 				rep = ft_strstrjoin(2, rep, "thystame ");
-				temp.thystame--;
+				temp->thystame--;
 			}
-			while (temp.list_player != NULL)
+			while (temp->list_player != NULL)
 			{
 				rep = ft_strstrjoin(2, rep, "player ");
-				temp.list_player = temp.list_player->next;
+				temp->list_player = temp->list_player->next;
 			}
 		}
 		rep = ft_strstrjoin(2, rep, ", ");
@@ -162,7 +166,7 @@ int		voir(t_data *game, int sock)
 	t_trant		*trant;
 	t_list		*cases;
 
-	trant = sv_getclientbysok(sock);
+	trant = sv_getclientbysock(game, sock);
 	lvl = trant->level;
 	while (lvl > 0)
 	{
@@ -175,5 +179,6 @@ int		voir(t_data *game, int sock)
 		cases = ft_view(game, trant, x, y, lvl);
 		lvl--;
 	}
-	ft_lstpushback(cases, ft_case(0, game, trant->x, trant->y));
+	ft_lstpushback(&cases, ft_case(0, game, trant->x, trant->y), 1);
+	return (0);
 }
