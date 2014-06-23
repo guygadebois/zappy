@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/11 11:38:27 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/23 14:52:18 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/23 17:59:50 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -169,13 +169,11 @@ bool	Engine::newClientConnected(const string line)
 	tokens = mystring::strsplit(line);
 	if (tokens->size() != 7)
 	{
-		cout << "ERROR DEBUG Engine::newClientConnected, line received = " << line << endl;
 		return (err_msg("Engine::newClientConnected ERROR --> invalid line format"));
 	}
 	id = stoi((*tokens)[1]);
 	if (m_mapData->getTrantorById(id, false) != NULL)
 		return (err_msg("Engine::newClientConnected ERROR -> client alwready exists whit the same id"));
-	cout << "AddTRANTOR\n";
 	ret = addTrantor(id, stoi((*tokens)[2]), stoi((*tokens)[3]),
 					 stoi((*tokens)[4]), stoi((*tokens)[5]), (*tokens)[6]);
 	ret = true;
