@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/05/28 11:59:19 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/23 17:33:13 by glourdel         ###   ########.fr       //
+/*   Updated: 2014/06/23 17:39:45 by sbodovsk         ###   ########.fr       */
 //                                                                            //
 // ************************************************************************** //
 
@@ -39,15 +39,14 @@ void		*cl_calcul(char *buf, int sock)
 	int		c;
 	char	*cmd;
 
-	c = rand() % 1;
-	c = 3;
+	c = rand() % 2;
 	switch (c)
 	{
 	case (0) :
 		cmd = strdup("avance\n");
 		break ;
 	case (1) :
-		cmd = strdup("droite\n");
+		cmd = strdup("voir\n");
 		break ;
 	case (2) :
 		cmd = strdup("gauche\n");

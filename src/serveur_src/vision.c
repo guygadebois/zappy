@@ -6,7 +6,7 @@
 /*   By: sbodovsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/22 16:19:07 by sbodovsk          #+#    #+#             */
-/*   Updated: 2014/06/23 16:23:20 by dcouly           ###   ########.fr       */
+/*   Updated: 2014/06/23 17:37:23 by sbodovsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ t_list	*ft_view(t_data *game, t_trant *trant, int x, int y, int lvl)
 	len = ((lvl + 1) * 2) -1;
 	nb_case = lvl * lvl;
 	cases = ft_lstnew(cases, 1);
-	if (trant->direct == 1 || trant->direct == 3)
+	if (trant->direct == 2 || trant->direct == 4)
 	{
 		while (len > 0)
 		{
@@ -100,59 +100,66 @@ char	*ft_rep(t_list *cases, t_trant *trant)
 	int		nb_cas;
 	int		i;
 	char	*rep;
-	t_area	*temp;
+	t_area	temp;
+	t_list	*begin;
 
 	i = 0;
+	begin = cases;
 	nb_cas = (trant->level * trant->level) + ((trant->level + 1) * 2) - 1;
 	rep = ft_strstrjoin(1, "{");
 	while (i < nb_cas)
 	{
 		while (((t_case*)cases->content)->nb != i)
+			cases = cases->next;
+		temp = *((t_case *)cases->content)->contenu_case;
+		if (((t_case *)cases->content)->contenu_case != NULL)
 		{
-			temp = ((t_case *)cases->content)->contenu_case;
-			while (temp->food > 0)
+			while (temp.food > 0)
 			{
 				rep = ft_strstrjoin(2, rep, "nourriture ");
-				temp->food--;
+				temp.food--;
 			}
-			while (temp->linemate > 0)
+			while (temp.linemate > 0)
 			{
 				rep = ft_strstrjoin(2, rep, "linemate ");
-				temp->linemate--;
+				temp.linemate--;
 			}
-			while (temp->deraumere > 0)
+			while (temp.deraumere > 0)
 			{
 				rep = ft_strstrjoin(2, rep, "deraumere ");
-				temp->deraumere--;
+				temp.deraumere--;
 			}
-			while (temp->sibur > 0)
+			while (temp.sibur > 0)
 			{
 				rep = ft_strstrjoin(2, rep, "sibur ");
-				temp->sibur--;
+				temp.sibur--;
 			}
-			while (temp->mendiane > 0)
+			while (temp.mendiane > 0)
 			{
 				rep = ft_strstrjoin(2, rep, "mendiane ");
-				temp->mendiane--;
+				temp.mendiane--;
 			}
-			while (temp->phiras > 0)
+			while (temp.phiras > 0)
 			{
 				rep = ft_strstrjoin(2, rep, "phiras ");
-				temp->phiras--;
+				temp.phiras--;
 			}
-			while (temp->thystame > 0)
+			while (temp.thystame > 0)
 			{
 				rep = ft_strstrjoin(2, rep, "thystame ");
-				temp->thystame--;
+				temp.thystame--;
 			}
-			while (temp->list_player != NULL)
+			while (temp.list_player != NULL)
 			{
-				rep = ft_strstrjoin(2, rep, "player ");
-				temp->list_player = temp->list_player->next;
+				if (trant->sock != temp.list_player->player->sock)
+					rep = ft_strstrjoin(2, rep, "player ");
+				temp.list_player = temp.list_player->next;
 			}
 		}
-		rep = ft_strstrjoin(2, rep, ", ");
 		i++;
+		if (i != nb_cas)
+			rep = ft_strstrjoin(2, rep, ", ");
+		cases = begin;
 	}
 	rep = ft_strstrjoin(2, rep, "}");
 	return (rep);
