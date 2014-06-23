@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/11 11:38:27 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/23 13:52:24 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/23 14:52:18 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -85,6 +85,8 @@ bool	Engine::setSquareContent(const string line)
 	u32				y;
 	bool			ret;
 
+	if (m_started)
+		return (true);
 	ret = true;
 	tokens = mystring::strsplit(line);
 	if (tokens->size() != 10)

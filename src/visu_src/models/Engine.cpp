@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/05/31 14:10:28 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/20 18:36:33 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/23 14:28:32 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -129,18 +129,21 @@ bool	Engine::addPlanet(void)
 	m_emptyParent->drop();
 
 // Draw the grid :
-	video::IImage	*img;
-	video::ITexture* texture;
+	video::IImage			*img;
+	video::ITexture*		texture;
+	core::dimension2d<u32>	texturePSize;
 
-	img = m_driver->createImage(video::ECF_A8R8G8B8, core::dimension2d<u32>(4000, 2000));
+	texturePSize = m_mapData->getTexturePSize();
+	img = m_driver->createImage(video::ECF_A8R8G8B8,
+								core::dimension2d<u32>(texturePSize.Width, texturePSize.Height));
 	if (img)
 	{
-		for(u32 i = 0; i < 4000; i++)
+		for(u32 i = 0; i < texturePSize.Width; i++)
 		{
-			for(u32 j = 0; j < 2000; j++)
+			for(u32 j = 0; j < texturePSize.Height; j++)
 			{
-				if (j < m_mapData->getTexturePSize().Height / 4
-					|| j >= m_mapData->getTexturePSize().Height / 4 * 3)
+				if (j < static_cast<f32>(texturePSize.Height) / 4.0f
+					|| j >= static_cast<f32>(texturePSize.Height) / 4.0f * 3.0f)
 					img->setPixel(i, j, video::SColor(255, 255, 55, 55));
 				else if (i % m_mapData->getGridElemPSize().Width == 0
 						 || j % m_mapData->getGridElemPSize().Height == 0)

@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/05 18:16:21 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/23 13:55:50 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/23 14:40:11 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -145,12 +145,12 @@ void						scene::MySceneNode::placeOnSquare(
 		cout << "scene::MySceneNode::placeOnSquare(): INVALID ARGUMENT -> offsetY must be between 0 and 1. Given: " << offsetY << endl;
 		return ;
 	}
-	rotation.X = 45.0f + 90.0f / m_mapData->getGridSize().Height * Y;
-	rotation.Y = 360.0f / m_mapData->getGridSize().Width * X;
+	rotation.X = 45.0f + 90.0f / static_cast<f32>(m_mapData->getGridSize().Height) * static_cast<f32>(Y);
+	rotation.Y = 360.0f / static_cast<f32>(m_mapData->getGridSize().Width) * static_cast<f32>(X);
 	rotation.Z = 0.0f;
 	// add offset to move somewhere on the square
-	rotation.X += 90.0f / m_mapData->getGridSize().Height * offsetY;
-	rotation.Y += 360.0f / m_mapData->getGridSize().Width * offsetX;
+	rotation.X += 90.0f / static_cast<f32>(m_mapData->getGridSize().Height) * offsetY;
+	rotation.Y += 360.0f / static_cast<f32>(m_mapData->getGridSize().Width) * offsetX;
 	setOffset(core::vector2d<f32>(offsetX, offsetY));
 	setRotation(rotation);
 }
@@ -171,12 +171,12 @@ void						scene::MySceneNode::moveToSquare(
 		cout << "scene::MySceneNode::moveToSquare(): INVALID ARGUMENT -> offsetY must be between 0 and 1. Given: " << offsetY << endl;
 		return ;
 	}
-	rotation.X = 45.0f + 90.0f / m_mapData->getGridSize().Height * Y;
-	rotation.Y = 360.0f / m_mapData->getGridSize().Width * X;
+	rotation.X = 45.0f + 90.0f / static_cast<f32>(m_mapData->getGridSize().Height) * static_cast<f32>(Y);
+	rotation.Y = 360.0f / static_cast<f32>(m_mapData->getGridSize().Width) * static_cast<f32>(X);
 	rotation.Z = 0.0f;
 	// add offset to move somewhere on the square :
-	rotation.X += 90.0f / m_mapData->getGridSize().Height * offsetY;
-	rotation.Y += 360.0f / m_mapData->getGridSize().Width * offsetX;
+	rotation.X += 90.0f / static_cast<f32>(m_mapData->getGridSize().Height) * offsetY;
+	rotation.Y += 360.0f / static_cast<f32>(m_mapData->getGridSize().Width) * offsetX;
 	moveTo(rotation, speed, frameStart, frameEnd, diveState);
 	setOffset(core::vector2d<f32>(offsetX, offsetY));
 }
