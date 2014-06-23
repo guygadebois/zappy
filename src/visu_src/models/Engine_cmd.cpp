@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/11 11:38:27 by glourdel          #+#    #+#             //
-/*   Updated: 2014/06/22 18:23:34 by dcouly           ###   ########.fr       */
+//   Updated: 2014/06/23 13:52:24 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -173,6 +173,7 @@ bool	Engine::newClientConnected(const string line)
 	id = stoi((*tokens)[1]);
 	if (m_mapData->getTrantorById(id, false) != NULL)
 		return (err_msg("Engine::newClientConnected ERROR -> client alwready exists whit the same id"));
+	cout << "AddTRANTOR\n";
 	ret = addTrantor(id, stoi((*tokens)[2]), stoi((*tokens)[3]),
 					 stoi((*tokens)[4]), stoi((*tokens)[5]), (*tokens)[6]);
 	ret = true;

@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/03 15:25:43 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/19 15:47:56 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/23 14:10:16 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -25,6 +25,7 @@ MapData::MapData(u32 width, u32 height, u32 textWidth, u32 textHeight)
 	  m_timeUnit(-1),
 	  m_endOfGame(false)
 {
+	cout << "NEW MAPDATA : " << m_gridSize.Width << " x " << m_gridSize.Height << endl;
 	m_gridElemPSize.Width = m_texturePSize.Width / width;
 	m_gridElemPSize.Height = m_texturePSize.Height / height / 2;
 // Init matrix
@@ -120,8 +121,27 @@ void					MapData::hideItem(scene::MySceneNode *item)
 	item->setVisible(false);
 }
 
+void					MapData::showItem(scene::MySceneNode *item)
+{
+	item->setVisible(true);
+}
+
 void					MapData::hideItemsOnInoccupiedSquares(void)
 {
+// Show all :
+	for (u32 i = 0; i < m_gridSize.Width; i++)
+	{
+		for (u32 j = 0; j < m_gridSize.Height; j++)
+		{
+			for (u8 k = 0; k < 7; k++)
+			{
+				for_each(m_matrix[i][j].item[k].begin(),
+						 m_matrix[i][j].item[k].end(),
+						 showItem);
+			}
+		}
+	}
+// Hide all except those on a trantor's square
 	for (u32 i = 0; i < m_gridSize.Width; i++)
 	{
 		for (u32 j = 0; j < m_gridSize.Height; j++)

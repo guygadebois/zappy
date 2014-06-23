@@ -6,7 +6,7 @@
 /*   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/03 15:17:17 by glourdel          #+#    #+#             */
-/*   Updated: 2014/06/20 12:28:18 by glourdel         ###   ########.fr       */
+/*   Updated: 2014/06/23 14:08:37 by glourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ private:
 	void						checkFrameAnimationsEnd(void);
 	void						checkDiveAnimationsEnd(void);
 	static void					hideItem(scene::MySceneNode *item);
+	static void					showItem(scene::MySceneNode *item);
 
 	vector<vector<t_mapElem> >	m_matrix;
 	core::dimension2d<u32>		m_gridSize; // Number of elem in the grip
