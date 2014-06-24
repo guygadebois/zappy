@@ -6,7 +6,7 @@
 /*   By: dcouly <dcouly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/07 16:29:11 by dcouly            #+#    #+#             */
-/*   Updated: 2014/06/23 17:54:17 by glourdel         ###   ########.fr       */
+/*   Updated: 2014/06/24 17:42:13 by dcouly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,6 @@ void	broadcast(t_data *game, char *msg, int sock);
 int		sv_del_trant(t_data *data, int cs);
 int		voir(t_data *data, t_trant *trant);
 int		ft_sendall(int s, char *buf, int len);
+void	sv_incantation(t_data *game, t_trant *trant);
 
 #endif
