@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/10 16:29:24 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/16 22:48:53 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/24 12:40:41 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -70,19 +70,24 @@ bool					MapData::rotationAtEnd(const core::vector3df &rotation,
 {
 	bool	xTrue;
 	bool	yTrue;
+	f32		tmp;
 
 	xTrue = false;
 	yTrue = false;
 	if (rotation.X >= 0.0000001f)
 	{
-		if (actualRotation.X >= fromRotation.X + rotation.X)
+		tmp = fromRotation.X + rotation.X;
+		tmp = tmp >= 360.0f ? tmp - 360.0f : tmp;
+		if (actualRotation.X >= tmp)
 			xTrue = true;
 	}
 	else if (actualRotation.X <= fromRotation.X + rotation.X)
 		xTrue = true;
 	if (rotation.Y >= 0.0000001f)
 	{
-		if (actualRotation.Y >= fromRotation.Y + rotation.Y)
+		tmp = fromRotation.Y + rotation.Y;
+		tmp = tmp >= 360.0f ? tmp - 360.0f : tmp;
+		if (actualRotation.Y >= tmp)
 			yTrue = true;
 	}
 	else if (actualRotation.Y <= fromRotation.Y + rotation.Y)

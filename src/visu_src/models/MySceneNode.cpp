@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/05 18:16:21 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/23 14:40:11 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/24 12:41:15 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -196,19 +196,27 @@ void						scene::MySceneNode::moveTo(
 	if (rotation.X + rotation.Y == 0)
 		return ;
 
+//	if (diveState == 1)
+//		cout << "\033[31mINFO ->moveTo::\033[0m rotation.X= " << rotation.X << ", rotation.Y= " << rotation.Y << endl;
 	if (rotation.Y > 180.0f)
 		rotation.Y -= 360.0f;
 	else if (rotation.Y < -180.0f)
 		rotation.Y += 360.0f;
+//	if (diveState == 1)
+//		cout << "\033[31m2e INFO ->moveTo::\033[0m rotation.X= " << rotation.X << ", rotation.Y= " << rotation.Y << endl;
 
 	// animation :
 	animSpeed.X = speed * rotation.X / (fabs(rotation.X) + fabs(rotation.Y));
 	animSpeed.Y = speed * rotation.Y / (fabs(rotation.X) + fabs(rotation.Y));
+//	if (diveState == 1)
+//		cout << "\033[31m3e INFO ->moveTo::\033[0m animSpeed.X= " << animSpeed.X << ", animSpeed.Y= " << animSpeed.Y << endl;
 	anim = SceneManager->createRotationAnimator(core::vector3df(animSpeed.X, animSpeed.Y, 0.0f));
 	if (anim)
 	{
 		addAnimator(anim);
 		anim->drop();
+//		if (diveState == 1)
+//			cout << "\033[31m4e INFO ->moveTo::\033[0m getRotation().X= " << getRotation().X << ", getRotation().Y= " << getRotation().Y << endl;
 		m_mapData->registerAnimation(this, anim, getRotation(), rotation, diveState);
 		meshNode = static_cast<scene::IAnimatedMeshSceneNode *>(*getChildren().begin());
 		meshNode->setFrameLoop(frameStart, frameEnd);

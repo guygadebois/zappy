@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/05/28 11:59:19 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/23 17:01:27 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/24 12:41:40 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -39,7 +39,24 @@ int			main(int argc, char **argv)
 	VisuComm	visuComm(mapData, engine, sock);
 	if (!visuComm.getMapData())
 		return (1);
-	// engine->addTrantor(1, 0, 0, EAST, 1, "1");
+	// engine->addTrantor(42, 44, 16, NORTH, 1, "42");
+	// engine->treatCmd("ppo 42 44 15 1");
+	// engine->treatCmd("ppo 42 44 14 1");
+	// engine->treatCmd("ppo 42 44 13 1");
+	// engine->treatCmd("ppo 42 44 12 1");
+	// engine->treatCmd("ppo 42 44 11 1");
+	// engine->treatCmd("ppo 42 44 10 1");
+	// engine->treatCmd("ppo 42 44 9 1");
+	// engine->treatCmd("ppo 42 44 8 1");
+	// engine->treatCmd("ppo 42 44 7 1");
+	// engine->treatCmd("ppo 42 44 6 1");
+	// engine->treatCmd("ppo 42 44 5 1");
+	// engine->treatCmd("ppo 42 44 4 1");
+	// engine->treatCmd("ppo 42 44 3 1");
+	// engine->treatCmd("ppo 42 44 2 1");
+	// engine->treatCmd("ppo 42 44 1 1");
+	// engine->treatCmd("ppo 42 44 0 1");
+	// engine->treatCmd("ppo 42 44 24 1");
 	// engine->addTrantor(2, 0, 2, EAST, 1, "2");
 	// engine->addTrantor(3, 0, 4, EAST, 1, "3");
 	// engine->addTrantor(4, 0, 6, EAST, 1, "4");
