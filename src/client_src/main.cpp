@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/05/28 11:59:19 by glourdel          #+#    #+#             //
-/*   Updated: 2014/06/24 13:01:06 by dcouly           ###   ########.fr       */
+/*   Updated: 2014/06/24 17:21:39 by dcouly           ###   ########.fr       */
 //                                                                            //
 // ************************************************************************** //
 
@@ -27,9 +27,12 @@ void		co_cmd(int sock, char *buf, char *cmd)
 	int	i;
 
 	cout << cmd << endl;
-	send(sock, cmd, strlen(cmd) + 1, 0);
+	if (send(sock, cmd, strlen(cmd) + 1, 0) == -1)
+		exit(1);
 	bzero(buf, 1024);
 	i = recv(sock, buf, 1023, 0);
+	if (i == -1)
+		exit(-1);
 	buf[i] = 0;
 	printf("BUF : %s\n", buf);
 }
