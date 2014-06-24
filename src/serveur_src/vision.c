@@ -6,7 +6,7 @@
 /*   By: sbodovsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/22 16:19:07 by sbodovsk          #+#    #+#             */
-/*   Updated: 2014/06/23 17:37:23 by sbodovsk         ###   ########.fr       */
+/*   Updated: 2014/06/24 03:57:19 by Nox              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ t_list	*ft_view(t_data *game, t_trant *trant, int x, int y, int lvl)
 	t_list		*cases;
 	t_case		*cas;
 
+	cases = NULL;
 	len = ((lvl + 1) * 2) -1;
 	nb_case = lvl * lvl;
 	cases = ft_lstnew(cases, 1);
