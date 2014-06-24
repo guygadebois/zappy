@@ -6,14 +6,14 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/03 15:25:43 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/23 17:01:21 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/24 11:38:09 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
 #include <iostream>
 #include <algorithm>
 #include "MapData.h"
-#include "Mystring.h"
+#include "mystring.h"
 #include "MySceneNode.h"
 
 using namespace std;
