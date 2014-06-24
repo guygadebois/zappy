@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/11 11:38:27 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/24 16:05:11 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/24 17:09:43 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -55,6 +55,8 @@ bool	Engine::treatCmd(const string line)
 		return (eggHatchOut(line));
 	if (cmd == "seg")
 		return (endOfGame(line));
+	if (cmd == "ipo")
+		return (itemRegenerate(line));
 	cout << "WARNING -> Commande inconnue : " << line << endl;
 	return (false);
 }
@@ -504,9 +506,10 @@ bool	Engine::endOfGame(const string line)
 	return (true);
 }
 
-bool	Engine::trowGemAfterBroadcast(const string line)
+bool	Engine::itemRegenerate(const string line)
 {
 	vector<string>					*tokens;
+	bool							ret;
 
 	tokens = mystring::strsplit(line);
 	if (tokens->size() != 6)
@@ -514,7 +517,10 @@ bool	Engine::trowGemAfterBroadcast(const string line)
 		cout << "ERROR on line : \"" << line << "\"\n";
 		return (err_msg("Engine::throwGemAfterBroadcast ERROR --> invalid line format"));
 	}
-//	(*tokens)[1];
+	if ((*tokens)[1] == "0")
+		ret = m_mapData->addFoodOnSquare(this, stoi((*tokens)[4]), stoi((*tokens)[5]));
+	else
+		ret = m_mapData->throwGemAfterBroadcast(stoi((*tokens)[1]), stoi((*tokens)[2]), stoi((*tokens)[3]), stoi((*tokens)[4]), stoi((*tokens)[5]));
 	delete (tokens);
-	return (true);
+	return (ret);
 }

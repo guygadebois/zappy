@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/03 15:25:43 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/24 11:38:09 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/24 17:09:54 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -158,4 +158,33 @@ void					MapData::hideItemsOnInoccupiedSquares(void)
 			}
 		}
 	}
+}
+
+bool					MapData::addFoodOnSquare(Engine *engine, const u32 posX, const u32 posY)
+{
+	scene::MySceneNode		*food;
+
+	if ((food = pickFreeItem(0, core::vector2di(posX, posY))))
+	{
+		food->placeOnSquare(posX, posY);
+		food->setVisible(true);
+		return (true);
+	}
+	else
+		return (engine->addItem(0, 1, posX, posY));
+}
+
+bool					MapData::throwGemAfterBroadcast(const u8 itemNbr,
+													   const u32 fromX, const u32 fromY,
+													   const u32 toX, const u32 toY)
+{
+	scene::MySceneNode		*item;
+
+	if ((item = pickFreeItem(itemNbr, core::vector2di(toX, toY))))
+	{
+		item->placeOnSquare(toX, toY);
+		item->setVisible(true);
+		return (true);
+	}
+	return (false);
 }

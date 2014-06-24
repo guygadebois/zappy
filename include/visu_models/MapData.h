@@ -6,7 +6,7 @@
 /*   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/03 15:17:17 by glourdel          #+#    #+#             */
-/*   Updated: 2014/06/24 16:05:20 by glourdel         ###   ########.fr       */
+/*   Updated: 2014/06/24 17:09:30 by glourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include <string>
 #include <irrlicht.h>
 #include "PartEmitterAnim.h"
+#include "Engine.h"
 
 using namespace std;
 using namespace irr;
@@ -27,6 +28,8 @@ namespace irr {
 		class MySceneNode;
 	}
 }
+
+class Engine;
 
 typedef struct			s_mapElem
 {
@@ -96,6 +99,10 @@ public:
 	void						registerPartEmitterAnim(PartEmitterAnim *anim);
 	void						AnimParticleEmitters(const u32 now);
 	void						hideItemsOnInoccupiedSquares(void);
+	bool						addFoodOnSquare(Engine *engine, const u32 posX, const u32 posY);
+	bool						throwGemAfterBroadcast(const u8 itemNbr,
+													   const u32 fromX, const u32 fromY,
+													   const u32 toX, const u32 toY);
 
 	// Accesseur
 	core::dimension2d<u32>		getGridSize();

@@ -6,7 +6,7 @@
 /*   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/05 17:45:38 by glourdel          #+#    #+#             */
-/*   Updated: 2014/06/19 15:29:22 by glourdel         ###   ########.fr       */
+/*   Updated: 2014/06/24 17:03:41 by glourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # include <irrlicht.h>
 # include "MapData.h"
 # include "visu_define.h"
+
+class MapData;
 
 using namespace irr;
 

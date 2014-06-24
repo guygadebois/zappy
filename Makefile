@@ -676,7 +676,7 @@ obj/visu_Engine_cmd.o: src/visu_src/models/Engine_cmd.cpp \
  irrlicht/include/SSharedMeshBuffer.h irrlicht/include/SViewFrustum.h \
  include/visu_models/MySceneNode.h include/visu_models/MapData.h \
  include/visu_models/PartEmitterAnim.h include/visu_models/visu_define.h \
- include/visu_models/VisuComm.h include/visu_models/Engine.h \
+ include/visu_models/Engine.h include/visu_models/VisuComm.h \
  include/visu_models/MySceneNode.h include/mystring.h \
  include/visu_models/errors.h
 	@echo $(CYAN)"    Creating obj/visu_Engine_cmd.o ...\033[0m"
@@ -798,7 +798,7 @@ obj/visu_Engine.o: src/visu_src/models/Engine.cpp include/visu_models/Engine.h \
  irrlicht/include/SSharedMeshBuffer.h irrlicht/include/SViewFrustum.h \
  include/visu_models/MySceneNode.h include/visu_models/MapData.h \
  include/visu_models/PartEmitterAnim.h include/visu_models/visu_define.h \
- include/visu_models/VisuComm.h include/visu_models/Engine.h \
+ include/visu_models/Engine.h include/visu_models/VisuComm.h \
  include/visu_models/MySceneNode.h include/visu_models/VisuComm.h \
  include/visu_models/errors.h
 	@echo $(CYAN)"    Creating obj/visu_Engine.o ...\033[0m"
@@ -919,7 +919,9 @@ obj/visu_MapData_animations.o: src/visu_src/models/MapData_animations.cpp \
  irrlicht/include/SMeshBufferTangents.h \
  irrlicht/include/SSharedMeshBuffer.h irrlicht/include/SViewFrustum.h \
  include/visu_models/PartEmitterAnim.h include/visu_models/visu_define.h \
- include/visu_models/MySceneNode.h include/visu_models/MapData.h
+ include/visu_models/Engine.h include/visu_models/MySceneNode.h \
+ include/visu_models/MapData.h include/visu_models/VisuComm.h \
+ include/visu_models/MySceneNode.h
 	@echo $(CYAN)"    Creating obj/visu_MapData_animations.o ...\033[0m"
 	@mkdir -p $(OBJDIR);
 	@$(CCPP) -o $(OBJDIR)visu_MapData_animations.o -Wall \
@@ -1038,8 +1040,9 @@ obj/visu_MapData.o: src/visu_src/models/MapData.cpp include/visu_models/MapData.
  irrlicht/include/SMeshBufferTangents.h \
  irrlicht/include/SSharedMeshBuffer.h irrlicht/include/SViewFrustum.h \
  include/visu_models/PartEmitterAnim.h include/visu_models/visu_define.h \
- include/mystring.h include/visu_models/MySceneNode.h \
- include/visu_models/MapData.h
+ include/visu_models/Engine.h include/visu_models/MySceneNode.h \
+ include/visu_models/MapData.h include/visu_models/VisuComm.h \
+ include/mystring.h include/visu_models/MySceneNode.h
 	@echo $(CYAN)"    Creating obj/visu_MapData.o ...\033[0m"
 	@mkdir -p $(OBJDIR);
 	@$(CCPP) -o $(OBJDIR)visu_MapData.o -Wall \
@@ -1158,7 +1161,9 @@ obj/visu_MapData_register.o: src/visu_src/models/MapData_register.cpp \
  irrlicht/include/SMeshBufferTangents.h \
  irrlicht/include/SSharedMeshBuffer.h irrlicht/include/SViewFrustum.h \
  include/visu_models/PartEmitterAnim.h include/visu_models/visu_define.h \
- include/visu_models/MySceneNode.h include/visu_models/MapData.h
+ include/visu_models/Engine.h include/visu_models/MySceneNode.h \
+ include/visu_models/MapData.h include/visu_models/VisuComm.h \
+ include/visu_models/MySceneNode.h
 	@echo $(CYAN)"    Creating obj/visu_MapData_register.o ...\033[0m"
 	@mkdir -p $(OBJDIR);
 	@$(CCPP) -o $(OBJDIR)visu_MapData_register.o -Wall \
@@ -1277,7 +1282,8 @@ obj/visu_MapData_setget.o: src/visu_src/models/MapData_setget.cpp \
  irrlicht/include/SMeshBufferTangents.h \
  irrlicht/include/SSharedMeshBuffer.h irrlicht/include/SViewFrustum.h \
  include/visu_models/MapData.h include/visu_models/PartEmitterAnim.h \
- include/visu_models/visu_define.h
+ include/visu_models/visu_define.h include/visu_models/Engine.h \
+ include/visu_models/MySceneNode.h include/visu_models/VisuComm.h
 	@echo $(CYAN)"    Creating obj/visu_MapData_setget.o ...\033[0m"
 	@mkdir -p $(OBJDIR);
 	@$(CCPP) -o $(OBJDIR)visu_MapData_setget.o -Wall \
@@ -1396,7 +1402,8 @@ obj/visu_MySceneNode.o: src/visu_src/models/MySceneNode.cpp \
  irrlicht/include/SMeshBufferTangents.h \
  irrlicht/include/SSharedMeshBuffer.h irrlicht/include/SViewFrustum.h \
  include/visu_models/MapData.h include/visu_models/PartEmitterAnim.h \
- include/visu_models/visu_define.h
+ include/visu_models/visu_define.h include/visu_models/Engine.h \
+ include/visu_models/MySceneNode.h include/visu_models/VisuComm.h
 	@echo $(CYAN)"    Creating obj/visu_MySceneNode.o ...\033[0m"
 	@mkdir -p $(OBJDIR);
 	@$(CCPP) -o $(OBJDIR)visu_MySceneNode.o -Wall \
@@ -1515,7 +1522,8 @@ obj/visu_MySceneNode_setget.o: src/visu_src/models/MySceneNode_setget.cpp \
  irrlicht/include/SMeshBufferTangents.h \
  irrlicht/include/SSharedMeshBuffer.h irrlicht/include/SViewFrustum.h \
  include/visu_models/MapData.h include/visu_models/PartEmitterAnim.h \
- include/visu_models/visu_define.h
+ include/visu_models/visu_define.h include/visu_models/Engine.h \
+ include/visu_models/MySceneNode.h include/visu_models/VisuComm.h
 	@echo $(CYAN)"    Creating obj/visu_MySceneNode_setget.o ...\033[0m"
 	@mkdir -p $(OBJDIR);
 	@$(CCPP) -o $(OBJDIR)visu_MySceneNode_setget.o -Wall \

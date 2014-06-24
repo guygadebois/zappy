@@ -6,7 +6,7 @@
 /*   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/20 17:56:52 by glourdel          #+#    #+#             */
-/*   Updated: 2014/06/24 15:44:43 by glourdel         ###   ########.fr       */
+/*   Updated: 2014/06/24 17:05:53 by glourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <sys/select.h>
 
 class Engine;
+class MapData;
 
 int		ft_sendall(const int s, const char *buf, const int len);
 

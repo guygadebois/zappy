@@ -6,7 +6,7 @@
 /*   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/31 14:10:08 by glourdel          #+#    #+#             */
-/*   Updated: 2014/06/24 16:00:31 by glourdel         ###   ########.fr       */
+/*   Updated: 2014/06/24 17:07:54 by glourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,12 @@
 using namespace irr;
 
 class VisuComm;
+class MapData;
+namespace irr {
+	namespace scene {
+		class MySceneNode;
+	}
+}
 
 class Engine
 {
@@ -59,7 +65,7 @@ public:
 	bool	eggDelivered(const string line);
 	bool	eggHatchOut(const string line);
 	bool	endOfGame(const string line);
-	bool	trowGemAfterBroadcast(const string line);
+	bool	itemRegenerate(const string line);
 
 private:
 	bool	launchBroadcastParticles(scene::MySceneNode *trantor);
