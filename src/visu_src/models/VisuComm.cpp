@@ -6,14 +6,13 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/20 18:31:22 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/23 17:55:59 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/24 16:20:29 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
 #include <irrlicht.h>
 #include <iostream>
 #include <stdlib.h>
-#include "common.h"
 #include "mystring.h"
 #include "VisuComm.h"
 
@@ -22,6 +21,7 @@ VisuComm::VisuComm(MapData *&mapData, Engine *&engine, int sock)
 	  m_mapData(mapData),
 	  m_sock(sock),
 	  m_workBuf(""),
+	  m_sendBuf(""),
 	  m_firstCmd(true)
 {
 }
@@ -34,16 +34,16 @@ size_t			VisuComm::find_ret(const string &str)
 	return (found);
 }
 
-string			VisuComm::getCmdBuf(void)
+string			VisuComm::getCmdBuf(string &buffer)
 {
 	size_t	nb_char;
 	string	cmd;
 
-	if ((nb_char = find_ret(m_workBuf)) != string::npos)
+	if ((nb_char = find_ret(buffer)) != string::npos)
 	{
-		cmd = m_workBuf;
+		cmd = buffer;
 		cmd.resize(nb_char);
-		m_workBuf = m_workBuf.substr(nb_char + 1, m_workBuf.size() - nb_char - 1);
+		buffer = buffer.substr(nb_char + 1, buffer.size() - nb_char - 1);
 //		cout << "CMD que je retourne : " << cmd << endl;
 		return (cmd);
 	}
@@ -71,7 +71,7 @@ bool			VisuComm::launchOnce(void)
 	FD_ZERO(&m_read_fd);
 	FD_SET(m_sock, &m_read_fd);
 	FD_ZERO(&m_write_fd);
-	FD_SET(1, &m_write_fd);
+	FD_SET(m_sock, &m_write_fd);
 	if (select(m_sock + 1, &(m_read_fd), &(m_write_fd), NULL, NULL) == -1)
 	{
 		cout << "Error Select" << endl;
@@ -85,14 +85,14 @@ bool			VisuComm::launchOnce(void)
 		m_workBuf = m_workBuf + tmp;
 //		cout << "Workbuf = " << m_workBuf << endl;
 	}
-	if ((cmd = getCmdBuf()) != "")
+	if ((cmd = getCmdBuf(m_workBuf)) != "")
 	{
 		// verifier qu'il s'agit bien de la cmde "msz"
 		if (m_firstCmd)
 		{
 			m_firstCmd = false;
 			m_mapData = setMap(cmd);
-			m_engine = new Engine(m_mapData);
+			m_engine = new Engine(m_mapData, this);
 		}
 		else
 		{
@@ -104,8 +104,8 @@ bool			VisuComm::launchOnce(void)
 			}
 		}
 	}
-//	if (FD_ISSET(m_sock, &m_write_fd))
-//		sendFromBuffer();
+	if (FD_ISSET(m_sock, &m_write_fd))
+		sendFromBuffer();
 	return (true);
 }
 
@@ -114,4 +114,20 @@ bool			VisuComm::getMapData(void)
 	while (m_engine == NULL || m_engine->isStarted() == false)
 		launchOnce();
 	return (true);
+}
+
+void			VisuComm::sendFromBuffer(void)
+{
+	string	cmd;
+
+	if ((cmd = getCmdBuf(m_sendBuf)) != "")
+	{
+		cmd += "\n";
+		ft_sendall(m_sock, cmd.c_str(), cmd.size());
+	}
+}
+
+void			VisuComm::addCmdToSend(const string cmd)
+{
+	m_sendBuf += cmd;
 }

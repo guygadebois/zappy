@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/05/31 14:10:28 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/23 17:01:59 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/24 15:39:28 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -19,12 +19,13 @@
 
 using namespace std;
 
-Engine::Engine(MapData *mapData)
+Engine::Engine(MapData *mapData, VisuComm *visuComm)
 	: m_device(NULL),
 	  m_driver(NULL),
 	  m_sceneManager(NULL),
 	  m_camera(NULL),
 	  m_mapData(mapData),
+	  m_visuComm(visuComm),
 	  m_started(false),
 	  m_emptyParent(NULL),
 	  m_planet(NULL),

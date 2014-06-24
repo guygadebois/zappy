@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/11 11:38:27 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/24 12:41:31 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/24 16:05:11 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -71,9 +71,8 @@ bool	Engine::setTimeUnit(const string line)
 	if (timeUnit <= 0)
 		return (err_msg("Engine::setTimeUnit ERROR --> time unit must be greater than 0"));
 	m_mapData->setTimeUnit(timeUnit);
-	if (timeUnit <= VISU_MIN_TIMEUNIT)
-		;
-// repondre "sst 100\n" au serveur
+	if (timeUnit > 10)
+		m_visuComm->addCmdToSend("sst 10\n");
 	delete (tokens);
 	return (true);
 }
@@ -501,6 +500,21 @@ bool	Engine::endOfGame(const string line)
 	msg = (*tokens)[1] + " won the game !";
 	mystring::StringToWString(w_msg, msg);
 	m_gui->addMessageBox(L"End of game", w_msg.c_str());
+	delete (tokens);
+	return (true);
+}
+
+bool	Engine::trowGemAfterBroadcast(const string line)
+{
+	vector<string>					*tokens;
+
+	tokens = mystring::strsplit(line);
+	if (tokens->size() != 6)
+	{
+		cout << "ERROR on line : \"" << line << "\"\n";
+		return (err_msg("Engine::throwGemAfterBroadcast ERROR --> invalid line format"));
+	}
+//	(*tokens)[1];
 	delete (tokens);
 	return (true);
 }

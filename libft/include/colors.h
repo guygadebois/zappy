@@ -1,24 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   common.h                                           :+:      :+:    :+:   */
+/*   colors.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dcouly <dcouly@student.42.fr>              +#+  +:+       +#+        */
+/*   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/06/07 16:33:15 by dcouly            #+#    #+#             */
-/*   Updated: 2014/06/24 15:29:59 by glourdel         ###   ########.fr       */
+/*   Created: 2014/06/24 15:26:49 by glourdel          #+#    #+#             */
+/*   Updated: 2014/06/24 15:27:22 by glourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef COMMON_H
-# define COMMON_H
+#ifndef COLORS_H
+# define COLORS_H
 
-# define BUFSIZE 1024
-# define WORK_BUFSIZE 1024
-# define BUF_VISU 8192
-
-char*	read_buf(char *buf);
-int		find_ret(char *str);
-int		cl_new_connection(char *ip, char *port, char *name);
+# define PI 3.141593
+# define RED "\033[31m"
+# define GREEN "\033[32m"
+# define YELLOW "\033[33m"
+# define BLUE "\033[34m"
+# define MAGENTA "\033[35m"
+# define CYAN "\033[36m"
+# define COLOR_END "\033[0m"
 
 #endif

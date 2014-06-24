@@ -6,7 +6,7 @@
 /*   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/31 14:10:08 by glourdel          #+#    #+#             */
-/*   Updated: 2014/06/23 16:49:01 by glourdel         ###   ########.fr       */
+/*   Updated: 2014/06/24 16:00:31 by glourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "MySceneNode.h"
 # include "MapData.h"
 # include "visu_define.h"
+# include "VisuComm.h"
 
 using namespace irr;
 
@@ -26,7 +27,7 @@ class Engine
 {
 
 public:
-	Engine(MapData *mapData);
+	Engine(MapData *mapData, VisuComm *visuComm);
 	~Engine(void);
 
 	bool	start(void);
@@ -58,6 +59,7 @@ public:
 	bool	eggDelivered(const string line);
 	bool	eggHatchOut(const string line);
 	bool	endOfGame(const string line);
+	bool	trowGemAfterBroadcast(const string line);
 
 private:
 	bool	launchBroadcastParticles(scene::MySceneNode *trantor);
@@ -68,6 +70,7 @@ private:
 	scene::ISceneManager			*m_sceneManager;
 	scene::ICameraSceneNode			*m_camera;
 	MapData							*m_mapData;
+	VisuComm						*m_visuComm;
 	bool							m_started;
 // Objets :
 	scene::MySceneNode				*m_emptyParent;

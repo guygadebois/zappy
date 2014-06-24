@@ -93,6 +93,7 @@ VISU_CPPFILES= \
 
 COMMON_CPPFILES= \
 		common_cpp_src/find_ret.cpp \
+		common_cpp_src/ft_sendall.cpp \
 		common_cpp_src/mystring.cpp \
 		common_cpp_src/new_connection.cpp \
 		common_cpp_src/read_buf.cpp \
@@ -553,8 +554,9 @@ obj/visu_main.o: src/visu_src/main.cpp irrlicht/include/irrlicht.h \
  include/visu_models/MapData.h include/visu_models/PartEmitterAnim.h \
  include/visu_models/visu_define.h include/visu_models/Engine.h \
  include/visu_models/MySceneNode.h include/visu_models/MapData.h \
+ include/visu_models/VisuComm.h include/visu_models/Engine.h \
  include/common.h include/mystring.h include/visu_models/visu_define.h \
- include/visu_models/VisuComm.h include/visu_models/Engine.h
+ include/visu_models/VisuComm.h
 	@echo $(CYAN)"    Creating obj/visu_main.o ...\033[0m"
 	@mkdir -p $(OBJDIR);
 	@$(CCPP) -o $(OBJDIR)visu_main.o -Wall \
@@ -674,6 +676,7 @@ obj/visu_Engine_cmd.o: src/visu_src/models/Engine_cmd.cpp \
  irrlicht/include/SSharedMeshBuffer.h irrlicht/include/SViewFrustum.h \
  include/visu_models/MySceneNode.h include/visu_models/MapData.h \
  include/visu_models/PartEmitterAnim.h include/visu_models/visu_define.h \
+ include/visu_models/VisuComm.h include/visu_models/Engine.h \
  include/visu_models/MySceneNode.h include/mystring.h \
  include/visu_models/errors.h
 	@echo $(CYAN)"    Creating obj/visu_Engine_cmd.o ...\033[0m"
@@ -795,8 +798,9 @@ obj/visu_Engine.o: src/visu_src/models/Engine.cpp include/visu_models/Engine.h \
  irrlicht/include/SSharedMeshBuffer.h irrlicht/include/SViewFrustum.h \
  include/visu_models/MySceneNode.h include/visu_models/MapData.h \
  include/visu_models/PartEmitterAnim.h include/visu_models/visu_define.h \
+ include/visu_models/VisuComm.h include/visu_models/Engine.h \
  include/visu_models/MySceneNode.h include/visu_models/VisuComm.h \
- include/visu_models/Engine.h include/visu_models/errors.h
+ include/visu_models/errors.h
 	@echo $(CYAN)"    Creating obj/visu_Engine.o ...\033[0m"
 	@mkdir -p $(OBJDIR);
 	@$(CCPP) -o $(OBJDIR)visu_Engine.o -Wall \
@@ -1746,10 +1750,10 @@ obj/visu_VisuComm.o: src/visu_src/models/VisuComm.cpp irrlicht/include/irrlicht.
  irrlicht/include/SMeshBufferLightMap.h \
  irrlicht/include/SMeshBufferTangents.h \
  irrlicht/include/SSharedMeshBuffer.h irrlicht/include/SViewFrustum.h \
- include/common.h include/mystring.h include/visu_models/VisuComm.h \
+ include/mystring.h include/visu_models/VisuComm.h \
  include/visu_models/MapData.h include/visu_models/PartEmitterAnim.h \
  include/visu_models/visu_define.h include/visu_models/Engine.h \
- include/visu_models/MySceneNode.h
+ include/visu_models/MySceneNode.h include/visu_models/VisuComm.h
 	@echo $(CYAN)"    Creating obj/visu_VisuComm.o ...\033[0m"
 	@mkdir -p $(OBJDIR);
 	@$(CCPP) -o $(OBJDIR)visu_VisuComm.o -Wall \
@@ -1760,6 +1764,12 @@ obj/cm_find_ret.o: src/common_cpp_src/find_ret.cpp
 	@mkdir -p $(OBJDIR);
 	@$(CCPP) -o $(OBJDIR)cm_find_ret.o -Wall \
 -c $(SRCDIR)common_cpp_src/find_ret.cpp $(CFLAGS)
+
+obj/cm_ft_sendall.o: src/common_cpp_src/ft_sendall.cpp libft/include/colors.h
+	@echo $(CYAN)"    Creating obj/cm_ft_sendall.o ...\033[0m"
+	@mkdir -p $(OBJDIR);
+	@$(CCPP) -o $(OBJDIR)cm_ft_sendall.o -Wall \
+-c $(SRCDIR)common_cpp_src/ft_sendall.cpp $(CFLAGS)
 
 obj/cm_mystring.o: src/common_cpp_src/mystring.cpp include/mystring.h
 	@echo $(CYAN)"    Creating obj/cm_mystring.o ...\033[0m"
