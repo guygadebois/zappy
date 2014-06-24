@@ -6,7 +6,7 @@
 /*   By: dcouly <dcouly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/07 16:44:18 by dcouly            #+#    #+#             */
-/*   Updated: 2014/06/23 17:56:58 by glourdel         ###   ########.fr       */
+/*   Updated: 2014/06/24 12:57:16 by dcouly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,10 @@ static void	sv_loose_life(t_data *game, t_fds *fd)
 			((t_trant*)(lst->content))->life--;
 			if (((t_trant*)(lst->content))->life == 0)
 			{
-				ft_strcpy(game->visu.cmd_out, "pdi ");
-				ft_strcpy(game->visu.cmd_out,
+				ft_strcat(game->visu.cmd_out, "pdi ");
+				ft_strcat(game->visu.cmd_out,
 						ft_itoa(((t_trant*)lst->content)->sock));
-				ft_strcpy(game->visu.cmd_out, "\n");
+				ft_strcat(game->visu.cmd_out, "\n");
 				FD_ZERO(&fd_dead);
 				FD_SET(((t_trant*)lst->content)->sock, &fd_dead);
 				while (select((((t_trant*)lst->content)->sock) + 1, NULL,

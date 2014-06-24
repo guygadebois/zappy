@@ -6,7 +6,7 @@
 /*   By: dcouly <dcouly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/07 17:07:17 by dcouly            #+#    #+#             */
-/*   Updated: 2014/06/21 20:04:52 by dcouly           ###   ########.fr       */
+/*   Updated: 2014/06/24 13:23:48 by dcouly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,21 @@ static int	sv_new_connection(int sock, int *fdmax, fd_set *master)
 	return (cs);
 }
 
+static int	is_team(char *name, t_data *game)
+{
+	t_list	*team;
+
+	team = game->team;
+	while (team)
+	{
+		if (!ft_strcmp(name, ((char *)team->content)))
+			return (1);
+		team = team->next;
+	}
+	ft_putendl("Wrong team name");
+	return (0);
+}
+
 int			sv_listen_fd(t_data *game, int *fdmax, t_fds *fds)
 {
 	int		i;
@@ -53,11 +68,21 @@ int			sv_listen_fd(t_data *game, int *fdmax, t_fds *fds)
 			if ((i == game->sock) && (cs = sv_new_connection(game->sock,\
 					&game->fd_max, &(fds->master))) != -1)
 			{
-				send(cs, "BIENVENUE\n", 10, 0);
+				ft_sendall(cs, "BIENVENUE\n", 10);
 				nb = recv(cs, buf, 1023, 0);
 				buf[nb] = 0;
 				if (ft_strcmp("GRAPHIC\n", buf))
-					sv_insert_trant(game, cs, buf);
+				{
+					buf[nb - 1] = 0;
+					if (is_team(buf, game))
+						sv_insert_trant(game, cs, buf);
+					else
+					{
+						ft_sendall(cs, "mort\n", 5);
+						close(cs);
+						FD_CLR(cs, &(fds->master));
+					}
+				}
 				else
 				{
 					game->fd_visu = cs;

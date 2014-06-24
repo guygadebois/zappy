@@ -6,7 +6,7 @@
 /*   By: dcouly <dcouly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/09 17:47:05 by dcouly            #+#    #+#             */
-/*   Updated: 2014/06/21 16:05:44 by dcouly           ###   ########.fr       */
+/*   Updated: 2014/06/24 13:22:17 by dcouly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,22 @@
 #include "server.h"
 #include "types.h"
 
-void	sv_cmd_visu(t_data *game, char *buf, int rd_oct)
+static void		sv_check(char *cmd, t_data *game)
+{
+	int	time;
+
+	if (!ft_strncmp("sst", cmd, 3))
+	{
+		time = ft_atoi(&cmd[4]);
+		if (time > 0)
+			game->time = time;
+		ft_strcat(game->visu.cmd_out, "sgt ");
+		ft_strcat(game->visu.cmd_out, ft_itoa(time));
+		ft_strcat(game->visu.cmd_out, "\n");
+	}
+}
+
+void			sv_cmd_visu(t_data *game, char *buf, int rd_oct)
 {
 	char	*tmp;
 	char	*cmd;
@@ -26,11 +41,7 @@ void	sv_cmd_visu(t_data *game, char *buf, int rd_oct)
 	while ((offset = ft_find_ret(game->visu.cmd_in)) != -1)
 	{
 		if ((cmd = ft_strndup(game->visu.cmd_in, offset)))
-		{
-			printf("ok visu %d\n", game->visu.sock);//	sv_treat_cmd(data, cmd, trant->sock);
-//			ft_strcpy(game->visu.cmd_out, "visu\n");
-		}
-//		ft_strcpy(game->visu.cmd_out, "ok\n");
+			sv_check(cmd, game);
 		free(cmd);
 		tmp = ft_strdup(game->visu.cmd_in + offset + 1);
 		ft_bzero(game->visu.cmd_in, WORK_BUFSIZE);
