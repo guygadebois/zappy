@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/20 18:31:22 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/24 16:20:29 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/25 23:05:52 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -81,11 +81,13 @@ bool			VisuComm::launchOnce(void)
 	{
 		nb_char = recv(m_sock, m_buf, 1023, 0);
 		m_buf[nb_char] = 0;
+//		cout << "\033[31mrecu : " << m_buf << "\033[0m\n";
 		tmp = strdup(m_buf);
 		m_workBuf = m_workBuf + tmp;
-//		cout << "Workbuf = " << m_workBuf << endl;
 	}
-	if ((cmd = getCmdBuf(m_workBuf)) != "")
+//	if (m_workBuf != "")
+//		cout << "============= WorkBuf ========\n" << m_workBuf << "\n===============\n";
+	while ((cmd = getCmdBuf(m_workBuf)) != "")
 	{
 		// verifier qu'il s'agit bien de la cmde "msz"
 		if (m_firstCmd)
