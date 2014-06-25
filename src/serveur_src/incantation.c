@@ -6,10 +6,11 @@
 /*   By: dcouly <dcouly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/24 13:45:48 by dcouly            #+#    #+#             */
-/*   Updated: 2014/06/25 21:57:22 by dcouly           ###   ########.fr       */
+/*   Updated: 2014/06/25 23:01:24 by dcouly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
 #include "types.h"
 #include "server.h"
 #include "map.h"
@@ -75,11 +76,21 @@ void		ft_incan(t_data *game, t_trant *trant, int nb, int lvl)
 
 int	sv_incant_lvl_one(t_data *game, t_trant *trant)
 {
+	printf("la\n");
 	if (!game->map[trant->x][trant->y]->linemate)
 		return (0);
 	game->map[trant->x][trant->y]->linemate--;
 	ft_place_linemate(game->map, game->length, game->width, 1);
 	trant->is_incan = 2;
+	ft_strcat(game->visu.cmd_out, "pic ");
+	ft_strcat(game->visu.cmd_out, ft_itoa(trant->x));
+	ft_strcat(game->visu.cmd_out, " ");
+	ft_strcat(game->visu.cmd_out, ft_itoa(trant->y));
+	ft_strcat(game->visu.cmd_out, " ");
+	ft_strcat(game->visu.cmd_out, ft_itoa(trant->level + 1));
+	ft_strcat(game->visu.cmd_out, " ");
+	ft_strcat(game->visu.cmd_out, ft_itoa(trant->sock));
+	ft_strcat(game->visu.cmd_out, "\n");
 	ft_strcat(trant->cmd_out, "incantation en cours\nniveau actuel : 2\n");
 	return (1);
 }

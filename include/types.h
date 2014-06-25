@@ -6,7 +6,7 @@
 /*   By: dcouly <dcouly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/07 17:03:25 by dcouly            #+#    #+#             */
-/*   Updated: 2014/06/23 15:28:26 by dcouly           ###   ########.fr       */
+/*   Updated: 2014/06/25 22:24:26 by dcouly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <sys/select.h>
 # include "common.h"
 # include "map.h"
+# include "get_arg.h"
 # include "libft.h"
 
 typedef struct	s_fds
@@ -34,6 +35,7 @@ typedef struct	s_visu
 
 typedef struct	s_data
 {
+	t_arg		*arg;
 	int			fd_max;
 	int			time;
 	int			length;

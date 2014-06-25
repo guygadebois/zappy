@@ -6,13 +6,22 @@
 /*   By: bjacob <bjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/23 10:33:36 by bjacob            #+#    #+#             */
-/*   Updated: 2014/06/24 11:11:58 by bjacob           ###   ########.fr       */
+/*   Updated: 2014/06/25 22:36:13 by dcouly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "map.h"
 #include "get_arg.h"
 #include "libft.h"
+
+static int		orientation(int opt, int ori)
+{
+	static int	oris;
+
+	if (opt)
+		oris = ori;
+	return (oris);
+}
 
 t_list_trant	*ft_save_player(t_area ***map, t_trant *trant)
 {
@@ -45,9 +54,13 @@ void			ft_move_other(t_area ***map, t_trant *trant, int x, int y)
 			map[x][y]->list_player = cur;
 			cur->player->x = x;
 			cur->player->y = y;
+			ft_strcat(cur->player->cmd_out, "deplacement ");
+			ft_strcat(cur->player->cmd_out, ft_itoa(orientation(0, 0)));
+			ft_strcat(cur->player->cmd_out, "\n");
 		}
 		cur = nxt;
-		nxt = cur->next;
+		if (cur)
+			nxt = cur->next;
 	}
 	save->next = NULL;
 	map[trant->x][trant->y]->list_player = save;
@@ -55,6 +68,12 @@ void			ft_move_other(t_area ***map, t_trant *trant, int x, int y)
 
 void			ft_kick(t_arg *game, t_area ***map, t_trant *trant)
 {
+	if (trant->direct == 4)
+		orientation(1, 2);
+	else if (trant->direct == 3)
+		orientation(1, 1);
+	else
+		orientation(1, trant->direct + 2);
 	if (trant->direct == 4 && (trant->x - 1) >= 0)
 		ft_move_other(map, trant, (trant->x - 1), trant->y);
 	else if (trant->direct == 4 && (trant->x - 1) < 0)
@@ -71,5 +90,5 @@ void			ft_kick(t_arg *game, t_area ***map, t_trant *trant)
 		ft_move_other(map, trant, trant->x, (trant->y - 1));
 	else if (trant->direct == 1 && (trant->y - 1) < 0)
 		ft_move_other(map, trant, trant->x, game->width - 1);
-	ft_putendl("ok");
+	ft_strcat(trant->cmd_out, "ok\n");
 }

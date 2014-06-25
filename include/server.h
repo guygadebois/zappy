@@ -6,7 +6,7 @@
 /*   By: dcouly <dcouly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/07 16:29:11 by dcouly            #+#    #+#             */
-/*   Updated: 2014/06/25 21:56:09 by dcouly           ###   ########.fr       */
+/*   Updated: 2014/06/25 22:25:36 by dcouly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,6 @@ void	ft_place_linemate(t_area ***map, int x, int y, int nb);
 void	ft_place_phiras(t_area ***map, int x, int y, int nb);
 void	ft_place_mendiane(t_area ***map, int x, int y, int nb);
 void	ft_place_thystane(t_area ***map, int x, int y, int nb);
+void	ft_kick(t_arg *game, t_area ***map, t_trant *trant);
 
 #endif

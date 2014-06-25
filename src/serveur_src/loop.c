@@ -6,7 +6,7 @@
 /*   By: dcouly <dcouly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/07 16:44:18 by dcouly            #+#    #+#             */
-/*   Updated: 2014/06/25 22:02:01 by dcouly           ###   ########.fr       */
+/*   Updated: 2014/06/25 22:23:30 by dcouly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ int			sv_loop(int sock, t_arg *arg)
 	t_data	game;
 
 	game.trant = NULL;
+	game.arg = arg;
 	game.length = arg->width;
 	game.width = arg->height;
 	game.time = arg->t;
