@@ -6,7 +6,7 @@
 /*   By: dcouly <dcouly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/07 16:29:11 by dcouly            #+#    #+#             */
-/*   Updated: 2014/06/24 17:42:13 by dcouly           ###   ########.fr       */
+/*   Updated: 2014/06/25 21:56:09 by dcouly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,11 @@ int		sv_del_trant(t_data *data, int cs);
 int		voir(t_data *data, t_trant *trant);
 int		ft_sendall(int s, char *buf, int len);
 void	sv_incantation(t_data *game, t_trant *trant);
+void	ft_place_deraumere(t_area ***map, int x, int y, int nb);
+void	ft_place_sibur(t_area ***map, int x, int y, int nb);
+void	ft_place_linemate(t_area ***map, int x, int y, int nb);
+void	ft_place_phiras(t_area ***map, int x, int y, int nb);
+void	ft_place_mendiane(t_area ***map, int x, int y, int nb);
+void	ft_place_thystane(t_area ***map, int x, int y, int nb);
 
 #endif

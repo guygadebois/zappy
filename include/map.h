@@ -6,7 +6,7 @@
 /*   By: bjacob <bjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/06 16:25:20 by bjacob            #+#    #+#             */
-/*   Updated: 2014/06/24 17:24:37 by dcouly           ###   ########.fr       */
+/*   Updated: 2014/06/25 16:47:00 by dcouly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct			s_trant
 	int					men;
 	int					phi;
 	int					thy;
+	int					fail;
 	int					send;
 	int					is_incan;
 	struct timeval		time;

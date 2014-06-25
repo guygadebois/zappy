@@ -6,7 +6,7 @@
 /*   By: dcouly <dcouly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/07 18:51:09 by dcouly            #+#    #+#             */
-/*   Updated: 2014/06/22 18:38:56 by dcouly           ###   ########.fr       */
+/*   Updated: 2014/06/25 16:42:53 by dcouly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,10 @@ void		append_in_workbuf(t_data *game, t_trant *trant, char *buf,
 		if ((cmd = ft_strndup(trant->cmd_in, offset)))
 		{
 			trant->current_cmd = ft_strdup(cmd);
-			trant->send = 1;
 			gettimeofday(&(trant->time), NULL);
+			if (ft_strcmp("incantation\n", cmd))
+				sv_incantation(game, trant);
+			trant->send = 1;
 			sv_add_time(cmd, game, trant);
 		}
 		free(cmd);

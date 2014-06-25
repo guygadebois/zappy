@@ -6,7 +6,7 @@
 /*   By: dcouly <dcouly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/07 18:24:06 by dcouly            #+#    #+#             */
-/*   Updated: 2014/06/24 17:32:03 by dcouly           ###   ########.fr       */
+/*   Updated: 2014/06/25 21:58:00 by dcouly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,17 @@ static int	sv_o_trant_init(t_trant **trant, int sock, char buf[1024],
 	(*trant)->team = NULL;
 	ft_bzero((*trant)->cmd_in, WORK_BUFSIZE);
 	ft_bzero((*trant)->cmd_out, WORK_BUFSIZE);
+	(*trant)->x = 1;
+	(*trant)->y = 1;
 	(*trant)->x = rand() % game->length;
 	(*trant)->y = rand() % game->width;
+	(*trant)->x = 1;
+	(*trant)->y = 1;
 	(*trant)->level = 1;
 	(*trant)->life = 10;
 	(*trant)->direct = 1;
 	(*trant)->lin = 0;
+	(*trant)->fail = 0;
 	(*trant)->der = 0;
 	(*trant)->sib = 0;
 	(*trant)->men = 0;

@@ -6,7 +6,7 @@
 /*   By: dcouly <dcouly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/20 16:07:06 by dcouly            #+#    #+#             */
-/*   Updated: 2014/06/24 17:41:27 by dcouly           ###   ########.fr       */
+/*   Updated: 2014/06/25 14:33:18 by dcouly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,8 @@ void	sv_answer_cmd(t_data *game, t_trant *trant)
 		ft_get_inventory(trant);
 	else if (!ft_strncmp(trant->current_cmd, "broadcaster", 11))
 		broadcast(game, &trant->current_cmd[12], trant->sock);
-	else if (!ft_strcmp(trant->current_cmd, "incantation"))
-		sv_incantation(game, trant);
 /*	else if (!ft_strcmp(trant->current_cmd, "gauche"))
 	else if (!ft_strcmp(trant->current_cmd, "gauche"))
-*/	else
+*/	else if (ft_strcmp(trant->current_cmd, "incantation"))
 		ft_strcat(trant->cmd_out, "ko\n");
 }
