@@ -6,7 +6,7 @@
 /*   By: bjacob <bjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/06 16:27:12 by bjacob            #+#    #+#             */
-/*   Updated: 2014/06/10 19:26:14 by dcouly           ###   ########.fr       */
+/*   Updated: 2014/06/25 17:47:34 by bjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,6 @@ t_area			***ft_create_map(int x, int y, int nb_max)
 		i++;
 	}
 	ft_place_food(map, x, y, (((x * y) / 6) * nb_max));
-	ft_place_mineral(map, x, y, (((x * y) / 13) * nb_max));
+	ft_place_mineral(map, x, y, (((x * y) / 25) * nb_max));
 	return (map);
 }
