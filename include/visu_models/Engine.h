@@ -6,7 +6,7 @@
 /*   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/31 14:10:08 by glourdel          #+#    #+#             */
-/*   Updated: 2014/06/24 17:07:54 by glourdel         ###   ########.fr       */
+/*   Updated: 2014/06/25 17:10:03 by glourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ private:
 	video::ITexture					*m_gemTexture[7];
 	video::ITexture					*m_particleTexture1;
 	video::ITexture					*m_particleTexture2;
+	video::ITexture					*m_particleTexture3;
 // Images :
 	video::IImage					*m_planetGrid;
 // GUI :

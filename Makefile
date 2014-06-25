@@ -47,6 +47,7 @@ SERVEUR_CFILES= \
 		serveur_src/append_in_workbuff.c \
 		serveur_src/broad.c \
 		serveur_src/cmd_visu.c \
+		serveur_src/connect_nbr.c \
 		serveur_src/create_server.c \
 		serveur_src/del_trant.c \
 		serveur_src/drop_obj.c \
@@ -56,6 +57,7 @@ SERVEUR_CFILES= \
 		serveur_src/get_arg.c \
 		serveur_src/getclientbysock.c \
 		serveur_src/get_inventory.c \
+		serveur_src/incantation.c \
 		serveur_src/insert_trant.c \
 		serveur_src/kick.c \
 		serveur_src/listen_fd.c \
@@ -228,6 +230,14 @@ obj/sv_cmd_visu.o: src/serveur_src/cmd_visu.c libft/include/libft.h \
 	@$(CC) -o $(OBJDIR)sv_cmd_visu.o \
 -c $(SRCDIR)serveur_src/cmd_visu.c $(CFLAGS)
 
+obj/sv_connect_nbr.o: src/serveur_src/connect_nbr.c include/map.h \
+ include/common.h include/get_arg.h libft/include/libft.h \
+ libft/include/libft_types.h
+	@echo $(CYAN)"    Creating obj/sv_connect_nbr.o ...\033[0m"
+	@mkdir -p $(OBJDIR);
+	@$(CC) -o $(OBJDIR)sv_connect_nbr.o \
+-c $(SRCDIR)serveur_src/connect_nbr.c $(CFLAGS)
+
 obj/sv_create_server.o: src/serveur_src/create_server.c libft/include/libft.h \
  libft/include/libft_types.h include/server.h include/types.h \
  include/common.h include/map.h include/get_arg.h
@@ -294,6 +304,14 @@ obj/sv_get_inventory.o: src/serveur_src/get_inventory.c include/map.h \
 	@mkdir -p $(OBJDIR);
 	@$(CC) -o $(OBJDIR)sv_get_inventory.o \
 -c $(SRCDIR)serveur_src/get_inventory.c $(CFLAGS)
+
+obj/sv_incantation.o: src/serveur_src/incantation.c include/types.h \
+ include/common.h include/map.h libft/include/libft.h \
+ libft/include/libft_types.h include/map.h
+	@echo $(CYAN)"    Creating obj/sv_incantation.o ...\033[0m"
+	@mkdir -p $(OBJDIR);
+	@$(CC) -o $(OBJDIR)sv_incantation.o \
+-c $(SRCDIR)serveur_src/incantation.c $(CFLAGS)
 
 obj/sv_insert_trant.o: src/serveur_src/insert_trant.c include/types.h \
  include/common.h include/map.h libft/include/libft.h \

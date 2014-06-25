@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/05/31 14:10:28 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/24 15:39:28 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/25 17:16:59 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -96,6 +96,7 @@ Engine::Engine(MapData *mapData, VisuComm *visuComm)
 	m_trantorTexture[9] = m_driver->getTexture("models/faerie/FaerieJ_Skin.jpg");
 	m_particleTexture1 = m_driver->getTexture("textures/particle.png");
 	m_particleTexture2 = m_driver->getTexture("textures/particle2.png");
+	m_particleTexture3 = m_driver->getTexture("textures/particle3.png");
 	m_gui = m_device->getGUIEnvironment();
 	m_gui->getSkin()->setFont(m_gui->getFont("fonts/fontlucida.png"), irr::gui::EGDF_DEFAULT);
 	addPlanet();
@@ -149,22 +150,84 @@ bool	Engine::addPlanet(void)
 			{
 				if (j < static_cast<f32>(texturePSize.Height) / 4.0f
 					|| j >= static_cast<f32>(texturePSize.Height) / 4.0f * 3.0f)
-					img->setPixel(i, j, video::SColor(255, 255, 55, 55));
+					img->setPixel(i, j, video::SColor(0, 0, 50, 0));
 				else if (i % m_mapData->getGridElemPSize().Width == 0
 						 || static_cast<u32>(j - static_cast<f32>(texturePSize.Height) / 4.0f) % m_mapData->getGridElemPSize().Height == 0)
 					img->setPixel(i, j, video::SColor(255, 255, 255, 255));
 				else
-					img->setPixel(i, j, video::SColor(255, 0, 0, 0));
-				// if (i == 0)
-				// 	img->setPixel(i, j, video::SColor(255, 55, 255, 55));
+					img->setPixel(i, j, video::SColor(255, 25, 155, 55));
 			}
 		}
 		texture = m_driver->addTexture("grid", img);
 		texture->grab();
+		m_driver->makeColorKeyTexture(texture, video::SColor(0,0,0,0));
 		m_planet->setMaterialTexture(0, texture);
 		texture->drop();
 		img->drop();
 	}
+
+// Portal Particles :
+
+	scene::IParticleSystemSceneNode		*partSys;
+	scene::IParticleSystemSceneNode		*partSys2;
+	scene::IParticleCylinderEmitter		*emitter;
+	scene::IParticleAffector			*affector;
+
+	partSys = m_sceneManager->addParticleSystemSceneNode(false);
+	emitter = partSys->createCylinderEmitter(
+		core::vector3df(0.0f, PLANET_RADIUS - 3.0f, 0.0f),        // centre
+		20.0f,
+		core::vector3df(0.0f, 20.0f, 0.0f),
+		20.0f,
+		true,
+		core::vector3df(0.0f, -0.1f, 0.0f),
+		8000, 10000,                                       // nb particules emises a la sec min / max
+		irr::video::SColor(0,0,0,0),                  // couleur la plus sombre
+		irr::video::SColor(0,255,255,255),            // couleur la plus claire
+		6000, 10000,                                    // duree de vie min / max
+		0,                                            // angle max d'ecart / direction prevue
+		irr::core::dimension2df(1.8f, 1.8f),           // taille minimum
+		irr::core::dimension2df(2.6f, 2.6f));          // taille maximum
+
+	partSys->setEmitter(emitter);
+	emitter->drop();
+	affector = partSys->createGravityAffector();
+	partSys->addAffector(affector);
+	affector->drop();
+
+	partSys2 = m_sceneManager->addParticleSystemSceneNode(false);
+	emitter = partSys2->createCylinderEmitter(
+		core::vector3df(0.0f, -PLANET_RADIUS + 3.0f, 0.0f),        // centre
+		20.0f,
+		core::vector3df(0.0f, -20.0f, 0.0f),
+		20.0f,
+		true,
+		core::vector3df(0.0f, 0.1f, 0.0f),
+		8000, 10000,                                       // nb particules emises a la sec min / max
+		irr::video::SColor(0,0,0,0),                  // couleur la plus sombre
+		irr::video::SColor(0,255,255,255),            // couleur la plus claire
+		6000, 10000,                                    // duree de vie min / max
+		0,                                            // angle max d'ecart / direction prevue
+		irr::core::dimension2df(1.8f, 1.8f),           // taille minimum
+		irr::core::dimension2df(2.6f, 2.6f));          // taille maximum
+
+	partSys2->setEmitter(emitter);
+	emitter->drop();
+	affector = partSys2->createGravityAffector(core::vector3df(0.0f, 0.03f, 0.0f));
+	partSys2->addAffector(affector);
+	affector->drop();
+
+	if (m_particleTexture3)
+	{
+//		m_driver->makeColorKeyTexture(m_particleTexture3, video::SColor(0,0,0,0));
+		partSys->setMaterialTexture(0, m_particleTexture3);
+		partSys2->setMaterialTexture(0, m_particleTexture3);
+	}
+	partSys->setMaterialFlag(video::EMF_ZWRITE_ENABLE, false);
+	partSys->setMaterialType(video::EMT_TRANSPARENT_ADD_COLOR);
+	partSys2->setMaterialFlag(video::EMF_ZWRITE_ENABLE, false);
+	partSys2->setMaterialType(video::EMT_TRANSPARENT_ADD_COLOR);
+
 
 // Skybox
 
@@ -245,13 +308,13 @@ bool	Engine::addLights(void)
 {
 	scene::ILightSceneNode	*light;
 
-	m_sceneManager->setAmbientLight(irr::video::SColorf(0.3f, 0.3f, 0.3f, 0.0f));
+	m_sceneManager->setAmbientLight(video::SColorf(0.3f, 0.3f, 0.3f, 0.0f));
 	light = m_sceneManager->addLightSceneNode(0,
-						  irr::core::vector3df(1000, 3000, 3000),
-						  irr::video::SColorf(0.4f, 0.4f, 0.6f, 0.0f), 50000.0f);
-	light->getLightData().AmbientColor = irr::video::SColorf(0.01, 0.01, 0.01, 0.01);
-	light->getLightData().DiffuseColor = irr::video::SColorf(0.5, 0.5, 0.5, 0.2);
-	light->getLightData().SpecularColor = irr::video::SColorf(0.7, 0.7, 0.7, 0.7);
+						  core::vector3df(1000, 3000, 3000),
+						  video::SColorf(0.4f, 0.4f, 0.6f, 0.0f), 50000.0f);
+	light->getLightData().AmbientColor = video::SColorf(0.01, 0.01, 0.01, 0.01);
+	light->getLightData().DiffuseColor = video::SColorf(0.5, 0.5, 0.5, 0.2);
+	light->getLightData().SpecularColor = video::SColorf(0.7, 0.7, 0.7, 0.7);
 	return (true);
 }
 
