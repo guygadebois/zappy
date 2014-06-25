@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/05/31 14:10:28 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/25 17:16:59 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/25 18:46:18 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -32,6 +32,7 @@ Engine::Engine(MapData *mapData, VisuComm *visuComm)
 	  m_trentorMesh(NULL),
 	  m_treeMesh(NULL),
 	  m_planetTexture(NULL),
+	  m_sunTexture(NULL),
 	  m_planetGrid(NULL),
 	  m_gui(NULL)
 {
@@ -78,6 +79,7 @@ Engine::Engine(MapData *mapData, VisuComm *visuComm)
 	for (u8 i = 0; i < 7; i++)
 		m_itemMesh[i]->setHardwareMappingHint(scene::EHM_STATIC);
 	m_planetTexture = m_driver->getTexture("textures/grass.jpg");
+	m_sunTexture = m_driver->getTexture("textures/sun.bmp");
 	m_gemTexture[0] = m_driver->getTexture("textures/blue-green.png");
 	m_gemTexture[1] = m_driver->getTexture("textures/yellow.png");
 	m_gemTexture[2] = m_driver->getTexture("textures/violet.png");
@@ -306,15 +308,31 @@ bool	Engine::addTrees(void)
 
 bool	Engine::addLights(void)
 {
-	scene::ILightSceneNode	*light;
+	scene::IMeshSceneNode		*parent;
+	scene::IMeshSceneNode		*sun;
+	scene::ILightSceneNode		*light;
+	scene::ISceneNodeAnimator	*animator;
+
+	parent = m_sceneManager->addSphereSceneNode(2, 6, 0, -1);
+	sun = m_sceneManager->addSphereSceneNode(PLANET_RADIUS / 3, 36, parent, -1);
+	if (m_sunTexture)
+		sun->setMaterialTexture(0, m_sunTexture);
+	sun->setMaterialFlag(video::EMF_LIGHTING, false);
 
 	m_sceneManager->setAmbientLight(video::SColorf(0.3f, 0.3f, 0.3f, 0.0f));
-	light = m_sceneManager->addLightSceneNode(0,
-						  core::vector3df(1000, 3000, 3000),
+	light = m_sceneManager->addLightSceneNode(parent,
+						  core::vector3df(0.0f, 0.0f, 0.0f),
 						  video::SColorf(0.4f, 0.4f, 0.6f, 0.0f), 50000.0f);
 	light->getLightData().AmbientColor = video::SColorf(0.01, 0.01, 0.01, 0.01);
 	light->getLightData().DiffuseColor = video::SColorf(0.5, 0.5, 0.5, 0.2);
 	light->getLightData().SpecularColor = video::SColorf(0.7, 0.7, 0.7, 0.7);
+
+	light->setPosition(core::vector3df(0.0f, 5000.0f, 0.0f));
+	sun->setPosition(core::vector3df(0.0f, 500, 0.0f));
+	parent->setRotation(core::vector3df(30.0f, 30.0f, 0.0f));
+	animator = m_sceneManager->createRotationAnimator(core::vector3df(-0.15f, 0.0f, -0.05f));
+	parent->addAnimator(animator);
+	animator->drop();
 	return (true);
 }
 

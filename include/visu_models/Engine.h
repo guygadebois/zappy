@@ -6,7 +6,7 @@
 /*   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/31 14:10:08 by glourdel          #+#    #+#             */
-/*   Updated: 2014/06/25 17:10:03 by glourdel         ###   ########.fr       */
+/*   Updated: 2014/06/25 18:41:07 by glourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ private:
 	scene::IAnimatedMesh			*m_itemMesh[7];
 // Textures :
 	video::ITexture					*m_planetTexture;
+	video::ITexture					*m_sunTexture;
 	video::ITexture					*m_trantorTexture[10];
 	video::ITexture					*m_gemTexture[7];
 	video::ITexture					*m_particleTexture1;

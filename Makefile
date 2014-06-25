@@ -64,6 +64,12 @@ SERVEUR_CFILES= \
 		serveur_src/loop.c \
 		serveur_src/main.c \
 		serveur_src/move_forward.c \
+		serveur_src/place_deraumere.c \
+		serveur_src/place_linemate.c \
+		serveur_src/place_mendiane.c \
+		serveur_src/place_phiras.c \
+		serveur_src/place_sibur.c \
+		serveur_src/place_thystame.c \
 		serveur_src/read_from_client.c \
 		serveur_src/send_visu.c \
 		serveur_src/sv_sendall.c \
@@ -362,6 +368,48 @@ obj/sv_move_forward.o: src/serveur_src/move_forward.c include/server.h \
 	@mkdir -p $(OBJDIR);
 	@$(CC) -o $(OBJDIR)sv_move_forward.o \
 -c $(SRCDIR)serveur_src/move_forward.c $(CFLAGS)
+
+obj/sv_place_deraumere.o: src/serveur_src/place_deraumere.c include/map.h \
+ include/common.h
+	@echo $(CYAN)"    Creating obj/sv_place_deraumere.o ...\033[0m"
+	@mkdir -p $(OBJDIR);
+	@$(CC) -o $(OBJDIR)sv_place_deraumere.o \
+-c $(SRCDIR)serveur_src/place_deraumere.c $(CFLAGS)
+
+obj/sv_place_linemate.o: src/serveur_src/place_linemate.c include/map.h \
+ include/common.h
+	@echo $(CYAN)"    Creating obj/sv_place_linemate.o ...\033[0m"
+	@mkdir -p $(OBJDIR);
+	@$(CC) -o $(OBJDIR)sv_place_linemate.o \
+-c $(SRCDIR)serveur_src/place_linemate.c $(CFLAGS)
+
+obj/sv_place_mendiane.o: src/serveur_src/place_mendiane.c include/map.h \
+ include/common.h
+	@echo $(CYAN)"    Creating obj/sv_place_mendiane.o ...\033[0m"
+	@mkdir -p $(OBJDIR);
+	@$(CC) -o $(OBJDIR)sv_place_mendiane.o \
+-c $(SRCDIR)serveur_src/place_mendiane.c $(CFLAGS)
+
+obj/sv_place_phiras.o: src/serveur_src/place_phiras.c include/map.h \
+ include/common.h
+	@echo $(CYAN)"    Creating obj/sv_place_phiras.o ...\033[0m"
+	@mkdir -p $(OBJDIR);
+	@$(CC) -o $(OBJDIR)sv_place_phiras.o \
+-c $(SRCDIR)serveur_src/place_phiras.c $(CFLAGS)
+
+obj/sv_place_sibur.o: src/serveur_src/place_sibur.c include/map.h \
+ include/common.h
+	@echo $(CYAN)"    Creating obj/sv_place_sibur.o ...\033[0m"
+	@mkdir -p $(OBJDIR);
+	@$(CC) -o $(OBJDIR)sv_place_sibur.o \
+-c $(SRCDIR)serveur_src/place_sibur.c $(CFLAGS)
+
+obj/sv_place_thystame.o: src/serveur_src/place_thystame.c include/map.h \
+ include/common.h
+	@echo $(CYAN)"    Creating obj/sv_place_thystame.o ...\033[0m"
+	@mkdir -p $(OBJDIR);
+	@$(CC) -o $(OBJDIR)sv_place_thystame.o \
+-c $(SRCDIR)serveur_src/place_thystame.c $(CFLAGS)
 
 obj/sv_read_from_client.o: src/serveur_src/read_from_client.c include/common.h \
  include/server.h include/types.h include/common.h include/map.h \
