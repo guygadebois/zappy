@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/11 11:38:27 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/24 17:09:43 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/25 22:25:53 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -23,6 +23,7 @@ bool	Engine::treatCmd(const string line)
 {
 	string	cmd = line.substr(0, 3);
 
+	cout << "j'ai recu : " << line << endl;
 	if (cmd == "sgt")
 		return (setTimeUnit(line));
 	if (cmd == "bct")
@@ -421,18 +422,24 @@ bool	Engine::endIncantation(const string line)
 	u32								x;
 	u32								y;
 
+	cout << "endIncantation start\n";
 	tokens = mystring::strsplit(line);
 	if (tokens->size() != 4)
 		return (err_msg("Engine::endIncantation ERROR --> invalid line format"));
 	x = stoi((*tokens)[1]);
 	y = stoi((*tokens)[2]);
+	cout << "endIncantation 1\n";
 	trantors = m_mapData->getTrantorsByPos(core::vector2di(x, y));
+	cout << "endIncantation 2\n";
 	for (list<scene::MySceneNode *>::iterator it = trantors->begin();
 		 it != trantors->end(); it++)
 	{
+		cout << "endIncantation boucle\n";
 		(*it)->stopIncantation();
 	}
+	cout << "endIncantation 3\n";
 	m_mapData->getMatrixPartSys(x, y)->setEmitter(NULL);
+	cout << "endIncantation 4\n";
 	delete (tokens);
 	return (true);
 }
