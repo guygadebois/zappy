@@ -6,7 +6,7 @@
 /*   By: dcouly <dcouly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/09 18:31:03 by dcouly            #+#    #+#             */
-/*   Updated: 2014/06/20 18:32:57 by dcouly           ###   ########.fr       */
+/*   Updated: 2014/06/25 23:07:27 by dcouly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,23 @@ void			sv_send_visu(t_data *game)
 	while (lst)
 	{
 		sv_new_trant_to_visu(game, (t_trant*)lst->content);
+		lst = lst->next;
+	}
+	lst = game->trant;
+	while (lst)
+	{
+		if (((t_trant*)lst->content)->is_incan == 2)
+		{
+			ft_strcat(game->visu.cmd_out, "pic ");
+			ft_strcat(game->visu.cmd_out, ft_itoa(((t_trant*)lst->content)->x));
+			ft_strcat(game->visu.cmd_out, " ");
+			ft_strcat(game->visu.cmd_out, ft_itoa(((t_trant*)lst->content)->y));
+			ft_strcat(game->visu.cmd_out, " ");
+			ft_strcat(game->visu.cmd_out, ft_itoa(((t_trant*)lst->content)->level + 1));
+			ft_strcat(game->visu.cmd_out, " ");
+			ft_strcat(game->visu.cmd_out, ft_itoa(((t_trant*)lst->content)->sock));
+			ft_strcat(game->visu.cmd_out, "\n");
+		}	
 		lst = lst->next;
 	}
 }
