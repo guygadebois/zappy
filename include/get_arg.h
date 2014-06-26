@@ -6,7 +6,7 @@
 /*   By: bjacob <bjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/11 08:03:59 by bjacob            #+#    #+#             */
-/*   Updated: 2014/06/11 13:46:49 by bjacob           ###   ########.fr       */
+/*   Updated: 2014/06/26 14:41:24 by bjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,6 @@ typedef struct	s_arg
 	t_list		*team;
 }				t_arg;
 
-char		*ft_under_space(char *s);
+char			*ft_under_space(char *s);
 
 #endif
