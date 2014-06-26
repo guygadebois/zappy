@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/05/31 14:10:28 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/25 22:28:12 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/26 10:14:17 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -345,7 +345,7 @@ void	Engine::loop(VisuComm *visuComm)
 		visuComm->launchOnce();
 		m_mapData->AnimParticleEmitters(m_device->getTimer()->getTime());
 		m_mapData->checkAnimationsEnd();
-		m_mapData->hideItemsOnInoccupiedSquares();
+//		m_mapData->hideItemsOnInoccupiedSquares();
 		m_sceneManager->drawAll();
 		m_gui->drawAll();
 		m_driver->endScene();
