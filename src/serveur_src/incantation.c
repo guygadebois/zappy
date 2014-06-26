@@ -6,7 +6,7 @@
 /*   By: dcouly <dcouly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/24 13:45:48 by dcouly            #+#    #+#             */
-/*   Updated: 2014/06/25 23:01:24 by dcouly           ###   ########.fr       */
+/*   Updated: 2014/06/26 13:55:01 by bjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int	sv_incant_lvl_one(t_data *game, t_trant *trant)
 	if (!game->map[trant->x][trant->y]->linemate)
 		return (0);
 	game->map[trant->x][trant->y]->linemate--;
-	ft_place_linemate(game->map, game->length, game->width, 1);
+	ft_place_linemate(game, game->length, game->width, 1);
 	trant->is_incan = 2;
 	ft_strcat(game->visu.cmd_out, "pic ");
 	ft_strcat(game->visu.cmd_out, ft_itoa(trant->x));
@@ -108,9 +108,9 @@ int	sv_incant_lvl_two(t_data *game, t_trant *trant)
 	game->map[trant->x][trant->y]->linemate--;
 	game->map[trant->x][trant->y]->deraumere--;
 	game->map[trant->x][trant->y]->sibur--;
-	ft_place_linemate(game->map, game->length, game->width, 1);
-	ft_place_deraumere(game->map, game->length, game->width, 1);
-	ft_place_sibur(game->map, game->length, game->width, 1);
+	ft_place_linemate(game, game->length, game->width, 1);
+	ft_place_deraumere(game, game->length, game->width, 1);
+	ft_place_sibur(game, game->length, game->width, 1);
 	ft_incan(game, trant, 2, 3);
 	return (1);
 }
@@ -128,9 +128,9 @@ int	sv_incant_lvl_three(t_data *game, t_trant *trant)
 	game->map[trant->x][trant->y]->linemate -= 2;
 	game->map[trant->x][trant->y]->phiras -= 2;
 	game->map[trant->x][trant->y]->sibur--;
-	ft_place_linemate(game->map, game->length, game->width, 2);
-	ft_place_phiras(game->map, game->length, game->width, 2);
-	ft_place_sibur(game->map, game->length, game->width, 1);
+	ft_place_linemate(game, game->length, game->width, 2);
+	ft_place_phiras(game, game->length, game->width, 2);
+	ft_place_sibur(game, game->length, game->width, 1);
 	
 	ft_incan(game, trant, 2, 4);
 	return (1);
@@ -152,10 +152,10 @@ int	sv_incant_lvl_four(t_data *game, t_trant *trant)
 	game->map[trant->x][trant->y]->deraumere--;
 	game->map[trant->x][trant->y]->sibur -= 2;
 	game->map[trant->x][trant->y]->phiras--;
-	ft_place_linemate(game->map, game->length, game->width, 1);
-	ft_place_deraumere(game->map, game->length, game->width, 1);
-	ft_place_sibur(game->map, game->length, game->width, 2);
-	ft_place_phiras(game->map, game->length, game->width, 1);
+	ft_place_linemate(game, game->length, game->width, 1);
+	ft_place_deraumere(game, game->length, game->width, 1);
+	ft_place_sibur(game, game->length, game->width, 2);
+	ft_place_phiras(game, game->length, game->width, 1);
 	ft_incan(game, trant, 4, 5);
 	return (1);
 }
@@ -176,10 +176,10 @@ int	sv_incant_lvl_five(t_data *game, t_trant *trant)
 	game->map[trant->x][trant->y]->deraumere -= 2;
 	game->map[trant->x][trant->y]->sibur -= 1;
 	game->map[trant->x][trant->y]->mendiane -= 3;
-	ft_place_linemate(game->map, game->length, game->width, 1);
-	ft_place_deraumere(game->map, game->length, game->width, 2);
-	ft_place_sibur(game->map, game->length, game->width, 1);
-	ft_place_mendiane(game->map, game->length, game->width, 3);
+	ft_place_linemate(game, game->length, game->width, 1);
+	ft_place_deraumere(game, game->length, game->width, 2);
+	ft_place_sibur(game, game->length, game->width, 1);
+	ft_place_mendiane(game, game->length, game->width, 3);
 	ft_incan(game, trant, 4, 6);
 	return (1);
 }
@@ -200,10 +200,10 @@ int	sv_incant_lvl_six(t_data *game, t_trant *trant)
 	game->map[trant->x][trant->y]->deraumere -= 2;
 	game->map[trant->x][trant->y]->sibur -= 3;
 	game->map[trant->x][trant->y]->phiras -= 1;
-	ft_place_linemate(game->map, game->length, game->width, 1);
-	ft_place_deraumere(game->map, game->length, game->width, 2);
-	ft_place_sibur(game->map, game->length, game->width, 3);
-	ft_place_phiras(game->map, game->length, game->width, 1);
+	ft_place_linemate(game, game->length, game->width, 1);
+	ft_place_deraumere(game, game->length, game->width, 2);
+	ft_place_sibur(game, game->length, game->width, 3);
+	ft_place_phiras(game, game->length, game->width, 1);
 	ft_incan(game, trant, 6, 7);
 	return (1);
 }
