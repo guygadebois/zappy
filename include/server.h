@@ -6,7 +6,7 @@
 /*   By: dcouly <dcouly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/07 16:29:11 by dcouly            #+#    #+#             */
-/*   Updated: 2014/06/26 15:21:45 by dcouly           ###   ########.fr       */
+/*   Updated: 2014/06/26 17:28:16 by sbodovsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,5 +71,7 @@ char	*ft_strstrjoin(int nb, ...);
 t_case	*ft_case(int nb_case, t_data *game, int x, int y);
 t_list	*ft_view(t_data *game, t_trant *trant, int x, int y);
 int		stat_lvl_vision(int opt, int lvl);
+int		ft_sym(t_data *game, t_trant *emet, t_trant *others, int res);
+int		ft_quadrant(int xa, int xb, int ya, int yb);
 
 #endif
