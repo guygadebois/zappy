@@ -6,7 +6,7 @@
 /*   By: dcouly <dcouly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/20 16:07:06 by dcouly            #+#    #+#             */
-/*   Updated: 2014/06/26 13:52:48 by dcouly           ###   ########.fr       */
+/*   Updated: 2014/06/26 15:46:32 by dcouly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ void	sv_answer_cmd(t_data *game, t_trant *trant)
 		voir(game, trant);
 	else if (!ft_strcmp(trant->current_cmd, "inventaire"))
 		ft_get_inventory(trant);
-	else if (!ft_strncmp(trant->current_cmd, "broadcaster", 11))
-		broadcast(game, &trant->current_cmd[12], trant->sock);
+	else if (!ft_strncmp(trant->current_cmd, "broadcast", 9))
+		broadcast(game, &trant->current_cmd[10], trant->sock);
 	else if (!ft_strcmp(trant->current_cmd, "expulse"))
 		ft_kick(game->arg, game->map, trant);
 	else if (!ft_strcmp(trant->current_cmd, "connect_nbr"))

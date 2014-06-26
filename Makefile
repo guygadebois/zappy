@@ -58,6 +58,8 @@ SERVEUR_CFILES= \
 		serveur_src//get_arg.c \
 		serveur_src//get_inventory.c \
 		serveur_src//getclientbysock.c \
+		serveur_src//incan_bis.c \
+		serveur_src//incan_two.c \
 		serveur_src//incantation.c \
 		serveur_src//insert_trant.c \
 		serveur_src//kick.c \
@@ -81,6 +83,8 @@ SERVEUR_CFILES= \
 		serveur_src//turn_right.c \
 		serveur_src//under_space.c \
 		serveur_src//vision.c \
+		serveur_src//vision_bis.c \
+		serveur_src//vision_two.c \
 
 CLIENT_CPPFILES= \
 		client_src//cl_parse_line.cpp \
@@ -321,6 +325,24 @@ obj/sv_getclientbysock.o: src/serveur_src//getclientbysock.c \
 	@$(CC) -o $(OBJDIR)sv_getclientbysock.o \
 -c $(SRCDIR)serveur_src//getclientbysock.c $(CFLAGS)
 
+obj/sv_incan_bis.o: src/serveur_src//incan_bis.c include/types.h \
+ include/common.h include/map.h include/get_arg.h libft/include/libft.h \
+ libft/include/libft_types.h include/server.h include/types.h \
+ include/map.h
+	@echo $(CYAN)"    Creating obj/sv_incan_bis.o ...\033[0m"
+	@mkdir -p $(OBJDIR);
+	@$(CC) -o $(OBJDIR)sv_incan_bis.o \
+-c $(SRCDIR)serveur_src//incan_bis.c $(CFLAGS)
+
+obj/sv_incan_two.o: src/serveur_src//incan_two.c include/types.h \
+ include/common.h include/map.h include/get_arg.h libft/include/libft.h \
+ libft/include/libft_types.h include/server.h include/types.h \
+ include/map.h
+	@echo $(CYAN)"    Creating obj/sv_incan_two.o ...\033[0m"
+	@mkdir -p $(OBJDIR);
+	@$(CC) -o $(OBJDIR)sv_incan_two.o \
+-c $(SRCDIR)serveur_src//incan_two.c $(CFLAGS)
+
 obj/sv_incantation.o: src/serveur_src//incantation.c include/types.h \
  include/common.h include/map.h include/get_arg.h libft/include/libft.h \
  libft/include/libft_types.h include/server.h include/types.h \
@@ -504,6 +526,22 @@ obj/sv_vision.o: src/serveur_src//vision.c include/types.h include/common.h \
 	@mkdir -p $(OBJDIR);
 	@$(CC) -o $(OBJDIR)sv_vision.o \
 -c $(SRCDIR)serveur_src//vision.c $(CFLAGS)
+
+obj/sv_vision_bis.o: src/serveur_src//vision_bis.c include/types.h \
+ include/common.h include/map.h include/get_arg.h libft/include/libft.h \
+ libft/include/libft_types.h include/server.h include/types.h
+	@echo $(CYAN)"    Creating obj/sv_vision_bis.o ...\033[0m"
+	@mkdir -p $(OBJDIR);
+	@$(CC) -o $(OBJDIR)sv_vision_bis.o \
+-c $(SRCDIR)serveur_src//vision_bis.c $(CFLAGS)
+
+obj/sv_vision_two.o: src/serveur_src//vision_two.c include/types.h \
+ include/common.h include/map.h include/get_arg.h libft/include/libft.h \
+ libft/include/libft_types.h include/server.h include/types.h
+	@echo $(CYAN)"    Creating obj/sv_vision_two.o ...\033[0m"
+	@mkdir -p $(OBJDIR);
+	@$(CC) -o $(OBJDIR)sv_vision_two.o \
+-c $(SRCDIR)serveur_src//vision_two.c $(CFLAGS)
 
 obj/cl_cl_parse_line.o: src/client_src//cl_parse_line.cpp
 	@echo $(CYAN)"    Creating obj/cl_cl_parse_line.o ...\033[0m"

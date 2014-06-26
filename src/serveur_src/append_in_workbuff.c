@@ -6,7 +6,7 @@
 /*   By: dcouly <dcouly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/07 18:51:09 by dcouly            #+#    #+#             */
-/*   Updated: 2014/06/26 10:28:37 by dcouly           ###   ########.fr       */
+/*   Updated: 2014/06/26 15:47:13 by dcouly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static int	sv_time_cmd(char *cmd, t_trant *trant)
 		return (7);
 	if (!ft_strcmp(cmd, "expulse"))
 		return (7);
-	if (!ft_strncmp(cmd, "broadcaster", 11))
+	if (!ft_strncmp(cmd, "broadcast", 9))
 		return (7);
 	if (!ft_strcmp(cmd, "incantation"))
 		return (300);

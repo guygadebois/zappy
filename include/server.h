@@ -6,7 +6,7 @@
 /*   By: dcouly <dcouly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/07 16:29:11 by dcouly            #+#    #+#             */
-/*   Updated: 2014/06/26 14:46:37 by bjacob           ###   ########.fr       */
+/*   Updated: 2014/06/26 15:21:45 by dcouly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,15 @@ void	ft_connect_nbr(t_arg *arg, t_list *trant, char *team, t_trant *tran);
 int		sv_o_trant_init(t_trant **trant, int sock, char buf[1024],
 						t_data *game);
 void	ft_fork(t_data *game, t_trant *trant);
+int		sv_nb_player(t_data *game, t_trant *trant);
+void	ft_pic(t_data *game, t_trant *trant, int lvl);
+void	ft_incan(t_data *game, t_trant *trant, int nb, int lvl);
+int		sv_incant_lvl_one(t_data *game, t_trant *trant);
+int		sv_incant_lvl_two(t_data *game, t_trant *trant);
+int		sv_incant_lvl_three(t_data *game, t_trant *trant);
+char	*ft_strstrjoin(int nb, ...);
+t_case	*ft_case(int nb_case, t_data *game, int x, int y);
+t_list	*ft_view(t_data *game, t_trant *trant, int x, int y);
+int		stat_lvl_vision(int opt, int lvl);
 
 #endif

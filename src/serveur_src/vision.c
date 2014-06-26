@@ -6,7 +6,7 @@
 /*   By: sbodovsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/22 16:19:07 by sbodovsk          #+#    #+#             */
-/*   Updated: 2014/06/24 03:57:19 by Nox              ###   ########.fr       */
+/*   Updated: 2014/06/26 15:21:27 by dcouly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,84 +16,59 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-typedef struct		s_case
+void	ft_concat_all(char **rep, t_area temp)
 {
-	int				nb;
-	t_area			*contenu_case;	
-}					t_case;
-
-static char	*ft_strstrjoin(int nb, ...)
-{
-	va_list		ap;
-	char		*str;
-	char		*ptr;
-	char		*tmp;
-
-	va_start(ap, nb);
-	ptr = ft_strnew(1);
-	if (ptr == NULL || nb < 0)
-		return (NULL);
-	while (nb > 0)
+	while (temp.food > 0)
 	{
-		str = ft_strdup(va_arg(ap, char *));
-		tmp = ptr;
-		ptr = ft_strjoin(tmp, str);
-		free(str);
-		free(tmp);
-		nb--;
+		*rep = ft_strstrjoin(2, *rep, "nourriture ");
+		temp.food--;
 	}
-	va_end(ap);
-	return (ptr);
+	while (temp.linemate > 0)
+	{
+		*rep = ft_strstrjoin(2, *rep, "linemate ");
+		temp.linemate--;
+	}
+	while (temp.deraumere > 0)
+	{
+		*rep = ft_strstrjoin(2, *rep, "deraumere ");
+		temp.deraumere--;
+	}
+	while (temp.sibur > 0)
+	{
+		*rep = ft_strstrjoin(2, *rep, "sibur ");
+		temp.sibur--;
+	}
 }
 
-t_case	*ft_case(int nb_case, t_data *game, int x, int y)
+void	ft_concat_allb(char **rep, t_area temp, t_trant *trant)
 {
-	t_case			*cas;
-
-	cas = malloc(sizeof(t_case));
-	if (cas)
+	while (temp.mendiane > 0)
 	{
-		cas->nb = nb_case;
-		cas->contenu_case = game->map[x][y];
+		*rep = ft_strstrjoin(2, *rep, "mendiane ");
+		temp.mendiane--;
 	}
-	return (cas);
+	while (temp.phiras > 0)
+	{
+		*rep = ft_strstrjoin(2, *rep, "phiras ");
+		temp.phiras--;
+	}
+	while (temp.thystame > 0)
+	{
+		*rep = ft_strstrjoin(2, *rep, "thystame ");
+		temp.thystame--;
+	}
+	while (temp.list_player != NULL)
+	{
+		if (trant->sock != temp.list_player->player->sock)
+			*rep = ft_strstrjoin(2, *rep, "player ");
+		temp.list_player = temp.list_player->next;
+	}
 }
 
-t_list	*ft_view(t_data *game, t_trant *trant, int x, int y, int lvl)
+void	ft_concat_par(char **rep, t_area temp, t_trant *trant)
 {
-	int			nb_case;
-	int			len;
-	t_list		*cases;
-	t_case		*cas;
-
-	cases = NULL;
-	len = ((lvl + 1) * 2) -1;
-	nb_case = lvl * lvl;
-	cases = ft_lstnew(cases, 1);
-	if (trant->direct == 2 || trant->direct == 4)
-	{
-		while (len > 0)
-		{
-			cas = ft_case(nb_case, game, x, y);
-			ft_lstpushback(&cases, cas, sizeof(t_case));
-			y = y + 1 % game->width;
-			nb_case++;
-			len--;
-		}
-	}
-	else
-	{
-		while (len > 0)
-		{
-			cas = ft_case(nb_case, game, x, y);
-			ft_lstpushback(&cases, cas, sizeof(t_case));
-			x = x + 1 % game->length;
-			nb_case++;
-			len--;
-		}
-
-	}
-	return (cases);
+	ft_concat_all(rep, temp);
+	ft_concat_allb(rep, temp, trant);
 }
 
 char	*ft_rep(t_list *cases, t_trant *trant)
@@ -114,49 +89,7 @@ char	*ft_rep(t_list *cases, t_trant *trant)
 			cases = cases->next;
 		temp = *((t_case *)cases->content)->contenu_case;
 		if (((t_case *)cases->content)->contenu_case != NULL)
-		{
-			while (temp.food > 0)
-			{
-				rep = ft_strstrjoin(2, rep, "nourriture ");
-				temp.food--;
-			}
-			while (temp.linemate > 0)
-			{
-				rep = ft_strstrjoin(2, rep, "linemate ");
-				temp.linemate--;
-			}
-			while (temp.deraumere > 0)
-			{
-				rep = ft_strstrjoin(2, rep, "deraumere ");
-				temp.deraumere--;
-			}
-			while (temp.sibur > 0)
-			{
-				rep = ft_strstrjoin(2, rep, "sibur ");
-				temp.sibur--;
-			}
-			while (temp.mendiane > 0)
-			{
-				rep = ft_strstrjoin(2, rep, "mendiane ");
-				temp.mendiane--;
-			}
-			while (temp.phiras > 0)
-			{
-				rep = ft_strstrjoin(2, rep, "phiras ");
-				temp.phiras--;
-			}
-			while (temp.thystame > 0)
-			{
-				rep = ft_strstrjoin(2, rep, "thystame ");
-				temp.thystame--;
-			}
-			while (temp.list_player != NULL)
-			{
-				if (trant->sock != temp.list_player->player->sock)
-					rep = ft_strstrjoin(2, rep, "player ");
-				temp.list_player = temp.list_player->next;
-			}
-		}
+			ft_concat_par(&rep, temp, trant);
 		i++;
 		if (i != nb_cas)
 			rep = ft_strstrjoin(2, rep, ", ");
@@ -165,7 +98,6 @@ char	*ft_rep(t_list *cases, t_trant *trant)
 	rep = ft_strstrjoin(2, rep, "}");
 	return (rep);
 }
-
 
 int		voir(t_data *game, t_trant *trant)
 {
@@ -178,13 +110,14 @@ int		voir(t_data *game, t_trant *trant)
 	lvl = trant->level;
 	while (lvl > 0)
 	{
+		stat_lvl_vision(1, lvl);
 		x = trant->x - lvl;
 		if (x < 0)
 			x = game->length + x;
 		y = trant->y - lvl;
 		if (y < 0)
 			y = game->width + y;
-		cases = ft_view(game, trant, x, y, lvl);
+		cases = ft_view(game, trant, x, y);
 		lvl--;
 	}
 	ft_lstpushback(&cases, ft_case(0, game, trant->x, trant->y), 1);

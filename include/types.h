@@ -6,7 +6,7 @@
 /*   By: dcouly <dcouly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/07 17:03:25 by dcouly            #+#    #+#             */
-/*   Updated: 2014/06/26 14:48:43 by bjacob           ###   ########.fr       */
+/*   Updated: 2014/06/26 15:18:11 by dcouly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,12 @@
 # include "map.h"
 # include "get_arg.h"
 # include "libft.h"
+
+typedef struct		s_case
+{
+	int				nb;
+	t_area			*contenu_case;	
+}					t_case;
 
 typedef struct	s_fds
 {

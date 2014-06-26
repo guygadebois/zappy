@@ -6,7 +6,7 @@
 /*   By: sbodovsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/19 05:21:50 by sbodovsk          #+#    #+#             */
-/*   Updated: 2014/06/22 18:21:40 by dcouly           ###   ########.fr       */
+/*   Updated: 2014/06/26 15:14:35 by dcouly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,30 +104,6 @@ int		ft_sym(t_data *game, t_trant *emet, t_trant *others, int res)
 	if (fabs(emet->y - others->y) > game->length)
 		res = ft_sym_y(res);
 	return (res);
-}
-
-char	*ft_strstrjoin(int nb, ...)
-{
-	va_list		ap;
-	char		*str;
-	char		*ptr;
-	char		*tmp;
-
-	va_start(ap, nb);
-	ptr = ft_strnew(1);
-	if (ptr == NULL || nb < 0)
-		return (NULL);
-	while (nb > 0)
-	{
-		str = ft_strdup(va_arg(ap, char *));
-		tmp = ptr;
-		ptr = ft_strjoin(tmp, str);
-		free(str);
-		free(tmp);
-		nb--;
-	}
-	va_end(ap);
-	return (ptr);
 }
 
 #include <stdio.h>

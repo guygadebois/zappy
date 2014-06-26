@@ -6,7 +6,7 @@
 /*   By: dcouly <dcouly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/07 16:44:18 by dcouly            #+#    #+#             */
-/*   Updated: 2014/06/26 14:35:05 by dcouly           ###   ########.fr       */
+/*   Updated: 2014/06/26 14:48:56 by dcouly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 #include "get_arg.h"
 #include "map.h"
 
-static int sv_diff_time(struct timeval t1, struct timeval t2, int t)
+static int	sv_diff_time(struct timeval t1, struct timeval t2, int t)
 {
 	t_timeval		res;
 	float			diff;
