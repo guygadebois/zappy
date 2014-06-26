@@ -6,7 +6,7 @@
 /*   By: dcouly <dcouly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/07 17:42:35 by dcouly            #+#    #+#             */
-/*   Updated: 2014/06/22 18:39:25 by dcouly           ###   ########.fr       */
+/*   Updated: 2014/06/26 14:15:21 by dcouly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ int			sv_read_from_client(t_data *game, int cs, fd_set *master)
 	else
 	{
 		buf[rd_oct] = 0;
-		printf("%s\n", buf);
 		if (cs == game->fd_visu)
 			sv_cmd_visu(game, buf, rd_oct);
 		else

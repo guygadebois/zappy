@@ -6,7 +6,7 @@
 /*   By: bjacob <bjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/25 16:54:45 by bjacob            #+#    #+#             */
-/*   Updated: 2014/06/26 14:16:18 by bjacob           ###   ########.fr       */
+/*   Updated: 2014/06/26 14:32:39 by dcouly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void		ft_place_mendiane(t_data *game, int x, int y, int nb)
 		ft_strcat(game->visu.cmd_out, ft_itoa(x_bis));
 		ft_strcat(game->visu.cmd_out, " ");
 		ft_strcat(game->visu.cmd_out, ft_itoa(y_bis));
-		ft_strcat(game->visu.cmd_out, "\n");	
+		ft_strcat(game->visu.cmd_out, "\n");
 		i++;
 	}
 }

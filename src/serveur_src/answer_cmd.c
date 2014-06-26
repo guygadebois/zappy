@@ -6,13 +6,13 @@
 /*   By: dcouly <dcouly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/20 16:07:06 by dcouly            #+#    #+#             */
-/*   Updated: 2014/06/26 11:10:23 by dcouly           ###   ########.fr       */
+/*   Updated: 2014/06/26 13:52:48 by dcouly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "types.h"
 #include "map.h"
-#include "server.h" 
+#include "server.h"
 
 void	sv_answer_cmd(t_data *game, t_trant *trant)
 {

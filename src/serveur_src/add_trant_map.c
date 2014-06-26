@@ -6,7 +6,7 @@
 /*   By: dcouly <dcouly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/20 17:05:46 by dcouly            #+#    #+#             */
-/*   Updated: 2014/06/20 17:17:53 by dcouly           ###   ########.fr       */
+/*   Updated: 2014/06/26 13:52:29 by dcouly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 
 void	add_trant_map(t_area ***map, t_trant *trant)
 {
-	t_list_trant    *lst;
-	t_list_trant    *tmp;
+	t_list_trant	*lst;
+	t_list_trant	*tmp;
 
 	lst = map[trant->x][trant->y]->list_player;
 	if (lst == NULL)

@@ -6,7 +6,7 @@
 /*   By: dcouly <dcouly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/07 18:24:06 by dcouly            #+#    #+#             */
-/*   Updated: 2014/06/26 13:16:35 by dcouly           ###   ########.fr       */
+/*   Updated: 2014/06/26 14:00:57 by dcouly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include "server.h"
 #include "libft.h"
 
-void	sv_new_trant_to_visu(t_data *game, t_trant *trant)
+void		sv_new_trant_to_visu(t_data *game, t_trant *trant)
 {
 	if (game->fd_visu > 0)
 	{
@@ -36,6 +36,17 @@ void	sv_new_trant_to_visu(t_data *game, t_trant *trant)
 	}
 }
 
+void		ft_init_tr(t_trant **trant)
+{
+	(*trant)->lin = 0;
+	(*trant)->fail = 0;
+	(*trant)->der = 0;
+	(*trant)->sib = 0;
+	(*trant)->men = 0;
+	(*trant)->phi = 0;
+	(*trant)->thy = 0;
+}
+
 int			sv_o_trant_init(t_trant **trant, int sock, char buf[1024],
 							t_data *game)
 {
@@ -50,13 +61,7 @@ int			sv_o_trant_init(t_trant **trant, int sock, char buf[1024],
 	(*trant)->level = 1;
 	(*trant)->life = 10;
 	(*trant)->direct = rand() % 4 + 1;
-	(*trant)->lin = 0;
-	(*trant)->fail = 0;
-	(*trant)->der = 0;
-	(*trant)->sib = 0;
-	(*trant)->men = 0;
-	(*trant)->phi = 0;
-	(*trant)->thy = 0;
+	ft_init_tr(trant);
 	(*trant)->is_oeuf = 0;
 	(*trant)->nb_oeuf = 0;
 	(*trant)->is_incan = 0;

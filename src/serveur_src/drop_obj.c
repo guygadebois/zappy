@@ -6,7 +6,7 @@
 /*   By: bjacob <bjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/18 13:22:40 by bjacob            #+#    #+#             */
-/*   Updated: 2014/06/21 16:28:46 by dcouly           ###   ########.fr       */
+/*   Updated: 2014/06/26 13:54:26 by dcouly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	ft_send_buf(int obj, t_trant *trant, t_data *game, t_area ***map)
 	ft_strstrcat(game->visu.cmd_out, "bct", 9, trant->x, trant->y,
 		map[x][y]->food, map[x][y]->linemate, map[x][y]->deraumere,
 		map[x][y]->sibur, map[x][y]->mendiane, map[x][y]->phiras,\
-	   	map[x][y]->thystame);
+		map[x][y]->thystame);
 }
 
 static void	ft_drop_der_sib(t_area ***map, t_trant *trant, char *obj,

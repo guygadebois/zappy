@@ -6,7 +6,7 @@
 /*   By: dcouly <dcouly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/09 18:31:03 by dcouly            #+#    #+#             */
-/*   Updated: 2014/06/26 13:00:26 by dcouly           ###   ########.fr       */
+/*   Updated: 2014/06/26 14:17:57 by dcouly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static void		sv_map(t_data *game)
 			game->map[cnt][cnt2]->sibur, game->map[cnt][cnt2]->mendiane,\
 			game->map[cnt][cnt2]->phiras, game->map[cnt][cnt2]->thystame);
 			select(game->fd_visu + 1, NULL, &write_fd, NULL, NULL);
-			if (FD_ISSET(game->fd_visu, &write_fd))	
+			if (FD_ISSET(game->fd_visu, &write_fd))
 				sv_send(game, game->fd_visu);
 		}
 	}
@@ -74,11 +74,13 @@ void			send_pic(t_data *game)
 			ft_strcat(game->visu.cmd_out, " ");
 			ft_strcat(game->visu.cmd_out, ft_itoa(((t_trant*)lst->content)->y));
 			ft_strcat(game->visu.cmd_out, " ");
-			ft_strcat(game->visu.cmd_out, ft_itoa(((t_trant*)lst->content)->level + 1));
+			ft_strcat(game->visu.cmd_out,
+					ft_itoa(((t_trant*)lst->content)->level + 1));
 			ft_strcat(game->visu.cmd_out, " ");
-			ft_strcat(game->visu.cmd_out, ft_itoa(((t_trant*)lst->content)->sock));
+			ft_strcat(game->visu.cmd_out,
+					ft_itoa(((t_trant*)lst->content)->sock));
 			ft_strcat(game->visu.cmd_out, "\n");
-		}	
+		}
 		lst = lst->next;
 	}
 }
@@ -93,17 +95,20 @@ void			send_oeuf(t_data *game)
 		if (((t_trant*)lst->content)->is_oeuf)
 		{
 			ft_strcat(game->visu.cmd_out, "enw ");
-			ft_strcat(game->visu.cmd_out, ft_itoa(((t_trant*)lst->content)->nb_oeuf));
+			ft_strcat(game->visu.cmd_out,
+					ft_itoa(((t_trant*)lst->content)->nb_oeuf));
 			ft_strcat(game->visu.cmd_out, " ");
-			ft_strcat(game->visu.cmd_out, ft_itoa(((t_trant*)lst->content)->sock));
+			ft_strcat(game->visu.cmd_out,
+					ft_itoa(((t_trant*)lst->content)->sock));
 			ft_strcat(game->visu.cmd_out, " ");
-			ft_strcat(game->visu.cmd_out, ft_itoa(((t_trant*)lst->content)->x));
+			ft_strcat(game->visu.cmd_out,
+					ft_itoa(((t_trant*)lst->content)->x));
 			ft_strcat(game->visu.cmd_out, " ");
 			ft_strcat(game->visu.cmd_out, ft_itoa(((t_trant*)lst->content)->y));
 			ft_strcat(game->visu.cmd_out, "\n");
-		}	
+		}
 		lst = lst->next;
-	}	
+	}
 }
 
 void			sv_send_visu(t_data *game)
@@ -125,7 +130,7 @@ void			sv_send_visu(t_data *game)
 	while (lst)
 	{
 		if (((t_trant*)lst->content)->is_oeuf == 0)
-		sv_new_trant_to_visu(game, (t_trant*)lst->content);
+			sv_new_trant_to_visu(game, (t_trant*)lst->content);
 		lst = lst->next;
 	}
 	send_pic(game);

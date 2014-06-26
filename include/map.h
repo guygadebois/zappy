@@ -6,7 +6,7 @@
 /*   By: bjacob <bjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/06 16:25:20 by bjacob            #+#    #+#             */
-/*   Updated: 2014/06/26 12:50:29 by dcouly           ###   ########.fr       */
+/*   Updated: 2014/06/26 14:37:22 by dcouly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 # include <sys/time.h>
 # include "common.h"
+
+typedef struct timeval	t_timeval;
 
 typedef struct			s_trant
 {
