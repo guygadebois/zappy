@@ -6,23 +6,32 @@
 /*   By: bjacob <bjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/25 16:56:09 by bjacob            #+#    #+#             */
-/*   Updated: 2014/06/25 16:56:13 by bjacob           ###   ########.fr       */
+/*   Updated: 2014/06/26 14:17:47 by bjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "map.h"
+#include "types.h"
 #include <stdlib.h>
 #include <time.h>
 
-void		ft_place_phiras(t_area ***map, int x, int y, int nb)
+void		ft_place_phiras(t_data *game, int x, int y, int nb)
 {
 	int		i;
+	int		x_bis;
+	int		y_bis;
 
 	i = 0;
 	srand(time(0));
 	while (i < nb)
 	{
-		map[rand() % x][rand() % y]->phiras++;
+		x_bis = rand() % x;
+		y_bis = rand() % y;
+		game->map[x_bis][y_bis]->phiras++;
+		ft_strcat(game->visu.cmd_out, "ipo 5 ");
+		ft_strcat(game->visu.cmd_out, ft_itoa(x_bis));
+		ft_strcat(game->visu.cmd_out, " ");
+		ft_strcat(game->visu.cmd_out, ft_itoa(y_bis));
+		ft_strcat(game->visu.cmd_out, "\n");
 		i++;
 	}
 }

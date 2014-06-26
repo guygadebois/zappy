@@ -6,7 +6,7 @@
 /*   By: bjacob <bjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/25 16:54:45 by bjacob            #+#    #+#             */
-/*   Updated: 2014/06/26 14:13:33 by bjacob           ###   ########.fr       */
+/*   Updated: 2014/06/26 14:16:18 by bjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void		ft_place_mendiane(t_data *game, int x, int y, int nb)
 	{
 		x_bis = rand() % x;
 		y_bis = rand() % y;
-		game->map[rand() % x][rand() % y]->mendiane++;
+		game->map[x_bis][y_bis]->mendiane++;
 		ft_strcat(game->visu.cmd_out, "ipo 4 ");
 		ft_strcat(game->visu.cmd_out, ft_itoa(x_bis));
 		ft_strcat(game->visu.cmd_out, " ");
