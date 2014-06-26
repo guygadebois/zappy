@@ -6,7 +6,7 @@
 /*   By: dcouly <dcouly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/26 15:16:15 by dcouly            #+#    #+#             */
-/*   Updated: 2014/06/26 15:35:42 by dcouly           ###   ########.fr       */
+/*   Updated: 2014/06/26 18:38:09 by dcouly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ t_list	*cas_pair(t_data *game, int x, int y)
 	{
 		cas = ft_case(nb_case, game, x, y);
 		ft_lstpushback(&cases, cas, sizeof(t_case));
-		y = y + 1 % game->width;
+		y = (y + 1) % game->width;
 		nb_case++;
 		len--;
 	}
@@ -78,7 +78,7 @@ t_list	*cas_impair(t_data *game, int x, int y)
 	{
 		cas = ft_case(nb_case, game, x, y);
 		ft_lstpushback(&cases, cas, sizeof(t_case));
-		x = x + 1 % game->length;
+		x = (x + 1) % game->length;
 		nb_case++;
 		len--;
 	}
