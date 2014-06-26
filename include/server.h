@@ -6,7 +6,7 @@
 /*   By: dcouly <dcouly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/07 16:29:11 by dcouly            #+#    #+#             */
-/*   Updated: 2014/06/26 13:52:32 by bjacob           ###   ########.fr       */
+/*   Updated: 2014/06/26 14:46:37 by bjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int		err_function(char *function);
 int		err_malloc(void);
 
 t_arg	*ft_get_arg(int argc, char **argv);
-int 	ft_find_ret(char *str);
+int		ft_find_ret(char *str);
 int		create_server(int port);
 int		sv_loop(int sock, t_arg *arg);
 int		sv_listen_fd(t_data *game, int *fdmax, t_fds *fds);
@@ -58,7 +58,8 @@ void	ft_place_thystane(t_data *game, int x, int y, int nb);
 void	ft_place_food_bis(t_data *game, int x, int y, int nb);
 void	ft_kick(t_arg *game, t_area ***map, t_trant *trant);
 void	ft_connect_nbr(t_arg *arg, t_list *trant, char *team, t_trant *tran);
-int		sv_o_trant_init(t_trant **trant, int sock, char buf[1024], t_data *game);
+int		sv_o_trant_init(t_trant **trant, int sock, char buf[1024],
+						t_data *game);
 void	ft_fork(t_data *game, t_trant *trant);
 
 #endif
