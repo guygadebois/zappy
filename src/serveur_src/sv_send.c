@@ -6,7 +6,7 @@
 /*   By: dcouly <dcouly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/07 19:18:50 by dcouly            #+#    #+#             */
-/*   Updated: 2014/06/25 23:02:09 by dcouly           ###   ########.fr       */
+/*   Updated: 2014/06/26 13:16:03 by dcouly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,15 @@ void		sv_send(t_data *game, int sock)
 			return ;
 		if ((trant->send && sv_timer(trant)) || trant->fail)
 		{
+			if (trant->is_oeuf)
+			{
+				trant->is_oeuf = 0;
+				ft_strcat(trant->cmd_out, "ok\n");
+				ft_strcat(game->visu.cmd_out, "eht #e\n");
+				ft_strcat(game->visu.cmd_out, ft_itoa(trant->nb_oeuf));
+				ft_strcat(game->visu.cmd_out, "\n");
+				return ;
+			}
 			sv_answer_cmd(game, trant);
 			ft_sendall(sock, trant->cmd_out, ft_strlen(trant->cmd_out));
 			ft_bzero(trant->cmd_out, WORK_BUFSIZE);

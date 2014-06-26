@@ -6,7 +6,7 @@
 /*   By: bjacob <bjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/06 16:25:20 by bjacob            #+#    #+#             */
-/*   Updated: 2014/06/25 16:47:00 by dcouly           ###   ########.fr       */
+/*   Updated: 2014/06/26 12:50:29 by dcouly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ typedef struct			s_trant
 	int					thy;
 	int					fail;
 	int					send;
+	int					is_oeuf;
+	int					nb_oeuf;
 	int					is_incan;
 	struct timeval		time;
 }               		t_trant;

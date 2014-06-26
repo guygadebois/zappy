@@ -6,7 +6,7 @@
 /*   By: bjacob <bjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/18 13:22:40 by bjacob            #+#    #+#             */
-/*   Updated: 2014/06/21 16:33:10 by dcouly           ###   ########.fr       */
+/*   Updated: 2014/06/26 09:27:41 by dcouly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,17 @@ static void	ft_take_thy(t_area ***map, t_trant *trant, char *obj,
 		else
 			ft_strcat(trant->cmd_out, "ko\n");
 	}
+	if (ft_strcmp(obj, "linemate") == 0)
+	{
+		if (map[trant->x][trant->y]->linemate > 0)
+		{
+			map[trant->x][trant->y]->linemate--;
+			trant->lin++;
+			ft_send_buf(1, trant, game, map);
+		}
+		else
+			ft_strcat(trant->cmd_out, "ko\n");
+	}
 }
 
 void		ft_take_obj(t_area ***map, t_trant *trant, char *obj,
@@ -112,18 +123,8 @@ void		ft_take_obj(t_area ***map, t_trant *trant, char *obj,
 		{
 			map[trant->x][trant->y]->food--;
 			trant->life++;
+			ft_place_food(map, game->length, game->width, 1);
 			ft_send_buf(0, trant, game, map);
-		}
-		else
-			ft_strcat(trant->cmd_out, "ko\n");
-	}
-	if (ft_strcmp(obj, "linemate") == 0)
-	{
-		if (map[trant->x][trant->y]->linemate > 0)
-		{
-			map[trant->x][trant->y]->linemate--;
-			trant->lin++;
-			ft_send_buf(1, trant, game, map);
 		}
 		else
 			ft_strcat(trant->cmd_out, "ko\n");

@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/05/28 11:59:19 by glourdel          #+#    #+#             //
-/*   Updated: 2014/06/25 23:10:41 by dcouly           ###   ########.fr       */
+/*   Updated: 2014/06/26 13:23:18 by dcouly           ###   ########.fr       */
 //                                                                            //
 // ************************************************************************** //
 
@@ -42,9 +42,8 @@ void		*cl_calcul(char *buf, int sock)
 	int		c;
 	char	*cmd;
 
-	sleep(1);
 	c = rand() % 2;
-	c = 9;
+	c = 2;
 	switch (c)
 	{
 	case (0) :
@@ -105,6 +104,8 @@ int			main(int argc, char **argv)
 	cout << "client here ! " << endl;
 	team = strcat(team, "\n");
 	sock = cl_new_connection(addr, port, team);
+
+	recv(sock, buf, 1023, 0);
 /*	if (fork())
 	{
 		sleep(3);

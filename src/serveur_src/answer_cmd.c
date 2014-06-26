@@ -6,7 +6,7 @@
 /*   By: dcouly <dcouly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/20 16:07:06 by dcouly            #+#    #+#             */
-/*   Updated: 2014/06/25 22:29:48 by dcouly           ###   ########.fr       */
+/*   Updated: 2014/06/26 11:10:23 by dcouly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,10 @@ void	sv_answer_cmd(t_data *game, t_trant *trant)
 		broadcast(game, &trant->current_cmd[12], trant->sock);
 	else if (!ft_strcmp(trant->current_cmd, "expulse"))
 		ft_kick(game->arg, game->map, trant);
-		//	else if (!ft_strcmp(trant->current_cmd, "gauche"))
+	else if (!ft_strcmp(trant->current_cmd, "connect_nbr"))
+		ft_connect_nbr(game->arg, game->trant, trant->team, trant);
+	else if (!ft_strcmp(trant->current_cmd, "fork"))
+		ft_fork(game, trant);
 	else if (ft_strcmp(trant->current_cmd, "incantation"))
 		ft_strcat(trant->cmd_out, "ko\n");
 }

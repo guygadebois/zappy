@@ -6,7 +6,7 @@
 /*   By: dcouly <dcouly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/07 18:51:09 by dcouly            #+#    #+#             */
-/*   Updated: 2014/06/25 22:47:14 by dcouly           ###   ########.fr       */
+/*   Updated: 2014/06/26 10:28:37 by dcouly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,10 @@
 #include "server.h"
 #include "types.h"
 
-static int	sv_time_cmd(char *cmd)
+static int	sv_time_cmd(char *cmd, t_trant *trant)
 {
+	if (trant->is_oeuf)
+		return (600);
 	if (!ft_strcmp(cmd, "avance") || !ft_strcmp(cmd, "droite"))
 		return (7);
 	if (!ft_strcmp(cmd, "gauche") || !ft_strcmp(cmd, "voir"))
@@ -48,7 +50,7 @@ static void	sv_add_time(char *cmd, t_data *game, t_trant *trant)
 	float	micro;
 	int		time;
 
-	time = sv_time_cmd(cmd);
+	time = sv_time_cmd(cmd, trant);
 	tmp = time;
 	tmp = tmp / game->time;
 	micro = (tmp - time / game->time) * 1000000;

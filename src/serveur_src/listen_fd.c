@@ -6,7 +6,7 @@
 /*   By: dcouly <dcouly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/07 17:07:17 by dcouly            #+#    #+#             */
-/*   Updated: 2014/06/24 13:23:48 by dcouly           ###   ########.fr       */
+/*   Updated: 2014/06/26 11:08:23 by dcouly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static int	sv_new_connection(int sock, int *fdmax, fd_set *master)
 	FD_SET(cs, master);
 	if (cs > *fdmax)
 		*fdmax = cs;
-	printf("New connec\n");
+	ft_putendl("New connec");
 	return (cs);
 }
 
@@ -56,6 +56,7 @@ int			sv_listen_fd(t_data *game, int *fdmax, t_fds *fds)
 	int		cs;
 	char	buf[1024];
 	int		nb;
+	char	b[1024];
 
 	*fdmax = *fdmax + 0;
 	i = 0;
@@ -75,7 +76,16 @@ int			sv_listen_fd(t_data *game, int *fdmax, t_fds *fds)
 				{
 					buf[nb - 1] = 0;
 					if (is_team(buf, game))
+					{
 						sv_insert_trant(game, cs, buf);
+						ft_strcat(b, ft_itoa(game->arg->nbmax));
+						ft_strcat(b, "\n");
+						ft_strcat(b, ft_itoa(game->length));
+						ft_strcat(b, " ");
+						ft_strcat(b, ft_itoa(game->width));
+						ft_strcat(b, "\n");
+						ft_sendall(cs, b, ft_strlen(b));
+					}
 					else
 					{
 						ft_sendall(cs, "mort\n", 5);

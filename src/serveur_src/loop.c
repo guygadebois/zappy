@@ -6,7 +6,7 @@
 /*   By: dcouly <dcouly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/07 16:44:18 by dcouly            #+#    #+#             */
-/*   Updated: 2014/06/25 22:23:30 by dcouly           ###   ########.fr       */
+/*   Updated: 2014/06/26 10:27:16 by dcouly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,11 +93,6 @@ int			sv_loop(int sock, t_arg *arg)
 	game.width = arg->height;
 	game.time = arg->t;
 	game.map = ft_create_map(game.length, game.width, 10);
-	game.map[1][1]->linemate = 15;
-	game.map[1][1]->phiras = 15;
-	game.map[1][1]->deraumere = 15;
-	game.map[1][1]->sibur = 15;
-	game.map[1][1]->mendiane = 15;
 	game.sock = sock;
 	game.nbmax = arg->nbmax;
 	game.fd_max = sock;
