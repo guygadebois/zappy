@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/05/28 11:59:19 by glourdel          #+#    #+#             //
-/*   Updated: 2014/06/26 18:32:05 by dcouly           ###   ########.fr       */
+/*   Updated: 2014/06/26 19:50:55 by sbodovsk         ###   ########.fr       */
 //                                                                            //
 // ************************************************************************** //
 
@@ -51,7 +51,7 @@ void		*cl_calcul(char *buf, int sock, char const *tab[], int i)
 
 	sleep(1);
 	printf("\nprintf : %s\n", tab[i]);
-	cmd = strdup("broadcast toto\n");
+	cmd = strdup(tab[i]);
 	printf("cmd = %s", cmd);
 
 	/*c = rand() % 2;
@@ -140,6 +140,6 @@ int			main(int argc, char **argv)
 		cl_calcul(buf, sock, tab_cmd, i);
 		cout << "end" << endl;
 		i++;
-	} while (strcmp(buf, "mort\n") && i <= 54);
+	} while (strcmp(buf, "mort\n") && i < 53);
 	return (0);
 }

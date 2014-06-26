@@ -6,7 +6,7 @@
 /*   By: dcouly <dcouly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/07 16:44:18 by dcouly            #+#    #+#             */
-/*   Updated: 2014/06/26 14:48:56 by dcouly           ###   ########.fr       */
+/*   Updated: 2014/06/26 19:57:51 by sbodovsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,29 +41,31 @@ static int	sv_diff_time(struct timeval t1, struct timeval t2, int t)
 	return (0);
 }
 
-void		loose_pv(t_data *game, struct timeval time, t_fds *fd, t_list *lst)
+void		loose_pv(t_data *game, struct timeval time,
+		t_fds *fd, t_list **lst)
 {
 	fd_set			fd_dead;
 
-	((t_trant*)(lst->content))->t_life = time;
-	((t_trant*)(lst->content))->life--;
-	if (((t_trant*)(lst->content))->life == 0)
+	((t_trant*)((*lst)->content))->t_life = time;
+	((t_trant*)((*lst)->content))->life--;
+	if (((t_trant*)((*lst)->content))->life == 0)
 	{
 		ft_strcat(game->visu.cmd_out, "pdi ");
-		ft_strcat(game->visu.cmd_out, ft_itoa(((t_trant*)lst->content)->sock));
+		ft_strcat(game->visu.cmd_out,
+				ft_itoa(((t_trant*)(*lst)->content)->sock));
 		ft_strcat(game->visu.cmd_out, "\n");
 		FD_ZERO(&fd_dead);
-		FD_SET(((t_trant*)lst->content)->sock, &fd_dead);
-		while (select((((t_trant*)lst->content)->sock) + 1, NULL,
+		FD_SET(((t_trant*)(*lst)->content)->sock, &fd_dead);
+		while (select((((t_trant*)(*lst)->content)->sock) + 1, NULL,
 					&fd_dead, NULL, NULL) == 0)
-			FD_SET(((t_trant*)lst->content)->sock, &fd_dead);
-		ft_sendall(((t_trant*)lst->content)->sock, "mort\n", 5);
-		FD_CLR(((t_trant*)lst->content)->sock, &fd->master);
-		sv_del_trant(game, ((t_trant*)lst->content)->sock);
-		lst = game->trant;
+			FD_SET(((t_trant*)(*lst)->content)->sock, &fd_dead);
+		ft_sendall(((t_trant*)(*lst)->content)->sock, "mort\n", 5);
+		FD_CLR(((t_trant*)(*lst)->content)->sock, &fd->master);
+		sv_del_trant(game, ((t_trant*)(*lst)->content)->sock);
+		*lst = game->trant;
 	}
 	else
-		lst = lst->next;
+		*lst = (*lst)->next;
 }
 
 static void	sv_loose_life(t_data *game, t_fds *fd)
@@ -78,7 +80,7 @@ static void	sv_loose_life(t_data *game, t_fds *fd)
 	{
 		time_trant = ((t_trant*)(lst->content))->t_life;
 		if (sv_diff_time(time_trant, time, game->time))
-			loose_pv(game, time, fd, lst);
+			loose_pv(game, time, fd, &lst);
 		else
 			lst = lst->next;
 	}
