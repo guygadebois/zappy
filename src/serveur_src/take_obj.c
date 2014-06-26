@@ -6,7 +6,7 @@
 /*   By: bjacob <bjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/18 13:22:40 by bjacob            #+#    #+#             */
-/*   Updated: 2014/06/26 09:27:41 by dcouly           ###   ########.fr       */
+/*   Updated: 2014/06/26 14:27:48 by bjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ void		ft_take_obj(t_area ***map, t_trant *trant, char *obj,
 		{
 			map[trant->x][trant->y]->food--;
 			trant->life++;
-			ft_place_food(map, game->length, game->width, 1);
+			ft_place_food_bis(game, game->length, game->width, 1);
 			ft_send_buf(0, trant, game, map);
 		}
 		else
