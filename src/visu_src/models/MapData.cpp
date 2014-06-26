@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/03 15:25:43 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/24 17:09:54 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/26 11:22:30 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -175,7 +175,6 @@ bool					MapData::addFoodOnSquare(Engine *engine, const u32 posX, const u32 posY
 }
 
 bool					MapData::throwGemAfterBroadcast(const u8 itemNbr,
-													   const u32 fromX, const u32 fromY,
 													   const u32 toX, const u32 toY)
 {
 	scene::MySceneNode		*item;

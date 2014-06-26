@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/11 11:38:27 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/25 22:45:10 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/26 11:21:24 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -521,15 +521,15 @@ bool	Engine::itemRegenerate(const string line)
 	bool							ret;
 
 	tokens = mystring::strsplit(line);
-	if (tokens->size() != 6)
+	if (tokens->size() != 4)
 	{
 		cout << "ERROR on line : \"" << line << "\"\n";
 		return (err_msg("Engine::throwGemAfterBroadcast ERROR --> invalid line format"));
 	}
 	if ((*tokens)[1] == "0")
-		ret = m_mapData->addFoodOnSquare(this, stoi((*tokens)[4]), stoi((*tokens)[5]));
+		ret = m_mapData->addFoodOnSquare(this, stoi((*tokens)[2]), stoi((*tokens)[3]));
 	else
-		ret = m_mapData->throwGemAfterBroadcast(stoi((*tokens)[1]), stoi((*tokens)[2]), stoi((*tokens)[3]), stoi((*tokens)[4]), stoi((*tokens)[5]));
+		ret = m_mapData->throwGemAfterBroadcast(stoi((*tokens)[1]), stoi((*tokens)[2]), stoi((*tokens)[3]));
 	delete (tokens);
 	return (ret);
 }

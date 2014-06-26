@@ -6,7 +6,7 @@
 /*   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/03 15:17:17 by glourdel          #+#    #+#             */
-/*   Updated: 2014/06/24 17:09:30 by glourdel         ###   ########.fr       */
+/*   Updated: 2014/06/26 11:22:17 by glourdel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,6 @@ public:
 	void						hideItemsOnInoccupiedSquares(void);
 	bool						addFoodOnSquare(Engine *engine, const u32 posX, const u32 posY);
 	bool						throwGemAfterBroadcast(const u8 itemNbr,
-													   const u32 fromX, const u32 fromY,
 													   const u32 toX, const u32 toY);
 
 	// Accesseur
