@@ -6,7 +6,7 @@
 /*   By: sbodovsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/19 05:21:50 by sbodovsk          #+#    #+#             */
-/*   Updated: 2014/06/26 16:16:20 by sbodovsk         ###   ########.fr       */
+/*   Updated: 2014/06/26 16:59:10 by sbodovsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ int		ft_sym_y(int res)
 		res = 4;
 	else if (res == 4)
 		res = 6;
-	else if (res == 7)
-		res = 3;
+	else if (res == 3)
+		res = 7;
 	else if (res == 2)
 		res = 8;
 	return (res);
@@ -100,9 +100,9 @@ int		ft_getresbyorient(t_trant *emet, t_trant *others, int orient)
 
 int		ft_sym(t_data *game, t_trant *emet, t_trant *others, int res)
 {
-	if (fabs(emet->x - others->x) > game->width)
+	if (fabs(emet->x - others->x) > (game->length / 2))
 		res = ft_sym_x(res);
-	if (fabs(emet->y - others->y) > game->length)
+	if (fabs(emet->y - others->y) > (game->width / 2))
 		res = ft_sym_y(res);
 	return (res);
 }
@@ -130,13 +130,12 @@ void	broadcast(t_data *game, char *msg, int sock)
 	{
 		if (((t_trant*)others->content)->sock != sock)
 		{
-			printf("emet->x : %d , emet->y : %d , others->x : %d , others->y : %d , others->direct : %d \n", emet->x, emet->y, ((t_trant*)others)->x, ((t_trant*)others)->y, (((t_trant*)others->content)->direct));
 			orient = ft_quadrant(emet->x,
 					((t_trant*)others->content)->x, emet->y,
 					((t_trant*)others)->y);
 			res = ft_getresbyorient(emet, (t_trant*)others->content,
 					orient);
-//			res = ft_sym(game, emet, (t_trant*)others->content, res);
+			res = ft_sym(game, emet, (t_trant*)others->content, res);
 			res = (res + 4 + ((((t_trant*)others->content)->direct + 3) % 4 ) * 2) % 8;
 			if (res == 0)
 				res = 8;
