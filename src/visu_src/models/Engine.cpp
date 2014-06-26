@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/05/31 14:10:28 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/26 11:50:55 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/26 13:39:39 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -40,11 +40,11 @@ Engine::Engine(MapData *mapData, VisuComm *visuComm)
 
 	m_device = createDevice(video::EDT_OPENGL,
 #ifdef __IRR_OSX_PLATFORM__
-							core::dimension2d<u32>(2560, 1441),
+							core::dimension2d<u32>(2560, 1440),
 #else
 							core::dimension2d<u32>(1920, 1081),
 #endif
-							32, true, true, false, 0);
+							32, false, true, false, 0);
 	m_device->getCursorControl()->setVisible(false);
 #ifdef _IRR_OSX_PLATFORM_
 	m_device->getFileSystem()->changeWorkingDirectoryTo("visu.app");
