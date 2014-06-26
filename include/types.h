@@ -6,12 +6,12 @@
 /*   By: dcouly <dcouly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/07 17:03:25 by dcouly            #+#    #+#             */
-/*   Updated: 2014/06/25 22:24:26 by dcouly           ###   ########.fr       */
+/*   Updated: 2014/06/26 14:48:43 by bjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TYPES_H
-#define TYPES_H
+# define TYPES_H
 
 # include <sys/select.h>
 # include "common.h"
