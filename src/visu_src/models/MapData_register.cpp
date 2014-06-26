@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/10 16:28:45 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/23 14:10:38 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/26 18:45:17 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -47,4 +47,5 @@ void		MapData::registerItem(scene::MySceneNode *parentNode,
 void		MapData::registerPartEmitterAnim(PartEmitterAnim *anim)
 {
 	m_partEmitterAnimations.push_back(anim);
+	cout << "After register, list.size = " << m_partEmitterAnimations.size() << endl;
 }

@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/16 12:06:57 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/16 22:54:38 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/26 19:04:42 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -35,11 +35,13 @@ bool		PartEmitterAnim::update(const u32 now)
 	f32		elapsedTime;
 
 	elapsedTime = static_cast<f32>(now) - static_cast<f32>(m_initTime);
-	if (m_animEnd == true || m_initTime + now >= m_animTime)
+	if (m_animEnd == true || now - m_initTime >= m_animTime)
 	{
 		m_animEnd = true;
-		m_emitter->setCenter(core::vector3df(0.0f, PLANET_RADIUS, 0.0f));
+		if (m_emitter)
+			m_emitter->setCenter(core::vector3df(0.0f, PLANET_RADIUS, 0.0f));
 		m_particleSystem->setEmitter(NULL);
+		m_emitter = NULL;
 		m_particleSystem->clearParticles();
 		return (false);
 	}

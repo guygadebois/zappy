@@ -6,7 +6,7 @@
 //   By: glourdel <glourdel@student.42.fr>          +#+  +:+       +#+        //
 //                                                +#+#+#+#+#+   +#+           //
 //   Created: 2014/06/11 11:38:27 by glourdel          #+#    #+#             //
-//   Updated: 2014/06/26 11:21:24 by glourdel         ###   ########.fr       //
+//   Updated: 2014/06/26 19:09:06 by glourdel         ###   ########.fr       //
 //                                                                            //
 // ************************************************************************** //
 
@@ -322,7 +322,7 @@ bool	Engine::launchBroadcastParticles(scene::MySceneNode *trantor)
 		partSys->setMaterialTexture(0, m_particleTexture1);
 	partSys->setMaterialType(irr::video::EMT_TRANSPARENT_ALPHA_CHANNEL);
 	anim = new PartEmitterAnim(partSys, emitter,
-							   m_device->getTimer()->getTime(), 10000);
+							   m_device->getTimer()->getTime(), 1500);
 	m_mapData->registerPartEmitterAnim(anim);
 	return (true);
 }
