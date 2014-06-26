@@ -6,7 +6,7 @@
 /*   By: bjacob <bjacob@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/25 16:46:59 by bjacob            #+#    #+#             */
-/*   Updated: 2014/06/26 14:03:05 by bjacob           ###   ########.fr       */
+/*   Updated: 2014/06/26 14:04:25 by bjacob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void		ft_place_linemate(t_data *game, int x, int y, int nb)
 	{
 		x_bis = rand() % x;
 		y_bis = rand() % y;
-		map[x_bis][y_bis]->linemate++;
+		game->map[x_bis][y_bis]->linemate++;
 		ft_strcat(game->visu.cmd_out, "ipo 1 ");
 		ft_strcat(game->visu.cmd_out, ft_itoa(x_bis));
 		ft_strcat(game->visu.cmd_out, " ");
