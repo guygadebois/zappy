@@ -6,7 +6,7 @@
 /*   By: dcouly <dcouly@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/06/07 17:07:17 by dcouly            #+#    #+#             */
-/*   Updated: 2014/06/26 14:25:06 by dcouly           ###   ########.fr       */
+/*   Updated: 2014/06/26 16:48:56 by dcouly           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void		sv_send_connect(char buf[1024], t_data *game, int cs, t_fds *fds)
 
 	if (is_team(buf, game))
 	{
+		bzero(b, 1024);
 		sv_insert_trant(game, cs, buf);
 		ft_strcat(b, ft_itoa(game->arg->nbmax));
 		ft_strcat(b, "\n");
